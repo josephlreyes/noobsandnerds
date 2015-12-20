@@ -1,3 +1,6 @@
+v.3.0.4:
+- Some bug fixes, local install, guisettings and speed improvements
+
 v.3.0.2:
 - Add-ons section updated:
 --- Now have the option to view the 100 most popular (most downloaded) add-ons

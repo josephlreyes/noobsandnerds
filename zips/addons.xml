@@ -80,7 +80,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.program.totalinstaller" name=" [COLOR=orange]C[/COLOR]ommunity [COLOR=orange]P[/COLOR]ortal" version="3.0.4" provider-name="noobsandnerds.com">
+<addon id="plugin.program.totalinstaller" name=" [COLOR=orange]C[/COLOR]ommunity [COLOR=orange]P[/COLOR]ortal" version="3.0.5" provider-name="noobsandnerds.com">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.addon.common" version="2.0.0"/>

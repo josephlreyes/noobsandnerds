@@ -1,5 +1,8 @@
+v.3.0.5:
+- Removed notify script, that may possibly be causing issues.
+
 v.3.0.4:
-- Some bug fixes, local install, guisettings and speed improvements
+- Speed improvements and some minor bug fixes like guisettings and local restore fix.
 
 v.3.0.2:
 - Add-ons section updated:

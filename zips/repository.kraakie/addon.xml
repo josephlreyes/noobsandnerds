@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.kraakie" name="kraakie repo" version="0.0.0.1" provider-name="kraakie">
+	<extension point="xbmc.addon.repository" name="kraakie repo">
+		<info compressed="false">http://raw.github.com/kraakie/AwesomeStreams/master/addons.xml</info>
+		<checksum>http://raw.github.com/kraakie/AwesomeStreams/master/addons.xml.md5</checksum>
+		<datadir zip="true">http://raw.github.com/kraakie/AwesomeStreams/master</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>The Official kraakie repository</summary>
+		<description>This repository contains addons with live IPTV streams.</description>
+		<disclaimer>The owners and submitters to this repository do not host or distribute any of the content displayed by these addons nor do they have any affiliation with the content providers.</disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>

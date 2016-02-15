@@ -14,6 +14,6 @@
     <description>
     </description>
     <platform>all</platform>
+	<broken>No longer available</broken>
   </extension>
-  <broken>No longer available</broken>
 </addon>

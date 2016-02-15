@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.kodi-repo" name="Joname's repo" version="0.0.0.1" provider-name="Joname">
+    <extension point="xbmc.addon.repository" name="Joname's repo">
+        <info compressed="true">https://github.com/joname1/kodi-repo/raw/master/addons.xml</info>
+        <checksum>https://github.com/joname1/kodi-repo/raw/master/addons.xml.md5</checksum>
+        <datadir zip="true">https://github.com/joname1/kodi-repo/raw/master/repo</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Joname's Repository</summary>
+        <summary lang="zh">分享中文插件的插件库</summary>
+        <description>Download and install add-ons from Joname's repository.[CR][CR]By using this Repository you will be able to take advantage of our cutting edge features developed for chinese people.</description>
+        <description lang="zh">从Joname插件库下载安装插件。[CR][CR]通过使用这个程序库，你将能够分享我们为中文用户开发的插件。</description>
+        <platform>all</platform>
+    </extension>
+</addon>

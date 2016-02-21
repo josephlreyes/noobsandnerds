@@ -14,6 +14,28 @@
 	</extension>
 </addon>
 
+    <addon id="hellyrepo.kodi" name="HellyRepo" version="0.0.0.1" provider-name="Ivo Helwegen">
+        <extension point="xbmc.addon.repository" name="HellyRepo">
+            <dir minversion="15.0.0">
+                <info compressed="false">https://raw.githubusercontent.com/Helly1206/_repo/isengard/addons.xml</info>
+                <checksum>https://raw.githubusercontent.com/Helly1206/_repo/isengard/addons.xml.md5</checksum>
+                <datadir zip="true">https://raw.githubusercontent.com/Helly1206/_repo/isengard/</datadir>
+                <hashes>false</hashes>
+            </dir>
+            <dir minversion="15.9.0">
+                <info compressed="false">https://raw.githubusercontent.com/Helly1206/_repo/master/addons.xml</info>
+                <checksum>https://raw.githubusercontent.com/Helly1206/_repo/master/addons.xml.md5</checksum>
+                <datadir zip="true">https://raw.githubusercontent.com/Helly1206/_repo/master/</datadir>
+                <hashes>false</hashes>
+            </dir>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>The repository contains addons and scripts to be used with kodi.</summary>
+            <description>HellyRepo is a repository that contains addons and scripts to be used with kodi.</description>
+            <platform>all</platform>
+    </extension>
+</addon>
+
 <addon id="m3g4mInD.repository" name="m3g4mInD.repository repository" version="0.0.0.1" provider-name="m3g4mInD">
 	<extension point="xbmc.addon.repository" name="Repo Addon m3g4mInD">
 		<info compressed="false">http://raw.github.com/m3g4mInD/m3g4mInD.repository/master/addons.xml</info>
@@ -368,6 +390,23 @@
   </extension>
 </addon>
 
+<addon id="repository.angelscry.xbmc-plugins" name="Angelscry Repository" version="0.0.0.1" provider-name="Angelscry">
+	<extension point="xbmc.addon.repository" name="Angelscry Repository">
+		<info compressed="false">http://www.gwenael.org/Repository/addons.xml</info>
+		<checksum>http://www.gwenael.org/Repository/addons.xml.md5</checksum>
+		<datadir zip="true">http://www.gwenael.org/Repository/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+        <summary lang="en">Repository Angelscry</summary>
+        <summary lang="fr">Dépot Angelscry</summary>
+		<description lang="en">Angelscry's Repository for XBMC</description>
+		<description lang="fr">Dépot d'Angelscry pour XBMC</description>
+		<disclaimer></disclaimer>
+		<platform>all</platform>
+		<broken>Repo now deleted by developer, no longer available</broken>
+	</extension>
+</addon>
+
 <addon id="repository.anonymous" name="anonymous repo" version="0.0.0.1" provider-name="Anonymous">
 	<extension point="xbmc.addon.repository" name="Anonymous">
 		<info compressed="false">https://anonymousrepo.svn.codeplex.com/svn/anonymous-repo/addons.xml</info>
@@ -591,6 +630,19 @@
                 <disclaimer></disclaimer>
                 <platform>all</platform>
         </extension>
+</addon>
+
+<addon id="repository.BlackBox247" name="BlackBox247 REPO" version="0.0.0.1" provider-name="BlackBox247">
+	<extension point="xbmc.addon.repository" name="BlackBox247 Addon Repository">
+		<info compressed="false">http://blackbox247.com/BlackBox247_Repo/BlackBox247-Repo.xml</info>
+		<checksum>http://blackbox247.com/BlackBox247_Repo/BlackBox247-Repo.md5</checksum>
+		<datadir zip="true">http://blackbox247.com/BlackBox247_Repo/Zips/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install BlackBox247 REPO</summary>
+		<description>Download and install addons from BlackBox247 REPO: Watch free Movies and TV shows from many different sources</description>
+		<platform>all</platform>
+	</extension>
 </addon>
 
 <addon id="repository.blacks"
@@ -855,6 +907,20 @@
 	</extension>
 </addon>
 
+<addon id="repository.codenx.addons" name="codenx's XBMC Addons" version="0.0.0.1" provider-name="codenx">
+	<extension	point="xbmc.addon.repository" name="codenx's XBMC Addon Repository">
+		<info compressed="false">https://github.com/codenx/codenx-xbmc-addons/raw/master/addons.xml</info>
+		<checksum>https://github.com/codenx/codenx-xbmc-addons/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://github.com/codenx/codenx-xbmc-addons/raw/master/data/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install Code 'n X Addons</summary>
+		<description>Download and install Code 'n X Addons</description>
+		<disclaimer></disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.coldkeys" name="ColdKeys Repo" version="0.0.0.1" provider-name="husham.com">
 	<extension point="xbmc.addon.repository" name="ColdKeys Repository">
 		<info compressed="false">https://raw.githubusercontent.com/KodiColdkeys/coldkeys-addons/master/repository/addons.xml</info>
@@ -923,6 +989,30 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
         <platform>all</platform>
     </extension>
 </addon>
+
+	<addon
+        id="repository.crzen"
+        name="Crzen's Repository"
+        version="0.0.0.1"
+        provider-name="Crzen">
+		<extension point="xbmc.addon.repository" name="Crzen's Repository">
+			<info compressed="false">http://raw.github.com/crzen/repository.crzen/master/addons.xml</info>
+			<checksum>http://raw.github.com/crzen/repository.crzen/master/addons.xml.md5</checksum>
+			<datadir zip="true">http://raw.github.com/crzen/repository.crzen/master/zips</datadir>
+		</extension>
+		<extension point="xbmc.addon.metadata">
+			<summary lang="en">Crzen's Addon Repository</summary>
+			<description lang="en">Addons developed by Crzen.</description>
+			<disclaimer lang="en">For bugs, requests or general questions contact Crzen on the XBMCHUB forum.</disclaimer>
+			<platform>all</platform>
+			<license></license>
+			<language>en</language>
+			<forum>http://www.xbmchub.com/forums/</forum>
+			<website>http://www.xbmchub.com/</website>
+			<email></email>
+			<source>https://github.com/crzen/repository.crzen/tree/master/repository.crzen</source>
+		</extension>
+	</addon>
 
 	<addon
         id="repository.crzen"
@@ -1116,6 +1206,20 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
     </description>
     <platform>all</platform>
   </extension>
+</addon>
+
+<addon id="repository.dnarepo" name="[COLOR lightblue]dna[/COLOR] [COLOR lightwhite]Repository[/COLOR]" version="0.0.0.1" provider-name="dna">
+	<extension point="xbmc.addon.repository" name="dna Repository">
+		<info compressed="false">http://raw.github.com/macblizzard/dnarepo/master/addons.xml</info>
+		<checksum>http://raw.github.com/macblizzard/dnarepo/master/addons.xml.md5</checksum>
+		<datadir zip="true">http://raw.github.com/macblizzard/dnarepo/master</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>dna Repository</summary>
+		<description>Download and install add-ons from dna repository.</description>
+		<disclaimer>The owners and submitters to this repository do not host or distribute any of the content displayed by these addons nor do they have any affiliation with the content providers.</disclaimer>
+		<platform>all</platform>
+	</extension>
 </addon>
 
 <addon id="repository.docshadrach" name="Doc Shadrach's Add-ons" version="0.0.0.1" provider-name="Doc Shadrach">
@@ -1448,6 +1552,18 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 	</extension>
 </addon>
 
+<addon id="repository.foreverguest" name="foreverguest Add-ons" version="0.0.0.1" provider-name="foreverguest">
+    <extension point="xbmc.addon.repository" name="foreverguest Add-ons">
+        <info compressed="true">https://github.com/foreverguest/repository.foreverguest/raw/master/addons.xml</info>
+        <checksum>https://github.com/foreverguest/repository.foreverguest/raw/master/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/foreverguest/repository.foreverguest/master/</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>foreverguest Add-ons</summary>
+        <platform>all</platform>
+    </extension>
+</addon>
+
 <addon id="repository.FTV-Guide-Repo" name="FTV Guide Repo" version="0.0.0.1" provider-name="rayw1986, bluezed">
 	<extension point="xbmc.addon.repository" name="FTV Guide Repository">
 		<info compressed="false">http://raw.github.com/bluezed/FTV-Guide-Repo/master/addons.xml</info>
@@ -1487,6 +1603,23 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 		<disclaimer></disclaimer>
 		<platform>all</platform>
 	</extension>
+</addon>
+
+    <addon id="repository.GenieTv" name="GenieTv Repo" version="0.0.0.1" provider-name="JayBox">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="GenieTv Repo">
+            <info compressed="false">http://raw.github.com/GenieTv/Genie_Tv/master//_repo/addons.xml</info>
+            <checksum>http://raw.github.com/GenieTv/Genie_Tv/master//_repo/addons.xml.md5</checksum>
+            <datadir zip="true">http://raw.github.com/GenieTv/Genie_Tv/master//_repo/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>GeniTv Media Solutions</summary>
+            <description>The home of GenieTv, Kodi's largest support tool. [CR]  Brought to you by the Architects@Work</description>
+            <platform>all</platform>
+    </extension>
 </addon>
 
 <addon id="repository.github.anilkuj-xbmc-addons" name="anilkuj addons" version="0.0.0.1" provider-name="anilkuj">
@@ -1793,6 +1926,21 @@ provider-name="bog.gob">
         <disclaimer lang="zh">本库中插件由rodney开发。</disclaimer>
         <platform>all</platform>
     </extension>
+</addon>
+
+<addon id="repository.googlecode.xbmc-addons" name="Nuka1195&apos;s Unofficial Add-on Repository" version="0.0.0.1" provider-name="nuka1195, giftie61, dan.dar33">
+	<extension point="xbmc.addon.repository" name="Nuka1195&apos;s Unofficial Add-on Repository">
+		<info compressed="false">http://xbmc-addons.googlecode.com/svn/addons/addons.xml</info>
+		<checksum>http://xbmc-addons.googlecode.com/svn/addons/addons.xml.md5</checksum>
+		<datadir zip="false">http://xbmc-addons.googlecode.com/svn/addons</datadir>
+		<hashes>true</hashes>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Install Add-ons from Nuka1195&apos;s Unofficial Add-on Repository.</summary>
+		<description lang="en">Download and install add-ons from Nuka1195&apos;s unofficial add-on repository.[CR][CR]By using this repository you will be able to take advantage of cutting edge features our contributors constantly develop and update.[CR][CR]Thanks to all our contributors.</description>
+		<disclaimer lang="en">Nuka1195 did not make all the add-ons on this repository and is not responsible for their content</disclaimer>
+		<platform>all</platform>
+	</extension>
 </addon>
 
 <addon id="repository.googlecode.xbmc-addons-chinese" name="Chinese Add-on Repository" version="0.0.0.1" provider-name="Taxigps">
@@ -2684,6 +2832,23 @@ provider-name="MGendyS">
         <description lang="en"><![CDATA[KODI Popcorn Time Auto Update.]]></description>
         <noicon>false</noicon>
         <nofanart>false</nofanart>
+    </extension>
+</addon>
+
+    <addon id="repository.kodiuktv" name="KODIUKTV Repo" version="0.0.0.1" provider-name="KODIUKTV">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="KODIUKTV Repo">
+            <info compressed="false">https://raw.github.com/kodiuktv/kodiuktv/master/_repo/addons.xml</info>
+            <checksum>https://raw.github.com/kodiuktv/kodiuktv/master/_repo/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.github.com/kodiuktv/kodiuktv/master/_repo/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>The official KODIUKTV Repo</summary>
+            <description>The home of all KODIUKTV Addons - Community Addons. Find us online at kodiuktv</description>
+            <platform>all</platform>
     </extension>
 </addon>
 
@@ -3615,6 +3780,19 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	</extension>
 </addon>
 
+<addon id="repository.openelec-addons" name="francescosoft's XBMC REPO" version="0.0.0.1" provider-name="francescosoft">
+	<extension point="xbmc.addon.repository" name="francescosoft's Addon Repository">
+		<info compressed="false">http://github.com/francescosoft/openelec-addons/raw/master/addons.xml</info>
+		<checksum>http://github.com/francescosoft/openelec-addons/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">http://github.com/francescosoft/openelec-addons/raw/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>XBMC/OpenElec/RPI Addons</summary>
+		<description>Download and install addons for XBMC and RPI.</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.openeleq"
 		name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR] Add-ons"
 		version="0.0.0.1"
@@ -3649,6 +3827,23 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<description>Home of Operation Robocop Ultimate</description>
 		<platform>all</platform>
 	</extension>
+</addon>
+
+    <addon id="repository.origin" name="Origin Repo" version="0.0.0.1" provider-name="Origin">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="Origin Repo">
+            <info compressed="false">https://raw.github.com/toall1985/origin/master/_repo/addons.xml</info>
+            <checksum>https://raw.github.com/toall1985/origin/master/_repo/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.github.com/toall1985/origin/master/_repo/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>A short summary of this addon</summary>
+            <description>Origin Builds Repo</description>
+            <platform>all</platform>
+    </extension>
 </addon>
 
 <addon id="repository.otherguysstuff" name="The other Viet Addons" version="0.0.0.1" provider-name="dk">
@@ -4332,6 +4527,33 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
     </extension>
   </addon>
 
+<addon id="repository.schismtv.addons" name="SchisM TV Builds Repository" version="0.0.0.1" provider-name="SchisM">
+    <extension point="xbmc.addon.repository" name="schism tv repository">
+        <info compressed="false">http://github.com/schismtv/buildrepo/raw/master/addons.xml</info>
+        <checksum>http://github.com/schismtv/buildrepo/raw/master/addons.xml.md5</checksum>
+        <datadir zip="true">http://github.com/schismtv/buildrepo/raw/master/zips/</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>This is used FOR BUILDS ONLY</summary>
+        <description>BUILDS ONLY FROM SCHISM TV - THIS REPO CONTAINS UPDATES FOR THE SCHISM TV BUILDS
+        </description>
+        <platform>all</platform>
+    </extension>
+</addon>
+
+<addon id="repository.schismtv.addonsdev" name="SchisM Addons Repository" version="0.0.0.1" provider-name="SchisM">
+	<extension point="xbmc.addon.repository" name="SchisM TV Repository">
+		<info compressed="false">https://raw.github.com/schismtv/addonsrepo/master/addons.xml</info>
+		<checksum>https://raw.github.com/schismtv/addonsrepo/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/schismtv/addonsrepo/master</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install SchisM Addons</summary>
+		<description>Download and install addons from SchisM</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.scudlee"
        name="ScudLee's XBMC Addon Repository"
        version="0.0.0.1"
@@ -4678,9 +4900,9 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 
 <addon id="repository.smokdpi" name="smokdpi's Add-ons" version="0.0.0.1" provider-name="smokdpi">
 	<extension point="xbmc.addon.repository" name="smokdpi's Add-ons">
-		<info compressed="false">https://raw.githubusercontent.com/smokdpi/kodi/master/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/smokdpi/kodi/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/smokdpi/kodi/master/</datadir>
+		<info compressed="false">https://raw.githubusercontent.com/smokdpi/addons/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/smokdpi/addons/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/smokdpi/addons/master/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Install smokdpi's add-ons</summary>
@@ -5040,7 +5262,7 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
   <extension point="xbmc.addon.repository" name=".TheVibe Repository ">
     <info compressed="false">https://github.com/teamThevibe/repository.thevibe/raw/master/Repo/addons.xml</info>
     <checksum>https://github.com/teamThevibe/repository.thevibe/raw/master/Repo/addons.xml.md5</checksum>
-    <datadir zip="true">http://repo.the-vibe.co.il/Get</datadir>
+    <datadir zip="true">https://github.com/teamThevibe/repository.thevibe/raw/master/Repo/</datadir>
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary>The-Vibe Team Repository</summary>
@@ -5447,6 +5669,27 @@ Addons Included
 		<description lang="nl">A.C. Ryan's officiële addon depot.</description>
 		<disclaimer lang="en">A.C. Ryan did not make all the add-ons in this repository and is in no way responsible for their content.</disclaimer>
 		<disclaimer lang="nl">A.C. Ryan heeft niet alle add-ons in dit depot gemaakt en is op geen enkele manier verantwoordelijk voor hun inhoud.</disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="repository.VEOLO.Unofficial"
+		name="VEOLO Unofficial Add-ons"
+		version="0.0.0.1"
+		provider-name="A.C. Ryan">
+	<extension point="xbmc.addon.repository"
+		name="VEOLO Unofficial Add-on Repository">
+		<info>https://copy.com/28Xcy7CVHIikzfq6/Repo.VEOLO.Unofficial/addons.xml</info>
+		<checksum>https://copy.com/28Xcy7CVHIikzfq6/Repo.VEOLO.Unofficial/addons.xml.md5</checksum>
+		<datadir zip="true">https://copy.com/28Xcy7CVHIikzfq6/Repo.VEOLO.Unofficial/addons</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">VEOLO Unofficial Add-on Repository</summary>
+		<summary lang="nl">VEOLO Onofficiële Addon Depot</summary>
+		<description lang="en">A.C. Ryan's unofficial add-on repository.</description>
+		<description lang="nl">A.C. Ryan's onofficiële addon depot.</description>
+		<disclaimer lang="en">A.C. Ryan did not make any the add-ons in this repository and is in no way responsible for their content.</disclaimer>
+		<disclaimer lang="nl">A.C. Ryan heeft geen van de add-ons in dit depot gemaakt en is op geen enkele manier verantwoordelijk voor hun inhoud.</disclaimer>
 		<platform>all</platform>
 	</extension>
 </addon>
@@ -6022,6 +6265,25 @@ Addons Included
 	</extension>
 </addon>
 
+<addon id="repository.xbmc.skins.staging"
+		name="XBMC.org Skin Development Repository Gotham"
+		version="0.0.0.1"
+		provider-name="Team XBMC">
+  <requires>
+    <import addon="xbmc.addon" version="12.0.0"/>
+  </requires>
+	<extension point="xbmc.addon.repository"
+		name="XBMC.org Skin Development Repository Gotham">
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Install Skins at Development level from XBMC.org</summary>
+		<description lang="en">Download and install skins from the XBMC.org Skin Development repository.[CR]  These skins are at development level, so this means they are not guaranteed to be stable yet.[CR]  Usage of this repo is at your own risk as breakage can happen during development.[CR]  If you find problems please report them to the dedicated threads of each skin with full details how to reproduce.</description>
+		<disclaimer lang="en">Team XBMC did not make all the add-ons on this repository and are not responsible for their content</disclaimer>
+		<platform>all</platform>
+		<broken>No longer available, repo dropped by foundation</broken>
+	</extension>
+</addon>
+
 <addon id="repository.xbmc.tvm" name="TvM Add-ons" version="0.0.0.1" provider-name="TvM">
 	<extension point="xbmc.addon.repository" name="TvM">
 		<info compressed="false">http://repository-xbmc-tvm.googlecode.com/git/addons.xml</info>
@@ -6226,6 +6488,38 @@ Addons Included
 	</extension>
 </addon>
 
+<addon id="repository.xvbmc" name=" [B][COLOR lime]X[/COLOR][/B]vBMC Addon Depot/Repo" version="0.0.0.1" provider-name="XvBMC Nederland">
+	<extension point="xbmc.addon.repository" name="XvBMC Add-on Repo/Depot">
+		<dir>
+			<info compressed="false">https://github.com/XvBMC/repository.xvbmc/raw/master/xvbmc-addons.xml</info>
+			<checksum>https://github.com/XvBMC/repository.xvbmc/raw/master/xvbmc-addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.github.com/XvBMC/repository.xvbmc/master/zips/</datadir>
+		</dir>
+			<info compressed="false">https://github.com/XvBMC/repository.xvbmc/raw/master/xvbmc-addons.xml</info>
+			<checksum>https://github.com/XvBMC/repository.xvbmc/raw/master/xvbmc-addons.xml.md5</checksum>
+			<datadir zip="true">https://github.com/XvBMC/repository.xvbmc/raw/master/zips/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">XvBMC The Netherlands Addon REPOsitory</summary>
+		<summary lang="nl">XvBMC Nederland Addon REPOsitory</summary>
+		<disclaimer lang="en">The owners and submitters to this repository do not host or distribute any of the content displayed by these addons nor do they have any affiliation with its content.</disclaimer>
+		<disclaimer lang="nl">The owners and submitters to this repository do not host or distribute any of the content displayed by these addons nor do they have any affiliation with its content.</disclaimer>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 3, June 2007</license>
+		<description>[B]XvBMC Nederland Addon Repository / XvBMC Nederland Addon Depot[/B]
+
+ https://www.fb.com/groups/XvBMCnederland/
+ https://www.fb.com/groups/XbmcVoorBeginnersRaspberryPi/
+ https://www.fb.com/groups/xbmcvoorbeginners.android/
+ https://www.fb.com/groups/XbmcvoorbeginnersfilmsForum/
+ https://www.fb.com/groups/XbmcVoorBeginnersSportChat/
+ https://www.fb.com/groups/xbmckoopenverkoop/
+
+[B]XvBMC Nederland Addon Repository / XvBMC Nederland Addon Depot[/B]
+		</description>
+	</extension>
+</addon>
+
 <addon id="repository.xxxadultxbmc" name="AdultXBMC.com Add-on Repository" version="0.0.0.1" provider-name="adultxbmc.com">
 	<extension point="xbmc.addon.repository" name="AdultXBMC.com Add-on Repository">
 		<info compressed="false">https://offshoregit.com/adultxbmc/raw/master/addons.xml</info>
@@ -6298,6 +6592,20 @@ Addons Included
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">Install Add-ons from Raw Media</summary>
 		<description lang="en">Download and install add-ons from Raw Media repository.</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="rogger.repository" name="rogger repository" version="0.0.0.1" provider-name="rogger2">
+	<extension point="xbmc.addon.repository" name="rogger Add-on Repository">
+		<info compressed="false">http://raw.github.com/rogger2/rogger.repository/master/addons.xml</info>
+		<checksum>http://raw.github.com/rogger2/rogger.repository/master/addons.xml.md5</checksum>
+		<datadir zip="true">http://raw.github.com/rogger2/rogger.repository/master/repo/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>rogger Addon</summary>
+		<description>Addon Description</description>
+		<disclaimer></disclaimer>
 		<platform>all</platform>
 	</extension>
 </addon>
@@ -6526,6 +6834,21 @@ Addons Included
   </extension>
 </addon>
 
+<addon id="xbmc.repo.hitcher" name="Hitcher's repository" version="0.0.0.1" provider-name="Hitcher">
+	<extension point="xbmc.addon.repository" name="Hitcher's Add-on Repository">
+		<info>http://dl.dropbox.com/u/19745842/Repo/addons.xml</info>
+		<checksum>http://dl.dropbox.com/u/19745842/Repo/addons.xml.md5</checksum>
+		<datadir zip="true">http://dl.dropbox.com/u/19745842/Repo</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Hitcher's Add-ons for XBMC</summary>
+		<description>Download and install Add-ons for XBMC.</description>
+		<disclaimer>If it breaks, you get to keep the pieces</disclaimer>
+		<platform>all</platform>
+		<broken>Repository removed by developer, no longer available</broken>
+	</extension>
+</addon>
+
 <addon id="repo.hybrid"
         name="Hybrid Development Repo"
         version="0.0.0.1"
@@ -6545,6 +6868,20 @@ Addons Included
 		<noicon>false</noicon>
 		<nofanart>false</nofanart>
     </extension>
+</addon>
+
+<addon id="xbmc.repo.ivueguide" name="iVue2 TV Guide Repo" version="0.0.0.1" provider-name="iVue">
+	<extension point="xbmc.addon.repository" name="iVue2 TV Guide Add-ons Repository">
+		<info compressed="false">https://raw.githubusercontent.com/totaltec2014/ivue2/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/totaltec2014/ivue2/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/totaltec2014/ivue2/master/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install iVue2 TV Guide </summary>
+		<description>Download and install for iVue2 Tv guide addons </description>
+		<disclaimer> Repo for iVue2 Tv guide addon </disclaimer>
+		<platform>all</platform>
+	</extension>
 </addon>
 
 <addon id="xbmc.repo.tecboxtvguide" name="iVue TV Guide Add-on" version="0.0.0.1" provider-name="DreamHD TECbox">
@@ -6573,6 +6910,20 @@ Addons Included
         <disclaimer></disclaimer>
         <platform>all</platform>
     </extension>
+</addon>
+
+<addon id="xbmc.repo.leopold" name="Leopold's Add-ons" version="0.0.0.1" provider-name="Leopold">
+  <extension point="xbmc.addon.repository" name="Leopold's Repository">
+    <info compressed="false">https://raw.github.com/LS80/xbmc.repo.leopold/master/addons.xml</info>
+    <checksum>https://raw.github.com/LS80/xbmc.repo.leopold/master/addons.xml.md5</checksum>
+    <datadir zip="true">https://raw.github.com/LS80/xbmc.repo.leopold/master</datadir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Leopold's add-ons</summary>
+    <description>Download and install add-ons from Leopold's repository. Most of the add-ons in this repository are created and maintained by Leopold. Some add-ons are provided by others and merely hosted here for convenience.</description>
+    <platform>all</platform>
+    <website>http://ls80.github.io/xbmc.repo.leopold/</website>
+  </extension>
 </addon>
 
 <addon id="repo.mudisle"

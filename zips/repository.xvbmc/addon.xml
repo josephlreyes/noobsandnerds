@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.xvbmc" name=" [B][COLOR lime]X[/COLOR][/B]vBMC Addon Depot/Repo" version="0.0.0.1" provider-name="XvBMC Nederland">
+	<extension point="xbmc.addon.repository" name="XvBMC Add-on Repo/Depot">
+		<dir>
+			<info compressed="false">https://github.com/XvBMC/repository.xvbmc/raw/master/xvbmc-addons.xml</info>
+			<checksum>https://github.com/XvBMC/repository.xvbmc/raw/master/xvbmc-addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.github.com/XvBMC/repository.xvbmc/master/zips/</datadir>
+		</dir>
+			<info compressed="false">https://github.com/XvBMC/repository.xvbmc/raw/master/xvbmc-addons.xml</info>
+			<checksum>https://github.com/XvBMC/repository.xvbmc/raw/master/xvbmc-addons.xml.md5</checksum>
+			<datadir zip="true">https://github.com/XvBMC/repository.xvbmc/raw/master/zips/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">XvBMC The Netherlands Addon REPOsitory</summary>
+		<summary lang="nl">XvBMC Nederland Addon REPOsitory</summary>
+		<disclaimer lang="en">The owners and submitters to this repository do not host or distribute any of the content displayed by these addons nor do they have any affiliation with its content.</disclaimer>
+		<disclaimer lang="nl">The owners and submitters to this repository do not host or distribute any of the content displayed by these addons nor do they have any affiliation with its content.</disclaimer>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 3, June 2007</license>
+		<description>[B]XvBMC Nederland Addon Repository / XvBMC Nederland Addon Depot[/B]
+ 
+ https://www.fb.com/groups/XvBMCnederland/ 
+ https://www.fb.com/groups/XbmcVoorBeginnersRaspberryPi/ 
+ https://www.fb.com/groups/xbmcvoorbeginners.android/ 
+ https://www.fb.com/groups/XbmcvoorbeginnersfilmsForum/ 
+ https://www.fb.com/groups/XbmcVoorBeginnersSportChat/ 
+ https://www.fb.com/groups/xbmckoopenverkoop/ 
+ 
+[B]XvBMC Nederland Addon Repository / XvBMC Nederland Addon Depot[/B]
+		</description>
+	</extension>
+</addon>

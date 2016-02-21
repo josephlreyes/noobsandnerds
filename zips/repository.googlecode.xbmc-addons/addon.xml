@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.googlecode.xbmc-addons" name="Nuka1195&apos;s Unofficial Add-on Repository" version="0.0.0.1" provider-name="nuka1195, giftie61, dan.dar33">
+	<extension point="xbmc.addon.repository" name="Nuka1195&apos;s Unofficial Add-on Repository">
+		<info compressed="false">http://xbmc-addons.googlecode.com/svn/addons/addons.xml</info>
+		<checksum>http://xbmc-addons.googlecode.com/svn/addons/addons.xml.md5</checksum>
+		<datadir zip="false">http://xbmc-addons.googlecode.com/svn/addons</datadir>
+		<hashes>true</hashes>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Install Add-ons from Nuka1195&apos;s Unofficial Add-on Repository.</summary>
+		<description lang="en">Download and install add-ons from Nuka1195&apos;s unofficial add-on repository.[CR][CR]By using this repository you will be able to take advantage of cutting edge features our contributors constantly develop and update.[CR][CR]Thanks to all our contributors.</description>
+		<disclaimer lang="en">Nuka1195 did not make all the add-ons on this repository and is not responsible for their content</disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>

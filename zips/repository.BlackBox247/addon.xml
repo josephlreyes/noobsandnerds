@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.BlackBox247" name="BlackBox247 REPO" version="0.0.0.1" provider-name="BlackBox247">
+	<extension point="xbmc.addon.repository" name="BlackBox247 Addon Repository">
+		<info compressed="false">http://blackbox247.com/BlackBox247_Repo/BlackBox247-Repo.xml</info>
+		<checksum>http://blackbox247.com/BlackBox247_Repo/BlackBox247-Repo.md5</checksum>
+		<datadir zip="true">http://blackbox247.com/BlackBox247_Repo/Zips/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install BlackBox247 REPO</summary>
+		<description>Download and install addons from BlackBox247 REPO: Watch free Movies and TV shows from many different sources</description>
+		<platform>all</platform>
+	</extension>
+</addon>

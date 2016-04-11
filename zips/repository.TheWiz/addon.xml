@@ -4,7 +4,7 @@
 		<import addon="xbmc.addon" version="12.0.0"/>
 	</requires>
 	<extension point="xbmc.addon.repository" name="TheWiz Hebrew Repository">
-		<dir minversion="15.0.0">
+		<dir minversion="12.0.0">
 			<info>http://repo.thewiz.info/addons.xml</info>
 			<checksum>http://repo.thewiz.info/addons.xml.md5</checksum>
 			<datadir zip="true">http://repo.thewiz.info/</datadir>

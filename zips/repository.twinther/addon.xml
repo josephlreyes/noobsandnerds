@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.twinther" name="twinther's beta repository" version="0.0.0.1" provider-name="twinther [tommy@winther.nu]">
-	<extension point="xbmc.addon.repository" name="twinther's beta repository">
-		<info compressed="false">http://tommy.winther.nu/xbmc/addons.xml</info>
-		<checksum>http://tommy.winther.nu/xbmc/addons.xml.md5</checksum>
-		<datadir zip="true">http://tommy.winther.nu/xbmc/</datadir>
+<addon id="repository.twinther" name="Obsolete repository (can safely be deleted)" version="0.0.0.1" provider-name="Obsolete">
+	<extension point="xbmc.addon.repository" name="Obsolete repository">
+		<info compressed="false">http://this.url.does.not.exist/xbmc/addons.xml</info>
+		<checksum>http://this.url.does.not.exist/xbmc/addons.xml.md5</checksum>
+		<datadir zip="true">http://this.url.does.not.exist/xbmc/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>Beta test twinther's addons</summary>
-		<description>Install this repository to help beta test the latest versions of my addons before they are uploaded to the official XBMC repository.</description>
-		<disclaimer>Some of these addons may not work outside of Denmark, due to restrictions enforced by the content providers.</disclaimer>
+		<summary>Obsolete repository - Can safely be deleted</summary>
+		<description>Can safely be deleted</description>
+		<disclaimer></disclaimer>
 		<platform>all</platform>
 	</extension>
 </addon>

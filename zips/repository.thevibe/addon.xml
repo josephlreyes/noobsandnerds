@@ -10,5 +10,6 @@
     <description>The-Vibe Team Repository</description>
     <platform>all</platform>
     <website>http://www.the-vibe.co.il</website>
+	<broken>Currently marked as broken as this repo been causing lots of problems on users devices</broken>
   </extension>
 </addon>

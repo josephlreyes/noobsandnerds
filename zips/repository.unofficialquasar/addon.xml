@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="repository.unofficialquasar" name="[COLOR red]Unofficial[/COLOR] [COLOR FF005de5]Quasar[/COLOR] Repo" version="0.0.0.1" provider-name="iCanuck">
 	<extension point="xbmc.addon.repository" name="Unofficial Quasar Repository">
-		<info>http://offshoregit.com/pulsarunofficial/raw/master/addons.xml</info>
-		<checksum>http://offshoregit.com/pulsarunofficial/raw/master/addons.xml.md5</checksum>
-		<datadir zip="true">http://offshoregit.com/pulsarunofficial/raw/master/</datadir>
+		<info>https://offshoregit.com/pulsarunofficial/Unofficial-Quasar-Repo/addons.xml</info>
+		<checksum>https://offshoregit.com/pulsarunofficial/Unofficial-Quasar-Repo/addons.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/pulsarunofficial/Unofficial-Quasar-Repo/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>A Collection of Quasar Providers and Related Addons</summary>

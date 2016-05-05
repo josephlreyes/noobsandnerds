@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+	<category label="30101">
+	    <setting id="validator"         label="validator"     type="text"   default="0" visible="false" />
+        <setting id="streamURL"         label="streamURL"     type="text"   default="" visible="false" />
+ 		<setting type="lsep"            label="30842"/>
+		<setting id="login"             label="30843"        type="bool"   default="false" visible="true" />
+ 		<setting id="forum"             label="30844" type="labelenum"     default="None" values="Unofficial Kodi Support|Community Builds Support" visible="eq(-1,true) "/>
+		<setting id="username"          label="30845"      type="text"   default="" visible="eq(-2,true) "/>
+		<setting id="password"          label="30846"      type="text"   default="" visible="eq(-3,true) "/>
+		<setting id="remoteshare"       label="30847"         type="bool"   default="false" visible="eq(-4,true) "/>
+		<setting id="remotelocation"    label="30848"      type="text"   default="" visible="eq(-1,true) "/>
+		<setting id="inipack"           label="30849" type="bool"   default="false" visible="eq(-6,true)"/>
+		<setting id="iconpack"          label="30850"             type="bool"   default="false" visible="eq(-7,true)"/>
+		<setting id="adult"             label="30851"                     type="bool"   default="false" visible="eq(-8,true)"/>
+        <setting id="dixie.url"         label="30117" type="labelenum" values="All Channels|Other" default="All Channels" visible="false" />
+
+ 		<setting type="lsep"            label="30852"/>
+        <setting id="HOTKEY"            label="30853" type="action"       action="XBMC.RunScript(special://home/addons/script.tvportal/keyProgrammer.py)"/>
+        <setting id="dummy"             label="[B]Click to reset Mini-Guide Hot Key[/B]"              type="action"       action="XBMC.RunScript(special://home/addons/script.tvportal/resetHotkey.py)" />
+		
+        <setting label="" type="lsep" visible="false" />
+
+        <setting id="CURRLOGO"         label="Current LogoPack"            type="text"   default=""  visible="false" />
+        <setting id="PREVLOGO"         label="Previous LogoPack"           type="text"   default="None"  visible="false" />
+		<setting id="FIRSTRUN"         label="FIRSTRUN"                    type="bool"   default="false" visible="false" />
+		<setting id="MINIGUIDE"        label="Mini-Guide Installed"        type="bool"   default="false" visible="false" />
+
+ 	    <setting id="epg.date"         label="Update EPG Date"          type="text"   default="01-01-01" visible="false" />
+	    <setting id="current.channels" label="Current Channels"         type="number" default="0"        visible="false" />
+	    <setting id="updated.channels" label="Updated Channels"         type="number" default="0"        visible="false" />
+		<setting id="messageID"        label="messageID"                type="text"   default="0"        visible="false" />
+	    <setting id="LOGIN_TIME"       label="login"                    type="text"   default=""         visible="false"/>
+	    <setting id="LOGIN_IPTV"       label="login"                    type="text"   default=""         visible="false"/>
+	    <setting id="LOGIN_UKTV"       label="login"                    type="text"   default=""         visible="false"/>
+
+		<setting id="gmtprev"     type="text" label="Previous GMT"    default="0" visible="false"/>
+		<setting id="categories"  type="text" label="categories"      default="" visible="false"/>
+	    <setting id="VERSION"     type="text" label="Current Version" default="0.0.0" visible="false"/>
+		<setting id="SKINVERSION" type="text" label="Skin Version"    default="7" visible="false"/>
+		<setting id="LOGOVERSION" type="text" label="Logo Version"    default="0" visible="false"/>
+		<setting id="INIVERSION"  type="text" label="ini Version"     default="0" visible="false"/>
+
+		<setting id="DIXIEURL"    type="labelenum" values="All Channels" default="All Channels" visible="false"/>
+	</category>
+
+    <category label="30114">
+ 		<setting type="lsep"     		    label="30854"/>
+		<setting id="showSFchannels"        label="30855" type="bool"   default="false" visible="true" />
+	    <setting id="SF_CHANNELS"           label="30857" 					  type="folder"   default=""      visible="eq(-1,true) "/>
+		<setting id="openfolder"            label="Ignore ini files and open SF folder - Disables channel surfing ability"   type="bool"   default="false"  visible="eq(-2,true)" />
+		<setting id="dummy"                 label="30858" type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/createFolders.py)" option="close" visible="eq(-3,true) " />
+		<setting id="autoplay" 		        label="30856"   type="bool"   default="false"  visible="false" />
+ 		<setting type="lsep"                label="30859"/>
+        <setting id="ignore.stream"         label="30860"         type="bool"   default="true" visible="true"/>
+ 		<setting type="lsep"                label="30861"/>
+		<setting id="showcats"              label="30862"         type="bool"   default="true" visible="true" />
+ 		<setting type="lsep"                label="30863" visible="false"/>
+        <setting id="ftv.ini"               label="30864"            type="labelenum" values="UK Links|Non-Geolocked UK Links" default="UK Links" visible="false" />
+        <setting id="enable.osd"            label="30118"                                 type="bool"   default="true" enable="eq(1,false)" visible="false"/>
+		<setting id="local.ini"             label="30865"         type="bool"   default="true" visible="false"/>
+        <setting id="alternative.playback"  label="30120"                                 type="bool"   default="false" visible="false"/>
+ 		<setting type="lsep"                label="30866"/>
+        <setting id="enable.touch"          label="30123"                                 type="bool"   default="false" />
+ 		<setting type="lsep"                label="30867"/>
+        <setting id="autoStart"             label="30868" type="bool"   default="false" visible="true"/>
+ 		<setting type="lsep"                label="30869"/>
+		<setting id="idle"                  label="30870"               type="enum" values="Never|1 Hour|2 Hours|3 Hours|4 Hours" default="4" />
+ 		<setting type="lsep"                label="30871"/>
+ 		<setting id="confirm.exit"          label="30872"          type="bool" default="false" visible="true" />
+		<setting id="notifications.enabled" label="30106"                                 type="bool"   default="false" visible="false"/>
+ 		<setting type="lsep"                label="30124" visible="true"/>
+ 		<setting id="gmtfrom"               label="30873" type="labelenum"     default="0" values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" visible="true" />
+        <setting id="dummy"                 label="30108"                                 type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/notification.py)" visible="false"/>
+        <setting id="trailers.addon"        label="Choose Trailers Add-on"                type="labelenum" values="Apple iTunes Trailers|HD-Trailers.net" default="HD-Trailers.net" visible="false" />
+        <setting id="ustv.addon"            label="Choose USTV Catch Up Add-on"           type="labelenum" values="Hulu|Hulu-Beta|USTV VoD" default="USTV VoD" visible="false" />
+    </category>
+
+    <category label="30125">
+ 		<setting type="lsep" label="[CR]Log Options - Add an email to receive a link to your log"/>
+ 		<setting id="DEBUG" label="Enable Debug Mode (enable if asking for help on forum)" type="bool" default="false"/>
+	    <setting id="skip_oldlog" type="bool" label="Always skip Kodi.old.log (log from previous run)" default="true" visible="true"/>
+ 		<setting id="email" type="text" label="Email address"/>
+ 		<setting id="dummy" label="[COLOR=gold]Click to upload log[/COLOR]" type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/uploadLog.py)" option="close" />
+ 		<setting type="lsep" label="[CR]Backup/Restore Channel Data"/>
+        <setting id="dummy" label="30129" type="action" option="close" action="XBMC.RunScript(special://home/addons/script.tvportal/backup.py)"  visible="true"/>
+        <setting id="dummy" label="30130" type="action" option="close" action="XBMC.RunScript(special://home/addons/script.tvportal/restore.py)" visible="true"/>
+ 		<setting type="lsep" label="[CR]Fixes"/>
+        <setting id="dummy" label="30126" type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/deleteDB.py)" />
+        <setting id="dummy" label="30127" type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/resetChannels.py)"/>
+		<setting id="dummy" label="Update listings - rescan XML files for updates" 	  type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/createDB.py,update)" option="close" visible="true" />
+        <setting id="dummy" label="Force listings update - only use if the option above doesn't work" type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/createDB.py,rescan)" option="close" visible="true" />
+        <setting id="dummy" label="30131" type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/restoreChannels.py)" />
+        <setting id="dummy" label="30132" type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/resetAddon.py)" />
+    </category>
+
+    <category label="Custom Options">
+ 		<setting type="lsep"            label="[CR]Appearance - set your skin and logo pack"/>
+        <setting id="dixie.skin"        label="Choose Skin Style"          type="select" source="../../userdata/addon_data/script.tvportal/extras/skins/" mask="/" default="FXB-ARBMOD"/>
+		<setting id="chan.type"         label="Channel Settings"           type="enum"   default="0" values="Built-in|Custom"   />
+		<setting id="user.chan.folder"  label="Custom Channel Folder"      type="folder" source="special://" visible="eq(-1,1)" />
+		<setting id="logo.type"         label="Logo Pack Settings"         type="enum"   default="0" values="Built-in|Custom"   />
+		<setting id="user.logo.folder"  label="Choose Custom Logo Pack"    type="folder" source="special://" visible="eq(-1,1)" />
+		<setting id="dixie.logo.folder" label="Choose Built-in Logo Pack"  type="select" source="../../userdata/addon_data/script.tvportal/extras/logos/" mask="/" default="Colour Logo Pack" visible="eq(-2,0)"  />
+ 		<setting type="lsep"            label="[CR]Add a custom IPTV Playlist - easy integration for online and local playlists"/>
+		<setting id="playlist.type"     label="IPTV Playlist"                         type="enum"   default="URL" values="URL|File" visible="true"/>
+		<setting id="playlist.file"     label="File"                                  type="file"   visible="eq(-1,1)" />
+		<setting id="playlist.url"      label="URL"                                   type="text"   default="" visible="eq(-2,0)"/>
+ 		<setting type="lsep"            label="[CR]Add my own channels - create your own XML file and scan into db here"/>
+		<setting id="usenanxml"         label="30841"                                 type="bool"   default="false" visible="true"/>
+		<setting id="xmlpath1.type"     label="TVXML 1 Type"  type="labelenum" default="None" values="URL|File|None" visible="true"/>
+		<setting id="xmlpath1.file"     label="Choose Local File for XML 1"                                  type="file"   visible="eq(-1,1)" />
+		<setting id="xmlpath1.url"      label="Enter URL Location for XML 1"                                   type="text"   default="" visible="eq(-2,0)"/>
+ 		<setting id="offset1"           label="Offset listings - set offset (in hours) for listings in wrong timezone" type="labelenum"     default="0" values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" visible="eq(-3,1)|eq(-3,0)" />
+		<setting id="xmlpath2.type"     label="TVXML 2 Type"  type="labelenum" default="None" values="URL|File|None" visible="eq(-4,0)|eq(-4,1)"/>
+		<setting id="xmlpath2.file"     label="Choose Local File for XML 2"                                  type="file"   visible="eq(-1,1)" />
+		<setting id="xmlpath2.url"      label="Enter URL Location for XML 2"                                   type="text"   default="" visible="eq(-2,0)"/>
+ 		<setting id="offset2"           label="Offset listings - set offset (in hours) for listings in wrong timezone" type="labelenum"     default="0" values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" visible="eq(-3,1)|eq(-3,0)" />
+		<setting id="xmlpath3.type"     label="TVXML 3 Type"  type="labelenum" default="None" values="URL|File|None" visible="eq(-4,0)|eq(-4,1)"/>
+		<setting id="xmlpath3.file"     label="Choose Local File for XML 3"                                  type="file"   visible="eq(-1,1)" />
+		<setting id="xmlpath3.url"      label="Enter URL Location for XML 3"                                   type="text"   default="" visible="eq(-2,0)"/>
+ 		<setting id="offset3"           label="Offset listings - set offset (in hours) for listings in wrong timezone" type="labelenum"     default="0" values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" visible="eq(-3,1)|eq(-3,0)" />
+		<setting id="xmlpath4.type"     label="TVXML 4 Type"  type="labelenum" default="None" values="URL|File|None" visible="eq(-4,0)|eq(-4,1)"/>
+		<setting id="xmlpath4.file"     label="Choose Local File for XML 4"                                  type="file"   visible="eq(-1,1)" />
+		<setting id="xmlpath4.url"      label="Enter URL Location for XML 4"                                   type="text"   default="" visible="eq(-2,0)"/>
+ 		<setting id="offset4"           label="Offset listings - set offset (in hours) for listings in wrong timezone" type="labelenum"     default="0" values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" visible="eq(-3,1)|eq(-3,0)" />
+		<setting id="xmlpath5.type"     label="TVXML 5 Type"  type="labelenum" default="None" values="URL|File|None" visible="eq(-4,0)|eq(-4,1)"/>
+		<setting id="xmlpath5.file"     label="Choose Local File for XML 5"                                  type="file"   visible="eq(-1,1)" />
+		<setting id="xmlpath5.url"      label="Enter URL Location for XML 5"                                   type="text"   default="" visible="eq(-2,0)"/>
+ 		<setting id="offset5"           label="Offset listings - set offset (in hours) for listings in wrong timezone" type="labelenum"     default="0" values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" visible="eq(-3,1)|eq(-3,0)" />
+		<setting id="dummy"             label="[COLOR=gold]Scan in XML File - this can take a long time![/COLOR]" 	  type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/createDB.py,update)" option="close" visible="true" />
+ 		<setting type="lsep"            label="[CR]Add ini Files - these contain mappings to various addons"/>
+        <setting id="INI_0_E"           label="Enable"   type="bool" default="true" visible="true"/>
+	    <setting id="INI_0"             label="ini file" type="file" default=""     visible="eq(-1,true)"/>
+		<setting id="INI_1_E"           label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_1"             label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		<setting id="INI_2_E"           label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_2"             label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		<setting id="INI_3_E"           label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_3"             label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		<setting id="INI_4_E"           label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_4"             label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		<setting id="INI_5_E"           label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_5"   	        label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		<setting id="INI_6_E"           label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_6"             label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		<setting id="INI_7_E"           label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_7"             label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		<setting id="INI_8_E"           label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_8"             label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		<setting id="INI_9_E"           label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_9"             label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+	</category>
+</settings>
+

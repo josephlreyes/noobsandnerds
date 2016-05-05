@@ -5,12 +5,12 @@
 			<info compressed="false">https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/xvbmc-addons.xml</info>
 			<checksum>https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/xvbmc-addons.xml.md5</checksum>
 			<datadir zip="true">https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/zips/</datadir>
-			<hashes>true</hashes>
+			<hashes>false</hashes>
 		</dir>
 			<info compressed="false">https://raw.github.com/XvBMC/repository.xvbmc/master/xvbmc-addons.xml</info>
 			<checksum>https://raw.github.com/XvBMC/repository.xvbmc/master/xvbmc-addons.xml.md5</checksum>
 			<datadir zip="true">https://raw.github.com/XvBMC/repository.xvbmc/master/zips/</datadir>
-			<hashes>true</hashes>
+			<hashes>false</hashes>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">XvBMC The Netherlands Addon REPOsitory</summary>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.ditistv" name="DITisTV Repo" version="0.0.0.1" provider-name="ditistv">
+	<extension point="xbmc.addon.repository" name="DITisTV Repository">
+		<info compressed="true">http://addons.ditistv.nl/addons.xml</info>
+		<checksum>http://addons.ditistv.nl/addons.xml.md5</checksum>
+		<datadir zip="true">http://addons.ditistv.nl/repo</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Official DITisTV Addons</summary>
+		<description>Download and install addons from DITisTV</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+

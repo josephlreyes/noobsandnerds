@@ -1,0 +1,3 @@
+v1.1:
+- Initial fork of OTTV Tools (based on v.1.0.5)
+- Removed the main menu categories

@@ -5,7 +5,7 @@
 		<checksum>http://raw.github.com/Lynx187/xStreamRepo/master/addons.xml.md5</checksum>
 		<datadir zip="true">http://raw.github.com/Lynx187/xStreamRepo/master/</datadir>
         <dir>
-            <info ompressed="false">http://xstream-addon.square7.ch/repo/addons.xml</info>
+            <info compressed="false">http://xstream-addon.square7.ch/repo/addons.xml</info>
             <checksum>http://xstream-addon.square7.ch/repo/addons.xml.md5</checksum>        
             <datadir zip="true">http://xstream-addon.square7.ch/repo/</datadir>
         </dir>

@@ -111,9 +111,9 @@
 			<hashes>true</hashes>
 		</dir>
 		<dir minversion="14.0.0">
-			<info compressed="false">http://xbmc-vk-repo.googlecode.com/svn/trunk/addons/addons.xml</info>
-			<checksum>http://xbmc-vk-repo.googlecode.com/svn/trunk/addons/addons.xml.md5</checksum>
-			<datadir zip="false">http://xbmc-vk-repo.googlecode.com/svn/trunk/addons/</datadir>
+			<info compressed="false">https://github.com/taifxx/xxtrep/raw/master/addons.xml</info>
+			<checksum>https://github.com/taifxx/xxtrep/raw/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://github.com/taifxx/xxtrep/raw/master/</datadir>
 			<hashes>true</hashes>
 		</dir>
 		<dir minversion="14.0.0">

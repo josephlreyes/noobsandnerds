@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <addon id="Andy.repository.windows.helix" name=" [COLOR yellow]Andy[/COLOR] Windows Repository (Helix 14)" version="0.0.0.1" provider-name="Andy">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name=" [COLOR yellow]Andy[/COLOR] Windows Repository (Helix 14)">
+            <info compressed="false">https://raw.githubusercontent.com/halikus/_AndyRepo/master/_windows/14/_repo/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/halikus/_AndyRepo/master/_windows/14/_repo/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/halikus/_AndyRepo/master/_windows/14/_repo/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary> [COLOR yellow]Andy[/COLOR] Repository for Windows Specific plugins</summary>
+            <description>Download and install addons, repositories and backups of preconfigured apps and user settings.[CR]This is the source of my addons and used for automatic updates.</description>
+            <platform>windx</platform>
+    </extension>
+</addon>

@@ -10,5 +10,6 @@
         <description>BUILDS ONLY FROM SCHISM TV - THIS REPO CONTAINS UPDATES FOR THE SCHISM TV BUILDS
         </description>
         <platform>all</platform>
+        <broken>This repository is no longer available and has been replaced by the official schism repo</broken>
     </extension>
 </addon>

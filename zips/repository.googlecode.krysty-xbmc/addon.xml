@@ -9,5 +9,6 @@
 		<summary>Install Addons from https://github.com/yokrysty/krysty-xbmc</summary>
 		<description>Download and install addons for Kodi (formerly known as XBMC).</description>
 		<platform>all</platform>
+		<broken>This is the old broken repo, please use the new one</broken>
 	</extension>
 </addon>

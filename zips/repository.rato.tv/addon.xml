@@ -7,13 +7,12 @@
     name="repository with ratotv addons">
     <info compressed="false">http://kodi.ratotv.net/addons.xml</info>
     <checksum> http://kodi.ratotv.net/addons.xml.md5</checksum>
-    <datadir zip="true"> http://kodi.ratotv.net/repo/</datadir>
+    <datadir zip="true">http://kodi.ratotv.net/repo/</datadir>
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary>Rato-TV repository</summary>
     <description>
     </description>
     <platform>all</platform>
-	<broken>No longer available</broken>
   </extension>
 </addon>

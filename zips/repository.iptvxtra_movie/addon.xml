@@ -11,5 +11,6 @@
         <description>Install KODI add-ons from IPTVxtra repository</description>
         <disclaimer></disclaimer>
         <platform>all</platform>
+        <broken>This repository is no longer available</broken>
     </extension>
 </addon>

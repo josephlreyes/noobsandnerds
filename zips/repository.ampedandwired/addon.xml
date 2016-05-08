@@ -9,5 +9,6 @@
     <summary>Install ampedandwired's Addons</summary>
     <description>Download and install addons by ampedandwired</description>
     <platform>all</platform>
+    <broken>This repository is now closed, you can fidn the rdio add-on in the official Kodi repo</broken>
   </extension>
 </addon>

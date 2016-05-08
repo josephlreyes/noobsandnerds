@@ -9,5 +9,6 @@
 		<summary>XBMC add-ons</summary>
 		<description>Go through the add-ons and see what you like</description>
 		<platform>all</platform>
+		<broken>This repository has been deleted by the developer and is no longer available</broken>
 	</extension>
 </addon>

@@ -14,6 +14,6 @@
         <description>Home of Movie2k, Anime Ultima, Extramina, SeriesGate</description>
         <disclaimer>The Author of the plugins does not condone the distribution of copyrights material, for all enquiries pleae contact the host websites.</disclaimer>
         <platform>all</platform>
-		<broken>No longer active, repo was outdated and is no longer working</broken>
+        <broken>No longer active, repo was outdated and is no longer working</broken>
     </extension>
 </addon>

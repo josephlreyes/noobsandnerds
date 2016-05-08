@@ -10,5 +10,6 @@
 		<description>Plug-ins for XBMC</description>
 		<disclaimer>xxx</disclaimer>
 		<platform>all</platform>
+		<broken>This repository is no longer available, the website this repo links to is no longer active</broken>
 	</extension>
 </addon>

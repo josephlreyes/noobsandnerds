@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.HopDenTV" name="HopDenTV REPO-Fix" version="0.0.0.1" provider-name="HopDenTV">
+<addon id="repository.HopDenTV" name="HopDenTV REPO" version="0.0.0.1" provider-name="HopDenTV">
 	<extension point="xbmc.addon.repository" name="HopDenTV Addon Repository">
-		<info compressed="false">http://hdtvblackbox.com/HopDenTV_REPO/addons.xml</info>
-		<checksum>http://hdtvblackbox.com/HopDenTV_REPO/addons.md5</checksum>
+		<info compressed="false">http://hdtvblackbox.com/HopDenTV_REPO/HopDenTV-Repo.xml</info>
+		<checksum>http://hdtvblackbox.com/HopDenTV_REPO/HopDenTV-Repo.md5</checksum>
 		<datadir zip="true">http://hdtvblackbox.com/HopDenTV_REPO/Zips/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Install HopDenTV REPO</summary>
-		<description>Download and install add-ons from HopDenTV REPO: Watch free Vietnamese contents from many different sources</description>
+		<description>Download and install addons from HopDenTV REPO: Watch free Movies and TV shows from many different sources</description>
 		<platform>all</platform>
 	</extension>
 </addon>

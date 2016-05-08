@@ -20,5 +20,6 @@
     <forum>https://github.com/petrkutalek/plugin.video.aktualnetv/issues</forum>
     <email>petr@kutalek.cz</email>
     <source>http://github.com/petrkutalek/plugin.video.aktualnetv/</source>
+    <broken>The repository files have been removed by the developer but you can download the aktualnetv add-on manually from the petrkutalek github page</broken>
   </extension>
 </addon>

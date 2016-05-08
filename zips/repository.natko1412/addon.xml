@@ -6,8 +6,8 @@
 <datadir zip="true">https://offshoregit.com/natko1412/zips/</datadir>
 </extension>
 <extension point="xbmc.addon.metadata">
-<summary>Install all of Natko's Addons</summary>
-<description>Download and install addons by natko1412. For support visit XBMC thread on forum.hr</description>
+<summary>Install Natko's Kodi Addons</summary>
+<description>Download and install addons by natko1412. For support visit tvaddons.ag</description>
 <platform>all</platform>
 </extension>
 </addon>

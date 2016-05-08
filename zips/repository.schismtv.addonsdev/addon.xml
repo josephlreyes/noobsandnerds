@@ -9,6 +9,7 @@
 		<summary>Install SchisM Addons</summary>
 		<description>Download and install addons from SchisM</description>
 		<platform>all</platform>
+		<broken>This repository has now been removed by the developer, use the schism official repo</broken>
 	</extension>
 </addon>
 

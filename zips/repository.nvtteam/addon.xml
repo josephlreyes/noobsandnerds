@@ -9,5 +9,6 @@
 		<summary>Install my Addons</summary>
 		<description>Download and Install Addons from NVTTeam Repository</description>
 		<platform>all</platform>
+		<broken>This repository has now been deleted by the developer</broken>
 	</extension>
 </addon>

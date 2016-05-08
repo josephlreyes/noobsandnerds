@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.Cosmixrepo" name="Cosmix Repo" version="0.0.0.1" provider-name="Cosmix">
+	<extension point="xbmc.addon.repository" name="Cosmixrepo">
+		<info compressed="false">http://cosmix.net23.net/repo/Plugins/addons.xml</info>
+		<checksum>http://cosmix.net23.net/repo/Plugins/addons.xml.md5</checksum>
+		<datadir zip="true">http://cosmix.net23.net/repo/Plugins/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Cosmix Repo</summary>
+		<description>Cosmix Repo</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+

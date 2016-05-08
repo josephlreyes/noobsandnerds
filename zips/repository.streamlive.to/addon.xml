@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.streamlive.to" name="StreamLive.to repository" version="0.0.0.1" provider-name="StreamLive.to Team">
+	<extension point="xbmc.addon.repository" name="StreamLive.to Repository">
+		<info compressed="false">http://repo.streamlive.to/addons.xml</info>
+		<checksum>http://repo.streamlive.to/addons.xml.md5</checksum>
+		<datadir zip="true">http://repo.streamlive.to</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>StreamLive.to</summary>
+   		<description lang="en">Watch StreamLive.to Live TV and Sport channels on Kodi</description>
+    		<disclaimer>We are not responsible for any content</disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>

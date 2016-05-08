@@ -9,5 +9,6 @@
 		<summary>Install Addons from http://anarchintosh-projects.googlecode.com</summary>
 		<description>Download and install addons from anarchintosh repository.</description>
 		<platform>all</platform>
+		<broken>This repository is now depreciated, it is no longer available</broken>
 	</extension>
 </addon>

@@ -9,6 +9,7 @@
 		<summary>Install my Addons</summary>
 		<description>Download Addon Templates</description>
 		<platform>all</platform>
+		<broken>This repo has been pulled by the developer and is no longer available</broken>
 	</extension>
 </addon>
 

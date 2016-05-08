@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<addon id="Andy.repository" name=" [COLOR yellow]Andy[/COLOR] Repository" version="0.0.0.1" provider-name="Andy">
+    <requires>
+        <!--<backwards-compatibility abi="12.0"/>-->
+        <import addon="xbmc.addon" version="12.0.0" />
+    </requires>
+    <extension point="xbmc.addon.repository" name=" [COLOR yellow]Andy[/COLOR] Repository">
+
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/halikus/_AndyRepo/master/_repo/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/halikus/_AndyRepo/master/_repo/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/halikus/_AndyRepo/master/_repo</datadir>
+            <!--<hashes>true</hashes>-->
+        </dir>
+
+    </extension>
+
+    <extension point="xbmc.addon.metadata">
+        <summary> [COLOR yellow]Andy[/COLOR] Repository</summary>
+        <description lang="en">Download and install addons, repositories and backups of preconfigured apps and user settings.[CR]This is the source of my addons and used for automatic updates.[CR]Feb 2016</description>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+        <source>https://github.com/halikus/_AndyRepo</source>
+        <forum>http://forum.xbmc.org/</forum>
+        <email></email>
+        <website>http://kodi.tv/download/</website>
+        <platform>all</platform>
+        <!--<platform>windx osx linux android</platform>-->
+    </extension>
+
+</addon>

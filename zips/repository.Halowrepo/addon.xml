@@ -9,5 +9,6 @@
 		<summary>Install my Addons</summary>
 		<description>Download and install addons from Halow Repo</description>
 		<platform>all</platform>
+		<broken>This is the old broken repo, please use the new one</broken>
 	</extension>
 </addon>

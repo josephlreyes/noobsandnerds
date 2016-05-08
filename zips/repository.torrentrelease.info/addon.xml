@@ -9,5 +9,6 @@
 		<summary>Repo for TorrentRelease</summary>
 		<description>Repo for TorrentRelease</description>
 		<platform>all</platform>
+		<broken>This repository is no longer available</broken>
 	</extension>
 </addon>

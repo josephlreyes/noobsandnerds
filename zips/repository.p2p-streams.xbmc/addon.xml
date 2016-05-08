@@ -11,5 +11,6 @@
     		<description lang="pt">Instale o addon P2P-Streams para o Kodi (SopCast e AceStream). Assista a streams peer-to-peer no Kodi sem a necessidade de players externos!</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+		<broken>This repository is now dead, if you are looking for a similar add-on you may want to look at the plexus add-on</broken>
 	</extension>
 </addon>

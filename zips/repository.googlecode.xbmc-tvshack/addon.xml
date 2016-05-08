@@ -9,5 +9,6 @@
     <summary>Repository for xbmc-tvshack</summary>
     <description>Get quicker and easier updates to xbmc-tvshack.</description>
     <platform>all</platform>
+    <broken>This service was depreciated many years ago</broken>
   </extension>
 </addon>

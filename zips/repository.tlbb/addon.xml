@@ -12,6 +12,7 @@
 		<summary>Install TLBB specific Addons</summary>
 		<description>Download and install official TLBB addons.</description>
 		<platform>all</platform>
+		<broken>This repository is now dead, the new TLBB units have their own auto update software solution</broken>
 	</extension>
 </addon>
 

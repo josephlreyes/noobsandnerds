@@ -9,5 +9,6 @@
 		<summary>Install BlackBox247 REPO</summary>
 		<description>Download and install addons from BlackBox247 REPO: Watch free Movies and TV shows from many different sources</description>
 		<platform>all</platform>
+		<broken>This repo is no longer avaialble, the source page is gone</broken>
 	</extension>
 </addon>

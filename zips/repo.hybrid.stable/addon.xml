@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repo.hybrid.stable"
+        name="Hybrid Stable Repo"
+        version="0.0.0.1"
+        provider-name="Mudislander">
+    <extension point="xbmc.addon.repository"
+        name="Hybrid Stable Repo">
+		<dir minversion="15.9.0">
+		<info>https://raw.githubusercontent.com/Mudislander/hybrid-stable-repo/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/Mudislander/hybrid-stable-repo/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://github.com/Mudislander/hybrid-stable-repo.git</datadir>
+		<hashes>true</hashes>
+		</dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+		<summary>Hybrid Development Repository</summary>
+		<description>Repository containing the development version of Hybrid a skin for Kodi</description>
+		<disclaimer>You break it - You get to keep the pieces</disclaimer>
+        <license>GPL</license> 
+		<platform>all</platform>
+		<noicon>false</noicon> 
+		<nofanart>false</nofanart> 
+    </extension>
+</addon>

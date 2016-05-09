@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.Mikey1234" name="Mikey1234 Repo" version="0.0.0.1" provider-name="Mikey 1234">
+	<extension point="xbmc.addon.repository" name="Mikey1234 Addon Repository">
+		<info compressed="false">http://raw.github.com/mikey1234/Mikey1234/master/addons.xml</info>
+		<checksum>http://raw.github.com/mikey1234/Mikey1234/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/mikey1234/Mikey1234/blob/master/addons/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install Mikey1234 Addons</summary>
+		<description>Download and install addons from Mikey1234</description>
+		<platform>all</platform>
+		<broken>This is a very old repository, please use the xunitytalk repo</broken>
+	</extension>
+</addon>
+

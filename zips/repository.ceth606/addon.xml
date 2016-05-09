@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.ceth606" name="ceth606 Add-on Repository" version="0.0.0.1" provider-name="Ceth606">
+        <extension point="xbmc.addon.repository" name="ceth606 Add-on Repository">
+                <info compressed="false">http://xbmc-repo-ceth606.googlecode.com/svn/trunk/addons.xml</info>
+                <checksum>http://xbmc-repo-ceth606.googlecode.com/svn/trunk/addons.xml.md5</checksum>
+                <datadir zip="true">http://xbmc-repo-ceth606.googlecode.com/svn/trunk/</datadir>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+                <summary>Install Add-ons from ceth606 Add-on Repository</summary>
+                <description>XBMC video plugin</description>
+                <disclaimer></disclaimer>
+                <platform>all</platform>
+        </extension>
+</addon>

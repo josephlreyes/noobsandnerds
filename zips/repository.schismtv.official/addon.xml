@@ -7,8 +7,7 @@
     </extension>
     <extension point="xbmc.addon.metadata">
         <summary>This is used FOR BUILDS ONLY</summary>
-        <description>BUILDS ONLY FROM SCHISM TV - THIS REPO CONTAINS UPDATES FOR THE SCHISM TV BUILDS
-        </description>
+        <description>BUILDS ONLY FROM SCHISM TV - THIS REPO CONTAINS UPDATES FOR THE SCHISM TV BUILDS</description>
         <platform>all</platform>
     </extension>
 </addon>

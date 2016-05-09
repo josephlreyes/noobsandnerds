@@ -4,9 +4,9 @@
         <import addon="repository.unofficialquasarmirror" version="1.0.3"/>
     </requires>
 	<extension point="xbmc.addon.repository" name="Pulsar Unofficial Repo Mirror">	   
-        <info compressed="false">http://offshoregit.com/iCanuck/Unofficial-Pulsar-Repo/raw/maste/addons.xml</info>
-        <checksum>http://offshoregit.com/iCanuck/Unofficial-Pulsar-Repo/raw/maste/addons.xml.md5</checksum>
-        <datadir zip="true">http://offshoregit.com/iCanuck/Unofficial-Pulsar-Repo/raw/maste/</datadir>		
+        <info compressed="false">http://offshoregit.com/iCanuck/Unofficial-Pulsar-Repo/raw/master/addons.xml</info>
+        <checksum>http://offshoregit.com/iCanuck/Unofficial-Pulsar-Repo/raw/master/addons.xml.md5</checksum>
+        <datadir zip="true">http://offshoregit.com/iCanuck/Unofficial-Pulsar-Repo/raw/master/</datadir>		
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Install Pulsar and Providers</summary>

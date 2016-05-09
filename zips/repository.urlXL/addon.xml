@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.urlXL" name="urlXL XBMC Addon Repo" version="0.0.0.1" provider-name="YoshioftheWire">
+	<extension point="xbmc.addon.repository" name="urlXL Add-on Repository">
+		<info compressed="false">https://urlxl-repo.googlecode.com/git/repository.urlXL/addon.xml</info>
+		<checksum>https://urlxl-repo.googlecode.com/git/repository.urlXL/addons.xml.md5</checksum>
+		<datadir zip="false">https://urlxl-repo.googlecode.com/git/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install Add-ons from urlXL Add-on Repository</summary>
+		<description>urlXL plug-ins for XBMC 12.x; including Crunchyroll;xbmc</description>
+		<disclaimer></disclaimer>
+		<platform>all</platform>
+		<broken>This is an extremely old repo and no longer works</broken>
+	</extension>
+</addon>

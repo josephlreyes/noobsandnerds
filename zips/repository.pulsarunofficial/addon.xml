@@ -4,9 +4,9 @@
         <import addon="repository.unofficialquasar" version="1.0.3"/>
     </requires>
 	<extension point="xbmc.addon.repository" name="Unofficial Quasar Repository">
-       <info>http://offshoregit.com/pulsarunofficia/raw/master/addons.xml</info>
-       <checksum>http://offshoregit.com/pulsarunofficia/raw/master/addons.xml.md5</checksum>
-       <datadir zip="true">http://offshoregit.com/pulsarunofficia/raw/master/</datadir>
+       <info>http://offshoregit.com/pulsarunofficial/raw/master/addons.xml</info>
+       <checksum>http://offshoregit.com/pulsarunofficial/raw/master/addons.xml.md5</checksum>
+       <datadir zip="true">http://offshoregit.com/pulsarunofficial/raw/master/</datadir>
 	</extension>		
 	<extension point="xbmc.addon.metadata">
 		<summary>A Collection of Quasar Providers and Related Addons</summary>

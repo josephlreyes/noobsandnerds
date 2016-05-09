@@ -9,5 +9,6 @@
 		<summary></summary>
 		<description></description>
 		<platform>all</platform>
+		<broken>This repo is no longer available, if you want the wookie setup you are now forced to download the whole Kodi app from their website</broken>
 	</extension>
 </addon>

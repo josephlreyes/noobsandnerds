@@ -1,13 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?> 
-  <addon id="repo.butchabay" name="repository butchabay" version="0.0.0.1" provider-name="butchabay">
-  <extension point="xbmc.addon.repository" name="repository butchabay">
-  <info>http://xbmc-repository-butchabay.googlecode.com/svn/trunk/addons.xml</info>
-  <datadir zip="true">http://xbmc-repository-butchabay.googlecode.com/svn/trunk</datadir> 
-  </extension>
+<addon id="repo.butchabay" name="repository butchabay" version="0.0.0.1" provider-name="butchabay">
+    <extension point="xbmc.addon.repository" name="repository butchabay">
+        <info>http://xbmc-repository-butchabay.googlecode.com/svn/trunk/addons.xml</info>
+        <checksum>http://turkishxbmcscraper.googlecode.com/svn/trunk/addons.xml.md5</checksum>
+        <datadir zip="true">http://xbmc-repository-butchabay.googlecode.com/svn/trunk</datadir> 
+    </extension>
   <extension point="xbmc.addon.metadata">
-  <summary lang="en">Install skins from butchabay's repository.</summary> 
-  <description lang="en">download and install skins from googlecode.repository-butchabay.</description> 
-  <disclaimer lang="en">no official releases, use at your own risk.</disclaimer> 
-  <platform>all</platform> 
+        <summary lang="en">Install skins from butchabay's repository.</summary> 
+        <description lang="en">download and install skins from googlecode.repository-butchabay.</description> 
+        <disclaimer lang="en">no official releases, use at your own risk.</disclaimer> 
+        <platform>all</platform> 
+        <broken>This repository is no longer available, you can find the developers work in the official kodi repo</broken>
   </extension>
-  </addon>
+</addon>

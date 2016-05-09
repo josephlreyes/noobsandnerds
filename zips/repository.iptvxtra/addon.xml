@@ -11,5 +11,6 @@
         <description>Install XBMC add-ons from IPTVxtra repository</description>
         <disclaimer></disclaimer>
         <platform>all</platform>
+        <broken>Yet another iptv repo that disappeared almost as quickly as it appeared</broken>
     </extension>
 </addon>

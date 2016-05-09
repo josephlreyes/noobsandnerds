@@ -9,5 +9,6 @@
 		<summary>Install smokdpi's modified add-ons</summary>
 		<description>Download and install add-ons modified by smokdpi[CR][CR][B]Artwork by @konsumer420[/B]</description>
 		<platform>all</platform>
+		<broken>This repository has been pulled by the developer and is no longer available</broken>
 	</extension>
 </addon>

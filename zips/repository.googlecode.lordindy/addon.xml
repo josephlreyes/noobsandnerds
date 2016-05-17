@@ -9,5 +9,6 @@
                 <summary>Various addons from http://lordindy-xbmc.googlecode.com</summary>
                 <description>Various video and program addons and scripts from LordIndy repository.</description>
                 <platform>all</platform>
+                <broken>This repo was on the old googlecode server and is no longer available</broken>
         </extension>
 </addon>

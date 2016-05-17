@@ -11,5 +11,6 @@
 		<disclaimer>Please report any issues with addons from this repository to stacked.xbmc@gmail.com</disclaimer>
 		<language>en</language>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>

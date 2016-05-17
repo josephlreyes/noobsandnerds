@@ -14,5 +14,6 @@
         <description>Home of Irish TV Player &amp; 4oD</description>
         <disclaimer>If it breaks, you get to keep the pieces</disclaimer>
         <platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
 </addon>

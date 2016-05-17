@@ -13,5 +13,6 @@
 		<disclaimer>Repository has non-comercial nature. Created by enthusiasts, acting in good faith.[CR]Authors make efforts (according their knowledge) to do not break any lows or regulations by publsihed solutions.[CR]If you notice any violation please let us know![CR]NOTE!Solutions created and tested in Poland, some of them might violate low or requlations in other countries.[CR]Authors take not responsibility for use of this repository and its content.</disclaimer>
 		<disclaimer lang="pl">Zawartość repozytorium ma charakter niekomercyjny, tworzone przez pasjonatów, działających w dobrej wierze.[CR]Autorzy dokładają starań aby (zgodnie z ich stanem wiedzy) publikowane rozwiązania nie naruszały prawa.[CR]Jeżeli jednak zauważysz jakiekolwiek naruszenie prawa, prosimy, poinformuj nas o tym![CR]UWAGA! Rozwiązania są tworzone i testowane w Polsce, mogą naruszać prawo w innych krajach.[CR]Autorzy nie ponoszą odpowiedzialności za używanie repozytorium i jego zawartości.</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>

@@ -9,6 +9,7 @@
 		<summary>XBMC Addons by The-ONE</summary>
 		<description>Download and install addons from The-ONE.......For OFFICIAL !! Support Visit XBMCHUB.COM</description>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 

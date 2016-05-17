@@ -13,6 +13,7 @@
 		<disclaimer>Taxigps did not make all the add-ons on this repository and is not responsible for their content</disclaimer>
 		<disclaimer lang="zh">本库中扩展功能模块不完全由Taxigps开发，对他人提交的内容不承担责任</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 

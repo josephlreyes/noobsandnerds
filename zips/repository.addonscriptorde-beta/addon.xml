@@ -10,5 +10,6 @@
 		<description>Add-ons and updates that are not (yet) available via the xbmc.org repo</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available, please use the newer github version.</broken>
 	</extension>
 </addon>

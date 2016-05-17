@@ -9,6 +9,7 @@
 		<summary>Dette er et XBMC-addon til youtube nørderne. Gir f.eks adgang til livingsmarttv.dk, SoEinDing og mange andre videoer</summary>
 		<description>Dette repo. indeholder livingsmarttv, SoEinDing og Ashens youtube addons og nogle andre spændende sager</description>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 

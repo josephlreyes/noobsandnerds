@@ -9,5 +9,6 @@
         <summary>Pampereo Plugins Collection</summary>
         <description>Misc Plugins</description>
         <platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
 </addon>

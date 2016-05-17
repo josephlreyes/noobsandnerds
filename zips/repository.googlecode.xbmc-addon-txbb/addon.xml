@@ -13,5 +13,6 @@
         <disclaimer>Rodney made all the add-ons on this repository</disclaimer>
         <disclaimer lang="zh">本库中插件由rodney开发。</disclaimer>
         <platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
 </addon>

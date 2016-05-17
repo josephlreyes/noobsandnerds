@@ -11,5 +11,6 @@
 		<description>Это популярные Российские и Международные медиа ресурсы для XBMC</description>
 		<disclaimer>All rights reserved</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>

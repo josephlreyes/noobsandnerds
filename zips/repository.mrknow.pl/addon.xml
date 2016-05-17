@@ -13,5 +13,6 @@
 		<disclaimer>Repository has non-comercial nature. Created by enthusiasts, acting in good faith.</disclaimer>
 		<disclaimer lang="pl">Zawartość repozytorium ma charakter niekomercyjny, tworzone przez pasjonatów, .</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>

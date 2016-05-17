@@ -10,5 +10,6 @@
 		<description>smuto's XBMC addon repository for bleeding edge and likely buggy :) versions.</description>
 		<disclaimer>The owners and submitters to this repository do not host or distribute any of the content displayed by these addons nor do they have any affiliation with the content providers.</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>

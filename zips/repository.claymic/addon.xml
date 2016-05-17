@@ -13,5 +13,6 @@
 		<disclaimer lang="en">This repository is a complement for skins.</disclaimer>
 		<disclaimer lang="pt">Este repositório é um complemento para skins.</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
   </addon>

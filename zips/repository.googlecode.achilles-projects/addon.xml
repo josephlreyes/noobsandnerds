@@ -9,5 +9,6 @@
     <summary>Install Addons from http://achilles-projects.googlecode.com</summary>
     <description>Download and install addons from achilles repository.</description>
     <platform>all</platform>
+    <broken>This repo was on the old googlecode server and is no longer available</broken>
   </extension>
 </addon>

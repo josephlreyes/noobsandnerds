@@ -21,6 +21,7 @@
 		<description lang="en">Download and install add-ons from the XBMC-Korea.com addon repository.[CR]  All addons on this repository have under gone basic testing, if you find a broken or not working addon please report it to XBMC-Korea.com so we can take any action needed.</description>
 		<description lang="ko">XBMC-Korea.com 애드온 저장소로부터 애드온들을 다운로드하고 설치합니다.[CR]  이 저장소의 모든 애드온들은 기본적인 확인을 했습니다. 만약 문제를 발견하시면 XBMC-Korea.com 포럼에 보고해주세요.</description>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 

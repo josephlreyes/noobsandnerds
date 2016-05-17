@@ -29,5 +29,6 @@
       Další informace o projektu naleznete na http://dmd-xbmc.googlecode.com
     </description>
     <platform>all</platform>
+    <broken>This repo was on the old googlecode server and is no longer available</broken>
   </extension>
 </addon>

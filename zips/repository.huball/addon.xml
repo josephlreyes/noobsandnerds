@@ -11,5 +11,6 @@
 		<platform>all</platform>
 		<license>GNUv3</license>
 		<website></website>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>

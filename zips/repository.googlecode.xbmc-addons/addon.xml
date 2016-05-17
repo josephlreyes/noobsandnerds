@@ -11,5 +11,6 @@
 		<description lang="en">Download and install add-ons from Nuka1195&apos;s unofficial add-on repository.[CR][CR]By using this repository you will be able to take advantage of cutting edge features our contributors constantly develop and update.[CR][CR]Thanks to all our contributors.</description>
 		<disclaimer lang="en">Nuka1195 did not make all the add-ons on this repository and is not responsible for their content</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>

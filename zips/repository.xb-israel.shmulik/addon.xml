@@ -9,5 +9,6 @@
     <summary>Install Add-ons for Israeli Vod sites</summary> 
     <description>Video plug-ins for XBMC</description> 
     <platform>all</platform> 
+    <broken>This repo was on the old googlecode server and is no longer available</broken>
   </extension>
 </addon>

@@ -1,0 +1,13 @@
+<?xml version="1.0.1" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.sportsaccess" name="Sportsaccess XBMC Addons" version="0.0.0.1" provider-name="sportsaccess">
+	<extension point="xbmc.addon.repository" name="Sportsaccess Addon Repository">
+		<info>http://repo.sportsaccess.se/Plugins/addons.xml</info>
+		<checksum>http://repo.sportsaccess.se/Plugins/addons.xml.md5</checksum>
+		<datadir zip="true">http://repo.sportsaccess.se/Plugins/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Install Sportsaccess Addons</summary>
+		<description lang="en">Download and install addon by Sportsaccess</description>
+		<platform>all</platform>
+	</extension>
+</addon>

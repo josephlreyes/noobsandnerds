@@ -14,5 +14,6 @@
 		<description>Download and install addons from the unofficial luxeria-repository.</description>
 		<disclaimer>The use of the addons provided by luxeria-repository is at your own risk !</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>

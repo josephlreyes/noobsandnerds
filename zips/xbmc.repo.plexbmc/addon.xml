@@ -20,5 +20,6 @@
     <disclaimer lang="en"></disclaimer>
     <platform>all</platform>
     <nofanart>true</nofanart>
+    <broken>This repo was on the old googlecode server and is no longer available</broken>
   </extension>
 </addon>

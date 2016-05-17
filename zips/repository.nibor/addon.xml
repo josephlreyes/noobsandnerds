@@ -14,5 +14,6 @@
         <description>Download and install XBMC add-ons.</description> 
         <disclaimer>If it breaks, you get to keep the pieces</disclaimer> 
         <platform>all</platform> 
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension> 
 </addon>

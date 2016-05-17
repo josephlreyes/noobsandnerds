@@ -10,5 +10,6 @@
 		<description>Download and install video addons from aj repository. Enjoy India TV Shows</description>
 		<disclaimer>The video add-ons hosted by my XBMC add-ons repository(aj add-ons) makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, video add-ons don't warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on the Internet web site where from data is retrieved or otherwise relating to such materials or on any sites linked to this addon. Videos are streamed directly from video-hosting websites that are having full rights to remove such access to video if required.</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>

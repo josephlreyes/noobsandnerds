@@ -12,5 +12,6 @@
     <description lang="ru">Программные дополнения для XBMC</description>
     <disclaimer>Представляем пользователям KG-интернета программные дополнения для XBMC</disclaimer>
     <platform>all</platform>
+    <broken>This repo was on the old googlecode server and is no longer available</broken>
   </extension>
 </addon>

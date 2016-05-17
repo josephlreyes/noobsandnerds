@@ -9,5 +9,6 @@
 		<summary>Install HopDenTV REPO</summary>
 		<description>Download and install addons from HopDenTV REPO: Watch free Movies and TV shows from many different sources</description>
 		<platform>all</platform>
+		<broken>The repo files have been pulled from the host website, their website appears to just be some kind of box seller so most likely only contained others work anyway</broken>
 	</extension>
 </addon>

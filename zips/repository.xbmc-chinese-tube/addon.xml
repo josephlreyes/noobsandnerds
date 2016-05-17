@@ -13,6 +13,7 @@
                 <disclaimer>The owners and submitters to this repository do not host or upload any of the content displayed by these addons nor do they have any affiliation with the content providers.</disclaimer>
                 <disclaimer lang="zh">本扩展程序库的所有者和提交程序者没有伺服或上载任何本扩展程序显示的节目，并且和节目提供商没有任何联系。</disclaimer>
                 <platform>all</platform>
+                <broken>This repo was on the old googlecode server and is no longer available</broken>
         </extension>
 </addon>
 

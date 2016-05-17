@@ -9,6 +9,7 @@
 		<summary>TvM XBMC Add-ons</summary>
 		<description>TvM - XBMC Add-ons repository</description>
 		<platform>all</platform>
+		<broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 

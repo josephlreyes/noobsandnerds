@@ -10,5 +10,6 @@
 		<description>Install Add-ons from Eraser</description>
 		<disclaimer>Download and install Add-ons from Eraser, although this repo links to googlecode the content can also be manually downloaded from github</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>

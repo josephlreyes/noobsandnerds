@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.classicskins" name="Classic Skins For Kodi" version="0.0.0.1" provider-name="ClassicNancy">
+	<extension point="xbmc.addon.repository" name="Classic Skins For Kodi">
+		<info compressed="false">http://clearstreamview.x10host.com/CSFK/Plugins/addons.xml</info>
+		<checksum>http://clearstreamview.x10host.com/CSFK/Plugins/addons.xml.md5</checksum>
+		<datadir zip="true">http://clearstreamview.x10host.com/CSFK/Plugins/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Classic Skins For Kodi</summary>
+		<description>Classic Skins For Kodi By ClassicNancy</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+

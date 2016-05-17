@@ -9,6 +9,7 @@
 		<summary>Install Addons from massive-pt repository</summary>
 		<description>Download and install addons from massivePT repository.</description>
 		<platform>all</platform>
+		<broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 

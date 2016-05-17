@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.dibbo10069" name="DIBBO-KODI-REPOSITORY" version="0.0.0.1" provider-name="@DIBBO10069">
+	<extension point="xbmc.addon.repository" name="DIBBO-KODI-REPOSITORY">
+		<info compressed="false">http://dibbo10069.comlu.com/zips2/addons.xml</info>
+		<checksum>http://dibbo10069.comlu.com/zips2/addons.xml.md5</checksum>
+		<datadir zip="true">http://dibbo10069.comlu.com/zips2/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>ALL THE BEST ADDONS IN ONE PLACE-IF YOU WISH ME TO ADD OR DELETE ADDONS PLZ CONTACT ME VIA TWITTER-@DIBBO10069</summary>
+		<description>DONT FORGET THIS IS A COMMUNITY AND ALL THESE ADDONS ARE FREE##CREDIT GOES TO ALL THE DEVS THAT PRODUCE THESE...ENJOY</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+

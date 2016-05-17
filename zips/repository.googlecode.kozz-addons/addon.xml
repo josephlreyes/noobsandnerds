@@ -151,5 +151,6 @@
 		<disclaimer lang="zh">本库中扩展功能模块并非完全由XBMC开发团队开发，因此不对相关内容承担责任</disclaimer>
 		<disclaimer lang="zh_TW">這個附加元件庫的附加元件並非全部由 XMBC 團隊製作的，所以我們不對這些內容負責。</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>

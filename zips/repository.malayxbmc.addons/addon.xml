@@ -10,5 +10,6 @@
 		<description>Add-ons for XBMC, all made by Malaysian members.</description>
 		<disclaimer>Show your support. All suggestion and comments,mail to daudfatihah35@yahoo.com</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>

@@ -14,5 +14,6 @@
 		<description>Collection of addons created by Syborg</description>
 		<disclaimer>All addons are supplied as is. If you have any issues please seek assistance from the forum.</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>

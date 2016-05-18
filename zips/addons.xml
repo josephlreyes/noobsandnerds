@@ -188,9 +188,9 @@
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
         <extension point="xbmc.addon.repository" name="KodiMaster Repository">
-            <info compressed="false">https://raw.github.com/KodiMaster/repo/master/_repo/addons.xml</info>
-            <checksum>https://raw.github.com/KodiMaster/repo/master/_repo/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.github.com/KodiMaster/repo/master/_repo/</datadir>
+            <info compressed="false">http://kodimaster.com/master/_repo/addons.xml</info>
+            <checksum>http://kodimaster.com/master/_repo/addons.xml.md5</checksum>
+            <datadir zip="true">http://kodimaster.com/master/_repo/</datadir>
             <hashes>false</hashes>
         </extension>
         <extension point="xbmc.addon.metadata">
@@ -266,6 +266,7 @@
 		<description>Filmes e Series</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -449,6 +450,19 @@
 	</extension>
 </addon>
 
+<addon id="repository.addonscriptorde" name="AddonScriptorDE's Repo" version="0.0.0.1" provider-name="AddonScriptorDE">
+	<extension point="xbmc.addon.repository" name="AddonScriptorDE's Repo">
+		<info compressed="false">https://raw.github.com/AddonScriptorDE/repository.addonscriptorde/master/addons.xml</info>
+		<checksum>https://raw.github.com/AddonScriptorDE/repository.addonscriptorde/master/addons.xml.md5</checksum>
+		<datadir zip="false">https://raw.github.com/AddonScriptorDE/repository.addonscriptorde/master/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>AddonScriptorDE's Repo</summary>
+		<description>AddonScriptorDE's Repo</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.addonscriptorde-beta" name="AddonScriptorDE's Testing Repo" version="0.0.0.1" provider-name="AddonScriptorDE">
 	<extension point="xbmc.addon.repository" name="AddonScriptorDE's Testing Repo">
 		<info compressed="false">http://addonscriptorde-beta-repo.googlecode.com/svn/trunk/addons.xml</info>
@@ -460,6 +474,7 @@
 		<description>Add-ons and updates that are not (yet) available via the xbmc.org repo</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available, please use the newer github version.</broken>
 	</extension>
 </addon>
 
@@ -486,6 +501,19 @@
 	<extension point="xbmc.addon.metadata">
 		<summary>Install Audio DSP Add-ons from Achim's repository.</summary>
 		<description>Download Audio DSP Add-ons and have fun ;)</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="repository.adulthideout" name="AdultHideout REPO" version="0.0.0.1" provider-name="Vashiel">
+	<extension point="xbmc.addon.repository" name="AdultHideout Addon Repository">
+		<info compressed="false">https://github.com/Vashiel/repository.adulthideout/raw/master/addons.xml</info>
+		<checksum>https://github.com/Vashiel/repository.adulthideout/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://github.com/Vashiel/repository.adulthideout/raw/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>AdultHideout Addon Repository</summary>
+		<description>First Try for a Adult Kodi Addon</description>
 		<platform>all</platform>
 	</extension>
 </addon>
@@ -731,6 +759,7 @@
 		<description>Video plug-ins for XBMC</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -847,6 +876,7 @@
 		<description>Acesso ao plugin Banca de Jornais</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -905,6 +935,23 @@
 	</extension>
 </addon>
 
+<addon id="repository.beta.emby.kodi" name="Kodi Emby Beta Addons" version="0.0.0.1" provider-name="marcelveldt,angelblue05,im85288,xnappo,null_pointer">
+	<requires>
+		<import addon="xbmc.addon" version="12.0.0"/>
+	</requires>
+	<extension point="xbmc.addon.repository" name="Kodi Emby Beta Addons Repository">
+		<info compressed="false">http://embydata.com/downloads/addons/xbmb3c/kodi-beta-repo/addons.xml</info>
+		<checksum>http://embydata.com/downloads/addons/xbmb3c/kodi-beta-repo/addons.xml.md5</checksum>
+		<datadir zip="true">http://embydata.com/downloads/addons/xbmb3c/kodi-beta-repo/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Kodi Emby Addon Repository</summary>
+		<description>This repo contains the Kodi Emby addon along with compatible Kodi skins</description>
+		<disclaimer></disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.beta.mediabrowser.kodi" name="Kodi Emby Beta Addons" version="0.0.0.1" provider-name="im85288,xnappo,null_pointer">
 	<requires>
 		<import addon="xbmc.addon" version="12.0.0"/>
@@ -946,6 +993,7 @@
                 <description>Croatian plug-ins for XBMC</description>
                 <disclaimer></disclaimer>
                 <platform>all</platform>
+                <broken>This repo was on the old googlecode server and is no longer available</broken>
         </extension>
 </addon>
 
@@ -992,6 +1040,7 @@
         <description>Download and install Add-ons for XBMC.</description>
         <disclaimer>-</disclaimer>
         <platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
 </addon>
 
@@ -1027,7 +1076,22 @@
 		<description>Video plug-ins for XBMC</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
+</addon>
+
+<addon id="repository.blxd.plugins" name="Catch Up Repository" version="0.0.0.1" provider-name="blxd">
+    <extension point="xbmc.addon.repository" name="blxd Add-on Repository">
+        <info>https://raw.githubusercontent.com/blxd/xbmc.blxd.plugins/master/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/blxd/xbmc.blxd.plugins/master/addons.xml.md5</checksum>
+        <datadir zip="true">https://github.com/blxd/xbmc.blxd.plugins/raw/master/plugins/</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Install Add-ons from blxd Repository</summary>
+        <description>Add-ons for XBMC</description>
+        <disclaimer>by blxd</disclaimer>
+        <platform>all</platform>
+    </extension>
 </addon>
 
 <addon id="repository.bond" name="Eugene Bond XBMC Add-ons" version="0.0.0.1" provider-name="Eugene Bond">
@@ -1122,6 +1186,19 @@
 	</extension>
 </addon>
 
+<addon id="repository.build" name="[B][COLOR lime]DOKI TV[/COLOR] [COLOR white]BUILD Repository[/COLOR][/B]" version="0.0.0.1" provider-name="DOKITV.NL Crew">
+    <extension point="xbmc.addon.repository" name="DOKI TV Repository">
+            <info compressed="false">https://raw.githubusercontent.com/doki1/build/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/doki1/build/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/doki1/build/master/zips/</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>DOKI</summary>
+        <description>Dit is de repository van de DOKI TV BUILD</description>
+        <platform>all</platform>
+    </extension>
+</addon>
+
 <addon id="repository.bulldogstreams" name="Bulldog Streams Repository" version="0.0.0.1" provider-name="Bulldog Streams Dev Team">
 	<extension point="xbmc.addon.repository" name="Bulldog Streams Repository">
 		<info compressed="false">http://www.bulldogstreams.football/addon/addons.xml</info>
@@ -1191,6 +1268,7 @@
 		<description>Acesso ao plugin video Canalpanda.pt</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -1234,7 +1312,34 @@
                 <description>XBMC video plugin</description>
                 <disclaimer></disclaimer>
                 <platform>all</platform>
+                <broken>This repo was on the old googlecode server and is no longer available</broken>
         </extension>
+</addon>
+
+<addon id="repository.chrischrome" name="Chris chrome" version="0.0.0.1" provider-name="chris chrome">
+	<extension point="xbmc.addon.repository" name="Simple Kodi">
+		<info compressed="false">http://chrischrome.netai.net/Plugins/addons.xml.xml</info>
+		<checksum>http://chrischrome.netai.net/Plugins/addons.xml.md5</checksum>
+		<datadir zip="true">http://chrischrome.netai.net/Plugins/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary></summary>
+		<description>download my addons</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="repository.classicskins" name="Classic Skins For Kodi" version="0.0.0.1" provider-name="ClassicNancy">
+	<extension point="xbmc.addon.repository" name="Classic Skins For Kodi">
+		<info compressed="false">http://clearstreamview.x10host.com/CSFK/Plugins/addons.xml</info>
+		<checksum>http://clearstreamview.x10host.com/CSFK/Plugins/addons.xml.md5</checksum>
+		<datadir zip="true">http://clearstreamview.x10host.com/CSFK/Plugins/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Classic Skins For Kodi</summary>
+		<description>Classic Skins For Kodi By ClassicNancy</description>
+		<platform>all</platform>
+	</extension>
 </addon>
 
   <addon id="repository.claymic" name="Repo Claymic" version="0.0.0.1" provider-name="Clayton Claymic">
@@ -1251,6 +1356,7 @@
 		<disclaimer lang="en">This repository is a complement for skins.</disclaimer>
 		<disclaimer lang="pt">Este repositório é um complemento para skins.</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
   </addon>
 
@@ -1571,6 +1677,19 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 	</extension>
 </addon>
 
+<addon id="repository.dibbo10069" name="DIBBO-KODI-REPOSITORY" version="0.0.0.1" provider-name="@DIBBO10069">
+	<extension point="xbmc.addon.repository" name="DIBBO-KODI-REPOSITORY">
+		<info compressed="false">http://dibbo10069.comlu.com/zips2/addons.xml</info>
+		<checksum>http://dibbo10069.comlu.com/zips2/addons.xml.md5</checksum>
+		<datadir zip="true">http://dibbo10069.comlu.com/zips2/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>ALL THE BEST ADDONS IN ONE PLACE-IF YOU WISH ME TO ADD OR DELETE ADDONS PLZ CONTACT ME VIA TWITTER-@DIBBO10069</summary>
+		<description>DONT FORGET THIS IS A COMMUNITY AND ALL THESE ADDONS ARE FREE##CREDIT GOES TO ALL THE DEVS THAT PRODUCE THESE...ENJOY</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.ditistv" name="DITisTV Repo" version="0.0.0.1" provider-name="ditistv">
 	<extension point="xbmc.addon.repository" name="DITisTV Repository">
 		<info compressed="true">http://addons.ditistv.nl/addons.xml</info>
@@ -1595,6 +1714,7 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 		<description>Add-ons for XBMC, sometimes are a work in progress.</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -1659,6 +1779,7 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
       Další informace o projektu naleznete na http://dmd-xbmc.googlecode.com
     </description>
     <platform>all</platform>
+    <broken>This repo was on the old googlecode server and is no longer available</broken>
   </extension>
 </addon>
 
@@ -1701,6 +1822,24 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 		<description>Visita el spot B75OYRJ de la app Spotbros para enterarte de las novedades.</description>
 		<platform>all</platform>
 	</extension>
+</addon>
+
+    <addon id="repository.dokinl" name="[B][COLOR lime]D[/COLOR]OKI[COLOR lime]TV[/COLOR].NL [COLOR lime]R[/COLOR]epository[/B]" version="0.0.0.1" provider-name="DOKITV.NL">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="DOKITV.NL Repository">
+            <info compressed="false">https://raw.githubusercontent.com/doki1/repo/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/doki1/repo/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/doki1/repo/master/zips/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>The Official DOKITV.NL repository</summary>
+			<description>This repository contains all Repositorys for KODI.</description>
+			<disclaimer>The owners and submitters to this repository do not host or distribute any of the content displayed by these addons nor do they have any affiliation with the content providers.</disclaimer>
+            <platform>all</platform>
+    </extension>
 </addon>
 
 <addon id="repository.donatelloandhybrid" name=".[COLOR magenta]Donatello and Hybrid[/COLOR][COLOR yellow] Repository[/COLOR]" version="0.0.0.1" provider-name="Donatello and Hybrid">
@@ -1891,6 +2030,7 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 		<description>Install Add-ons from Eraser</description>
 		<disclaimer>Download and install Add-ons from Eraser, although this repo links to googlecode the content can also be manually downloaded from github</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -2057,6 +2197,19 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 	</extension>
 </addon>
 
+<addon id="repository.firetvguru" name="Fire TV Guru Repo" version="0.0.0.1" provider-name="Fire TV Guru Repo">
+	<extension point="xbmc.addon.repository" name="Fire TV Guru Repo">
+		<info compressed="false">https://raw.github.com/Firetvguru/fire-tv/master/addons.xml</info>
+		<checksum>https://raw.github.com/Firetvguru/fire-tv/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/Firetvguru/fire-tv/master/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Fire TV Guru Repo</summary>
+		<description>My Repository</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.flopes.xbmc" name="flopes repositorio" version="0.0.0.1" provider-name="flopes">
 	<extension point="xbmc.addon.repository" name="flopes Add-on Repository">
 		<info compressed="false">http://repo-flopes-xbmc.googlecode.com/svn/trunk/addons.xml</info>
@@ -2067,6 +2220,7 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 		<summary>Repositorio flopes</summary>
 		<description>Repositorio para os addons do flopes</description>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -2237,6 +2391,7 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
     <summary>Install Addons from http://achilles-projects.googlecode.com</summary>
     <description>Download and install addons from achilles repository.</description>
     <platform>all</platform>
+    <broken>This repo was on the old googlecode server and is no longer available</broken>
   </extension>
 </addon>
 
@@ -2250,6 +2405,7 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 		<summary>Install Addons from http://anarchintosh-projects.googlecode.com</summary>
 		<description>Download and install addons from anarchintosh repository.</description>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -2264,6 +2420,7 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 		<description>Download and install video addons from aj repository. Enjoy India TV Shows</description>
 		<disclaimer>The video add-ons hosted by my XBMC add-ons repository(aj add-ons) makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, video add-ons don't warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on the Internet web site where from data is retrieved or otherwise relating to such materials or on any sites linked to this addon. Videos are streamed directly from video-hosting websites that are having full rights to remove such access to video if required.</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -2280,6 +2437,7 @@ provider-name="bog.gob">
     <description>Bog's Addons</description>
     <disclaimer></disclaimer>
     <platform>all</platform>
+    <broken>This repo was on the old googlecode server and is no longer available</broken>
   </extension>
 </addon>
 
@@ -2435,6 +2593,7 @@ provider-name="bog.gob">
 		<disclaimer lang="zh">本库中扩展功能模块并非完全由XBMC开发团队开发，因此不对相关内容承担责任</disclaimer>
 		<disclaimer lang="zh_TW">這個附加元件庫的附加元件並非全部由 XMBC 團隊製作的，所以我們不對這些內容負責。</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -2462,6 +2621,7 @@ provider-name="bog.gob">
                 <summary>Various addons from http://lordindy-xbmc.googlecode.com</summary>
                 <description>Various video and program addons and scripts from LordIndy repository.</description>
                 <platform>all</platform>
+                <broken>This repo was on the old googlecode server and is no longer available</broken>
         </extension>
 </addon>
 
@@ -2475,6 +2635,7 @@ provider-name="bog.gob">
 		<summary>Install Addons from massive-pt repository</summary>
 		<description>Download and install addons from massivePT repository.</description>
 		<platform>all</platform>
+		<broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -2488,6 +2649,7 @@ provider-name="bog.gob">
 		<summary>Dette er et XBMC-addon til youtube nørderne. Gir f.eks adgang til livingsmarttv.dk, SoEinDing og mange andre videoer</summary>
 		<description>Dette repo. indeholder livingsmarttv, SoEinDing og Ashens youtube addons og nogle andre spændende sager</description>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -2501,6 +2663,7 @@ provider-name="bog.gob">
 		<summary>Install video addons from http://sparetime.googlecode.com</summary>
 		<description>Download and install video addons from nixa repository.</description>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -2518,6 +2681,7 @@ provider-name="bog.gob">
         <disclaimer>Rodney made all the add-ons on this repository</disclaimer>
         <disclaimer lang="zh">本库中插件由rodney开发。</disclaimer>
         <platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
 </addon>
 
@@ -2533,6 +2697,7 @@ provider-name="bog.gob">
 		<description lang="en">Download and install add-ons from Nuka1195&apos;s unofficial add-on repository.[CR][CR]By using this repository you will be able to take advantage of cutting edge features our contributors constantly develop and update.[CR][CR]Thanks to all our contributors.</description>
 		<disclaimer lang="en">Nuka1195 did not make all the add-ons on this repository and is not responsible for their content</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -2550,6 +2715,7 @@ provider-name="bog.gob">
 		<disclaimer>Taxigps did not make all the add-ons on this repository and is not responsible for their content</disclaimer>
 		<disclaimer lang="zh">本库中扩展功能模块不完全由Taxigps开发，对他人提交的内容不承担责任</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -2589,6 +2755,7 @@ provider-name="MGendyS">
     repository and is not responsible for their
     content</disclaimer>
     <platform>all</platform>
+    <broken>This repo was on the old googlecode server and is no longer available</broken>
   </extension>
 </addon>
 
@@ -2603,6 +2770,7 @@ provider-name="MGendyS">
 		<description>Download and install Phoenix addons from Phoenix Addon Repository</description>
 		<disclaimer>The video add-ons hosted by my XBMC add-ons repository makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, video add-ons don't warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on the Internet web site where from data is retrieved or otherwise relating to such materials or on any sites linked to this addon. Videos are streamed directly from video-hosting websites that are having full rights to remove such access to video if required.</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -2641,6 +2809,7 @@ provider-name="MGendyS">
       version of the Catch-up TV Plugins.</description>
       <disclaimer>Use at your own risk</disclaimer>
       <platform>all</platform>
+      <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
   </addon>
 
@@ -2849,6 +3018,7 @@ provider-name="MGendyS">
 		<summary>Install HopDenTV REPO</summary>
 		<description>Download and install addons from HopDenTV REPO: Watch free Movies and TV shows from many different sources</description>
 		<platform>all</platform>
+		<broken>The repo files have been pulled from the host website, their website appears to just be some kind of box seller so most likely only contained others work anyway</broken>
 	</extension>
 </addon>
 
@@ -2891,6 +3061,7 @@ provider-name="MGendyS">
 		<platform>all</platform>
 		<license>GNUv3</license>
 		<website></website>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -2952,6 +3123,7 @@ provider-name="MGendyS">
 		<description>Video plug-ins for XBMC</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -3109,6 +3281,7 @@ provider-name="MGendyS">
 		<description lang="de">Downloade und installiere Add-ons von iWillFolo Repository.</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -3256,6 +3429,7 @@ provider-name="MGendyS">
     <description lang="ru">Программные дополнения для XBMC</description>
     <disclaimer>Представляем пользователям KG-интернета программные дополнения для XBMC</disclaimer>
     <platform>all</platform>
+    <broken>This repo was on the old googlecode server and is no longer available</broken>
   </extension>
 </addon>
 
@@ -3753,6 +3927,7 @@ provider-name="MGendyS">
 		<description>Download and install addons from the unofficial luxeria-repository.</description>
 		<disclaimer>The use of the addons provided by luxeria-repository is at your own risk !</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -3811,6 +3986,7 @@ provider-name="MGendyS">
 		<description>Video plug-ins for XBMC</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -3867,6 +4043,7 @@ provider-name="MGendyS">
 		<description>Add-ons for XBMC, all made by Malaysian members.</description>
 		<disclaimer>Show your support. All suggestion and comments,mail to daudfatihah35@yahoo.com</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -3916,6 +4093,24 @@ provider-name="MGendyS">
 	</extension>
 </addon>
 
+<addon id="repository.MatsBuilds" name="Mats Add-ons repository" version="0.0.0.1" provider-name="Mats Builds">
+	<extension point="xbmc.addon.repository" name="Mats Builds Repository">
+	<dir>
+		<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+		<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+	</dir>
+		<info compressed="false">http://www.matsbuilds.co.uk/plugins/addon.xml</info>
+		<checksum>http://www.matsbuilds.co.uk/plugins/addons.xml.md5</checksum>
+		<datadir zip="true">http://www.matsbuilds.co.uk/plugins/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install Add-ons from Mats Builds</summary>
+		<description>Download and install Add-ons from Mats Builds repository</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.MaxMustermann.xbmc" name="MaxMustermann's add-ons" version="0.0.0.1" provider-name="MaxMustermann">
 	<extension point="xbmc.addon.repository" name="MaxMustermann's add-on repository">
 		<info compressed="false">http://xbmc-development-with-passion.googlecode.com/svn/branches/repo/addons.xml</info>
@@ -3929,6 +4124,7 @@ provider-name="MGendyS">
 		<description lang="de">Downloade und installiere Add-ons von MaxMustermann's Repository.</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -3959,6 +4155,19 @@ provider-name="MGendyS">
 	</extension>
 </addon>
 
+<addon id="repository.membrane" name="membrane's KODI Add-ons" version="0.0.0.1" provider-name="membrane">
+	<extension point="xbmc.addon.repository" name="membrane's XBMC Add-on Repository">
+		<info compressed="false">http://github.com/prof-membrane/repository.membrane/raw/master/addons.xml</info>
+		<checksum>http://github.com/prof-membrane/repository.membrane/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">http://github.com/prof-membrane/repository.membrane/raw/master/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install membrane's Add-ons</summary>
+		<description>Download and install addons by membrane</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.membrane.xbmc-plugins" name="membrane Add-on Repository" version="0.0.0.1" provider-name="membrane">
 	<extension point="xbmc.addon.repository" name="membrane Add-on Repository">
 		<info compressed="false">http://membrane-xbmc-repo.googlecode.com/svn/trunk/addons.xml</info>
@@ -3970,7 +4179,24 @@ provider-name="MGendyS">
 		<description>Video plug-ins for XBMC</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available, use the newer one on github</broken>
 	</extension>
+</addon>
+
+<addon id="repository.merlin" name="Merlin Repository" version="0.0.0.1" provider-name="Merlin By Ryan">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+		<extension point="xbmc.addon.repository" name="Merlin Repository">
+			<info compressed="false">http://mwiz.co.uk/merlinrepo/addons.xml</info>
+			<checksum>http://mwiz.co.uk/merlinrepo/addons.xml.md5</checksum>
+			<datadir zip="true">http://mwiz.co.uk/merlinrepo/addons/</datadir>
+		</extension>
+		<extension point="xbmc.addon.metadata">
+			<summary>Host Of Add-Ons And Repositories</summary>
+			<description>Primary Function To Provide Updates To Merlin Builds! Any Other Add-Ons Or Repositories Within Are Provided At My Choice And Discretion, Will Provide Add-Ons And Repositories That Are Publicly Available, Permission Not Required To Do So! Hope You Find This Repository Useful, Enjoy!</description>
+			<platform>all</platform>
+		</extension>
 </addon>
 
 <addon id="repository.meta" name="MetaTeam Repository" version="0.0.0.1" provider-name="MetaTeam">
@@ -4107,6 +4333,7 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
         <description>Download and install Add-ons for XBMC.</description>
         <disclaimer>Support your local lemmings.</disclaimer>
         <platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
 </addon>
 
@@ -4158,6 +4385,7 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
         <description>Home of Irish TV Player &amp; 4oD</description>
         <disclaimer>If it breaks, you get to keep the pieces</disclaimer>
         <platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
 </addon>
 
@@ -4189,6 +4417,7 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
 		<disclaimer lang="en">This repository is a complement by MQ.</disclaimer>
 		<disclaimer lang="pt">Este repositório é um complemento by MQ.</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
   </addon>
 
@@ -4219,6 +4448,7 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
 		<disclaimer>Repository has non-comercial nature. Created by enthusiasts, acting in good faith.</disclaimer>
 		<disclaimer lang="pl">Zawartość repozytorium ma charakter niekomercyjny, tworzone przez pasjonatów, .</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -4307,15 +4537,15 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
 	</extension>
 </addon>
 
-<addon id="repo.natko1412" name="natko1412 repo" version="0.0.0.1" provider-name="natko1412">
+<addon id="repository.natko1412" name="natko1412 repo" version="0.0.0.1" provider-name="natko1412">
 <extension point="xbmc.addon.repository" name="Natko's Addon Repository">
 <info compressed="false">https://offshoregit.com/natko1412/addons.xml</info>
 <checksum>https://offshoregit.com/natko1412/addons.xml.md5</checksum>
 <datadir zip="true">https://offshoregit.com/natko1412/zips/</datadir>
 </extension>
 <extension point="xbmc.addon.metadata">
-<summary>Install Natko's Kodi Addons</summary>
-<description>Download and install addons by natko1412. For support visit tvaddons.ag</description>
+<summary>Install all of Natko's Addons</summary>
+<description>Download and install addons by natko1412. For support visit XBMC thread on forum.hr</description>
 <platform>all</platform>
 </extension>
 </addon>
@@ -4333,6 +4563,21 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
     </extension>
 	</addon>
 
+<addon id="repository.nhlstreams" name="[COLOR red]NHL Streams[/COLOR] Repo" version="0.0.0.1" provider-name="iCanuck">
+	<extension point="xbmc.addon.repository" name="NHL Streams Repository">
+       <info>https://raw.githubusercontent.com/iCanuck/NHLstreams/master/zips/addons.xml</info>
+       <checksum>https://raw.githubusercontent.com/iCanuck/NHLstreams/master/zips/addons.xml.md5</checksum>
+       <datadir zip="true">https://raw.githubusercontent.com/iCanuck/NHLstreams/master/zips/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>NHL Streams</summary>
+		<description>NHL Streams</description>
+		<platform>all</platform>
+		<forum>https://forums.tvaddons.ag/live-sports-on-kodi/44271-nhl-streams.html#post349799</forum>
+		<website>https://www.tvaddons.ag/</website>
+	</extension>
+</addon>
+
 <addon id="repository.nibor"
         name="Nibor's Add-ons"
         version="0.0.0.1"
@@ -4348,6 +4593,7 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
         <description>Download and install XBMC add-ons.</description>
         <disclaimer>If it breaks, you get to keep the pieces</disclaimer>
         <platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
 </addon>
 
@@ -4649,6 +4895,7 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
         <summary>Pampereo Plugins Collection</summary>
         <description>Misc Plugins</description>
         <platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
 </addon>
 
@@ -4664,6 +4911,23 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
 	</extension>
+</addon>
+
+    <addon id="repository.paradox" name="Paradox Repository" version="0.0.0.1" provider-name="Paradox Team">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="Paradox Repository">
+            <info compressed="false">http://paradoxwizard.co.uk/_repository/addons.xml</info>
+            <checksum>http://paradoxwizard.co.uk/_repository/addons.xml.md5</checksum>
+            <datadir zip="true">http://paradoxwizard.co.uk/_repository/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>Paradox Kodi Build Repository</summary>
+            <description>Paradox Kodi Build Repository</description>
+            <platform>all</platform>
+    </extension>
 </addon>
 
 <addon id="repository.passion.xbmc.org.frodo" name="Passion-XBMC.org Add-ons (frodo-pre)"
@@ -5156,16 +5420,34 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
     </extension>
 </addon>
 
-<addon id="repository.renegadestv" name="RenegadesTV Repo" version="0.0.0.1" provider-name="renegadestv">
-	<extension point="xbmc.addon.repository" name="RenegadesTV Repository">
-		<info compressed="false">http://raw.github.com/RenegadesTV/repository.renegadestv/master/addons.xml</info>
-		<checksum>http://raw.github.com/RenegadesTV/repository.renegadestv/master/addons.xml.md5</checksum>
-		<datadir zip="true">http://raw.github.com/RenegadesTV/repository.renegadestv/master/zips</datadir>
+<addon id="repository.RenegadesTV" name="RenegadesTV Add-on repository" version="0.0.0.1" provider-name="RenegadesTV">
+	<extension point="xbmc.addon.repository" name="RenegadesTV Add-on repository">
+		<dir>
+			<info compressed="false">http://renegadestv.info/r3nautor3po/addons.xml</info>
+			<checksum>http://renegadestv.info/r3nautor3po/addons.xml.md5</checksum>
+			<datadir zip="true">http://renegadestv.info/r3nautor3po/</datadir>
+		</dir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>RenegadesTV Repository</summary>
-		<description>The Renegades Repository. Includes the RenegadesTV addon.</description>
+		<summary lang="en">Install Add-ons from RenegadesTV</summary>
+		<description lang="en">Download and install add-ons from RenegadesTV repository.</description>
 		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="repository.RenegadesTV" name="RenegadesTV Add-on repository" version="0.0.0.1" provider-name="RenegadesTV">
+	<extension point="xbmc.addon.repository" name="RenegadesTV Add-on repository">
+		<dir>
+			<info compressed="false">http://renegadestv.info/r3nautor3po/addons.xml</info>
+			<checksum>http://renegadestv.info/r3nautor3po/addons.xml.md5</checksum>
+			<datadir zip="true">http://renegadestv.info/r3nautor3po/</datadir>
+		</dir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Install Add-ons from RenegadesTV</summary>
+		<description lang="en">Download and install add-ons from RenegadesTV repository.</description>
+		<platform>all</platform>
+        <broken>This repo is no longer available, please use the newer one</broken>
 	</extension>
 </addon>
 
@@ -5182,6 +5464,23 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<platform>all</platform>
 		<source>https://github.com/rivy/xbmc-repository.rivy.xbmc</source>
 	</extension>
+</addon>
+
+<addon id="repository.rka" name="Russian Kodi Addons" version="0.0.0.1" provider-name="HAL9000">
+    <extension point="xbmc.addon.repository" name="Russian Kodi Addons">
+        <info compressed="false">http://repo.koditv.ru/addons.xml</info>
+        <checksum>http://repo.koditv.ru/addons.xml.md5</checksum>
+        <datadir zip="true">http://repo.koditv.ru/datadir</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Install Addons from XBMC.ru</summary>
+        <summary lang="ru">Установить дополнения с форума XBMC.ru</summary>
+        <description lang="en">Download and install add-ons from the Russian Kodi Addons metarepository.[CR]If you find a broken or not working add-on please report it to XBMC.ru</description>
+        <description lang="ru">Загружайте и устанавливайте дополнения из метарепозитория Russian Kodi Addons[CR]Если вы обнаружили нерабочее дополнение, сообщите об этом разработчикам на форуме XBMC.ru</description>
+        <disclaimer lang="en">Team of Russian Kodi Addons did not make all the add-ons on this repository and are not responsible for their content.</disclaimer>
+        <disclaimer lang="ru">Разработчики Russian Kodi Addons не являются авторами всех дополнений в данном репозитории и не несут ответственность за их содержимое.</disclaimer>
+        <platform>all</platform>
+    </extension>
 </addon>
 
 <addon
@@ -5241,6 +5540,7 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<description>Acesso ao plugin video RTP play</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -5291,6 +5591,7 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
         <description>Host for the reFocus BIG skin.</description>
         <disclaimer>-</disclaimer>
         <platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
 </addon>
 
@@ -5415,15 +5716,9 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 			<hashes>true</hashes>
 		</dir>
 		<dir minversion="13.0.0">
-			<info compressed="false">http://xbmc-vk-repo.googlecode.com/svn/trunk/addons/addons.xml</info>
-			<checksum>http://xbmc-vk-repo.googlecode.com/svn/trunk/addons/addons.xml.md5</checksum>
-			<datadir zip="false">http://xbmc-vk-repo.googlecode.com/svn/trunk/addons/</datadir>
-			<hashes>true</hashes>
-		</dir>
-	        <dir minversion="14.0.0">
-			<info compressed="false">http://ex-ua-viewer.googlecode.com/hg/addons.xml</info>
-			<checksum>http://ex-ua-viewer.googlecode.com/hg/addons.xml.md5</checksum>
-			<datadir zip="true">http://ex-ua-viewer.googlecode.com/hg/</datadir>
+			<info compressed="false">https://raw.github.com/mrstealth/xbmc-gotham/master/addons.xml</info>
+			<checksum>https://raw.github.com/mrstealth/xbmc-gotham/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.github.com/mrstealth/xbmc-gotham/master/zip/</datadir>
 			<hashes>true</hashes>
 		</dir>
 		<dir minversion="14.0.0">
@@ -5463,9 +5758,9 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 			<hashes>true</hashes>
 		</dir>
 	        <dir minversion="14.0.0">
-			<info compressed="false">https://github.com/xbmc-addon/repository.hal9000/raw/master/addons.xml</info>
-			<checksum>https://github.com/xbmc-addon/repository.hal9000/raw/master/addons.xml.md5</checksum>
-			<datadir zip="true">https://github.com/xbmc-addon/repository.hal9000/raw/master/repo</datadir>
+			<info compressed="false">https://raw.githubusercontent.com/xbmc-addon/repository.hal9000/master/addons.xml</info>
+                        <checksum>https://raw.githubusercontent.com/xbmc-addon/repository.hal9000/master/addons.xml.md5</checksum>
+                        <datadir zip="true">https://raw.githubusercontent.com/xbmc-addon/repository.hal9000/master/repo</datadir>
 			<hashes>true</hashes>
 		</dir>
 		<dir minversion="14.0.0">
@@ -5478,12 +5773,6 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 			<info compressed="false">https://github.com/snakefishh/mnn-xbmc-repo/raw/master/addons.xml</info>
 			<checksum>https://github.com/snakefishh/mnn-xbmc-repo/raw/master/addons.xml.md5</checksum>
 			<datadir zip="true">https://github.com/snakefishh/mnn-xbmc-repo/raw/master/</datadir>
-			<hashes>true</hashes>
-		</dir>
-		<dir minversion="13.0.0">
-			<info compressed="false">https://raw.github.com/mrstealth/xbmc-gotham/master/addons.xml</info>
-			<checksum>https://raw.github.com/mrstealth/xbmc-gotham/master/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.github.com/mrstealth/xbmc-gotham/master/zip/</datadir>
 			<hashes>true</hashes>
 		</dir>
 		<dir minversion="14.0.0">
@@ -5502,12 +5791,6 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 			<info compressed="false">https://github.com/Silhouette2022/kodi/raw/master/addons.xml</info>
 			<checksum>https://github.com/Silhouette2022/kodi/raw/master/addons.xml.md5</checksum>
 			<datadir zip="true">https://github.com/Silhouette2022/kodi/raw/master/repo</datadir>
-			<hashes>true</hashes>
-		</dir>
-		<dir minversion="14.0.0">
-			<info compressed="false">http://tolin-xbmc-repo.googlecode.com/svn/trunk/addons/addons.xml</info>
-			<checksum>http://tolin-xbmc-repo.googlecode.com/svn/trunk/addons/addons.xml.md5</checksum>
-			<datadir zip="false">http://tolin-xbmc-repo.googlecode.com/svn/trunk/addons/</datadir>
 			<hashes>true</hashes>
 		</dir>
 		<dir minversion="14.0.0">
@@ -5643,6 +5926,19 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	</extension>
 </addon>
 
+<addon id="repository.shaneyrepos" name="Shaney Repos" version="0.0.0.1" provider-name="Shaney Repos">
+	<extension point="xbmc.addon.repository" name="shaneyrepos">
+		<info compressed="false">http://offshoregit.com/shaney/Plugins/addons.xml</info>
+		<checksum>http://offshoregit.com/shaney/Plugins/addons.xml.md5</checksum>
+		<datadir zip="true">http://offshoregit.com/shaney/Plugins/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Shaney Repos</summary>
+		<description>Add-ons Made By Shaney Repos - Visit www.FB.COM/ShaneyRepos for more information.</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.shani" name="Shanis Addon Repository" version="0.0.0.1" provider-name="Shani">
 	<extension point="xbmc.addon.repository" name="Shanis Addon Repository">
     <dir>
@@ -5674,6 +5970,7 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<description>Sickbeard XBMC Plugin</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -5770,6 +6067,7 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<description>smuto's XBMC addon repository for bleeding edge and likely buggy :) versions.</description>
 		<disclaimer>The owners and submitters to this repository do not host or distribute any of the content displayed by these addons nor do they have any affiliation with the content providers.</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -5788,6 +6086,19 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<summary>SpaceMonkey's Add-ons for XBMC</summary>
 		<description>Download and install Add-ons for XBMC.</description>
 		<disclaimer>-</disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="repository.sportsaccess" name="Sportsaccess XBMC Addons" version="0.0.0.1" provider-name="sportsaccess">
+	<extension point="xbmc.addon.repository" name="Sportsaccess Addon Repository">
+		<info>http://repo.sportsaccess.se/Plugins/addons.xml</info>
+		<checksum>http://repo.sportsaccess.se/Plugins/addons.xml.md5</checksum>
+		<datadir zip="true">http://repo.sportsaccess.se/Plugins/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Install Sportsaccess Addons</summary>
+		<description lang="en">Download and install addon by Sportsaccess</description>
 		<platform>all</platform>
 	</extension>
 </addon>
@@ -5822,6 +6133,7 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<disclaimer>Please report any issues with addons from this repository to stacked.xbmc@gmail.com</disclaimer>
 		<language>en</language>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -5892,6 +6204,7 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<description>Collection of addons created by Syborg</description>
 		<disclaimer>All addons are supplied as is. If you have any issues please seek assistance from the forum.</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -5922,6 +6235,7 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<disclaimer>Repository has non-comercial nature. Created by enthusiasts, acting in good faith.[CR]Authors make efforts (according their knowledge) to do not break any lows or regulations by publsihed solutions.[CR]If you notice any violation please let us know![CR]NOTE!Solutions created and tested in Poland, some of them might violate low or requlations in other countries.[CR]Authors take not responsibility for use of this repository and its content.</disclaimer>
 		<disclaimer lang="pl">Zawartość repozytorium ma charakter niekomercyjny, tworzone przez pasjonatów, działających w dobrej wierze.[CR]Autorzy dokładają starań aby (zgodnie z ich stanem wiedzy) publikowane rozwiązania nie naruszały prawa.[CR]Jeżeli jednak zauważysz jakiekolwiek naruszenie prawa, prosimy, poinformuj nas o tym![CR]UWAGA! Rozwiązania są tworzone i testowane w Polsce, mogą naruszać prawo w innych krajach.[CR]Autorzy nie ponoszą odpowiedzialności za używanie repozytorium i jego zawartości.</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -6033,6 +6347,7 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<description>Video plug-ins for XBMC</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -6046,6 +6361,7 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<summary>XBMC Addons by The-ONE</summary>
 		<description>Download and install addons from The-ONE.......For OFFICIAL !! Support Visit XBMCHUB.COM</description>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -6311,6 +6627,20 @@ Addons Included
 		<description>Это популярные Российские и Международные медиа ресурсы для XBMC</description>
 		<disclaimer>All rights reserved</disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
+	</extension>
+</addon>
+
+<addon id="repository.ToMeRepo" name=".[COLOR blue]..~ToMeRepo~[/COLOR] [COLOR yellow]Repository.®[/COLOR]" version="0.0.0.1" provider-name="ToMeR">
+	<extension point="xbmc.addon.repository" name="ToMeRepo">
+		<info compressed="false">http://tomerepo.comli.com/Zips/addons.xml</info>
+		<checksum>http://tomerepo.comli.com/Zips/addons.xml.md5</checksum>
+		<datadir zip="true">http://tomerepo.comli.com/Zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>מאגר הרחבות קטן ומדוייק.</summary>
+		<description>פה תמצאו הרחבות לקודי שעברו בדיקה מדוקדקת , מכל הרפויים הקיימים שיש ,מאגר קטן זמין ומתעדכן באופן שוטף</description>
+		<platform>all</platform>
 	</extension>
 </addon>
 
@@ -6440,6 +6770,7 @@ Addons Included
 		<description>Addons do DeusMaior</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+		<broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -6475,6 +6806,23 @@ Addons Included
     </extension>
 </addon>
 
+    <addon id="repository.underground" name="underground" version="0.0.0.1" provider-name="Neo - Underground / Inside 4ndroid">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="underground">
+            <info compressed="false">http://inside4ndroid.com/kdi/underground/_addons/addons.xml</info>
+            <checksum>http://inside4ndroid.com/kdi/underground/_addons/addons.xml.md5</checksum>
+            <datadir zip="true">http://inside4ndroid.com/kdi/underground/_addons/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>Underground / Inside 4ndroid Kodi Addons</summary>
+            <description>Underground / Inside 4ndroid Kodi Addons</description>
+            <platform>all</platform>
+    </extension>
+</addon>
+
 <addon id="repository.unofficial.addon.pro"
                 name="Unofficial [COLOR FF757677]Open[/COLOR][COLOR FF8ABEE2]ELEC[/COLOR] Mediacenter OS Add-ons"
                 version="0.0.0.1"
@@ -6504,6 +6852,7 @@ Addons Included
 		<description>Add-ons for XBMC</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -6863,6 +7212,7 @@ Addons Included
     <summary>Install Add-ons for Israeli Vod sites</summary>
     <description>Video plug-ins for XBMC</description>
     <platform>all</platform>
+    <broken>This repo was on the old googlecode server and is no longer available</broken>
   </extension>
 </addon>
 
@@ -6897,6 +7247,7 @@ Addons Included
                 <disclaimer>The owners and submitters to this repository do not host or upload any of the content displayed by these addons nor do they have any affiliation with the content providers.</disclaimer>
                 <disclaimer lang="zh">本扩展程序库的所有者和提交程序者没有伺服或上载任何本扩展程序显示的节目，并且和节目提供商没有任何联系。</disclaimer>
                 <platform>all</platform>
+                <broken>This repo was on the old googlecode server and is no longer available</broken>
         </extension>
 </addon>
 
@@ -6948,6 +7299,7 @@ Addons Included
   <description>XBMC Addons HE</description>
   <disclaimer></disclaimer>
   <platform>all</platform>
+  <broken>This repo was on the old googlecode server and is no longer available</broken>
  </extension>
 </addon>
 
@@ -6986,6 +7338,7 @@ Addons Included
 		<description lang="en">Download and install add-ons from the XBMC-Korea.com addon repository.[CR]  All addons on this repository have under gone basic testing, if you find a broken or not working addon please report it to XBMC-Korea.com so we can take any action needed.</description>
 		<description lang="ko">XBMC-Korea.com 애드온 저장소로부터 애드온들을 다운로드하고 설치합니다.[CR]  이 저장소의 모든 애드온들은 기본적인 확인을 했습니다. 만약 문제를 발견하시면 XBMC-Korea.com 포럼에 보고해주세요.</description>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -7061,14 +7414,13 @@ Addons Included
 		provider-name="XBMC Foundation">
   <requires>
     <import addon="xbmc.addon" version="12.0.0"/>
-    <import addon="xbmc.gui" version="5.9.0"/>
   </requires>
 	<extension point="xbmc.addon.repository"
 		name="Official XBMC.org Add-on Repository">
-		<dir minversion="14.9.0">
-			<info compressed="true">http://mirrors.kodi.tv/addons/isengard/addons.xml</info>
-			<checksum>http://mirrors.kodi.tv/addons/isengard/addons.xml.md5</checksum>
-			<datadir zip="true">http://mirrors.kodi.tv/addons/isengard</datadir>
+		<dir minversion="15.9.0">
+			<info>http://mirrors.kodi.tv/addons/jarvis/addons.xml.gz</info>
+			<checksum>http://mirrors.kodi.tv/addons/jarvis/addons.xml.gz.md5</checksum>
+			<datadir zip="true">http://mirrors.kodi.tv/addons/jarvis</datadir>
 			<hashes>true</hashes>
 		</dir>
 	</extension>
@@ -7093,7 +7445,7 @@ Addons Included
 		<summary lang="es_MX">Installar Add-ons de Kodi.tv</summary>
 		<summary lang="et_EE">Paigalda lisasid lehelt Kodi.tv</summary>
 		<summary lang="eu_ES">Instalatu Kodi.tv-eko gehigarriak</summary>
-		<summary lang="fa_IR">نصب افزونه ها از سایت Kodi.tv</summary>
+		<summary lang="fa_IR">‫نصف افزونه‌ها از Kodi.tv</summary>
 		<summary lang="fi_FI">Asenna lisäosia Kodi.tv -sivustolta</summary>
 		<summary lang="fr_CA">Installer des addiciels depuis Kodi.tv</summary>
 		<summary lang="fr_FR">Installer des extensions depuis Kodi.tv</summary>
@@ -7110,18 +7462,19 @@ Addons Included
 		<summary lang="lv_LV">Instalēt pielikumus no Kodi.tv</summary>
 		<summary lang="mk_MK">Инсталирај Додатоци од Kodi.tv</summary>
 		<summary lang="ms_MY">Pasang tambahan daripada Kodi.tv</summary>
+		<summary lang="mt_MT">Installa Add-ons minn Kodi.tv</summary>
 		<summary lang="my_MM">Kodi.tv မှ Add-on များကိုသွင်းမည်</summary>
 		<summary lang="nb_NO">Installer utvidelser fra Kodi.tv</summary>
 		<summary lang="nl_NL">Add-ons van Kodi.tv installeren</summary>
 		<summary lang="pl_PL">Instaluj dodatki z Kodi.tv</summary>
 		<summary lang="pt_BR">Instale Add-ons do Kodi.tv</summary>
-		<summary lang="pt_PT">Instalar Add-ons a partir de Kodi.tv</summary>
+		<summary lang="pt_PT">Instalar add-ons a partir de Kodi.tv</summary>
 		<summary lang="ro_RO">Instalați suplimente de la Kodi.tv</summary>
 		<summary lang="ru_RU">Установить дополнения с сайта Kodi.tv</summary>
 		<summary lang="sk_SK">Inštalovať rozšírenia z Kodi.tv</summary>
 		<summary lang="sl_SI">Namestite dodatke s Kodi.tv</summary>
-		<summary lang="sr_RS">Инсталирај додатке са Kodi.tv</summary>
-		<summary lang="sr_RS@latin">Instaliraj dodatne programe sa Kodi-tv</summary>
+		<summary lang="sr_RS">Инсталирај додатне програме са Kodi.tv</summary>
+		<summary lang="sr_RS@latin">Instaliraj dodatne programe sa Kodi.tv</summary>
 		<summary lang="sv_SE">Installera tillägg från Kodi.tv</summary>
 		<summary lang="tg_TJ">Насб кардани барномаҳои иловагӣ аз Kodi.tv</summary>
 		<summary lang="th_TH">ติดตั้งส่วนเสริมจาก Kodi.tv</summary>
@@ -7149,34 +7502,35 @@ Addons Included
 		<description lang="es_MX">Descarga e instala add-ons del repositorio oficial Kodi.tv.[CR] Al usar el repositorio oficial, tendrá la ventaja de los servicios de espejos, y así tener descargas más rápidas.[CR] Todos los add-ons en este repositorio se han probado de manera básica, si encuentra alguno que no funciona o roto, favor de reportarlo al Equipo de Kodi para poder tomar las medidas necesarias.</description>
 		<description lang="et_EE">Lae alla ja installi lisasid ametlikust Kodi.tv hoidlast.[CR]  Ametliku hoidla kasutamise eeliseks on võimalus kasutada meie ulatuslikku failide peegelteenust laadides faile sulle kõige lähemast serverist.[CR]  Kõik lisad selles hoidlas on läbinud elementaarse testimise. Siiski, kui sa leiad vigase või mittetöötava lisa, siis palun teavita sellest Kodi meeskonda, et me saaksime vajaliku abi osutada.</description>
 		<description lang="eu_ES">Gehigarriak Kodi.tv biltegi ofizialetik deskargatu eta instalatu.[CR]  &#10;Biltegi ofiziala erabiliaz zutaz gertu dagoen gune batetik deskargatu&#10;ditzakezu gure fitxategi-ispilu multzoaren abantailaz aprobetxatuaz.[CR]  &#10;Biltegi honetako gehigarri guztiek proba basikoak gainditu dituzte baina hondaturiko edo funtzionatzen ez duen gehigarri baten bat aurki ezkero honen berri Kodi taldeari eman beharrezko ekintzak burutu ditzagun.</description>
-		<description lang="fa_IR">افزودنی ها را از منبع رسمی افزونه ها در Kodi.tv دانلود و نصب کنید. [CR] با استفاده از منبع رسمی شما قادر خواهید بود از خدمات گسترده سرویس دانلود جایگزین ما بهره ببرید که امکان دانلود از مناطق نزدیکتر را در اختیار شما قرار می دهد. [CR] همه افزونه های این منبع آزمایش های اولیه را پشت سر گذاشته اند. در صورت یافتن افزونه معیوب یا غیر قابل استفاده لطفا آن را به تیم کودی گزارش کنید تا اقدامات لازم را انجام دهیم.</description>
+		<description lang="fa_IR">افزودنی‫ ها را از منبع رسمی افزونه ها در Kodi.tv ‫دانلود و نصب کنید. [CR]‫ با ا‫ستفاده از منبع‫‫‫‫ ‫رسمی شما قادر خواهید‫ بود از خدمات گسترده سرویس دانلود جایگزین ما بهره ببرید که امکان دانلود از مناطق نزدیکتر را در اختیار شما قرار می دهد. [CR]‫ ‫همه افزونه های این منبع آزمایش های اولیه را پشت سر گذاشته اند. در صورت یافتن افزونه معیوب یا غیر قابل استفاده لطفا آن را به تیم کودی گزارش‫ کنید تا اقدامات لازم ‫را انجام د‫هیم‫.</description>
 		<description lang="fi_FI">Lataa ja asenna lisäosia virallisesta Kodi.tv -lisäosasäilöstä.[CR]  Käyttämällä virallista säilöä sinun on mahdollista käyttää hyväksesi meidän kattavaa tiedostojen peilauspalveluamme saavuttaaksesi korkeat latausnopeudet sinun lähialueeltasi.[CR]  Kaikki tämän säilön lisäosat on testattu toimiviksi, jos löydät rikkinäisen tai "ei toimivan" lisäosan, ilmoita siitä Team-Kodi:lle, jotta voimme korjata asian.</description>
 		<description lang="fr_CA">Télécharger et installer des addiciels depuis le dépôt officiel de Kodi.tv.[CR] En utilisant le dépôt officiel vous pourrez bénéficier de notre service étendu de miroirs de fichiers favorisant des téléchargements plus rapides depuis une région proche de vous.[CR] Tous les addiciels de ce dépôt ont subi des tests de base. Si vous trouvez un addiciel non fonctionnel ou brisé, veuillez le rapporter à l'équipe-Kodi afin que nous puissions agir.</description>
-		<description lang="fr_FR">Télécharger et installer des extensions à partir du dépôt officiel Kodi.tv.[CR] En utilisant le dépôt officiel, vous bénéficierez de notre service de serveurs miroirs vous permettant de télécharger rapidement depuis une région proche de chez vous.[CR] Toutes les extensions de ce dépôt ont été testées sommairement, si vous trouvez une extension corrompue ou inutilisable, veuillez en informer l'Équipe Kodi afin que nous puissions prendre les mesures nécessaires.</description>
-		<description lang="gl_ES">Descargar e instalar Engadidos dende o repositorio oficial de Kodi.tv.[CR] Empregando o repositorio oficial, vostede poderá gozar das vantaxes do seu extenso servizo de replicación de ficheiros que lle permite unhas descargas máis rápidas dende unha rexión preto a vostede.[CR] Tódolos Engadidos deste repositorio pasaron por comprobacións básicas. Se atopa algún Engadido roto ou non funcional, por favor reporteo ó equipo de Kodi para que poidan actuar en consecuencia.</description>
+		<description lang="fr_FR">Télécharger et installer des extensions à partir du dépôt officiel Kodi.tv.[CR]En utilisant le dépôt officiel, vous bénéficierez de notre service de serveurs miroirs permettant de télécharger rapidement depuis une région proche de chez vous.[CR]Toutes les extensions de ce dépôt ont été testées sommairement, si vous trouvez une extension endommagée ou non fonctionnelle, merci d'en informer l'Équipe Kodi afin que nous puissions prendre les mesures nécessaires.</description>
+		<description lang="gl_ES">Descargar e instalar Engadidos dende o repositorio oficial de Kodi.tv.[CR] Empregando o repositorio oficial, vostede poderá gozar das vantaxes do seu extenso servizo de replicación de ficheiros que lle permite unhas descargas máis rápidas dende unha rexión preto a vostede.[CR] Tódolos Engadidos deste repositorio pasaron por comprobacións básicas. Se atopa algún Engadido roto ou non funcional, por favor repórteo ó equipo de Kodi para que poidan actuar en consecuencia.</description>
 		<description lang="he_IL">הורדה והתקנת הרחבות ממאגר הרחבות Kodi.tv הרשמי.[CR] שימוש במאגר הרשמי מאפשר לנצל את שירות שיקוף הקבצים של Kodi.tv העוזר להוריד מהר יותר מהשרת הקרוב ביותר.[CR] כל ההרחבות במאגר זה עברו בדיקה בסיסית. יש לדווח לצוות הפיתוח של Kodi על כל הרחבה שנמצאה כלא תקינה או שלא עובדת ע"מ שתתבצע הפעולה המתאימה.</description>
 		<description lang="hr_HR">Preuzmite i instalirajte dodatke sa službenog Kodi.tv repozitorija dodataka.[CR] Korištenjem službenog repozitorija bit ćete u mogućnosti iskoristiti prednosti usluge našeg brzog zrcalnog poslužitelja datoteka, da bi mogli brže preuzimati iz regije koje je bliže vašoj lokaciji.[CR] Svi dodaci na ovom repozitoriju prošli su osnovno testiranje, u slučaju da primijetite neispravan dodatak, molimo vas da to prijavite Kodi timu koji će zatim poduzeti potrebne korake.</description>
-		<description lang="hu_HU">Kiegészítők letöltése és telepítése a hivatalos Kodi.tv tárolóhelyről.[CR] A hivatalos tárolóhely használatával kihasználhatod szerteágazó tükör-kiszolgáló hálózatunkat, ami segít a gyorsabb letöltésben egy hozzád közelebb eső körzet használatával.[CR]  Minden kiegészítő ezen a tárolóhelyen átment egy alaptesztelésen. Ha mégis hibás vagy nem működő kiegészítőt találsz, kérünk jelezd az Kodi csapatnak, hogy megtegyük a szükséges lépéseket.</description>
+		<description lang="hu_HU">Kiegészítők letöltése és telepítése a hivatalos Kodi.tv tárolóhelyről.[CR] A hivatalos tárolóhely használatával kihasználhatja a szerteágazó tükörkiszolgáló hálózatunkat, ami segít a gyorsabb letöltésben egy közeli kiszolgáló használatával.[CR] Minden kiegészítő ezen a tárolóhelyen átment egy alaptesztelésen. Ha mégis hibás vagy nem működő kiegészítő talál, kérjük jelezze a Kodi csapatnak, hogy megtegyük a szükséges lépéseket.</description>
 		<description lang="id_ID">Unduh dan pasang pengaya dari repositori pengaya resmi Kodi.tv. [CR] Dengan menggunakan repositori resmi anda akan mendapat keuntungan dari miror berkas kami yang luas dimana dapat membantu anda untuk lebih cepat mengunduh dari daerah yang dekat dengan anda. [CR] Semua pengaya pada repository telah melalui uji coba standar, jika anda menemukan pengaya yang rusak atau tidak bekerja tolong laporkan kepada tim Kodi agar kami bisa menindak lanjutinya.</description>
 		<description lang="is_IS">Sækja og setja inn viðbætur frá hinu viðurkennda Kodi.tv viðbóta safni.[CR] Með því að nota þetta safn getur þú nýtt þér möguleikann á fullkmonni speglunar þjónustu sem hjálpar við að sækja viðbætur hraðar frá landsvæði nálægt þér.[CR] Allar viðbætur í þessu safni hafa gengið undir grunn prófanir, ef þú finnur viðbætur sem eru bilaðar eða virka ekki vinsamlegast látið Kodi teymið vita svo við getum gert eitthvað í málinu.</description>
-		<description lang="it_IT">Scarica ed installa gli add-on dalla libreria ufficiale di Kodi.tv[CR]  Usando la libreria ufficiale avrai il vantaggio di ottenere download più veloci con mirror più vicini alla tua località.[CR]  Tutti gli add-on in questa libreria sono stati sottoposti a test di base, se ne trovi uno non funzionante o corrotto, per favore riporta il problema al team di Kodi così potremmo prendere provvedimenti.</description>
+		<description lang="it_IT">Scarica e installa gli add-on dalla libreria ufficiale di Kodi.tv.[CR]  Usando la libreria ufficiale avrai il vantaggio di ottenere download più veloci con mirror più vicini alla tua località.[CR]  Tutti gli add-on in questa libreria sono stati sottoposti a test di base, se ne trovi uno non funzionante o corrotto, per favore riporta il problema al team di Kodi così potremmo prendere provvedimenti.</description>
 		<description lang="ja_JP">オフィシャルの Kodi.tv リポジトリからアドオンをダウンロードします。[CR]  オフィシャルリポジトリを使うことで、お住まいのエリアに近いミラーサーバーから高速にアドオンをダウンロードすることが可能です。[CR]  このリポジトリ上のアドオンは全て、簡単な動作テストを受けてはいますが、もしアドオンがおかしかったりうまく動作しなかったりした場合は、Kodi チームに連絡をお願いします。</description>
 		<description lang="ko_KR">공식 Kodi.tv 애드온 저장소에서 애드온을 다운로드하여 설치합니다.[CR] 공식 저장소를 사용하면 파일 미러링 서비스를 통해 사용자와 가까운 곳에서 빠르게 다운로드할 수 있습니다.[CR] 저장소의 모든 애드온은 기본 테스트를 거치지만 작동이 되지 않거나 손상된 애드온을 발견하면 필요한 조치를 취할 수 있게 Team-Kodi로 알려주시기 바랍니다.</description>
 		<description lang="lt_LT">Atsisiųskite ir įdiegite priedus iš oficialios Kodi.tv saugyklos.[CR]Naudojantis oficialia saugykla, galėsite pasinaudoti pranašumu mūsų didele failų veidrodinę paslauga.[CR]Taip pat siekiame padėti jums greičiau parsisiųsti priedą iš Jūsų regiono.[CR]Visiems šioje saugykloje saugomiems priedams buvo atliktas testavimas, jei Jūs radote netaisyklingą ir nedarbinį priedą.[CR]Prašome pranešti apie tai Kodi komandai, kad mes galėtume imtis būtinų veiksmų </description>
 		<description lang="lv_LV">Lejupielādējiet un instalējiet pielikumus no oficiālā Kodi.tv pielikumu repozitorija[CR] Izmantojot oficiālo repozitoriju, varēsiet izmantot mūsu plašo spoguļu pakalpojumu, lai iegūtu ātrākas lejupielādes no reģiona, kas vistuvāk.[CR] Visi pielikumi šajā repozitorijā ir izgājuši pamata testēšanu, bet, ja atrodat saplīsušu vai nestrādājošu pielikumu, lūdzu, ziņojiet par to Team-Kodi, lai varam izpildīt nepieciešamās labošanas darbības.</description>
 		<description lang="mk_MK">Превземи и инсталирај Додатоци од официјалниот Kodi.tv склад.[CR] Со користење на официјалниот склад ќе бидете во можност да ги користите предностите на нашата богата датотека со услуги која ви помага да добиете побрзи превземања од регионот блиску до вас.[CR]  Сите Додатоци во овој склад се основно тестирани, ако најдете неисправни или додатоци кои не работат пријавете го тоа на тимот на Kodi така што ќе можеме да превземеме било каква акција што е потребна.</description>
 		<description lang="ms_MY">Muat turun dan pasang tambahan PVR melalui repositori rasmi Kodi.tv[CR]  Dengan menggunakan Repositori rasmi anda dapat perkhidmatan cermin fail yang luas supaya dapat memuat turun lebih pantas menerusi kawasan berhampiran anda.[CR]  Semua tambahan di dalam repositori ini telah lulus pengujian asas, jika anda temui tambahan yang rosak atau tidak berfungsi sila laporkannya kepada Team-Kodi supaya kami boleh membuat tindakan yang sewajarnya.</description>
-		<description lang="nb_NO">Last ned og installer utvidelser fra den offisielle Kodi.tv pakkebrønnen.[CR] Når du benytter den offisielle pakkebrønnen kan du dra nytte av vår omfattende arkivtjeneste slik at du får raskere nedlasting fra en server nær deg.[CR] Alle tillegg i denne brønnen har gått gjennom grunnleggende testing, men hvis du finner et tillegg som ikke fungerer, vennligst rapporter det til Team-Kodi så vi får sett på det.</description>
+		<description lang="mt_MT">Niżżel u nstalla add-ons mir-repożitorju uffiċjali ta Kodi.tv.[CR] Permezz ta' dan ir-ripożitorju uffiċjali tista' tieħu vantaġġ mis-servizz ta' file mirrors estensiv li jgħinek tniżżel l-add-ons iktar malajr minn postijiet li huma ġeografikament qrib tiegħek.[CR] L-Add-ons kollha f'dan ir-repożitorju għaddew minn testijiet bażiċi, f'każ li tinzerta xi add-on miksura jew mhux taħdem jekk jpgħġbok irrportha lil Team-Kodi biex inkunu nistgħu nieħdu l-azzjoni li jkun hemm bżonn.</description>
+		<description lang="nb_NO">Last ned og installer utvidelser fra den offisielle Kodi.tv pakkebrønnen.[CR] Når du benytter den offisielle pakkebrønnen kan du dra nytte av vår omfattende arkivtjeneste slik at du får raskere nedlasting fra en tjener nær deg.[CR] Alle utvidelser i denne brønnen har gått gjennom grunnleggende testing, men hvis du finner en utvidelse som ikke fungerer, vennligst rapporter det til Team-Kodi så vi får sett på det.</description>
 		<description lang="nl_NL">Download en installeer add-ons uit de officiële Kodi.tv add-on depot.[CR] Wanneer u de officiële depot gebruikt beschikt u over onze uitgebreide mirrorservice, waardoor u snel kan downloaden van locaties in uw buurt.[CR] Alle add-ons in dit depot ondergingen standaardtests; indien u een defecte of niet-werkende add-on vindt, meld dit dan aan Team-Kodi zodat zij actie kunnen ondernemen.</description>
 		<description lang="pl_PL">Pobieraj i instaluj dodatki z oficjalnego repozytorium Kodi.tv.[CR] Używając oficjalnego repozytorium korzystasz z serwerów lustrzanych, rozsianych po całym świecie. Wybierany jest ten, który znajduje się najbliżej ciebie, zapewniając dużą prędkość połączenia.[CR]Wszystkie dodatki znajdujące się w tym repozytorium są testowane, ale mogą okazać się niesprawne. Zgłoś wówczas błąd, aby zespół Kodi mógł podjąć odpowiednie działanie.</description>
 		<description lang="pt_BR">Transfira e instale add-ons a partir do repositório oficial do Kodi.tv.[CR]|Ao utilizar o repositório oficial, você será capaz de tirar proveito do nosso serviço de espelhamento de arquivos, auxiliando em downloads mais rápidos a partir de uma região perto de você.[CR]|Todos os add-ons neste repositório passam por testes básicos, se você encontrar algum quebrado ou que não esteja funcionando, por favor reporte para a equipe do Kodi, para que possamos tomar as ações necessárias.</description>
-		<description lang="pt_PT">Transferir e instalar os add-ons do repositório de add-ons Oficiais de Kodi.tv.[CR]Ao utilizar o Repositório oficial, irá beneficiar do nosso serviço de servidores de ficheiro para o ajudar a ter transferências mais rápidas a partir da região mais perto de si.[CR]Todos os Add-ons neste repositório foram alvo de testes básicos. Se encontrar um danificado ou que não funciona, por favor, informe a Equipa do Kodi, para que a situação seja resolva.</description>
+		<description lang="pt_PT">Descarregar e instalar os add-ons do repositório oficial Kodi.tv.[CR]Ao utilizar o repositório oficial, irá beneficiar do nosso serviço de servidores de ficheiro para o ajudar a ter descargas mais rápidas a partir da região mais perto de si.[CR]Todos os add-ons neste repositório foram alvo de testes básicos. Se encontrar um add-on danificado não funcional, informe a equipa do Kodi para que a situação seja resolva.</description>
 		<description lang="ro_RO">Descărcați și instalați suplimente din depozitul de suplimente Kodi.tv oficial.[CR]  Folosind depozitul (repository) oficial puteți beneficia de serviciul nostru de găzduire distribuită pentru a vă ajuta să descărcați mai repede dintr-o regiune mai apropiată de dumneavoastră.[CR]  Toate suplimentele din acest depozit au trecut testele de bază, în caz că găsiți un supliment defect vă rugăm să îl raportați echipei Kodi pentru a lua măsurile necesare.</description>
 		<description lang="ru_RU">Загружайте и устанавливайте обновления из официального репозитория Kodi.tv[CR]Используя официальный репозиторий, вы сможете воспользоваться преимуществами распределенного хранилища для быстрой загрузки файлов с ближайшего к вам сервера.[CR]Все дополнения в данном репозитории прошли тестирование. Если вы обнаружили нерабочее дополнение, сообщите об этом разработчикам Kodi.</description>
 		<description lang="sk_SK">Stiahnuť a nainštalovať rozšírenia z oficiálneho zdroja rozšírení Kodi.tv.[CR] Použitím oficiálneho zdroja získavate možnosť využiť rozsiahly systém zrkadiel, ktorý Vám umožní rýchlejšie sťahovanie z Vám blízkeho regiónu.[CR] Všetky rozšírenia v tomto zdroji boli podrobené základnému testovaniu. Ak nájdete poškodené alebo nefunkčné rozšírenie, oznámte to prosím týmu Kodi aby mohol podľa potreby zakročiť.</description>
 		<description lang="sl_SI">Prenos in namestitev dodatkov iz uradnega skladišča Kodi.tv.[CR] Z uporabo uradnega skladišča, boste lahko izkoristili hitrejšo povezavo, ki bo izbrana glede na vašo lokacijo.[CR] Vsi dodatki tega skladišča so bili osnovno stestirani, če pa boste našli pokvarjen ali nedelujoč dodatek, to sporočite ekipi Kodi, da bomo lahko odpravili napake.</description>
-		<description lang="sr_RS">Преузмите и инсталирајте додатке из Званичног Kodi.tv спремишта додатака.[CR] Коришћењем званичног Спремишта моћићете да искористите предности нашег сервиса копија фајлова који ће вам помоћи приликом бржег преузимања из региона ближег вашој локацији.[CR] Сви додаци у овом спремишту прошли су основно тестирање, у случају да пронађете неисправан додатак молимо вас да то пријавите Kodi тиму који ће затим предузети неопходне мере.</description>
-		<description lang="sr_RS@latin">Preuzmi i instaliraj dodatne programe iz Zvaničnog Kodi.tv spremišta za dodatne programe.[CR] Korišćenjem zvaničnog Spremišta moći ćete da iskoristite prednosti našeg servisa kopija fajlova koji će vam pomoći prilikom bržeg preuzimanja iz regiona bližeg vašoj lokaciji.[CR] Svi dodatni programi u ovom spremištu prošli su osnovno testiranje, u slučaju da pronađete neispravan dodatni program molimo vas da to prijavite Kodi timu koji će zatim preduzeti neophodne mere.</description>
+		<description lang="sr_RS">Преузми и инсталирај додатне програме из Званичног Kodi.tv спремишта за додатне програме.[CR] Коришћењем званичног Спремишта моћи ћете да искористите предности нашег сервиса копија датотека који ће вам помоћи приликом бржег преузимања из региона ближег вашој локацији.[CR] Сви додатни програми у овом спремишту прошли су основно тестирање, у случају да пронађете неисправан додатни програм молимо вас да то пријавите Kodi тиму који ће затим предузети неопходне мере.</description>
+		<description lang="sr_RS@latin">Preuzmi i instaliraj dodatne programe iz Zvaničnog Kodi.tv spremišta za dodatne programe.[CR] Korišćenjem zvaničnog Spremišta moći ćete da iskoristite prednosti našeg servisa kopija datoteka koji će vam pomoći prilikom bržeg preuzimanja iz regiona bližeg vašoj lokaciji.[CR] Svi dodatni programi u ovom spremištu prošli su osnovno testiranje, u slučaju da pronađete neispravan dodatni program molimo vas da to prijavite Kodi timu koji će zatim preduzeti neophodne mere.</description>
 		<description lang="sv_SE">Ladda ner och installera tillägg från det officiella Kodi.tv tilläggsförrådet.[CR]Genom att använda det officiella förrådet kommer du att få fördelen att kunna använda vår omfattande spegeltjänst som kommer att hjälpa dig till snabbare nedladdningar från en plats nära dig.[CR]Alla tillägg i detta förråd har genomgått grundläggande tester. Hittar du ett trasigt eller icke fungerande tillägg, vänligen meddela detta till Team-Kodi så att vi kan vidta nödvändiga åtgärder.</description>
 		<description lang="tg_TJ">Барномаҳои иловагиро аз анбори нармафзори Kodi.tv боргирӣ кунед ва насб намоед.[CR]  Аз истифодаи анбори нармафзори расмии мо ба шумо имконият пайдо мешавад, ки тавонед шароити мусофидро аз хидмати оинаи файлии васеъ ба даст оред ва нармафзори лозимиро аз сервери минтакаи ба шумо наздиктар бо суръати баланд боргирӣ кунед.[CR]  Ҳамаи барномаҳо аз анбори нармафзори мо дар ҳолати санҷишӣ мебошанд, бинобар ин агар ягон барномаи иловагии нуқсондор ё вайроншударо ёбед, лутфан дар бораи он барнома ва нуқсон пайдошуда ба гурӯҳи кории Kodi гузориш диҳед, то ин ки мо тавонем ҳамаи камбудиҳои барномаҳои моро ҳал кунем.</description>
 		<description lang="th_TH">ดาวน์โหลดและติดตั้งส่วนเสริม จากแหล่งข้อมูลโปรแกรมของ Kodi.tv อย่างเป็นทางการ.[CR]  โดยการใช้งานแหล่งข้อมูลโปรแกรมอย่างเป็นทางการ คุณสามารถใช้ประโยชน์จากบริการแฟ้มมิเรอร์ที่กว้างขวางของเรา ที่จะช่วยให้การดาวน์โหลดของคุณเร็วขึ้นจากภูมิภาคที่ใกล้ที่สุด.[CR]  ส่วนเสริม ทั้งหมดในแหล่งเก็บข้อมูลนี้ อยู่ภายใต้การทดสอบขั้นพื้นฐานแล้ว ถ้าคุณพบส่วนเสริมที่เสียหายหรือไม่ทำงาน กรุณาแจ้งทีมงาน Kodi เพื่อให้เราสามารถดำเนินการใด ๆ ที่จำเป็น.</description>
@@ -7205,10 +7559,10 @@ Addons Included
 		<disclaimer lang="es_MX">El equipo de Kodi no hizo todos los add-ons en este repositorio y no es responsable de su contenido</disclaimer>
 		<disclaimer lang="et_EE">Kodi meeskond ei teinud kõiki lisasid selles hoidlas ja ei vastuta ka nende sisu eest.</disclaimer>
 		<disclaimer lang="eu_ES">Kodi taldeak ez ditu biltegi honetako gehigarri guztiak sortu eta ez da beren edukien erantzule.</disclaimer>
-		<disclaimer lang="fa_IR">همه افزونه های این منبع محصول کار تیم کودی نیستند و این تیم مسئولیتی در قبال محتوای آنها ندارد.</disclaimer>
+		<disclaimer lang="fa_IR">همه افزونه های این منبع محصول کار تیم کودی نیستند و این تیم مسئولیتی در قبال محتوای‫ آنها ندارد.</disclaimer>
 		<disclaimer lang="fi_FI">Team-Kodi ei ole tehnyt kaikkia tässä säilössä olevia lisäosia, eikä siten ole vastuullinen kyseisten lisäosien sisällöstä</disclaimer>
 		<disclaimer lang="fr_CA">L'équipe-Kodi n'a pas créé tous les addiciels de ce dépôt et n'est pas responsable de leur contenu</disclaimer>
-		<disclaimer lang="fr_FR">L'Équipe-Kodi n'a pas créé toutes les extensions de ce dépôt et n'est pas responsable de leur contenu</disclaimer>
+		<disclaimer lang="fr_FR">L'Équipe Kodi n'a pas créé toutes les extensions de ce dépôt et n'est pas responsable de leur contenu.</disclaimer>
 		<disclaimer lang="gl_ES">O equipo de Kodi non creou todos os Engadidos deste repositorio e non é responsábel do seu contido</disclaimer>
 		<disclaimer lang="he_IL">צוות הפיתוח של Kodi לא יצר את כל ההרחבות שבמאגר זה ואיננו אחראי על תוכנן</disclaimer>
 		<disclaimer lang="hr_HR">Kodi tim nije autor svih dodataka u ovom repozitoriju te kao takvi ne odgovaraju za njihov sadržaj</disclaimer>
@@ -7217,11 +7571,12 @@ Addons Included
 		<disclaimer lang="is_IS">Kodi teymið gerir ekki allar þessar viðbætur og er ekki ábyrgt fyrir innihaldi þeirra.</disclaimer>
 		<disclaimer lang="it_IT">Il team di Kodi non ha creato tutti gli add-on di questa libreria e non è responsabile per il loro contenuto</disclaimer>
 		<disclaimer lang="ja_JP">Kodi チームが、このリポジトリ上の全アドオンを作ったわけではありません。また、その内容についても責任は負いかねます。</disclaimer>
-		<disclaimer lang="ko_KR">Team-Kodi가 이 저장소의 모든 애드온을 제작한 것은 아니며, 애드온 컨텐츠에 대한 책임이 없습니다.</disclaimer>
+		<disclaimer lang="ko_KR">Team-Kodi가 이 저장소의 모든 애드온을 제작한 것은 아니며, 애드온 콘텐츠에 대한 책임이 없습니다.</disclaimer>
 		<disclaimer lang="lt_LT">Kodi komanda netestavo priedų šioje saugykloje ir neatsako arba nėra atsakinga už jų turinį</disclaimer>
 		<disclaimer lang="lv_LV">Kodi komanda nav izveidojusi visus šīs krātuves pielikumus un nav atbildīga par to saturu</disclaimer>
 		<disclaimer lang="mk_MK">Kodi тимот ги нема направено сите овие додатоци и не е одговорен за нивната содржина</disclaimer>
 		<disclaimer lang="ms_MY">Team-Kodi tidak menghasilkan semua tambahan di dalam repositori ini dan tidak bertanggungjawab keatas kandungannya</disclaimer>
+		<disclaimer lang="mt_MT">Team-Kodi m'għamilx l-add-ons kollha li hawn f'dan ir-repożitorju u mhumiex responsabbli għall-kontenut tagħhom</disclaimer>
 		<disclaimer lang="nb_NO">Team-Kodi har ikke utviklet alle utvidelsene i denne pakkebrønnen og er ikke ansvarlig for deres innhold</disclaimer>
 		<disclaimer lang="nl_NL">Team-Kodi heeft niet alle add-ons in deze depot geschreven en is niet verantwoordelijk voor hun inhoud.</disclaimer>
 		<disclaimer lang="pl_PL">Zespół Kodi nie tworzy wszystkich dodatków i nie bierze odpowiedzialności za ich zawartość</disclaimer>
@@ -7231,7 +7586,7 @@ Addons Included
 		<disclaimer lang="ru_RU">Разработчики Kodi не являются авторами всех дополнений в данном репозитории и не несут ответственность за их содержимое.</disclaimer>
 		<disclaimer lang="sk_SK">Team-Kodi nevytvoril všetky rozšírenia v tomto zdroji nie je zodpovedný za ich obsah</disclaimer>
 		<disclaimer lang="sl_SI">Ekipa Kodi ni naredila vseh dodatkov v tem skladišču in ne odgovarja za njihovo vsebino</disclaimer>
-		<disclaimer lang="sr_RS">Тим Kodi није направио све додатке у овом спремишту и није одговоран за њихов садржај</disclaimer>
+		<disclaimer lang="sr_RS">Тим-Kodi није направио све додатне програме у овом спремишту и није одговоран за њихов садржај</disclaimer>
 		<disclaimer lang="sr_RS@latin">Tim-Kodi nije napravio sve dodatne programe u ovom spremištu i nije odgovoran za njihov sadržaj</disclaimer>
 		<disclaimer lang="sv_SE">Team-Kodi har inte gjort alla tillägg och är inte ansvariga för innehållet i dessa.</disclaimer>
 		<disclaimer lang="tg_TJ">Гурӯҳи кории Kodi дар ин анбори нармафзор соҳиби ҳамаи барномаҳои иловагӣ намебошад ва барои мӯҳтавояшон ҷавобгар намебшад</disclaimer>
@@ -7274,6 +7629,7 @@ Addons Included
 		<summary>TvM XBMC Add-ons</summary>
 		<description>TvM - XBMC Add-ons repository</description>
 		<platform>all</platform>
+		<broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -7322,6 +7678,7 @@ Addons Included
 		<description>Repositorio oficial de XBMCMania, descarga e instala cientos de add-ons en español</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
 	</extension>
 </addon>
 
@@ -8154,7 +8511,7 @@ Addons Included
         <description lang="en">download and install skins from googlecode.repository-butchabay.</description>
         <disclaimer lang="en">no official releases, use at your own risk.</disclaimer>
         <platform>all</platform>
-        <broken>This repository is no longer available, you can find the developers work in the official kodi repo</broken>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
   </extension>
 </addon>
 
@@ -8298,6 +8655,7 @@ Addons Included
 		<platform>all</platform>
 		<noicon>false</noicon>
 		<nofanart>false</nofanart>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
     </extension>
 </addon>
 
@@ -8336,6 +8694,7 @@ Addons Included
     <disclaimer lang="en"></disclaimer>
     <platform>all</platform>
     <nofanart>true</nofanart>
+    <broken>This repo was on the old googlecode server and is no longer available</broken>
   </extension>
 </addon>
 
@@ -8377,20 +8736,20 @@ Addons Included
 </addon>
 
 <addon id="xbmcTR.repo"
-		name="xbmc [COLOR red]T[/COLOR]U[COLOR red]R[/COLOR]K[COLOR red]I[/COLOR]Y[COLOR red]E[/COLOR] Eklenti Deposu"
+		name="Dream [COLOR red]T[/COLOR]U[COLOR red]R[/COLOR]K[COLOR red]I[/COLOR]Y[COLOR red]E[/COLOR] Eklenti Deposu"
 		version="0.0.0.1"
-		provider-name="drascom">
-	<extension point="xbmc.addon.repository" name="drascom Add-on Repository">
+		provider-name="DreamTR Team">
+	<extension point="xbmc.addon.repository" name="DreamTR Team Add-on Repository">
 		<info compressed="false">https://github.com/koditr/xbmc-tr-team-turkish-addons/raw/master/addons.xml</info>
 		<checksum>https://github.com/koditr/xbmc-tr-team-turkish-addons/raw/master/addons.xml.md5</checksum>
 		<datadir zip="true">https://github.com/koditr/xbmc-tr-team-turkish-addons/raw/master/zips</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">Install Add-ons from xbmcTR Add-on Repository</summary>
-		<summary lang="tr">xbmcTR.com sitesindeki Tum Eklentileri burdan yukleyebilirsiniz.</summary>
+		<summary lang="tr">DreamTR.CluB  sitesindeki Tum Eklentileri burdan yukleyebilirsiniz.</summary>
 		<description lang="en">Video plug-ins and Movie info scrapers for XBMC</description>
 		<description lang="tr">XBMC programi icin turkce kaynakli dizi,sinema,belgesel,islami yayinlar ve cok daha fazlasi burada...</description>
-		<disclaimer lang="tr">xbmcTR.com sitesi telif hakki ile korunan hicbir medyayi yayinlamaz.Link vermez.Tum yayinlar muhtelif web sitelerinden alinmaktadir.</disclaimer>
+		<disclaimer lang="tr">DreamTR.CluB sitesi telif hakki ile korunan hicbir medyayi yayinlamaz.Link vermez.Tum yayinlar muhtelif web sitelerinden alinmaktadir.</disclaimer>
 		<platform>all</platform>
 	</extension>
 </addon>

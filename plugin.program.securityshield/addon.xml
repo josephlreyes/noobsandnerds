@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.program.securityshield" name="Security Shield"  provider-name="whufclee" version="1.0.2">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Security Shield</summary>
+	<description>Run this add-on to quickly check your install add-ons and repo's against the noobsandnerds Add-on Portal database. This will quickly check if you have any content installed that's no longer working, considered depreciated or marked as potentially dangerous. Keeping old repositories (and potentially some addons) on your system is huge security flaw in the Kodi system so make sure you check regularly.</description>
+    <platform>all</platform>
+	<genre>devtools, other</genre>
+	<video_guide>HsiXVi-sKxA</video_guide>
+  </extension>
+</addon>

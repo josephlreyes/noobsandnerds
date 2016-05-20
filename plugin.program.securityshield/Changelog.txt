@@ -1,0 +1,8 @@
+v.1.0.3:
+- Added repo check, this will check the kodi log for repo's that couldn't be resolved.
+- Added whitelist - add/remove items to a whitelist, anything in there will be skipped in the scan.
+- Added option to delete items from the quarantine vault.
+- Added option in settings to start as a service, will run scan every 24hrs.
+
+v.1.0.1:
+- Initial release

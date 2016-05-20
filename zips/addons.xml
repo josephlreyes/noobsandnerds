@@ -270,13 +270,14 @@
 	</extension>
 </addon>
 
-<addon id="plugin.program.securityshield" name="Security Shield"  provider-name="whufclee" version="1.0.2">
+<addon id="plugin.program.securityshield" name="Security Shield"  provider-name="whufclee" version="1.0.3">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>executable</provides>
   </extension>
+  <extension point="xbmc.service" library="service.py" start="startup" />
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Security Shield</summary>
 	<description>Run this add-on to quickly check your install add-ons and repo's against the noobsandnerds Add-on Portal database. This will quickly check if you have any content installed that's no longer working, considered depreciated or marked as potentially dangerous. Keeping old repositories (and potentially some addons) on your system is huge security flaw in the Kodi system so make sure you check regularly.</description>
@@ -6115,6 +6116,19 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">Install Sportsaccess Addons</summary>
 		<description lang="en">Download and install addon by Sportsaccess</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="repository.SportsMania" name="SportsMania Repository" version="0.0.0.1" provider-name="SportsMania">
+	<extension point="xbmc.addon.repository" name="MoviesHD Addon Repository">
+		<info compressed="false">http://raw.github.com/Willowsportsmania/SportsMania/master/addons.xml</info>
+		<checksum>http://raw.github.com/Willowsportsmania/SportsMania/master/addons.xml.md5</checksum>
+		<datadir zip="true">http://raw.github.com/Willowsportsmania/SportsMania/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary></summary>
+		<description></description>
 		<platform>all</platform>
 	</extension>
 </addon>

@@ -23,14 +23,13 @@
 #  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 #  http://www.gnu.org/copyleft/gpl.html
 
+##########################################################################################
 # Global imports
 import urllib, urllib2, re, xbmcplugin, xbmcgui, xbmc, xbmcaddon
 import os, sys, shutil, zipfile, time
-
-######################################################
-AddonID='plugin.program.securityshield'
-AddonName='Security Shield'
-######################################################
+##########################################################################################
+AddonID 		=  'plugin.program.securityshield'
+AddonName 		=  'Security Shield'
 ADDON           =  xbmcaddon.Addon(id=AddonID)
 dialog          =  xbmcgui.Dialog()
 dp              =  xbmcgui.DialogProgress()
@@ -39,12 +38,18 @@ PROFILE         =  xbmc.translatePath('special://profile')
 ADDON_DATA      =  os.path.join(PROFILE,'addon_data')
 ADDONS          =  os.path.join(HOME,'addons')
 quarantine_path =  os.path.join(HOME,'quarantine')
+shieldfolder 	=  os.path.join(ADDON_DATA,AddonID)
+whitelistpath 	=  os.path.join(shieldfolder,'whitelist.txt')
 mainfanart      =  os.path.join(ADDONS,AddonID,'Fanart.jpg')
 artpath         =  os.path.join(ADDONS,AddonID,'resources')
 packages        =  os.path.join(ADDONS,'packages')
 temp			=  xbmc.translatePath('special://temp')
 cookies			=  os.path.join(temp,'cookies.dat')
+log_path    	=  xbmc.translatePath('special://logpath/')
+updateicon  	=  os.path.join(artpath,'update.png')
 reloadprofile   =  0
+emptylist 		=  0
+##########################################################################################
 # Create arrays for our final results
 versionupdate   =   []
 blocked         =   []
@@ -53,84 +58,91 @@ unconfirmed     =   []
 unknown         =   []
 existing        =   []
 q_list          =   []
+wl_array  		= 	[]
+wl_add	  		= 	[]
 ##########################################################################################
-# Grab a list of all the content instsalled in our Kodi addons folder
-def grab_installed():
-    locallist = []
-    xbmc.executebuiltin("ActivateWindow(busydialog)")
-    for name in os.listdir(ADDONS):
-# copy all the repo's to repopath folder in userdata and zip up with version number
-        if not 'packages' in name and not 'cygpfi' in name:
-            currentpath =   os.path.join(ADDONS,name)
-            currentfile =   os.path.join(currentpath,'addon.xml')
-            
-            if os.path.exists(currentfile):
-                readfile    = open(currentfile, mode='r')
-                content     = readfile.read()
-                readfile.close()
-
-# find version number, there are 2 version tags in the addon.xml, we need the second one.
-                localmatch          = re.compile('<addon[\s\S]*?">').findall(content)
-                localcontentmatch   = localmatch[0] if (len(localmatch) > 0) else 'None'
-                localversion        = re.compile('version="(.+?)"').findall(localcontentmatch)
-                localversionmatch   = localversion[0] if (len(localversion) > 0) else '0'
-
-# pull the name and id of add-on
-                idmatch     = re.compile('id="(.+?)"').findall(localcontentmatch)
-                addonid     = idmatch[0] if (len(idmatch) > 0) else ''
-                namematch   = re.compile(' name="(.+?)"').findall(localcontentmatch)
-                addonname   = namematch[0] if (len(namematch) > 0) else addonid
-
-# Add to the array of locally installed add-ons
-                locallist.append([addonid,localversionmatch,addonname,currentpath])
-                srcomments = 'Although we\'re fairly certain the author of SR meant no harm and was only trying to help the community there is a huge flaw in the way it works. Efforts have been made to improve the system but there are still some issues. Content is re-uploaded and has conflicted with the original developers versions on a number of occasions. This has resulted in certain addons breaking because the version number on SR is wrong (and higher) than the official version, so even though if you install from the real developers repo but you have SR installed you may still encounter problems trying to get the real version installed.'
-                if 'superrepo' in addonid:
-                    blocked.append([name,addonid,localversionmatch,srcomments,currentpath])
-    xbmc.executebuiltin("Dialog.Close(busydialog)")
-    return locallist
-##########################################################################################
-# Create a standard text box
-def Text_Boxes(heading,anounce):
-  class TextBox():
-    WINDOW=10147
-    CONTROL_LABEL=1
-    CONTROL_TEXTBOX=5
-    def __init__(self,*args,**kwargs):
-      xbmc.executebuiltin("ActivateWindow(%d)" % (self.WINDOW, )) # activate the text viewer window
-      self.win=xbmcgui.Window(self.WINDOW) # get window
-      xbmc.sleep(500) # give window time to initialize
-      self.setControls()
-    def setControls(self):
-      self.win.getControl(self.CONTROL_LABEL).setLabel(heading) # set heading
-      try:
-        f=open(anounce); text=f.read()
-      except:
-        text=anounce
-      self.win.getControl(self.CONTROL_TEXTBOX).setText(str(text))
-      return
-  TextBox()
-  while xbmc.getCondVisibility('Window.IsVisible(10147)'):
-      xbmc.sleep(500)
-##########################################################################################
-# Grab contents of a web page
-def Open_URL(url, t):
-    req = urllib2.Request(url)
-    req.add_header('User-Agent' , 'Mozilla/5.0 (Windows; U; Windows NT 10.0; WOW64; Windows NT 5.1; en-GB; rv:1.9.0.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36 Gecko/2008092417 Firefox/3.0.3')
-    counter = 0
-    success = False
-    while counter < 5 and success == False: 
-        response    =   urllib2.urlopen(req, timeout = t)
-        link        =   response.read()
-        response.close()
-        counter += 1
-        if link != '':
-            success = True
-    if success == True:
-        return link.replace('\r','').replace('\n','').replace('\t','')
+# Grab contents of whitelist, check it exists and is populated
+if os.path.exists(whitelistpath):
+    readfile = open(whitelistpath,'r')
+    content  = readfile.read()
+    readfile.close()
+    if content == '':
+        emptylist = 1
     else:
-        dialog.ok('Unable to contact server','There was a problem trying to access the server, please try again later.')
-        return
+        wl_array = content.split('|')
+        wl_array = wl_array[:-1]
 ##########################################################################################
+# Populate the quarantine array
+if os.path.exists(quarantine_path):
+    for name in os.listdir(quarantine_path):
+        if os.path.exists(os.path.join(quarantine_path,name,'addon.xml')):
+            q_list.append(name)
+##########################################################################################
+# Create the directories required on first run
+if not os.path.exists(packages):
+    os.makedirs(packages)
+
+if not os.path.exists(shieldfolder):
+    os.makedirs(shieldfolder)
+##########################################################################################
+# Dialog showing percentage of download complete and ETA  
+def _pbhook(numblocks, blocksize, filesize, dp, start_time):
+    try: 
+        percent = min(numblocks * blocksize * 100 / filesize, 100) 
+        currently_downloaded = float(numblocks) * blocksize / (1024 * 1024) 
+        kbps_speed = numblocks * blocksize / (time.time() - start_time) 
+        if kbps_speed > 0: 
+            eta = (filesize - numblocks * blocksize) / kbps_speed 
+        else: 
+            eta = 0 
+        kbps_speed = kbps_speed / 1024 
+        total = float(filesize) / (1024 * 1024) 
+        mbs = '%.02f MB of %.02f MB' % (currently_downloaded, total) 
+        e = 'Speed: %.02f Kb/s ' % kbps_speed 
+        e += 'ETA: %02d:%02d' % divmod(eta, 60) 
+        dp.update(percent, mbs, e)
+    except: 
+        percent = 100 
+        dp.update(percent) 
+    if dp.iscanceled(): 
+        dp.close()
+##########################################################################################
+# Add a directory, can either be a folder type or standalone using the first param as "folder" for folder
+def addDir(type,name,url,mode,iconimage = '',fanart = '',video = '',description = ''):    
+    if fanart == '':
+        fanart = mainfanart
+
+    if iconimage == '':
+        iconimage = os.path.join(ADDONS,AddonID,'icon.png')
+    elif not os.path.exists(os.path.join(artpath,iconimage)):
+        iconimage = os.path.join(ADDONS,AddonID,'icon.png')
+    else:
+        iconimage = os.path.join(artpath,iconimage)
+
+    u   = sys.argv[0]
+    u += "?url="            +urllib.quote_plus(url)
+    u += "&mode="           +str(mode)
+    u += "&name="           +urllib.quote_plus(name)
+    u += "&iconimage="      +urllib.quote_plus(iconimage)
+    u += "&fanart="         +urllib.quote_plus(fanart)
+    u += "&video="          +urllib.quote_plus(video)
+    u += "&description="    +urllib.quote_plus(description)
+        
+    ok  = True
+    liz = xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+    
+    liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
+    liz.setProperty( "Fanart_Image", fanart )
+    liz.setProperty( "Build.Video", video )
+    
+    if 'folder' in type:
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+    
+    else:
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+    
+    return ok
+##########################################################################################    
 def check_content(localmaster, onlinemaster):
 # Loop through each item in our local array and check against online array
     xbmc.executebuiltin("ActivateWindow(busydialog)")
@@ -254,6 +266,130 @@ def clean_text_box(textlist):
         block += '[CR]'
     return block
 ##########################################################################################
+# Permanently delete items from the quarantine vault
+def delete_quarantine():
+    if os.path.exists(quarantine_path) and len(q_list)>0:
+	    choice  = dialog.yesno('Quarantine Vault','Would you like to completely wipe everything in your quarantine vault or do you want to select individual items?',yeslabel='WIPE EVERYTHING', nolabel = 'SELECT')
+	    if choice:
+	        choice = dialog.yesno('ARE YOU CERTAIN!', 'This will fully delete everything in your quarantine folder. There\'s no getting these items back, once they\'re gone they\'re gone! Are you sure you want to purge the whole vault?')
+	        if choice:
+	            try:
+	                shutil.rmtree(quarantine_path)
+	                dialog.ok('SUCCESS','Your quarantine folder has now been purged.')
+	            except:
+	        	    dialog.ok('FAILED', 'Sorry something on the system is not allowing the removal of these items, please manually delete from the quarantine folder.')
+
+	    else:
+	        choice  = dialog.select('CHOOSE ITEM TO DELETE',q_list)
+	        choice2 = dialog.yesno('ARE YOU CERTAIN!', 'This will fully remove [COLOR=dodgerblue]'+q_list[choice]+'[/COLOR] from you system. There is no getting this item back, once it\'s gone it\'s gone! Are you sure you want to delete it?')
+	        if choice2:
+	            try:
+	                shutil.rmtree(os.path.join(quarantine_path,q_list[choice]))
+	                dialog.ok('SUCCESS','This item has now successfully been deleted from your system')
+	            except:
+	        	    dialog.ok('FAILED', 'Sorry something is not allowing the removal of this item, please manually delete from the quarantine folder.')
+    else:
+        dialog.ok('NOTHING TO DELETE','You have nothing in your quarantine vault to delete.')
+##########################################################################################
+# Download items with progress bar
+def download(url, dest):
+    dp = xbmcgui.DialogProgress()
+    dp.create("Status...","Downloading Content",' ', ' ')
+    dp.update(0)
+    start_time=time.time()
+    urllib.urlretrieve(url, dest, lambda nb, bs, fs: _pbhook(nb, bs, fs, dp, start_time))
+##########################################################################################
+# Get params and clean up into string or integer
+def Get_Params():
+        param=[]
+        paramstring=sys.argv[2]
+        if len(paramstring)>=2:
+                params=sys.argv[2]
+                cleanedparams=params.replace('?','')
+                if (params[len(params)-1]=='/'):
+                        params=params[0:len(params)-2]
+                pairsofparams=cleanedparams.split('&')
+                param={}
+                for i in range(len(pairsofparams)):
+                        splitparams={}
+                        splitparams=pairsofparams[i].split('=')
+                        if (len(splitparams))==2:
+                                param[splitparams[0]]=splitparams[1]
+                                
+        return param
+##########################################################################################
+# Grab a list of all the content instsalled in our Kodi addons folder
+def grab_installed():
+    locallist = []
+    xbmc.executebuiltin("ActivateWindow(busydialog)")
+    for name in os.listdir(ADDONS):
+# copy all the repo's to repopath folder in userdata and zip up with version number
+        if not 'packages' in name and not 'cygpfi' in name and name not in wl_array:
+            currentpath =   os.path.join(ADDONS,name)
+            currentfile =   os.path.join(currentpath,'addon.xml')
+            
+            if os.path.exists(currentfile):
+                readfile    = open(currentfile, mode='r')
+                content     = readfile.read()
+                readfile.close()
+
+# find version number, there are 2 version tags in the addon.xml, we need the second one.
+                localmatch          = re.compile('<addon[\s\S]*?">').findall(content)
+                localcontentmatch   = localmatch[0] if (len(localmatch) > 0) else 'None'
+                localversion        = re.compile('version="(.+?)"').findall(localcontentmatch)
+                localversionmatch   = localversion[0] if (len(localversion) > 0) else '0'
+
+# pull the name and id of add-on
+                idmatch     = re.compile('id="(.+?)"').findall(localcontentmatch)
+                addonid     = idmatch[0] if (len(idmatch) > 0) else ''
+                namematch   = re.compile(' name="(.+?)"').findall(localcontentmatch)
+                addonname   = namematch[0] if (len(namematch) > 0) else addonid
+
+# Add to the array of locally installed add-ons
+                locallist.append([addonid,localversionmatch,addonname,currentpath])
+                srcomments = 'Although we\'re fairly certain the author of SR meant no harm and was only trying to help the community there is a huge flaw in the way it works. Efforts have been made to improve the system but there are still some issues. Content is re-uploaded and has conflicted with the original developers versions on a number of occasions. This has resulted in certain addons breaking because the version number on SR is wrong (and higher) than the official version, so even though if you install from the real developers repo but you have SR installed you may still encounter problems trying to get the real version installed.'
+                if 'superrepo' in addonid:
+                    blocked.append([name,addonid,localversionmatch,srcomments,currentpath])
+    xbmc.executebuiltin("Dialog.Close(busydialog)")
+    return locallist
+##########################################################################################
+# Find out what version of Kodi is running and return the correct log path
+def log_check():
+    if os.path.exists(os.path.join(log_path,'xbmc.log')):
+        log_path_new = os.path.join(log_path,'xbmc.log')
+    elif os.path.exists(os.path.join(log_path,'kodi.log')):
+        log_path_new = os.path.join(log_path,'kodi.log')
+    elif os.path.exists(os.path.join(log_path,'spmc.log')):
+        log_path_new = os.path.join(log_path,'spmc.log')
+    elif os.path.exists(os.path.join(log_path,'tvmc.log')):
+        log_path_new = os.path.join(log_path,'tvmc.log')
+    try:
+        localfile = open(log_path_new, mode='r')
+        content   = localfile.read()
+        localfile.close()
+        return content
+    except:
+        return False
+##########################################################################################
+# Grab contents of a web page
+def Open_URL(url, t):
+    req = urllib2.Request(url)
+    req.add_header('User-Agent' , 'Mozilla/5.0 (Windows; U; Windows NT 10.0; WOW64; Windows NT 5.1; en-GB; rv:1.9.0.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36 Gecko/2008092417 Firefox/3.0.3')
+    counter = 0
+    success = False
+    while counter < 5 and success == False: 
+        response    =   urllib2.urlopen(req, timeout = t)
+        link        =   response.read()
+        response.close()
+        counter += 1
+        if link != '':
+            success = True
+    if success == True:
+        return link.replace('\r','').replace('\n','').replace('\t','')
+    else:
+        dialog.ok('Unable to contact server','There was a problem trying to access the server, please try again later.')
+        return
+##########################################################################################
 # quarantine add-ons in the list
 def quarantine(mode,addonarray):
     global reloadprofile
@@ -276,91 +412,70 @@ def quarantine(mode,addonarray):
                     except:
                         dialog.ok('FAILED TO REMOVE', 'It was not possible to remove [COLOR=dodgerblue]'+item[0]+'[/COLOR]. You will have to manually remove this, you\'ll most likely need to quit Kodi to do this.')
 ##########################################################################################
-# Extract a zip with progre
-def download(url, dest):
-    dp = xbmcgui.DialogProgress()
-    dp.create("Status...","Downloading Content",' ', ' ')
-    dp.update(0)
-    start_time=time.time()
-    urllib.urlretrieve(url, dest, lambda nb, bs, fs: _pbhook(nb, bs, fs, dp, start_time))
+# quarantine any repos failing to resolve
+def quarantine_unresolved(addonarray):
+    global reloadprofile
+    for item in addonarray:
+        choice = dialog.yesno(item,'Would you like to quarantine[COLOR=dodgerblue]',item+'[/COLOR]', nolabel='no', yeslabel='yes')
+        addonpath = os.path.join(ADDONS,item)
+        if choice:
+            try:
+                os.rename(addonpath, addonpath.replace('addons'+os.sep,'quarantine'+os.sep))
+                reloadprofile = 1
+            except:
+                choice = dialog.yesno('FAILED', 'It was not possible to move [COLOR=dodgerblue]'+item+'[/COLOR]. It may be running as a service possibly slowing down your device, would you like to try and remove it completely?')
+                if choice:
+                    try:
+                        shutil.rmtree(item)
+                        reloadprofile = 1
+                    except:
+                        dialog.ok('FAILED TO REMOVE', 'It was not possible to remove [COLOR=dodgerblue]'+item+'[/COLOR]. You will have to manually remove this, you\'ll most likely need to quit Kodi to do this.')
 ##########################################################################################
-# Dialog showing percentage of download complete and ETA  
-def _pbhook(numblocks, blocksize, filesize, dp, start_time):
-    try: 
-        percent = min(numblocks * blocksize * 100 / filesize, 100) 
-        currently_downloaded = float(numblocks) * blocksize / (1024 * 1024) 
-        kbps_speed = numblocks * blocksize / (time.time() - start_time) 
-        if kbps_speed > 0: 
-            eta = (filesize - numblocks * blocksize) / kbps_speed 
-        else: 
-            eta = 0 
-        kbps_speed = kbps_speed / 1024 
-        total = float(filesize) / (1024 * 1024) 
-        mbs = '%.02f MB of %.02f MB' % (currently_downloaded, total) 
-        e = 'Speed: %.02f Kb/s ' % kbps_speed 
-        e += 'ETA: %02d:%02d' % divmod(eta, 60) 
-        dp.update(percent, mbs, e)
-    except: 
-        percent = 100 
-        dp.update(percent) 
-    if dp.iscanceled(): 
-        dp.close()
-##########################################################################################
-# Loop through the list of add-ons that require updating and check the correct repo is installed
-def update_items(versionupdate, existing):
-    for item in versionupdate:
-        if not item[4] in existing:
-            choice = dialog.yesno(item[0],'The Add-on Portal is showing this as being available on the following repository: [COLOR=dodgerblue]'+item[4],'[/COLOR]Would you like to install this repo so you can update?')
+# Check log for installed repo that fail to pull updates
+def repo_check():
+    xbmc.log('#### STARTED REPO CHECK ####')
+    xbmc.executebuiltin("ActivateWindow(busydialog)")
+    xbmc.executebuiltin('UpdateAddonRepos')
+    finallist	= []
+    repocount   = 0
+    logcontents = log_check()
+    if logcontents:
+# Count how many repos are installed, it takes 1 second per repo to print details to log
+        for name in os.listdir(ADDONS):
+            if 'repo' in name:
+                repocount +=1
+# Add a sleep so the log has had enough time to fill with data
+        xbmc.executebuiltin("XBMC.Notification(PLEASE WAIT,Scanning "+str(repocount)+" repositories,10000,"+updateicon+")")
+        if repocount > 120:
+            time.sleep(120)
+        else:
+            time.sleep(repocount+10)
+# Check log again after we've waited for repos to update
+        logcontents = log_check()
+        errorlinematch  = re.compile('CRepositoryUpdateJob(.+?)failed', re.DOTALL).findall(logcontents)
+        for item in errorlinematch:
+            brokenrepo = item.replace('[','').replace(']','').replace(' ','').replace('/','').replace('\\','')
+            if not brokenrepo in finallist:
+                finallist.append(brokenrepo)
+        xbmc.executebuiltin("Dialog.Close(busydialog)")
+        if len(finallist) > 0:
+            repolist = ''
+            for name in finallist:
+                repolist += name+'[CR]'
+
+            Text_Boxes('PROBLEM REPOSITORIES DETECTED', '[COLOR=gold]About: [/COLOR]During the scan Kodi was unable to gather data from the repositories listed below. The most common cause for this is the developer pulling their repo or moving it and failing '
+                'to put a correct redirect in place. We recommend doing a full scan using this add-on to see if there are any known issues with any of these repo\'s and if that comes up blank have a search on the web to see if '
+                'there are any known issues.[CR][CR][COLOR=gold]What to do: [/COLOR]This list is gathered using your logfile in Kodi, it has nothing to do with community driven lists so is completely accurate. Kodi was unable to read the repository files on the web, '
+                'that could mean you have an error with your setup (internet connection problems or ISP blocking) but more than likely there is a problem with the actual repository file online. It may just be a temporary glitch and the '
+                'developer may well fix it in time. If you want you can leave these repo\'s on your system and give it a few days to see if they come back online or you could temporarily put them in quarantine.[CR][CR][COLOR=dodgerblue]Repositories Failing To Resolve:[/COLOR][CR]'+repolist)
+            choice = dialog.yesno('Quarantine Items','Would you like to quarantine any of these items?')
             if choice:
-#                try:
-                    download('https://github.com/noobsandnerds/noobsandnerds/blob/master/zips/'+item[4]+'/'+item[4]+'-0.0.0.1.zip?raw=true',os.path.join(packages,item[4]+'.zip'))
-                    zin = zipfile.ZipFile(os.path.join(packages,item[4]+'.zip'), 'r')
-                    zin.extractall(ADDONS)
-                    existing.append(item[4])
- #               except:
-  #                  dialog.ok('FAILED TO INSTALL','Sorry there was a problem trying to install this repository, please try searching on the web for an update. If you find one please update the team at noobsandnerds.com so they can update the portal details. Thank you.')
-    xbmc.executebuiltin( 'UpdateLocalAddons' )
-    xbmc.executebuiltin( 'UpdateAddonRepos' )
-    dialog.ok ('Updated Pushed', 'The command to check for updates has been sent, take a look in the following window to make sure no new updates are available, if they are you may want to update.')
-    xbmc.executebuiltin('ActivateWindow(10040,"addons://",return)')
+                quarantine_unresolved(finallist)
+        else:
+            dialog.ok('Looking good','Great news, all the repositories on your system appear to be functioning correctly.')
+    else:
+        dialog.ok('Unsupported System','Sorry it looks as though you may be running an unsupported version of Kodi. This function currently only supports XBMC, Kodi, SPMC and TVMC')
 ##########################################################################################
-def addDir(type,name,url,mode,iconimage = '',fanart = '',video = '',description = ''):    
-    if fanart == '':
-        fanart = mainfanart
-
-    if iconimage == '':
-        iconimage = os.path.join(ADDONS,AddonID,'icon.png')
-    elif not os.path.exists(os.path.join(artpath,iconimage)):
-        iconimage = os.path.join(ADDONS,AddonID,'icon.png')
-    else:
-        iconimage = os.path.join(artpath,iconimage)
-
-    u   = sys.argv[0]
-    u += "?url="            +urllib.quote_plus(url)
-    u += "&mode="           +str(mode)
-    u += "&name="           +urllib.quote_plus(name)
-    u += "&iconimage="      +urllib.quote_plus(iconimage)
-    u += "&fanart="         +urllib.quote_plus(fanart)
-    u += "&video="          +urllib.quote_plus(video)
-    u += "&description="    +urllib.quote_plus(description)
-        
-    ok  = True
-    liz = xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-    
-    liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
-    liz.setProperty( "Fanart_Image", fanart )
-    liz.setProperty( "Build.Video", video )
-    xbmc.log('### icon path: '+iconimage)
-    xbmc.log('### fanart path: '+fanart)
-    
-    if 'folder' in type:
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
-    
-    else:
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
-    
-    return ok
-##########################################################################################    
 # Initial start routine, add the menu structure
 def restore():
     global reloadprofile
@@ -385,40 +500,7 @@ def restore():
     if qlist_fail != '':
          Text_Boxes('UNABLE TO RESTORE','The items listed below could not be restored. The most likely cause for this is the user attempting to reinstall via other means. Please remove any instance of these items from your addons folder and run this function again.[CR][CR]')
 ##########################################################################################    
-# Initial start routine, add the menu structure
-def start():
-    addDir('','Scan my system','','startscan','scan.png','','','')
-    addDir('','Show add-ons running a service','','services','service.png','','','')
-    if len(q_list) > 0:
-        addDir('','Restore quarantined items','','restore','restore.png','','','')
-##########################################################################################
-# Start the scan of repo's
-def startscan():
-    onlinemaster    =   []
-    localmaster     =   grab_installed()
-    onlineraw       =   Open_URL('http://noobsandnerds.com/TI/AddonPortal/brokenlist.php',10).replace('], ]',']]')
-    onlinemaster    =   eval(str(onlineraw))
-    check_content(localmaster, onlinemaster)
-##########################################################################################
-# Get params and clean up into string or integer
-def Get_Params():
-        param=[]
-        paramstring=sys.argv[2]
-        if len(paramstring)>=2:
-                params=sys.argv[2]
-                cleanedparams=params.replace('?','')
-                if (params[len(params)-1]=='/'):
-                        params=params[0:len(params)-2]
-                pairsofparams=cleanedparams.split('&')
-                param={}
-                for i in range(len(pairsofparams)):
-                        splitparams={}
-                        splitparams=pairsofparams[i].split('=')
-                        if (len(splitparams))==2:
-                                param[splitparams[0]]=splitparams[1]
-                                
-        return param
-##########################################################################################
+# Check which add-ons are running as services
 def services():
     xbmc.executebuiltin("ActivateWindow(busydialog)")
     servicelist = ''
@@ -439,13 +521,102 @@ def services():
          Text_Boxes('SERVICES FOUND','The following items are coded to run some sort of service in the background. Whilst there are many legitimate reasons for running services (such as automated maintenance tasks) they can also be used for more dubious means such as data gathering or running malicious code. Even if the author has perfectly good intentions a badly written service can be the cause of many problems within Kodi ranging from slowdowns to inability to play certain content. '
          	'As mentioned there are plenty of legitimate reasons to add a service to an add-on but take a look at the list below and if you see any that don\'t seem to warrant having a service running contact the developer of that add-on so they can explain why it\'s there. The chances are there is a perfectly good reason but it\'s always better to be safe than sorry.[CR][CR]'+servicelist)
 ##########################################################################################
+# Initial start routine, add the menu structure
+def start():
+    addDir('','Scan my system','','startscan','scan.png','','','')
+    addDir('','Show my repos that are failing','','repo_check','repo_check.png','','','')
+    addDir('','Show add-ons running a service','','services','service.png','','','')
+    addDir('','Add/Remove whitelist items','','whitelist','whitelist.png','','','')
+    if len(q_list) > 0:
+        addDir('','Restore quarantined items','','restore','restore.png','','','')
+        addDir('','Delete from quarantine vault','','delete_quarantine','restore.png','','','')
+##########################################################################################
+# Start the scan of repo's
+def startscan():
+    onlinemaster    =   []
+    localmaster     =   grab_installed()
+    onlineraw       =   Open_URL('http://noobsandnerds.com/TI/AddonPortal/brokenlist.php',10).replace('], ]',']]')
+    onlinemaster    =   eval(str(onlineraw))
+    check_content(localmaster, onlinemaster)
+##########################################################################################
+# Create a standard text box
+def Text_Boxes(heading,anounce):
+  class TextBox():
+    WINDOW=10147
+    CONTROL_LABEL=1
+    CONTROL_TEXTBOX=5
+    def __init__(self,*args,**kwargs):
+      xbmc.executebuiltin("ActivateWindow(%d)" % (self.WINDOW, )) # activate the text viewer window
+      self.win=xbmcgui.Window(self.WINDOW) # get window
+      xbmc.sleep(500) # give window time to initialize
+      self.setControls()
+    def setControls(self):
+      self.win.getControl(self.CONTROL_LABEL).setLabel(heading) # set heading
+      try:
+        f=open(anounce); text=f.read()
+      except:
+        text=anounce
+      self.win.getControl(self.CONTROL_TEXTBOX).setText(str(text))
+      return
+  TextBox()
+  while xbmc.getCondVisibility('Window.IsVisible(10147)'):
+      xbmc.sleep(500)
+##########################################################################################
+# Loop through the list of add-ons that require updating and check the correct repo is installed
+def update_items(versionupdate, existing):
+    for item in versionupdate:
+        if not item[4] in existing:
+            choice = dialog.yesno(item[0],'The Add-on Portal is showing this as being available on the following repository: [COLOR=dodgerblue]'+item[4],'[/COLOR]Would you like to install this repo so you can update?')
+            if choice:
+                try:
+                    download('https://github.com/noobsandnerds/noobsandnerds/blob/master/zips/'+item[4]+'/'+item[4]+'-0.0.0.1.zip?raw=true',os.path.join(packages,item[4]+'.zip'))
+                    zin = zipfile.ZipFile(os.path.join(packages,item[4]+'.zip'), 'r')
+                    zin.extractall(ADDONS)
+                    existing.append(item[4])
+                except:
+                    dialog.ok('FAILED TO INSTALL','Sorry there was a problem trying to install this repository, please try searching on the web for an update. If you find one please update the team at noobsandnerds.com so they can update the portal details. Thank you.')
+    xbmc.executebuiltin( 'UpdateLocalAddons' )
+    xbmc.executebuiltin( 'UpdateAddonRepos' )
+    dialog.ok ('Updated Pushed', 'The command to check for updates has been sent, take a look in the following window to make sure no new updates are available, if they are you may want to update.')
+    xbmc.executebuiltin('ActivateWindow(10040,"addons://",return)')
+##########################################################################################
+# Add/Remove items in the whitelist
+def whitelist():
+    choice = dialog.yesno('Whitelist','You can add any items in your addons directory to the whitelist so they are ignored on future scans.','Would you like to add or remove items?', yeslabel='Remove', nolabel='Add')
+    if choice:
+        if not os.path.exists(whitelistpath) or emptylist == 1:
+            dialog.ok('Empty List','Nothing to see here...','You don\'t have any items whitelisted yet')
+        else:
+            choice = dialog.select('CURRENT WHITELIST',wl_array)
+            with open(whitelistpath, "r+") as writefile:
+                content = writefile.read()
+                writefile.seek(0)
+                writefile.write(content.replace(wl_array[choice]+'|',''))
+                writefile.truncate()
+
+    else:
+    	for name in os.listdir(ADDONS):
+    		if name not in wl_array:
+    			wl_add.append(name)
+        choice = dialog.select('CHOOSE FOLDER TO WHITELIST',wl_add)
+        writefile = open(whitelistpath,'a')
+        writefile.write(wl_add[choice]+'|')
+        writefile.close()
+##########################################################################################
+# Main add-on starts here
+if sys.argv[1]=='silent':
+    while xbmc.Player().isPlaying():
+        xbmc.sleep(5000)
+    mode = 'startscan'
+else:
+    mode=None
+
 description=None
 iconimage=None
-mode=None
 url=None
 video=None
-params=Get_Params()
-
+if sys.argv[1] != 'silent':
+    params=Get_Params()
 try:
     description=urllib.unquote_plus(params["description"])
 except:
@@ -467,19 +638,13 @@ try:
 except:
     pass
 
-if os.path.exists(quarantine_path):
-    for name in os.listdir(quarantine_path):
-        xbmc.log(name)
-        if os.path.exists(os.path.join(quarantine_path,name,'addon.xml')):
-            q_list.append(name)
-
-if not os.path.exists(packages):
-    os.makedirs(packages)
-
-if mode     ==  None        : start()
-elif mode   ==  'restore'   : restore()
-elif mode   ==  'startscan' : startscan()
-elif mode   ==  'services'  : services()
+if mode     ==  None        		: start()
+elif mode   ==  'delete_quarantine' : delete_quarantine()
+elif mode   ==  'repo_check'   		: repo_check()
+elif mode   ==  'restore'   		: restore()
+elif mode   ==  'services'  		: services()
+elif mode   ==  'startscan' 		: startscan()
+elif mode   ==  'whitelist' 		: whitelist()
 
 # If anything has been quarantined we need to reload the profile so the addons db updates.
 if reloadprofile:
@@ -490,7 +655,8 @@ if reloadprofile:
             try:
                 os.remove(cookies)
             except:
-                dialog.ok('Failed to remove cached data','If you still see your quarantined add-ons when navigating through Kodi you may need to delete your cache folder manually.')
+                pass
     xbmc.executebuiltin("LoadProfile(Master user,)")
 
-xbmcplugin.endOfDirectory(int(sys.argv[1]))
+if sys.argv[1]!='silent':
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))

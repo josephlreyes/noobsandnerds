@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<setting id="runservice" type="bool" label="Automatically run scan every 24hrs" default="false"/>
+</settings>

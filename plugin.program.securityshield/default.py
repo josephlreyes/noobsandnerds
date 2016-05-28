@@ -26,29 +26,38 @@
 ##########################################################################################
 # Global imports
 import urllib, urllib2, re, xbmcplugin, xbmcgui, xbmc, xbmcaddon
-import os, sys, shutil, zipfile, time
+import os, sys, shutil, zipfile, time, unicodedata, fnmatch, base64
+import pyxbmct.addonwindow as pyxbmct
 ##########################################################################################
-AddonID 		=  'plugin.program.securityshield'
-AddonName 		=  'Security Shield'
+AddonID         =  'plugin.program.securityshield'
+AddonName       =  'Security Shield'
 ADDON           =  xbmcaddon.Addon(id=AddonID)
 dialog          =  xbmcgui.Dialog()
 dp              =  xbmcgui.DialogProgress()
 HOME            =  xbmc.translatePath('special://home')
 PROFILE         =  xbmc.translatePath('special://profile')
+USERDATA        =  xbmc.translatePath('special://userdata')
 ADDON_DATA      =  os.path.join(PROFILE,'addon_data')
 ADDONS          =  os.path.join(HOME,'addons')
 quarantine_path =  os.path.join(HOME,'quarantine')
-shieldfolder 	=  os.path.join(ADDON_DATA,AddonID)
-whitelistpath 	=  os.path.join(shieldfolder,'whitelist.txt')
+shieldfolder    =  os.path.join(ADDON_DATA,AddonID)
+whitelistpath   =  os.path.join(shieldfolder,'whitelist.txt')
 mainfanart      =  os.path.join(ADDONS,AddonID,'Fanart.jpg')
+mainicon        =  os.path.join(ADDONS,AddonID,'icon.png')
 artpath         =  os.path.join(ADDONS,AddonID,'resources')
+checkicon       =  os.path.join(artpath,'check.png')
 packages        =  os.path.join(ADDONS,'packages')
-temp			=  xbmc.translatePath('special://temp')
-cookies			=  os.path.join(temp,'cookies.dat')
-log_path    	=  xbmc.translatePath('special://logpath/')
-updateicon  	=  os.path.join(artpath,'update.png')
+temp            =  xbmc.translatePath('special://temp')
+cookies         =  os.path.join(temp,'cookies.dat')
+log_path        =  xbmc.translatePath('special://logpath/')
+updateicon      =  os.path.join(artpath,'update.png')
+dialog_bg       =  os.path.join(artpath,'background.png')
+black           =  os.path.join(artpath,'black.png')
+kodiv           =  float(xbmc.getInfoLabel("System.BuildVersion")[:4])
 reloadprofile   =  0
-emptylist 		=  0
+emptylist       =  0
+ACTION_MOVE_UP   = 3
+ACTION_MOVE_DOWN = 4
 ##########################################################################################
 # Create arrays for our final results
 versionupdate   =   []
@@ -58,19 +67,10 @@ unconfirmed     =   []
 unknown         =   []
 existing        =   []
 q_list          =   []
-wl_array  		= 	[]
-wl_add	  		= 	[]
-##########################################################################################
-# Grab contents of whitelist, check it exists and is populated
-if os.path.exists(whitelistpath):
-    readfile = open(whitelistpath,'r')
-    content  = readfile.read()
-    readfile.close()
-    if content == '':
-        emptylist = 1
-    else:
-        wl_array = content.split('|')
-        wl_array = wl_array[:-1]
+wl_array        =   []
+wl_desc         =   []
+wl_images       =   []
+wl_add          =   []
 ##########################################################################################
 # Populate the quarantine array
 if os.path.exists(quarantine_path):
@@ -142,6 +142,14 @@ def addDir(type,name,url,mode,iconimage = '',fanart = '',video = '',description 
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
     
     return ok
+##########################################################################################
+# Advanced menu
+def advanced():
+    addDir('',string(30112), '', 'system_process', 'system_process.png','','','')
+    addDir('',string(30086), '', 'services', 'service.png','','','')
+    addDir('',string(30126), '', 'decompile', 'decompile.png','','','')   
+    if len(q_list) > 0:
+        addDir('',string(30089), '', 'delete_quarantine', 'restore.png','','','')
 ##########################################################################################    
 def check_content(localmaster, onlinemaster):
 # Loop through each item in our local array and check against online array
@@ -169,22 +177,17 @@ def check_content(localmaster, onlinemaster):
                     versionupdate.append([name,addonid,version,masterversion,masterrepo,path])
                 existing.append(addonid)
         if not addonid in existing:
-            unknown.append([name, addonid, version,'No details found on Add-on Portal, please notify the team at noobsandnerds if you\'d like this submitted',path])
+            unknown.append([name, addonid, version,string(30000),path])
     xbmc.executebuiltin("Dialog.Close(busydialog)")
 
     if len(blocked)>0:
         if len(blocked) == 1:
-            dialog.ok(str(len(blocked))+" serious warning", 'There is 1 item on your system that\'s been flagged by the community as being known to cause serious problems on Kodi systems. Please view the following text and press back when finished to choose how to proceed.')
+            dialog.ok(string(30001), string(30002))
         else:
-            dialog.ok(str(len(blocked))+" serious warnings", 'There are '+str(len(blocked))+' items on your system that have been flagged as having known issues which can cause serious problems on Kodi systems. Please view the following list of add-ons affected and then press back and you can decide what to do with them.')
+            dialog.ok(str(len(blocked))+string(30003), string(30004) % str(len(blocked)))
         cleantext = clean_text_box(blocked)
-        Text_Boxes('MARKED AS DANGEROUS','The following items have been flagged by the community as dangerous and we highly recommend putting them in quarantine now. The most common reason for this is repositories which re-upload others work which is definitely a severe security risk. '
-            'Often they contain hundreds if not thousands of add-ons which the repo host cannot possibly police and generally everything and anything gets added (malicious or not). If you\'ve previously had add-ons showing as updates available in the past but '
-            'they refused to update there\'s a very good chance it was one of these repositories causing the issues.[CR][CR][COLOR=dodgerblue]WARNING: [/COLOR]When installing content you should ALWAYS use the official developers repositories, installing from third parties can cause problems and of course whenever you install a repository '
-            'you are allowing the maintainer of that repo full access to your system. It doesn\'t take a genius to code up malicious spyware or system crippling viruses on the Kodi system - it is VERY vulnerable so always please be vigilant when searching the web and installing content, only install from trusted sources. It\'s worth noting that you can '
-            'install any add-on via Community Portal and nothing is re-uploaded, absolutely everything comes direct from the original developers repositories and the relavant repo is auto-installed so that is certainly one of the safest ways to install content.[CR][CR]' +cleantext+'[CR][CR][COLOR=dodgerblue]'
-            'Are you the developer of something listed here?[/COLOR][CR]If you feel something is incorrectly tagged please post on the noobsandnerds forum with any proof you can provide and the team will look into updating the records. The list is compiled from a mixture of community driven reports combined with auto-generated scans on repos and as with any AV program there is a chance of false positives.')
-        choice = dialog.yesno('All or Selective','Would you like to automatically quarantine all of these items or would you prefer to choose which ones to remove?',yeslabel='quarantine ALL', nolabel='Select Items')
+        Text_Boxes(string(30005), string(30006) % cleantext)
+        choice = dialog.yesno(string(30007),string(30008),yeslabel=string(30009), nolabel=string(30010))
         if choice:
             quarantine('all',blocked)
         else:
@@ -192,14 +195,13 @@ def check_content(localmaster, onlinemaster):
 
     if len(confirmed)>0:
         if len(confirmed) == 1:
-            dialog.ok(str(len(confirmed))+" confirmed as depreciated", 'There is 1 item on your system that\'s confirmed as broken and is not going to be updated. Please view the following text and then press back - you can then decide what to do with this item.')
+            dialog.ok(str(len(confirmed))+string(30011), string(30012))
         else:
-            dialog.ok(str(len(confirmed))+" confirmed as depreciated", 'There are '+str(len(confirmed))+' items on your system that are confirmed as broken and are not going to be updated. Please view the following list of add-ons affected and then press back and you can decide what to do with them.')
+            dialog.ok(str(len(confirmed))+string(30011), string(30013) % str(len(confirmed)))
+        xbmc.log(str(confirmed))
         cleantext = clean_text_box(confirmed)
-        Text_Boxes('DEPRECIATED CONTENT','The following items are confirmed as broken, they are no longer working and they are in such a bad way they are not due to come back - this is often due to website closures.[CR][CR][COLOR=dodgerblue]WARNING:[/COLOR] Keeping old content on your system (especially repositories) '
-            'is a serious security flaw and opens a way for hackers to easily manipulate your device. It would be very simple for a hacker to wipe your device or even worse steal any sensitive data on there so always make sure you remove any depreciated addons & repos.[CR][CR]'+cleantext+'[CR][CR][COLOR=dodgerblue]'
-            'Are you the developer of something listed here?[/COLOR][CR]If you feel something is incorrectly tagged please post on the noobsandnerds forum with any proof you can provide and the team will look into updating the records. The list is compiled from a mixture of community driven reports combined with auto-generated scans on repos and as with any AV program there is a chance of false positives.')
-        choice = dialog.yesno('All or Selective','Would you like to automatically quarantine all of these items or would you prefer to choose which ones to remove?',yeslabel='quarantine ALL', nolabel='Select Items')
+        Text_Boxes(string(30014), string(30015) % cleantext)
+        choice = dialog.yesno(string(30007),string(30008),yeslabel=string(30009), nolabel=string(30010))
         if choice:
             quarantine('all',confirmed)
         else:
@@ -207,15 +209,12 @@ def check_content(localmaster, onlinemaster):
 
     if len(unconfirmed)>0:
         if len(unconfirmed) == 1:
-            dialog.ok(str(len(unconfirmed))+" unconfirmed broken", 'There is 1 item on your system that\'s marked as broken in the Add-on Portal but it has not yet been fully verified as being completely dead. Take a look at the following list and then decide what you want to do.')
+            dialog.ok(str(len(unconfirmed))+string(30017), string(30018))
         else:
-            dialog.ok(str(len(unconfirmed))+" unconfirmed broken", 'There is '+str(len(unconfirmed))+' items on your system that are marked as broken in the Add-on Portal but have not yet been fully verified as being completely dead. Take a look at the following list and then decide what you want to do.')
+            dialog.ok(str(len(unconfirmed))+string(30017), string(30019) % str(len(unconfirmed)))
         cleantext = clean_text_box(unconfirmed)
-        Text_Boxes('CONTENT MARKED AS DELETED','The following items have been marked up as depreciated (no longer working or no longer available). The content in here is unconfirmed by the NaN staff but the automated script that searches repo\'s could no longer locate these particular addons. '
-            'The most likely scenario is that a developer has deliberately pulled the add-on and it is no longer available.[CR][CR][COLOR=dodgerblue]WARNING:[/COLOR] Keeping old content on your system (especially repositories) '
-            'is a serious security flaw and opens a way for hackers to easily manipulate your device. It would be very simple for a hacker to wipe your device or even worse steal any sensitive data on there so always make sure you remove any depreciated addons & repos.[CR][CR]'+cleantext+'[CR][CR][COLOR=dodgerblue]'
-            'Are you the developer of something listed here?[/COLOR][CR]If you feel something is incorrectly tagged please post on the noobsandnerds forum with any proof you can provide and the team will look into updating the records. The list is compiled from a mixture of community driven reports combined with auto-generated scans on repos and as with any AV program there is a chance of false positives.')
-        choice = dialog.yesno('All or Selective','Would you like to automatically quarantine all of these items or would you prefer to choose which ones to remove?',yeslabel='quarantine ALL', nolabel='Select Items')
+        Text_Boxes(string(30020), string(30021) % cleantext)
+        choice = dialog.yesno(string(30007),string(30008),yeslabel=string(30009), nolabel=string(30010))
         if choice:
             quarantine('all',unconfirmed)
         else:
@@ -224,80 +223,100 @@ def check_content(localmaster, onlinemaster):
     if len(unknown)>0:
         cleantext = clean_text_box(unknown)
         if len(unknown) == 1:
-            itemtext = 'There is 1 item on your system'
+            itemtext = string(30016)
         else:
-            itemtext = 'There are '+str(len(unknown))+' items'
-        dialog.ok(str(len(unknown))+" unknown add-ons", itemtext+' on your system that the Add-on Portal has no record of. Please consider updating the Portal with details of these at [COLOR=dodgerblue]noobsandnerds.com[/COLOR]. Thank you.')
-        Text_Boxes('UNKNOWN ADD-ONS','The following items have not been found in the Add-on Portal. You may want to check the legitimacy of these add-ons, if you\'re happy they are from legitimate sources please help the community by adding the details to '
-            'the Add-on Portal at [COLOR=dodgerblue]www.noobsandnerds.com[/COLOR]. If you are a registered member with a minimum of 5 posts you can update add-on details yourself (including adding YouTube videos, settings genres, countries etc.) but if you prefer you can just post details '
-            'on the forum and a member of the team will be happy to add the content to the Portal for you.[CR][CR]'+cleantext)
+            itemtext = string(30022) % str(len(unknown))
+        dialog.ok(string(30023) % str(len(unknown)), string(30024) % itemtext)
+        Text_Boxes(string(30025), string(30026) % cleantext)
         if len(unknown) == 1:
-            choice = dialog.yesno('Unknown Add-on','Would you like to quarantine this item?')
+            choice = dialog.yesno(string(30027), string(30028))
             if choice:
-        	    quarantine('all',unknown)
+                quarantine('all',unknown)
         else:
-            choice = dialog.yesno('Unknown Add-ons','Would you like to quarantine some of these items? If you click yes you can go through and select which ones you want quarantined.')
+            choice = dialog.yesno(string(30029), string(30030))
             if choice:
-        	    quarantine('select',unknown)
+                quarantine('select',unknown)
 
     if len(versionupdate)>0:
         if len(versionupdate) == 1:
             oneitem = versionupdate[0]
-            dialog.ok("update available", '[COLOR=dodgerblue]'+oneitem[0]+'[/COLOR] is outdated and there is a newer version available. Please click OK so we can check if the relevant repo is installed.')
+            dialog.ok(string(30031), string (30032) % oneitem[0])
         else:
-            dialog.ok(str(len(versionupdate))+" updates available", 'There are '+str(len(versionupdate))+' items on your system that are outdated and have newer versions available. Please select what you want to do for each one...')
+            dialog.ok(string(30033) % str(len(versionupdate)), string(30034) % str(len(versionupdate)))
         update_items(versionupdate,existing)
-    dialog.ok('Scan Complete','Please consider helping out the community by updating the Add-on Portal (or noobsandnerds team) of of any new add-on details you have details for. Broken, deleted, malicious... any info you can give will help others. Thank you.')
+    if len(unknown) > 0 or len(unconfirmed) > 0 or len(confirmed) > 0 or len(blocked) > 0:
+        dialog.ok(string(30035), string(30036))
+    elif sys.argv[1] != 'silent':
+        dialog.ok(string(30037), string(30038))
 ##########################################################################################
 # Parse the array and format into a readable text file to display on screen
 def clean_text_box(textlist):
     block   =   ''
     for item in textlist:
-        counter =   0
-        size    =   len(item)
-        while counter < size-1:
-            if counter == 0:
-                block += '[COLOR=gold]'+item[counter]+':[/COLOR]     '
-            elif counter == 3:
-                block += '[CR][COLOR=dodgerblue]Details:[/COLOR] '+item[counter]+'[CR]'
-            else:
-                block += item[counter]+'   '
-            counter += 1
-        block += '[CR]'
+        name = unicodedata.normalize('NFKD',unicode(item[0],"ISO-8859-1")).encode("ascii","ignore")
+#        name = item[0].text.encode('ascii', 'ignore')
+        block += '[COLOR=gold]%s[/COLOR] (%s)[CR]' % (name, item[1])
     return block
+##########################################################################################
+# Permanently delete items from the quarantine vault
+def decompile():
+    success = 1
+    choice  = dialog.yesno(string(30115), string(30116),yeslabel=string(30117), nolabel=string(30118))
+    if choice:
+        filename = xbmcgui.Dialog().browse(1, string(30119), 'files', '.py', False, False, ADDONS)
+        content  = readcontents(filename)
+        if content.startswith('import base64;exec base64.b64decode('):
+            content = unobfuscate(filename,content)
+            if not content.startswith('import base64;exec base64.b64decode('):
+                saveas    = dialog.browse(3, string(30120), 'files', '', False, False,HOME)
+                savefile  = os.path.join(saveas,'unobfuscated.py')
+                writefile = open(savefile, 'w')
+                writefile.write(content)
+                writefile.close()
+                dialog.ok(string(30121),string(30122) % savefile)
+            else:
+                dialog.ok(string(30123),string(30124))
+        else:
+            dialog.ok(string(30123),string(30124))
 ##########################################################################################
 # Permanently delete items from the quarantine vault
 def delete_quarantine():
     if os.path.exists(quarantine_path) and len(q_list)>0:
-	    choice  = dialog.yesno('Quarantine Vault','Would you like to completely wipe everything in your quarantine vault or do you want to select individual items?',yeslabel='WIPE EVERYTHING', nolabel = 'SELECT')
-	    if choice:
-	        choice = dialog.yesno('ARE YOU CERTAIN!', 'This will fully delete everything in your quarantine folder. There\'s no getting these items back, once they\'re gone they\'re gone! Are you sure you want to purge the whole vault?')
-	        if choice:
-	            try:
-	                shutil.rmtree(quarantine_path)
-	                dialog.ok('SUCCESS','Your quarantine folder has now been purged.')
-	            except:
-	        	    dialog.ok('FAILED', 'Sorry something on the system is not allowing the removal of these items, please manually delete from the quarantine folder.')
+        choice  = dialog.yesno(string(30040), string(30041),yeslabel=string(30042), nolabel=string(30043))
+        if choice:
+            choice = dialog.yesno(string(30044), string(30045))
+            if choice:
+                try:
+                    shutil.rmtree(quarantine_path)
+                    dialog.ok(string(30046),string(30047))
+                except:
+                    dialog.ok(string(30048), string(30049))
 
-	    else:
-	        choice  = dialog.select('CHOOSE ITEM TO DELETE',q_list)
-	        choice2 = dialog.yesno('ARE YOU CERTAIN!', 'This will fully remove [COLOR=dodgerblue]'+q_list[choice]+'[/COLOR] from you system. There is no getting this item back, once it\'s gone it\'s gone! Are you sure you want to delete it?')
-	        if choice2:
-	            try:
-	                shutil.rmtree(os.path.join(quarantine_path,q_list[choice]))
-	                dialog.ok('SUCCESS','This item has now successfully been deleted from your system')
-	            except:
-	        	    dialog.ok('FAILED', 'Sorry something is not allowing the removal of this item, please manually delete from the quarantine folder.')
+        else:
+            choice  = dialog.select(string(30050),q_list)
+            choice2 = dialog.yesno(string(30044), string(30051) % q_list[choice])
+            if choice2:
+                try:
+                    shutil.rmtree(os.path.join(quarantine_path,q_list[choice]))
+                    dialog.ok(string(30046), string(30052))
+                except:
+                    dialog.ok(string(30048), string(30049))
     else:
-        dialog.ok('NOTHING TO DELETE','You have nothing in your quarantine vault to delete.')
+        dialog.ok(string(30053), string(30054))
 ##########################################################################################
 # Download items with progress bar
 def download(url, dest):
     dp = xbmcgui.DialogProgress()
-    dp.create("Status...","Downloading Content",' ', ' ')
+    dp.create(string(30055), string(30056), ' ', ' ')
     dp.update(0)
     start_time=time.time()
     urllib.urlretrieve(url, dest, lambda nb, bs, fs: _pbhook(nb, bs, fs, dp, start_time))
+##########################################################################################
+# Loop through subfolders and find files
+def findfiles (path, filter):
+    for root, dirs, files in os.walk(path):
+        for file in fnmatch.filter(files, filter):
+            yield os.path.join(root, file)
 ##########################################################################################
 # Get params and clean up into string or integer
 def Get_Params():
@@ -329,9 +348,7 @@ def grab_installed():
             currentfile =   os.path.join(currentpath,'addon.xml')
             
             if os.path.exists(currentfile):
-                readfile    = open(currentfile, mode='r')
-                content     = readfile.read()
-                readfile.close()
+                content = readcontents(currentfile)
 
 # find version number, there are 2 version tags in the addon.xml, we need the second one.
                 localmatch          = re.compile('<addon[\s\S]*?">').findall(content)
@@ -347,7 +364,7 @@ def grab_installed():
 
 # Add to the array of locally installed add-ons
                 locallist.append([addonid,localversionmatch,addonname,currentpath])
-                srcomments = 'Although we\'re fairly certain the author of SR meant no harm and was only trying to help the community there is a huge flaw in the way it works. Efforts have been made to improve the system but there are still some issues. Content is re-uploaded and has conflicted with the original developers versions on a number of occasions. This has resulted in certain addons breaking because the version number on SR is wrong (and higher) than the official version, so even though if you install from the real developers repo but you have SR installed you may still encounter problems trying to get the real version installed.'
+                srcomments = string(30057)
                 if 'superrepo' in addonid:
                     blocked.append([name,addonid,localversionmatch,srcomments,currentpath])
     xbmc.executebuiltin("Dialog.Close(busydialog)")
@@ -371,6 +388,89 @@ def log_check():
     except:
         return False
 ##########################################################################################
+# Multiselect Dialog - works with gotham onwards
+def multiselect(title, list, images, description):
+    global pos
+    global listicon
+    class MultiChoiceDialog(pyxbmct.AddonDialogWindow):
+        def __init__(self, title="", items=None, images=None, description=None):
+            super(MultiChoiceDialog, self).__init__(title)
+            self.setGeometry(1100, 700, 20, 20)
+            self.selected = []
+            self.set_controls()
+            self.connect_controls()
+            self.listing.addItems(items or [])
+            self.set_navigation()
+            self.connect(ACTION_MOVE_UP, self.update_list)
+            self.connect(ACTION_MOVE_DOWN, self.update_list)
+            
+        def set_controls(self):
+            Background  = pyxbmct.Image(dialog_bg, aspectRatio=0) # set aspect ratio to stretch
+            Background.setImage(dialog_bg)
+            self.listing = pyxbmct.List(_imageWidth=15)
+            self.placeControl(Background, 0, 0, rowspan=20, columnspan=20)
+            Icon=pyxbmct.Image(images[0], aspectRatio=2) # set aspect ratio to keep original
+            Icon.setImage(images[0])
+            self.placeControl(Icon, 0, 11, rowspan=8, columnspan=8, pad_x=10, pad_y=10)
+            self.textbox = pyxbmct.TextBox()
+            self.placeControl(self.textbox, 8, 11, rowspan=9, columnspan=9, pad_x=10, pad_y=10)
+            self.textbox.setText(description[0])
+            self.textbox.autoScroll(5000, 2000, 8000)
+            self.ok_button = pyxbmct.Button("OK")
+            self.placeControl(self.ok_button, 17, 13, pad_x=10, pad_y=10, rowspan=2, columnspan=3)
+            self.cancel_button = pyxbmct.Button("Cancel")
+            self.placeControl(self.cancel_button, 17, 16, pad_x=10, pad_y=10, rowspan=2, columnspan=3)
+            self.placeControl(self.listing, 0, 0, rowspan=20, columnspan=10, pad_y=10) # grid reference, start top left and span 9 boxes down and 5 across
+
+        def connect_controls(self):
+            self.connect(self.listing, self.check_uncheck)
+            self.connect(self.ok_button, self.ok)
+            self.connect(self.cancel_button, self.close)
+
+        def set_navigation(self):
+            self.listing.controlLeft(self.ok_button)
+            self.listing.controlRight(self.ok_button)
+            self.ok_button.setNavigation(self.listing, self.listing, self.cancel_button, self.cancel_button)
+            self.cancel_button.setNavigation(self.listing, self.listing, self.ok_button, self.ok_button)
+            if self.listing.size():
+                self.setFocus(self.listing)
+            else:
+                self.setFocus(self.cancel_button)
+            
+        def update_list(self):
+            blackout = pyxbmct.Image(black, aspectRatio=0) # set aspect ratio to stretch
+            blackout.setImage(black)
+            self.placeControl(blackout, 0, 11, rowspan=8, columnspan=8, pad_x=10, pad_y=10)
+            pos      = self.listing.getSelectedPosition()
+            listicon = images[pos]
+            Icon     = pyxbmct.Image(listicon, aspectRatio=2)
+            Icon.setImage(listicon)
+            self.placeControl(Icon, 0, 11, rowspan=8, columnspan=8, pad_x=10, pad_y=10)
+            self.textbox.setText(description[pos])
+
+        def check_uncheck(self):
+            list_item = self.listing.getSelectedItem()
+            if list_item.getLabel2() == "checked":
+                list_item.setIconImage("")
+                list_item.setLabel2("unchecked")
+            else:
+                list_item.setIconImage(checkicon)
+                list_item.setLabel2("checked")
+
+        def ok(self):
+            self.selected = [index for index in xrange(self.listing.size())
+                            if self.listing.getListItem(index).getLabel2() == "checked"]
+            super(MultiChoiceDialog, self).close()
+
+        def close(self):
+            self.selected = []
+            super(MultiChoiceDialog, self).close()
+            
+    dialog = MultiChoiceDialog(title, list, images, description)
+    dialog.doModal()
+    return dialog.selected
+    del dialog
+##########################################################################################
 # Grab contents of a web page
 def Open_URL(url, t):
     req = urllib2.Request(url)
@@ -387,56 +487,79 @@ def Open_URL(url, t):
     if success == True:
         return link.replace('\r','').replace('\n','').replace('\t','')
     else:
-        dialog.ok('Unable to contact server','There was a problem trying to access the server, please try again later.')
+        dialog.ok(string(30058), string(30059))
         return
 ##########################################################################################
 # quarantine add-ons in the list
 def quarantine(mode,addonarray):
-    global reloadprofile
+    patharray     = []
+    imagearray    = []
+    descarray     = []
+    namearray     = []
+    to_quarantine = []
+    finalarray    = []
     if not os.path.exists(quarantine_path):
         os.makedirs(quarantine_path)
-    for item in addonarray:
-        choice = 1
-        if mode == 'select':
-            choice = dialog.yesno(item[0],'Would you like to quarantine[COLOR=dodgerblue]',item[0]+'[/COLOR]', nolabel='no', yeslabel='yes')
-        if choice:
-            try:
-                os.rename(item[4], item[4].replace('addons'+os.sep,'quarantine'+os.sep))
-                reloadprofile = 1
-            except:
-                choice = dialog.yesno(item[0]+': FAILED', 'It was not possible to move [COLOR=dodgerblue]'+item[0]+'[/COLOR]. It may be running as a service possibly slowing down your device, would you like to try and remove it completely?')
-                if choice:
-                    try:
-                        shutil.rmtree(item[4])
-                        reloadprofile = 1
-                    except:
-                        dialog.ok('FAILED TO REMOVE', 'It was not possible to remove [COLOR=dodgerblue]'+item[0]+'[/COLOR]. You will have to manually remove this, you\'ll most likely need to quit Kodi to do this.')
+
+    if mode == 'select' and len(addonarray)>0:
+        for item in addonarray:
+            length = len(item)
+            patharray.append(item[length-1])
+            namearray.append(item[0])
+            descarray.append(item[3])
+            imagearray.append(os.path.join(item[length-1],'icon.png'))
+        to_quarantine = multiselect(string(30060),namearray,imagearray,descarray)
+        for item in to_quarantine:
+            finalarray.append([namearray[item], patharray[item]])
+
+    elif len(addonarray)>0:
+        for item in addonarray:
+            length = len(item)
+            finalarray.append([item[0], item[length-1]])
+    xbmc.log(str(finalarray))
+
+    move_to_vault(finalarray)
+##########################################################################################
+# move add-ons to the vault
+def move_to_vault(array):
+    global reloadprofile
+    for item in array:
+        try:
+            os.rename(item[1], item[1].replace('addons%s' % os.sep, 'quarantine%s' % os.sep))
+            reloadprofile = 1
+        except:
+            choice = dialog.yesno(string(30061) % item[0], string(30062) % item[0])
+            if choice:
+                try:
+                    shutil.rmtree(item[1])
+                    reloadprofile = 1
+                except:
+                    dialog.ok(string(30063), string(30064) % item[0])
 ##########################################################################################
 # quarantine any repos failing to resolve
 def quarantine_unresolved(addonarray):
     global reloadprofile
     for item in addonarray:
-        choice = dialog.yesno(item,'Would you like to quarantine[COLOR=dodgerblue]',item+'[/COLOR]', nolabel='no', yeslabel='yes')
+        choice = dialog.yesno(item, string(30060),'[COLOR=dodgerblue]%s[/COLOR]' % item)
         addonpath = os.path.join(ADDONS,item)
         if choice:
             try:
-                os.rename(addonpath, addonpath.replace('addons'+os.sep,'quarantine'+os.sep))
+                os.rename(addonpath, addonpath.replace('addons%s' % os.sep, 'quarantine%s' % os.sep))
                 reloadprofile = 1
             except:
-                choice = dialog.yesno('FAILED', 'It was not possible to move [COLOR=dodgerblue]'+item+'[/COLOR]. It may be running as a service possibly slowing down your device, would you like to try and remove it completely?')
+                choice = dialog.yesno(string(30048), string(30062) % item)
                 if choice:
                     try:
                         shutil.rmtree(item)
                         reloadprofile = 1
                     except:
-                        dialog.ok('FAILED TO REMOVE', 'It was not possible to remove [COLOR=dodgerblue]'+item+'[/COLOR]. You will have to manually remove this, you\'ll most likely need to quit Kodi to do this.')
+                        dialog.ok(string(30063), string(30064) % item)
 ##########################################################################################
 # Check log for installed repo that fail to pull updates
 def repo_check():
-    xbmc.log('#### STARTED REPO CHECK ####')
     xbmc.executebuiltin("ActivateWindow(busydialog)")
     xbmc.executebuiltin('UpdateAddonRepos')
-    finallist	= []
+    finallist   = []
     repocount   = 0
     logcontents = log_check()
     if logcontents:
@@ -445,10 +568,12 @@ def repo_check():
             if 'repo' in name:
                 repocount +=1
 # Add a sleep so the log has had enough time to fill with data
-        xbmc.executebuiltin("XBMC.Notification(PLEASE WAIT,Scanning "+str(repocount)+" repositories,10000,"+updateicon+")")
-        if repocount > 120:
-            time.sleep(120)
-        else:
+        notify(string(30065), string(30066) % str(repocount), 10000, updateicon)
+        if repocount > 100:
+            time.sleep((repocount/2)+10)
+        elif repocount ==0:
+            pass
+        elif repocount <101:
             time.sleep(repocount+10)
 # Check log again after we've waited for repos to update
         logcontents = log_check()
@@ -461,75 +586,77 @@ def repo_check():
         if len(finallist) > 0:
             repolist = ''
             for name in finallist:
-                repolist += name+'[CR]'
+                repolist += '%s[CR]' % name
 
-            Text_Boxes('PROBLEM REPOSITORIES DETECTED', '[COLOR=gold]About: [/COLOR]During the scan Kodi was unable to gather data from the repositories listed below. The most common cause for this is the developer pulling their repo or moving it and failing '
-                'to put a correct redirect in place. We recommend doing a full scan using this add-on to see if there are any known issues with any of these repo\'s and if that comes up blank have a search on the web to see if '
-                'there are any known issues.[CR][CR][COLOR=gold]What to do: [/COLOR]This list is gathered using your logfile in Kodi, it has nothing to do with community driven lists so is completely accurate. Kodi was unable to read the repository files on the web, '
-                'that could mean you have an error with your setup (internet connection problems or ISP blocking) but more than likely there is a problem with the actual repository file online. It may just be a temporary glitch and the '
-                'developer may well fix it in time. If you want you can leave these repo\'s on your system and give it a few days to see if they come back online or you could temporarily put them in quarantine.[CR][CR][COLOR=dodgerblue]Repositories Failing To Resolve:[/COLOR][CR]'+repolist)
-            choice = dialog.yesno('Quarantine Items','Would you like to quarantine any of these items?')
+            Text_Boxes(string(30067), string(30068) % repolist)
+            choice = dialog.yesno(string(30069), string(30070))
             if choice:
                 quarantine_unresolved(finallist)
         else:
-            dialog.ok('Looking good','Great news, all the repositories on your system appear to be functioning correctly.')
+            dialog.ok(string(30071), string(30072))
     else:
-        dialog.ok('Unsupported System','Sorry it looks as though you may be running an unsupported version of Kodi. This function currently only supports XBMC, Kodi, SPMC and TVMC')
+        dialog.ok(string(30073), string(30074))
 ##########################################################################################
 # Initial start routine, add the menu structure
 def restore():
     global reloadprofile
     qlist_fail = ''
-    choice 	   = dialog.yesno('Quarantine Vault','Would you like to restore everything from your quarantinen vault or just individual items?', yeslabel='Everything', nolabel='Individual Items')
+    choice     = dialog.yesno(string(30040), string(30110), yeslabel=string(30075), nolabel=string(30076))
     if choice:
-    	for item in q_list:
-            path   = os.path.join(HOME,'quarantine',item)
+        for item in q_list:
+            try:
+                path   = os.path.join(HOME,'quarantine',item)
+                os.rename(path,path.replace('quarantine','addons'))
+                reloadprofile = 1
+            except:
+                qlist_fail += string(30077) % item
+    else:
+        patharray  = []
+        imagearray = []
+        descarray  = []
+        for item in q_list:
+            itempath   = os.path.join(HOME,'quarantine',item)
+            image      = os.path.join(itempath,'icon.png')
+            patharray.append(itempath)
+            imagearray.append(image)
+            descarray.append(string(30111))
+        choice = multiselect(string(30078),q_list, imagearray, descarray)
+        for item in choice:
+            path   = patharray[item]
             try:
                 os.rename(path,path.replace('quarantine','addons'))
                 reloadprofile = 1
             except:
-            	qlist_fail += '[COLOR=gold]'+item+' -[/COLOR] Unable to restore[CR]'
-    else:
-        choice = dialog.select('Select item to restore',q_list)
-        path   = os.path.join(HOME,'quarantine',q_list[choice])
-        try:
-            os.rename(path,path.replace('quarantine','addons'))
-            reloadprofile = 1
-        except:
-            dialog.ok('FAILED', 'Sorry it was not possible to restore, check you haven\'t already reinstalled this item')
+                dialog.ok(string(30048), string(30079))
     if qlist_fail != '':
-         Text_Boxes('UNABLE TO RESTORE','The items listed below could not be restored. The most likely cause for this is the user attempting to reinstall via other means. Please remove any instance of these items from your addons folder and run this function again.[CR][CR]')
+        Text_Boxes(string(30080), string(30081))
 ##########################################################################################    
 # Check which add-ons are running as services
 def services():
     xbmc.executebuiltin("ActivateWindow(busydialog)")
     servicelist = ''
     for name in os.listdir(ADDONS):
-        currentxml	=	(os.path.join(ADDONS,name,'addon.xml'))
+        currentxml  =   (os.path.join(ADDONS,name,'addon.xml'))
         if os.path.exists(currentxml):
-            readfile 	=	open(currentxml,'r')
-            xmlcontent	=	readfile.read()
-            readfile.close()
+            xmlcontent  = readcontents(currentxml)
             namematch   = re.compile(' name="(.+?)"').findall(xmlcontent)
             addonname   = namematch[0] if (len(namematch) > 0) else 'Unknown (folder: '+name+')'
             if 'xbmc.service' in xmlcontent:
-                startmatch	 = re.compile('start="(.+?)"').findall(xmlcontent)
+                startmatch   = re.compile('start="(.+?)"').findall(xmlcontent)
                 startpoint   = startmatch[0] if (len(startmatch) > 0) else 'Unknown'
-                servicelist += '[COLOR=gold]'+addonname+' -[/COLOR] Startup Point: '+startpoint+'[CR]'
+                servicelist += '[COLOR=gold]%s -[/COLOR] Startup Point: %s[CR]' % (addonname, startpoint)
     xbmc.executebuiltin("Dialog.Close(busydialog)")
     if servicelist != '':
-         Text_Boxes('SERVICES FOUND','The following items are coded to run some sort of service in the background. Whilst there are many legitimate reasons for running services (such as automated maintenance tasks) they can also be used for more dubious means such as data gathering or running malicious code. Even if the author has perfectly good intentions a badly written service can be the cause of many problems within Kodi ranging from slowdowns to inability to play certain content. '
-         	'As mentioned there are plenty of legitimate reasons to add a service to an add-on but take a look at the list below and if you see any that don\'t seem to warrant having a service running contact the developer of that add-on so they can explain why it\'s there. The chances are there is a perfectly good reason but it\'s always better to be safe than sorry.[CR][CR]'+servicelist)
+         Text_Boxes(string(30082), string(30083) % servicelist)
 ##########################################################################################
 # Initial start routine, add the menu structure
 def start():
-    addDir('','Scan my system','','startscan','scan.png','','','')
-    addDir('','Show my repos that are failing','','repo_check','repo_check.png','','','')
-    addDir('','Show add-ons running a service','','services','service.png','','','')
-    addDir('','Add/Remove whitelist items','','whitelist','whitelist.png','','','')
+    addDir('',string(30084), '', 'startscan', 'scan.png','','','')
+    addDir('',string(30085), '', 'repo_check', 'repo_check.png','','','')
+    addDir('',string(30087), '', 'whitelist', 'whitelist.png','','','')
     if len(q_list) > 0:
-        addDir('','Restore quarantined items','','restore','restore.png','','','')
-        addDir('','Delete from quarantine vault','','delete_quarantine','restore.png','','','')
+        addDir('',string(30088), '', 'restore', 'restore.png','','','')
+    addDir('folder',string(30125),'','advanced','advanced.png','','','')
 ##########################################################################################
 # Start the scan of repo's
 def startscan():
@@ -538,6 +665,63 @@ def startscan():
     onlineraw       =   Open_URL('http://noobsandnerds.com/TI/AddonPortal/brokenlist.php',10).replace('], ]',']]')
     onlinemaster    =   eval(str(onlineraw))
     check_content(localmaster, onlinemaster)
+##########################################################################################
+def string(string):
+    return ADDON.getLocalizedString(string)
+##########################################################################################    
+# Check for add-ons that run a system process
+def system_process():
+    counter = 0
+    xbmc.executebuiltin("ActivateWindow(busydialog)")
+    systemlist = '[COLOR=gold]Files Containing os.system():[/COLOR][CR]'
+    processlist = '[CR][CR][COLOR=gold]Files Containing subprocess.call():[/COLOR][CR]'
+    for pyfile in findfiles(ADDONS, '*.py'):
+        if not pyfile.startswith(packages):
+            content = readcontents(pyfile)
+            content = unobfuscate(pyfile, content)
+            if ('os.system(' in content or 'os . system(' in content) and not AddonID in pyfile:
+                systemlist += pyfile.replace(ADDONS+os.sep,'')+'[CR]'
+                counter += 1
+            if  ('subprocess.call' in content or 'subprocess . call' in content or 'subprocess.Popen' in content or 'subprocess . Popen' in content) and not AddonID in pyfile:
+                processlist += pyfile.replace(ADDONS+os.sep,'')+'[CR]'
+                counter +=1
+    # if os.path.exists(os.path.join(USERDATA,'autoexec.py')):
+    #     xbmc.log('USERDATA EXISTS')
+    #     content = readcontents(os.path.join(USERDATA,'autoexec.py'))
+    #     content = unobfuscate(pyfile, content)
+    #     if 'os.system(' in content or 'os . system(' in content:
+    #         systemlist += os.path.join(USERDATA,'autoexec.py').replace(HOME+os.sep,'')+'[CR]'
+    #         counter += 1
+    #     if  ('subprocess.call' in content or 'subprocess . call' in content or 'subprocess.Popen' in content or 'subprocess . Popen' in content):
+    #         processlist += os.path.join(USERDATA,'autoexec.py').replace(HOME+os.sep,'')+'[CR]'
+    #         counter +=1
+    if os.path.exists(os.path.join(PROFILE,'autoexec.py')):
+        content = readcontents(os.path.join(PROFILE,'autoexec.py'))
+        content = unobfuscate(pyfile, content)
+        if 'os.system(' in content or 'os . system(' in content:
+            systemlist += os.path.join(PROFILE,'autoexec.py').replace(HOME+os.sep,'')+'[CR]'
+            counter += 1
+        if  ('subprocess.call' in content or 'subprocess . call' in content or 'subprocess.Popen' in content or 'subprocess . Popen' in content):
+            processlist += os.path.join(PROFILE,'autoexec.py').replace(HOME+os.sep,'')+'[CR]'
+            counter +=1
+
+
+    if systemlist == '[COLOR=gold]Files Containing os.system():[/COLOR][CR]':
+        systemlist = ''
+
+    if processlist == '[CR][CR][COLOR=gold]Files Containing subprocess.call():[/COLOR][CR]':
+        processlist = ''
+
+    if systemlist != '' or processlist != '':
+        Text_Boxes(string(30114),string(30113) %counter+systemlist+processlist)
+    xbmc.executebuiltin("Dialog.Close(busydialog)")
+##########################################################################################
+# Read content of a file and return as string
+def readcontents(file):
+    readfile = open(file,'r')
+    content  = readfile.read()
+    readfile.close()
+    return content
 ##########################################################################################
 # Create a standard text box
 def Text_Boxes(heading,anounce):
@@ -562,48 +746,128 @@ def Text_Boxes(heading,anounce):
   while xbmc.getCondVisibility('Window.IsVisible(10147)'):
       xbmc.sleep(500)
 ##########################################################################################
+# Create a Notification  
+def notify(title, message, time=2000, icon=mainicon):
+    xbmc.executebuiltin("XBMC.Notification(%s, %s, %s, %s)" % (title, message, time, icon))
+##########################################################################################    
+# Check for add-ons that run a system process
+def unobfuscate(pyfile, content):
+    count = 1
+    while content.startswith('import base64;exec base64.b64decode('):
+        xbmc.log('### Obfuscated addon: %s' % pyfile)
+        xbmc.log('### Attempting to decompile, pass #%s' % count)
+        content = content.replace("import base64;exec base64.b64decode('",'')
+        content = content[:-2]
+        if not AddonID in pyfile:
+            try:
+                newcontent = base64.b64decode(content)
+                if newcontent.startswith('import base64;exec base64.b64decode('):
+                    xbmc.log('### Still obfuscated after attempt %s, running through it again...' % count)
+                else:
+                    xbmc.log('### Successfully unobfuscated %s' % pyfile)
+                    content = newcontent
+            except:
+                xbmc.log('### Failed to unobfuscate %s' % pyfile)
+                break
+            count += 1
+    return content
+##########################################################################################
 # Loop through the list of add-ons that require updating and check the correct repo is installed
 def update_items(versionupdate, existing):
     for item in versionupdate:
         if not item[4] in existing:
-            choice = dialog.yesno(item[0],'The Add-on Portal is showing this as being available on the following repository: [COLOR=dodgerblue]'+item[4],'[/COLOR]Would you like to install this repo so you can update?')
+            choice = dialog.yesno(item[0], string(30090) % item[4], string(30091))
             if choice:
                 try:
-                    download('https://github.com/noobsandnerds/noobsandnerds/blob/master/zips/'+item[4]+'/'+item[4]+'-0.0.0.1.zip?raw=true',os.path.join(packages,item[4]+'.zip'))
-                    zin = zipfile.ZipFile(os.path.join(packages,item[4]+'.zip'), 'r')
+                    download('https://github.com/noobsandnerds/noobsandnerds/blob/master/zips/%s/%s-0.0.0.1.zip?raw=true' % (item[4], item[4]),os.path.join(packages,'%s.zip' % item[4]))
+                    zin = zipfile.ZipFile(os.path.join(packages,'%s.zip' % item[4]), 'r')
                     zin.extractall(ADDONS)
                     existing.append(item[4])
                 except:
-                    dialog.ok('FAILED TO INSTALL','Sorry there was a problem trying to install this repository, please try searching on the web for an update. If you find one please update the team at noobsandnerds.com so they can update the portal details. Thank you.')
+                    dialog.ok(string(30092), string(30093))
     xbmc.executebuiltin( 'UpdateLocalAddons' )
     xbmc.executebuiltin( 'UpdateAddonRepos' )
-    dialog.ok ('Updated Pushed', 'The command to check for updates has been sent, take a look in the following window to make sure no new updates are available, if they are you may want to update.')
+    dialog.ok (string(30094), string(30095))
     xbmc.executebuiltin('ActivateWindow(10040,"addons://",return)')
 ##########################################################################################
 # Add/Remove items in the whitelist
 def whitelist():
-    choice = dialog.yesno('Whitelist','You can add any items in your addons directory to the whitelist so they are ignored on future scans.','Would you like to add or remove items?', yeslabel='Remove', nolabel='Add')
+    choice = dialog.yesno(string(30097), string(30098), yeslabel=string(30099), nolabel=string(30100))
     if choice:
         if not os.path.exists(whitelistpath) or emptylist == 1:
-            dialog.ok('Empty List','Nothing to see here...','You don\'t have any items whitelisted yet')
+            dialog.ok(string(30101), string(30102), string(30103))
         else:
-            choice = dialog.select('CURRENT WHITELIST',wl_array)
-            with open(whitelistpath, "r+") as writefile:
-                content = writefile.read()
-                writefile.seek(0)
-                writefile.write(content.replace(wl_array[choice]+'|',''))
-                writefile.truncate()
-
+            choice = multiselect(string(30104),wl_array,wl_images,wl_desc); xbmc.log(str(choice)+' / '+str(len(choice)))
+            if len(choice) > 0:
+                with open(whitelistpath, "r+") as writefile:
+                    content = writefile.read()
+                    for wl in choice:
+                        content = content.replace('%s|' % wl_array[wl],'')
+                        print content
+                    writefile.seek(0)
+                    writefile.write(content)
+                    writefile.truncate()
+                    notify(string(30105), string(30106) % len(choice))
+            else: notify(string(30105), string(30107))
     else:
-    	for name in os.listdir(ADDONS):
-    		if name not in wl_array:
-    			wl_add.append(name)
-        choice = dialog.select('CHOOSE FOLDER TO WHITELIST',wl_add)
-        writefile = open(whitelistpath,'a')
-        writefile.write(wl_add[choice]+'|')
-        writefile.close()
+        counter       = 0
+        wl_add_desc   = []
+        wl_add_images = []
+
+        for name in os.listdir(ADDONS):
+            if not name in wl_array and name != 'packages' and os.path.isdir(os.path.join(ADDONS,name)):
+                wl_add.append(name)
+
+# Grab add-on description and add to array
+                try:
+                    masteraddon     = xbmcaddon.Addon(id=wl_add[counter])
+                    masterdesc      = masteraddon.getAddonInfo('description')
+                except:
+                    masterdesc      = 'No information available'
+                wl_add_desc.append(masterdesc)
+
+# Grab add-on icon and add to array
+                mastericon      = os.path.join(ADDONS,name,'icon.png')
+                wl_add_images.append(mastericon)
+                counter += 1
+        choice = multiselect(string(30109),wl_add, wl_add_images, wl_add_desc); xbmc.log(str(choice)+' / '+str(len(choice)))
+        if len(choice) > 0:
+            writefile = open(whitelistpath,'a')
+            for wl in choice:
+                writefile.write(wl_add[wl]+'|')
+            writefile.close()
+            notify(string(30105), string(30108) % len(choice))
+        else: notify(string(30105), string(30107))
 ##########################################################################################
 # Main add-on starts here
+##########################################################################################
+# Grab contents of whitelist and create description and image arrays for multi-select
+if os.path.exists(whitelistpath):
+    content = readcontents(whitelistpath)
+    if content == '':
+        emptylist = 1
+    else:
+        wl_array = content.split('|')
+        wl_array = wl_array[:-1]
+
+for item in wl_array:
+# Grab add-on description and add to array
+    try:
+        masteraddon     = xbmcaddon.Addon(id=item)
+        masterdesc      = masteraddon.getAddonInfo('description')
+    except:
+        masterdesc      = 'No information available'
+    wl_desc.append(masterdesc)
+
+# Grab add-on icon and add to array
+    try:
+        masteraddon     = xbmcaddon.Addon(id=item)
+        mastericon      = masteraddon.getAddonInfo('icon')
+    except:
+        mastericon      = mainicon
+    wl_images.append(mastericon)
+
+
 if sys.argv[1]=='silent':
     while xbmc.Player().isPlaying():
         xbmc.sleep(5000)
@@ -638,14 +902,18 @@ try:
 except:
     pass
 
-if mode     ==  None        		: start()
-elif mode   ==  'delete_quarantine' : delete_quarantine()
-elif mode   ==  'repo_check'   		: repo_check()
-elif mode   ==  'restore'   		: restore()
-elif mode   ==  'services'  		: services()
-elif mode   ==  'startscan' 		: startscan()
-elif mode   ==  'whitelist' 		: whitelist()
+if mode     ==  None                : start()
 
+elif mode   ==  'delete_quarantine' : delete_quarantine()
+elif mode   ==  'repo_check'        : repo_check()
+elif mode   ==  'restore'           : restore()
+elif mode   ==  'services'          : services()
+elif mode   ==  'startscan'         : startscan()
+elif mode   ==  'system_process'    : system_process()
+elif mode   ==  'whitelist'         : whitelist()
+elif mode   ==  'decompile'         : decompile()
+elif mode   ==  'advanced'          : advanced()
+        
 # If anything has been quarantined we need to reload the profile so the addons db updates.
 if reloadprofile:
     if os.path.exists(temp):

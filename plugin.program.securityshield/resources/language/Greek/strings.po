@@ -1,0 +1,451 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TotalRevolution Addons\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: Greek\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "No details found on Add-on Portal, please notify the team at noobsandnerds if you\'d like this submitted"
+msgstr ""
+
+msgctxt "#30001"
+msgid "1 serious warning"
+msgstr ""
+
+msgctxt "#30002"
+msgid "There is 1 item on your system that\'s been flagged by the community as being known to cause serious problems on Kodi systems. Please view the following text and press back when finished to choose how to proceed."
+msgstr ""
+
+msgctxt "#30003"
+msgid " serious warnings"
+msgstr ""
+
+msgctxt "#30004"
+msgid "There are %s items on your system that have been flagged as having known issues which can cause serious problems on Kodi systems. Please view the following list of add-ons affected and then press back and you can decide what to do with them."
+msgstr ""
+
+msgctxt "#30005"
+msgid "MARKED AS DANGEROUS"
+msgstr ""
+
+msgctxt "#30006"
+msgid "The following items have been flagged by the community as dangerous and we highly recommend putting them in quarantine now. The most common reason for this is repositories which re-upload others work which is definitely a severe security risk. Often they contain hundreds if not thousands of add-ons which the repo host cannot possibly police and generally everything and anything gets added (malicious or not). If you\'ve previously had add-ons showing as updates available in the past but they refused to update there\'s a very good chance it was one of these repositories causing the issues.[CR][CR][COLOR=dodgerblue]WARNING: [/COLOR]When installing content you should ALWAYS use the official developers repositories, installing from third parties can cause problems and of course whenever you install a repository you are allowing the maintainer of that repo full access to your system. It doesn\'t take a genius to code up malicious spyware or system crippling viruses on the Kodi system - it is VERY vulnerable so always please be vigilant when searching the web and installing content, only install from trusted sources. It\'s worth noting that you can install any add-on via Community Portal and nothing is re-uploaded, absolutely everything comes direct from the original developers repositories and the relavant repo is auto-installed so that is certainly one of the safest ways to install content.[CR][CR]%s[CR][CR][COLOR=dodgerblue]Are you the developer of something listed here?[/COLOR][CR]If you feel something is incorrectly tagged please post on the noobsandnerds forum with any proof you can provide and the team will look into updating the records. The list is compiled from a mixture of community driven reports combined with auto-generated scans on repos and as with any AV program there is a chance of false positives."
+msgstr ""
+
+msgctxt "#30007"
+msgid "All or Selective"
+msgstr ""
+
+msgctxt "#30008"
+msgid "Would you like to automatically quarantine all of these items or would you prefer to choose which ones to remove?"
+msgstr ""
+
+msgctxt "#30009"
+msgid "quarantine ALL"
+msgstr ""
+
+msgctxt "#30010"
+msgid "Select Items"
+msgstr ""
+
+msgctxt "#30011"
+msgid " confirmed as depreciated"
+msgstr ""
+
+msgctxt "#30012"
+msgid "There is 1 item on your system that\'s confirmed as broken and is not going to be updated. Please view the following text and then press back - you can then decide what to do with this item."
+msgstr ""
+
+msgctxt "#30013"
+msgid There are %s items on your system that are confirmed as broken and are not going to be updated. Please view the following list of add-ons affected and then press back and you can decide what to do with them."
+msgstr ""
+
+msgctxt "#30014"
+msgid "DEPRECIATED CONTENT"
+msgstr ""
+
+msgctxt "#30015"
+msgid "The following items are confirmed as broken, they are no longer working and they are in such a bad way they are not due to come back - this is often due to website closures.[CR][CR][COLOR=dodgerblue]WARNING:[/COLOR] Keeping old content on your system (especially repositories) is a serious security flaw and opens a way for hackers to easily manipulate your device. It would be very simple for a hacker to wipe your device or even worse steal any sensitive data on there so always make sure you remove any depreciated addons &amp; repos.[CR][CR]%s[CR][CR][COLOR=dodgerblue]Are you the developer of something listed here?[/COLOR][CR]If you feel something is incorrectly tagged please post on the noobsandnerds forum with any proof you can provide and the team will look into updating the records. The list is compiled from a mixture of community driven reports combined with auto-generated scans on repos and as with any AV program there is a chance of false positives."
+msgstr ""
+
+msgctxt "#30016"
+msgid "There is 1 item on your system"
+msgstr ""
+
+msgctxt "#30017"
+msgid " unconfirmed broken"
+msgstr ""
+
+msgctxt "#30018"
+msgid "There is 1 item on your system that\'s marked as broken in the Add-on Portal but it has not yet been fully verified as being completely dead. Take a look at the following list and then decide what you want to do."
+msgstr ""
+
+msgctxt "#30019"
+msgid "There is %s items on your system that are marked as broken in the Add-on Portal but have not yet been fully verified as being completely dead. Take a look at the following list and then decide what you want to do."
+msgstr ""
+
+msgctxt "#30020"
+msgid "CONTENT MARKED AS DELETED"
+msgstr ""
+
+msgctxt "#30021"
+msgid "The following items have been marked up as depreciated (no longer working or no longer available). The content in here is unconfirmed by the NaN staff but the automated script that searches repo\'s could no longer locate these particular addons. The most likely scenario is that a developer has deliberately pulled the add-on and it is no longer available.[CR][CR][COLOR=dodgerblue]WARNING:[/COLOR] Keeping old content on your system (especially repositories) is a serious security flaw and opens a way for hackers to easily manipulate your device. It would be very simple for a hacker to wipe your device or even worse steal any sensitive data on there so always make sure you remove any depreciated addons &amp; repos.[CR][CR]%s[CR][CR][COLOR=dodgerblue]Are you the developer of something listed here?[/COLOR][CR]If you feel something is incorrectly tagged please post on the noobsandnerds forum with any proof you can provide and the team will look into updating the records. The list is compiled from a mixture of community driven reports combined with auto-generated scans on repos and as with any AV program there is a chance of false positives.'"
+msgstr ""
+
+msgctxt "#30022"
+msgid "There are %s items"
+msgstr ""
+
+msgctxt "#30023"
+msgid "%s unknown add-ons"
+msgstr ""
+
+msgctxt "#30024"
+msgid "%s on your system that the Add-on Portal has no record of. Please consider updating the Portal with details of these at [COLOR=dodgerblue]noobsandnerds.com[/COLOR]. Thank you."
+msgstr ""
+
+msgctxt "#30025"
+msgid "UNKNOWN ADD-ONS"
+msgstr ""
+
+msgctxt "#30026"
+msgid "The following items have not been found in the Add-on Portal. You may want to check the legitimacy of these add-ons, if you\'re happy they are from legitimate sources please help the community by adding the details to the Add-on Portal at [COLOR=dodgerblue]www.noobsandnerds.com[/COLOR]. If you are a registered member with a minimum of 5 posts you can update add-on details yourself (including adding YouTube videos, settings genres, countries etc.) but if you prefer you can just post details on the forum and a member of the team will be happy to add the content to the Portal for you.[CR][CR]%s"
+msgstr ""
+
+msgctxt "#30027"
+msgid "Unknown Add-on"
+msgstr ""
+
+msgctxt "#30028"
+msgid "Would you like to quarantine this item?"
+msgstr ""
+
+msgctxt "#30029"
+msgid "Unknown Add-ons"
+msgstr ""
+
+msgctxt "#30030"
+msgid "Would you like to quarantine some of these items? If you click yes you can go through and select which ones you want quarantined."
+msgstr ""
+
+msgctxt "#30031"
+msgid "update available"
+msgstr ""
+
+msgctxt "#30032"
+msgid "[COLOR=dodgerblue]%s[/COLOR] is outdated and there is a newer version available. Please click OK so we can check if the relevant repo is installed."
+msgstr ""
+
+msgctxt "#30033"
+msgid "%s updates available"
+msgstr ""
+
+msgctxt "#30034"
+msgid "There are %s items on your system that are outdated and have newer versions available. Please select what you want to do for each one..."
+msgstr ""
+
+msgctxt "#30035"
+msgid "Scan Complete"
+msgstr ""
+
+msgctxt "#30036"
+msgid "Please consider helping out the community by updating the Add-on Portal (or noobsandnerds team) of of any new add-on details you have details for. Broken, deleted, malicious... any info you can give will help others. Thank you."
+msgstr ""
+
+msgctxt "#30037"
+msgid "That was quick!"
+msgstr ""
+
+msgctxt "#30038"
+msgid "Great news, your system is clean - absolutely nothing on here that should be causing any problems. Well that is unless you\'ve added things to your whitelist so if you didn\'t setup this device yourself you might want to check in there."
+msgstr ""
+
+msgctxt "#30039"
+msgid "[CR][COLOR=dodgerblue]Details:[/COLOR] %s[CR]"
+msgstr ""
+
+msgctxt "#30040"
+msgid "Quarantine Vault"
+msgstr ""
+
+msgctxt "#30041"
+msgid "Would you like to completely wipe everything in your quarantine vault or do you want to select individual items?"
+msgstr ""
+
+msgctxt "#30042"
+msgid "WIPE EVERYTHING"
+msgstr ""
+
+msgctxt "#30043"
+msgid "SELECT"
+msgstr ""
+
+msgctxt "#30044"
+msgid "ARE YOU CERTAIN!"
+msgstr ""
+
+msgctxt "#30045"
+msgid "This will fully delete everything in your quarantine folder. There\'s no getting these items back, once they\'re gone they\'re gone! Are you sure you want to purge the whole vault?"
+msgstr ""
+
+msgctxt "#30046"
+msgid "SUCCESS"
+msgstr ""
+
+msgctxt "#30047"
+msgid "Your quarantine folder has now been purged."
+msgstr ""
+
+msgctxt "#30048"
+msgid "FAILED"
+msgstr ""
+
+msgctxt "#30049"
+msgid "Sorry something on the system is not allowing the removal of these items, please manually delete from the quarantine folder."
+msgstr ""
+
+msgctxt "#30050"
+msgid "CHOOSE ITEM TO DELETE"
+msgstr ""
+
+msgctxt "#30051"
+msgid "This will fully remove [COLOR=dodgerblue]%s[/COLOR] from you system. There is no getting this item back, once it\'s gone it\'s gone! Are you sure you want to delete it?"
+msgstr ""
+
+msgctxt "#30052"
+msgid "This item has now successfully been deleted from your system"
+msgstr ""
+
+msgctxt "#30053"
+msgid "NOTHING TO DELETE"
+msgstr ""
+
+msgctxt "#30054"
+msgid "You have nothing in your quarantine vault to delete."
+msgstr ""
+
+msgctxt "#30055"
+msgid "Status..."
+msgstr ""
+
+msgctxt "#30056"
+msgid "Downloading Content"
+msgstr ""
+
+msgctxt "#30057"
+msgid "Although we\'re fairly certain the author of SR meant no harm and was only trying to help the community there is a huge flaw in the way it works. Efforts have been made to improve the system but there are still some issues. Content is re-uploaded and has conflicted with the original developers versions on a number of occasions. This has resulted in certain addons breaking because the version number on SR is wrong (and higher) than the official version, so even though if you install from the real developers repo but you have SR installed you may still encounter problems trying to get the real version installed."
+msgstr ""
+
+msgctxt "#30058"
+msgid "Unable to contact server"
+msgstr ""
+
+msgctxt "#30059"
+msgid "There was a problem trying to access the server, please try again later."
+msgstr ""
+
+msgctxt "#30060"
+msgid "Would you like to quarantine"
+msgstr ""
+
+msgctxt "#30061"
+msgid "%s: FAILED"
+msgstr ""
+
+msgctxt "#30062"
+msgid "It was not possible to move [COLOR=dodgerblue]%s[/COLOR]. It may be running as a service possibly slowing down your device, would you like to try and remove it completely?"
+msgstr ""
+
+msgctxt "#30063"
+msgid "FAILED TO REMOVE"
+msgstr ""
+
+msgctxt "#30064"
+msgid "It was not possible to remove [COLOR=dodgerblue]%s[/COLOR]. You will have to manually remove this, you\'ll most likely need to quit Kodi to do this."
+msgstr ""
+
+msgctxt "#30065"
+msgid "PLEASE WAIT"
+msgstr ""
+
+msgctxt "#30066"
+msgid "Scanning %s repositories"
+msgstr ""
+
+msgctxt "#30067"
+msgid "PROBLEM REPOSITORIES DETECTED"
+msgstr ""
+
+msgctxt "#30068"
+msgid "[COLOR=gold]About: [/COLOR]During the scan Kodi was unable to gather data from the repositories listed below. The most common cause for this is the developer pulling their repo or moving it and failing to put a correct redirect in place. We recommend doing a full scan using this add-on to see if there are any known issues with any of these repo\'s and if that comes up blank have a search on the web to see if there are any known issues.[CR][CR][COLOR=gold]What to do: [/COLOR]This list is gathered using your logfile in Kodi, it has nothing to do with community driven lists so is completely accurate. Kodi was unable to read the repository files on the web, that could mean you have an error with your setup (internet connection problems or ISP blocking) but more than likely there is a problem with the actual repository file online. It may just be a temporary glitch and the developer may well fix it in time. If you want you can leave these repo\'s on your system and give it a few days to see if they come back online or you could temporarily put them in quarantine.[CR][CR][COLOR=dodgerblue]Repositories Failing To Resolve:[/COLOR][CR]%s'"
+msgstr ""
+
+msgctxt "#30069"
+msgid "Quarantine Items"
+msgstr ""
+
+msgctxt "#30070"
+msgid "Would you like to quarantine any of these items?"
+msgstr ""
+
+msgctxt "#30071"
+msgid "Looking good"
+msgstr ""
+
+msgctxt "#30072"
+msgid "Great news, all the repositories on your system appear to be functioning correctly."
+msgstr ""
+
+msgctxt "#30073"
+msgid "Unsupported System"
+msgstr ""
+
+msgctxt "#30074"
+msgid "Sorry it looks as though you may be running an unsupported version of Kodi. This function currently only supports XBMC, Kodi, SPMC and TVMC"
+msgstr ""
+
+msgctxt "#30075"
+msgid "Everything"
+msgstr ""
+
+msgctxt "#30076"
+msgid "Individual Items"
+msgstr ""
+
+msgctxt "#30077"
+msgid "[COLOR=gold]%s -[/COLOR] Unable to restore[CR]"
+msgstr ""
+
+msgctxt "#30078"
+msgid "Select item to restore"
+msgstr ""
+
+msgctxt "#30079"
+msgid "Sorry it was not possible to restore, check you haven\'t already reinstalled this item"
+msgstr ""
+
+msgctxt "#30080"
+msgid "UNABLE TO RESTORE"
+msgstr ""
+
+msgctxt "#30081"
+msgid "The items listed below could not be restored. The most likely cause for this is the user attempting to reinstall via other means. Please remove any instance of these items from your addons folder and run this function again.[CR][CR]"
+msgstr ""
+
+msgctxt "#30082"
+msgid "SERVICES FOUND"
+msgstr ""
+
+msgctxt "#30083"
+msgid "The following items are coded to run some sort of service in the background. Whilst there are many legitimate reasons for running services (such as automated maintenance tasks) they can also be used for more dubious means such as data gathering or running malicious code. Even if the author has perfectly good intentions a badly written service can be the cause of many problems within Kodi ranging from slowdowns to inability to play certain content. As mentioned there are plenty of legitimate reasons to add a service to an add-on but take a look at the list below and if you see any that don\'t seem to warrant having a service running contact the developer of that add-on so they can explain why it\'s there. The chances are there is a perfectly good reason but it\'s always better to be safe than sorry.[CR][CR]%s"
+msgstr ""
+
+msgctxt "#30084"
+msgid "Scan my system"
+msgstr ""
+
+msgctxt "#30085"
+msgid "Show my repos that are failing"
+msgstr ""
+
+msgctxt "#30086"
+msgid "Show add-ons running a service"
+msgstr ""
+
+msgctxt "#30087"
+msgid "Add/Remove whitelist items"
+msgstr ""
+
+msgctxt "#30088"
+msgid "Restore quarantined items"
+msgstr ""
+
+msgctxt "#30089"
+msgid "Delete from quarantine vault"
+msgstr ""
+
+msgctxt "#30090"
+msgid "The Add-on Portal is showing this as being available on the following repository: [COLOR=dodgerblue]%s[/COLOR]"
+msgstr ""
+
+msgctxt "#30091"
+msgid "Would you like to install this repo so you can update?"
+msgstr ""
+
+msgctxt "#30092"
+msgid "FAILED TO INSTALL"
+msgstr ""
+
+msgctxt "#30093"
+msgid "Sorry there was a problem trying to install this repository, please try searching on the web for an update. If you find one please update the team at noobsandnerds.com so they can update the portal details. Thank you."
+msgstr ""
+
+msgctxt "#30094"
+msgid "Updated Pushed"
+msgstr ""
+
+msgctxt "#30095"
+msgid "The command to check for updates has been sent, take a look in the following window to make sure no new updates are available, if they are you may want to update."
+msgstr ""
+
+msgctxt "#30096"
+msgid "FAILED TO INSTALL"
+msgstr ""
+
+msgctxt "#30097"
+msgid "Whitelist"
+msgstr ""
+
+msgctxt "#30098"
+msgid "You can add any items in your addons directory to the whitelist so they are ignored on future scans.[CR]Would you like to add or remove items?"
+msgstr ""
+
+msgctxt "#30099"
+msgid "Remove"
+msgstr ""
+
+msgctxt "#30100"
+msgid "Add"
+msgstr ""
+
+msgctxt "#30101"
+msgid "Empty List"
+msgstr ""
+
+msgctxt "#30102"
+msgid "Nothing to see here..."
+msgstr ""
+
+msgctxt "#30103"
+msgid "You don\'t have any items whitelisted yet"
+msgstr ""
+
+msgctxt "#30104"
+msgid "CURRENT WHITELIST"
+msgstr ""
+
+msgctxt "#30105"
+msgid "White List"
+msgstr ""
+
+msgctxt "#30106"
+msgid "%s Items Removed"
+msgstr ""
+
+msgctxt "#30107"
+msgid "Left Unchanged"
+msgstr ""
+
+msgctxt "#30108"
+msgid "%s Items Added"
+msgstr ""
+
+msgctxt "#30109"
+msgid "CHOOSE FOLDER TO WHITELIST"
+msgstr ""

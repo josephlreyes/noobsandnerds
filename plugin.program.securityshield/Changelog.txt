@@ -1,3 +1,10 @@
+v.1.0.6:
+- New multi-select options for all items with full details and artwork.
+- Scan for add-ons running as services.
+- Scan for add-ons with code that can run os shell scripts (inc. autoexec.py).
+- Ability to unobfuscate certain add-ons so you can check the code yourself.
+- Improved the scan frequency in settings.
+
 v.1.0.3:
 - Added repo check, this will check the kodi log for repo's that couldn't be resolved.
 - Added whitelist - add/remove items to a whitelist, anything in there will be skipped in the scan.

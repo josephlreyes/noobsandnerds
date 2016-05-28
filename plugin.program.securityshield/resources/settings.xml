@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-	<setting id="runservice" type="bool" label="Automatically run scan every 24hrs" default="false"/>
+	<setting id="runservice" type="bool" label="Automatically run scan" default="false"/>
+	<setting id="feqservice" type="enum" label="How often would you like to scan?" lvalues="30200|30201|30202|30203" default="2" enable="!eq(-1,false)"/>
+	<setting id="lastservice" type="text" label="Next time to do scan" visible="false" default="2016-01-01 00:00:00.000000" />
 </settings>

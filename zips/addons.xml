@@ -270,7 +270,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.program.securityshield" name="Security Shield"  provider-name="whufclee" version="1.0.3">
+<addon id="plugin.program.securityshield" name="Security Shield"  provider-name="whufclee, surfacingx" version="1.0.6">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
@@ -280,7 +280,7 @@
   <extension point="xbmc.service" library="service.py" start="startup" />
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Security Shield</summary>
-	<description>Run this add-on to quickly check your install add-ons and repo's against the noobsandnerds Add-on Portal database. This will quickly check if you have any content installed that's no longer working, considered depreciated or marked as potentially dangerous. Keeping old repositories (and potentially some addons) on your system is huge security flaw in the Kodi system so make sure you check regularly.</description>
+	<description>Run this add-on to quickly check your installed add-ons and repo's against the noobsandnerds Add-on Portal database as well as some more advanced features for checking running services etc. The main scan will quickly check if you have any content installed that's no longer working, considered depreciated or marked as potentially dangerous. Keeping old repositories (and potentially some addons) on your system is huge security flaw in the Kodi system so make sure you check regularly. The scan process is extremely quick and should just take a few seconds even with hundreds of add-ons installed.</description>
     <platform>all</platform>
 	<genre>devtools, other</genre>
 	<video_guide>HsiXVi-sKxA</video_guide>
@@ -4693,17 +4693,21 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
 	</extension>
 </addon>
 
-<addon id="repository.nlview" name="NLView" version="0.0.0.1" provider-name="NLView">
-    <extension point="xbmc.addon.repository" name="NLView Repository">
-        <info compressed="true">http://reponlview.site88.net/repo/addons.xml</info>
-        <checksum>http://reponlview.site88.net/repo/addons.xml.md5</checksum>
-        <datadir zip="true">http://reponlview.site88.net/repo</datadir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>Hier kun je de addon NLView downloaden.</summary>
-        <description>Dit is de repository van NLView.</description>
-        <platform>all</platform>
-        <broken>This repository has been deleted, it is no longer available</broken>
+    <addon id="repository.NLVIEW" name="[B][COLOR lime]NL[/COLOR][COLOR white]View[/COLOR][/B]" version="0.0.0.1" provider-name="NLView">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="NLView Repository">
+            <info compressed="false">https://raw.githubusercontent.com/NLViewJeroen/NLView-Repository/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/NLViewJeroen/NLView-Repository/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/NLViewJeroen/NLView-Repository/master/zips/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary></summary>
+			<description></description>
+			<disclaimer></disclaimer>
+            <platform>all</platform>
     </extension>
 </addon>
 
@@ -6467,9 +6471,9 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 
 <addon id="repository.thevibe" name="TheVibe Team Repository" version="0.0.0.1" provider-name="TheVibe Team">
   <extension point="xbmc.addon.repository" name=".TheVibe Repository ">
-    <info compressed="false">https://github.com/teamThevibe/repository.thevibe/raw/master/Repo/addons.xml</info>
-    <checksum>https://github.com/teamThevibe/repository.thevibe/raw/master/Repo/addons.xml.md5</checksum>
-    <datadir zip="true">https://github.com/teamThevibe/repository.thevibe/raw/master/Repo/</datadir>
+    <info compressed="false">http://repo.the-vibe.co.il/Repo/xml</info>
+    <checksum>http://repo.the-vibe.co.il/Repo/md5</checksum>
+    <datadir zip="true">http://repo.the-vibe.co.il/Repo/</datadir>
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary>The-Vibe Team Repository</summary>

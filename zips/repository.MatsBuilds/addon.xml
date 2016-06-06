@@ -6,9 +6,9 @@
 		<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
 		<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
 	</dir>
-		<info compressed="false">http://www.matsbuilds.co.uk/plugins/addon.xml</info>
-		<checksum>http://www.matsbuilds.co.uk/plugins/addons.xml.md5</checksum>
-		<datadir zip="true">http://www.matsbuilds.co.uk/plugins/</datadir>
+		<info compressed="false">http://www.matsbuilds.co.uk/zips/addon.xml</info>
+		<checksum>http://www.matsbuilds.co.uk/zips/addon.xml.md5</checksum>
+		<datadir zip="true">http://www.matsbuilds.co.uk/zips/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Install Add-ons from Mats Builds</summary>

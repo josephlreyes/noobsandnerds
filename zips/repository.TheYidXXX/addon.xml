@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.TheYidXXX" name="TheYid's [COLOR red]Adult[/COLOR] repo" version="0.0.0.1" provider-name="[COLOR blue][B]tcz009[/B][/COLOR] [B][I]TheYid's [COLOR red]Adult[/COLOR] REPO[/B][/I]">
+	<extension point="xbmc.addon.repository" name="TheYid's [COLOR red]XXX[/COLOR] Repository">
+		<info compressed="false">https://bitbucket.org/tcz009/theyidxxx/raw/master/addons.xml</info>
+		<checksum>https://bitbucket.org/tcz009/theyidxxx/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://bitbucket.org/tcz009/theyidxxx/raw/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Adult [COLOR red]XXX[/COLOR] Addons</summary>
+		<description>Download and install [COLOR red]XXX Adult[/COLOR] addons from TheYid.... All 720p/1080p adult movies  [COLOR red][B][I]Real-Debrid or Alldebird PREMIUM NEEDED FOR ALL ADDONS[/B][/I][/COLOR]...For OFFICIAL Support Visit XBMCHUB.COM</description>
+		<platform>all</platform>
+		<broken>This repository is now dead, the developer has pulled the code from bitbucket</broken>
+	</extension>
+</addon>
+

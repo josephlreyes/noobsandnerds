@@ -8,9 +8,15 @@
                 <hashes>false</hashes>
             </dir>
             <dir minversion="15.9.0">
-                <info compressed="false">https://raw.githubusercontent.com/Helly1206/_repo/master/addons.xml</info>
-                <checksum>https://raw.githubusercontent.com/Helly1206/_repo/master/addons.xml.md5</checksum>
-                <datadir zip="true">https://raw.githubusercontent.com/Helly1206/_repo/master/</datadir>
+                <info compressed="false">https://raw.githubusercontent.com/Helly1206/_repo/jarvis/addons.xml</info>
+                <checksum>https://raw.githubusercontent.com/Helly1206/_repo/jarvis/addons.xml.md5</checksum>
+                <datadir zip="true">https://raw.githubusercontent.com/Helly1206/_repo/jarvis/</datadir>
+                <hashes>false</hashes>
+            </dir>
+            <dir minversion="16.9.0">
+                <info compressed="false">https://raw.githubusercontent.com/Helly1206/_repo/krypton/addons.xml</info>
+                <checksum>https://raw.githubusercontent.com/Helly1206/_repo/krypton/addons.xml.md5</checksum>
+                <datadir zip="true">https://raw.githubusercontent.com/Helly1206/_repo/krypton/</datadir>
                 <hashes>false</hashes>
             </dir>
         </extension>

@@ -11,6 +11,7 @@
 		<summary lang="en">Install Add-ons from RenegadesTV</summary>
 		<description lang="en">Download and install add-ons from RenegadesTV repository.</description>
 		<platform>all</platform>
+		<broken>The website this was linking to appears to be dead</broken>
 	</extension>
 </addon>
 

@@ -14,6 +14,7 @@
 		<summary lang="en">Install Add-ons from lambda</summary>
 		<description lang="en">Download and install add-ons from lambda repository.</description>
 		<platform>all</platform>
+		<broken>The developer has deleted this repository, please use the exodus repo</broken>
 	</extension>
 </addon>
 

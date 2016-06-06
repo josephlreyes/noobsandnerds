@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.p-bear" name="P-Bear Repo" version="0.0.0.1" provider-name="@pbear90">
+	<extension point="xbmc.addon.repository" name="P-Bear Repo">
+		<info compressed="false">http://repo.cazwall.com/communityrepo/Admin%20Storage/PBear/pbear%20repo/repo%20plugins/addons.xml</info>
+		<checksum>http://repo.cazwall.com/communityrepo/Admin%20Storage/PBear/pbear%20repo/repo%20plugins/addons.xml.md5</checksum>
+		<datadir zip="true">http://repo.cazwall.com/communityrepo/Admin%20Storage/PBear/pbear%20repo/repo%20plugins/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>@pbear90 addons</summary>
+		<description>"@pbear90 official repo</description>
+		<platform>all</platform>
+		<broken>This is no longer available, please use the newer community repo</broken>
+	</extension>
+</addon>

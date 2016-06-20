@@ -1,13 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.nlview" name="NLView" version="0.0.0.1" provider-name="NLView">
-    <extension point="xbmc.addon.repository" name="NLView Repository">
-        <info compressed="true">http://reponlview.site88.net/repo/addons.xml</info>
-        <checksum>http://reponlview.site88.net/repo/addons.xml.md5</checksum>
-        <datadir zip="true">http://reponlview.site88.net/repo</datadir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>Hier kun je de addon NLView downloaden.</summary>
-        <description>Dit is de repository van NLView.</description>
-        <platform>all</platform>
+<?xml version="1.0" encoding="UTF-8"?>
+    <addon id="repository.NLVIEW" name="[B][COLOR lime]NL[/COLOR][COLOR white]View[/COLOR][/B]" version="0.0.0.1" provider-name="NLView">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="NLView Repository">
+            <info compressed="false">https://raw.githubusercontent.com/NLViewJeroen/NLView-Repository/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/NLViewJeroen/NLView-Repository/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/NLViewJeroen/NLView-Repository/master/zips/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary></summary>
+			<description></description>
+			<disclaimer></disclaimer>
+            <platform>all</platform>
     </extension>
 </addon>

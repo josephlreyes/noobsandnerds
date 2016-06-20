@@ -17,11 +17,9 @@
 #  http://www.gnu.org/copyleft/gpl.html
 #
 
-import xbmc, xbmcaddon, xbmcgui, os, re, urllib, urllib2
-import time, dixie, shutil
-import extract, download, login
-
-from sqlite3 import dbapi2 as sqlite
+import xbmc, xbmcaddon, os
+import dixie
+import login
 
 AddonID          =  'script.tvportal'
 ADDON            =  xbmcaddon.Addon(id=AddonID)
@@ -29,20 +27,11 @@ showSFchannels   =  ADDON.getSetting('showSFchannels')
 USERDATA         =  xbmc.translatePath(os.path.join('special://home/userdata',''))
 ADDON_DATA       =  xbmc.translatePath(os.path.join(USERDATA,'addon_data'))
 ADDONS           =  xbmc.translatePath('special://home/addons')
-chanxml          =  os.path.join(ADDON_DATA,AddonID,'chan.xml')
-xmlmaster        =  os.path.join(ADDONS,AddonID,'resources','chan.xml')
-catsxml          =  os.path.join(ADDON_DATA,AddonID,'cats.xml')
-catsmaster       =  os.path.join(ADDONS,AddonID,'resources','cats.xml')
-firstrun         =  os.path.join(ADDON_DATA,AddonID,'firstrun.txt')
-updateicon       =  os.path.join(ADDONS,AddonID,'resources','update.png')
 cookies          =  os.path.join(ADDON_DATA,AddonID,'cookies')       
-dialog           =  xbmcgui.Dialog()
-dbpath           =  xbmc.translatePath(os.path.join(ADDON_DATA,AddonID,'program.db'))
 
 xbmc.executebuiltin("ActivateWindow(busydialog)")
 
 #if __name__ == '__main__':
-login.iIiii1i111iI1()
 if not os.path.exists(os.path.join(ADDON_DATA,AddonID)):
     dixie.log("New addon_data folder created")
     os.makedirs(os.path.join(ADDON_DATA,AddonID))
@@ -53,4 +42,4 @@ if not os.path.exists(cookies):
     os.makedirs(cookies)
 
 xbmc.executebuiltin('RunScript(special://home/addons/script.tvportal/createDB.py,normal)')
-login.OOoo0O()
+login.o000O0o()

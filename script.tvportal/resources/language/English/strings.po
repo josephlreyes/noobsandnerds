@@ -1,6 +1,6 @@
 # XBMC Media Center language file
 # Addon Name: TV Guide
-# Addon id: script.tvportal
+# Addon id: script.tvportal.test
 # Addon Provider: twinther [tommy@winther.nu]
 msgid ""
 msgstr ""
@@ -53,7 +53,7 @@ msgid "Cancel"
 msgstr ""
 
 msgctxt "#30009"
-msgid "Listings coming soon."
+msgid "No information available"
 msgstr ""
 
 #empty strings from id 30010 to 30099
@@ -155,7 +155,7 @@ msgid "Enable Touch Screen"
 msgstr ""
 
 msgctxt "#30124"
-msgid "[CR]Global Timezone offset - use if listings are out of sync on all channels."
+msgid "Global Timezone offset - use if listings are out of sync on all channels."
 msgstr ""
 
 msgctxt "#30125"
@@ -269,7 +269,7 @@ msgid "Choose Stream"
 msgstr ""
 
 msgctxt "#30305"
-msgid ""
+msgid "Enable login"
 msgstr ""
 
 msgctxt "#30306"
@@ -590,7 +590,7 @@ msgid "All database files updated successfully"
 msgstr ""
 
 msgctxt "#30841"
-msgid "Use NaN channels & categories"
+msgid "Use NaN channel ordering"
 msgstr ""
 
 msgctxt "#30842"
@@ -626,7 +626,7 @@ msgid "Enable meta video integration"
 msgstr ""
 
 msgctxt "#30850"
-msgid "Sync with NaN master iconpack"
+msgid "Sync with NaN master logo pack"
 msgstr ""
 
 msgctxt "#30851"
@@ -634,7 +634,7 @@ msgid "Show the XXX category"
 msgstr ""
 
 msgctxt "#30852"
-msgid "[CR]TV mini guide - bring up the tv guide from anywhere in Kodi"
+msgid "TV mini guide - bring up the tv guide from anywhere in Kodi"
 msgstr ""
 
 msgctxt "#30853"
@@ -642,7 +642,7 @@ msgid "[B]Click to program Mini-Guide Hot Key[/B]"
 msgstr ""
 
 msgctxt "#30854"
-msgid "[CR]Only show listings you have channels set for"
+msgid "Only show listings you have channels set for"
 msgstr ""
 
 msgctxt "#30855"
@@ -662,7 +662,7 @@ msgid "[COLOR=gold]Create SF Channel Folders in path above[/COLOR]"
 msgstr ""
 
 msgctxt "#30859"
-msgid "[CR]This helps with dead links that need relinking"
+msgid "This helps with dead links that need relinking"
 msgstr ""
 
 msgctxt "#30860"
@@ -670,7 +670,7 @@ msgid "Always Offer To Choose Stream"
 msgstr ""
 
 msgctxt "#30861"
-msgid "[CR]Easy access to categories list - disables ability to look back in time."
+msgid "Easy access to categories list - disables ability to look back in time."
 msgstr ""
 
 msgctxt "#30862"
@@ -678,7 +678,7 @@ msgid "Show Categories On Left Click"
 msgstr ""
 
 msgctxt "#30863"
-msgid "[CR]Not based in UK? You may need to change this option"
+msgid "Not based in UK? You may need to change this option"
 msgstr ""
 
 msgctxt "#30864"
@@ -690,11 +690,11 @@ msgid "Allow Enhanced Add-on Linking"
 msgstr ""
 
 msgctxt "#30866"
-msgid "[CR]Do not enable unless you absolutely need touchscreen support"
+msgid "Do not enable unless you absolutely need touchscreen support"
 msgstr ""
 
 msgctxt "#30867"
-msgid "[CR]Boot directly into the EPG on startup of Kodi"
+msgid "Boot directly into the EPG on startup of Kodi"
 msgstr ""
 
 msgctxt "#30868"
@@ -702,7 +702,7 @@ msgid "Start Automatically (requires reboot)"
 msgstr ""
 
 msgctxt "#30869"
-msgid "[CR]Worried you may leave the TV streaming content? Set a timer here"
+msgid "Worried you may leave the TV streaming content? Set a timer here"
 msgstr ""
 
 msgctxt "#30870"
@@ -710,7 +710,7 @@ msgid "Quit Stream If Idle For"
 msgstr ""
 
 msgctxt "#30871"
-msgid "[CR]Stop accidental backing out of the EPG - this gives a yes/no dialog"
+msgid "Stop accidental backing out of the EPG - this gives a yes/no dialog"
 msgstr ""
 
 msgctxt "#30872"
@@ -719,4 +719,380 @@ msgstr ""
 
 msgctxt "#30873"
 msgid "Set the global timezone offset"
+msgstr ""
+
+msgctxt "#30874"
+msgid "Use NaN category mapping"
+msgstr ""
+
+msgctxt "#30875"
+msgid "Use NaN configs - see forum for full details"
+msgstr ""
+
+msgctxt "#30876"
+msgid "Synchronise with NaN categories"
+msgstr ""
+
+msgctxt "#30877"
+msgid "Synchronise with NaN channel ordering (experimental)"
+msgstr ""
+
+msgctxt "#30878"
+msgid "[B]Click to reset Mini-Guide Hot Key[/B]"
+msgstr ""
+
+msgctxt "#30879"
+msgid "Current LogoPack"
+msgstr ""
+
+msgctxt "#30880"
+msgid "Previous LogoPack"
+msgstr ""
+
+msgctxt "#30881"
+msgid "FIRSTRUN"
+msgstr ""
+
+msgctxt "#30882"
+msgid "Mini-Guide Installed"
+msgstr ""
+
+msgctxt "#30883"
+msgid "Previous GMT"
+msgstr ""
+
+msgctxt "#30884"
+msgid "categories"
+msgstr ""
+
+msgctxt "#30885"
+msgid "Current Version"
+msgstr ""
+
+msgctxt "#30886"
+msgid "Skin Version"
+msgstr ""
+
+msgctxt "#30887"
+msgid "Logo Version"
+msgstr ""
+
+msgctxt "#30888"
+msgid "ini Version"
+msgstr ""
+
+msgctxt "#30889"
+msgid "SF Folder Count"
+msgstr ""
+
+msgctxt "#30890"
+msgid "Update EPG Date"
+msgstr ""
+
+msgctxt "#30891"
+msgid "Current Channels"
+msgstr ""
+
+msgctxt "#30892"
+msgid "Updated Channels"
+msgstr ""
+
+msgctxt "#30893"
+msgid "messageID"
+msgstr ""
+
+msgctxt "#30894"
+msgid "login"
+msgstr ""
+
+msgctxt "#30895"
+msgid "Add SF folders channels even if I have no EPG data scanned"
+msgstr ""
+
+msgctxt "#30896"
+msgid "Ignore ini files and open SF folder - Disables channel surfing ability"
+msgstr ""
+
+msgctxt "#30897"
+msgid "[COLOR=gold]----------------------------------------------------[/COLOR]"
+msgstr ""
+
+msgctxt "#30898"
+msgid "Choose to watch the live channel or search for movie/show via add-ons"
+msgstr ""
+
+msgctxt "#30899"
+msgid "Give the option of watching live or catchup"
+msgstr ""
+
+msgctxt "#30900"
+msgid "[COLOR=gold]Use latest test version (donators only)[/COLOR]"
+msgstr ""
+
+msgctxt "#30901"
+msgid "Check Login Details"
+msgstr ""
+
+msgctxt "#30902"
+msgid "Please double check your login credentials, once entered correctly try running the add-on to activate the test version then come back and try again."
+msgstr ""
+
+msgctxt "#30903"
+msgid "Log Options - Add an email to receive a link to your log"
+msgstr ""
+
+msgctxt "#30904"
+msgid "Enable Debug Mode (enable if asking for help on forum)"
+msgstr ""
+
+msgctxt "#30905"
+msgid "Always skip Kodi.old.log (log from previous run)"
+msgstr ""
+
+msgctxt "#30906"
+msgid "Email address"
+msgstr ""
+
+msgctxt "#30907"
+msgid "[COLOR=gold]Click to upload log[/COLOR]"
+msgstr ""
+
+msgctxt "#30908"
+msgid "Backup/Restore Channel Data"
+msgstr ""
+
+msgctxt "#30909"
+msgid "Create a FULL backup - Can restore on this device"
+msgstr ""
+
+msgctxt "#30910"
+msgid "Create a SYNC backup - Synchronise multiple installs"
+msgstr ""
+
+msgctxt "#30911"
+msgid "Fixes"
+msgstr ""
+
+msgctxt "#30912"
+msgid "Update listings - rescan XML files for updates"
+msgstr ""
+
+msgctxt "#30913"
+msgid "Force listings update - only use if the option above doesn't work"
+msgstr ""
+
+msgctxt "#30914"
+msgid "Choose USTV Catch Up"
+msgstr ""
+
+msgctxt "#30915"
+msgid "Choose Trailers Add-on"
+msgstr ""
+
+msgctxt "#30916"
+msgid "Appearance - set your skin and logo pack"
+msgstr ""
+
+msgctxt "#30917"
+msgid "Choose Skin Style"
+msgstr ""
+
+msgctxt "#30918"
+msgid "Channel Settings"
+msgstr ""
+
+msgctxt "#30919"
+msgid "Custom Channel Folder"
+msgstr ""
+
+msgctxt "#30920"
+msgid "Logo Pack Settings"
+msgstr ""
+
+msgctxt "#30921"
+msgid "Choose Custom Logo Pack"
+msgstr ""
+
+msgctxt "#30922"
+msgid "Choose Built-in Logo Pack"
+msgstr ""
+
+msgctxt "#30923"
+msgid "Add a custom IPTV Playlist - easy integration for online and local playlists"
+msgstr ""
+
+msgctxt "#30924"
+msgid "IPTV Playlist"
+msgstr ""
+
+msgctxt "#30925"
+msgid "File"
+msgstr ""
+
+msgctxt "#30926"
+msgid "URL"
+msgstr ""
+
+msgctxt "#30927"
+msgid "Add my own channels - create your own XML file and scan into db here"
+msgstr ""
+
+msgctxt "#30928"
+msgid "TVXML 1 Type"
+msgstr ""
+
+msgctxt "#30929"
+msgid "Choose Local File for XML 1"
+msgstr ""
+
+msgctxt "#30930"
+msgid "Enter URL Location for XML 1"
+msgstr ""
+
+msgctxt "#30931"
+msgid "Set Country for this XML (recommended)"
+msgstr ""
+
+msgctxt "#30932"
+msgid "Choose Country"
+msgstr ""
+
+msgctxt "#30933"
+msgid "-- Open Test Settings"
+msgstr ""
+
+msgctxt "#30934"
+msgid "Offset listings - set offset (in hours) for listings in wrong timezone"
+msgstr ""
+
+msgctxt "#30935"
+msgid "TVXML 2 Type"
+msgstr ""
+
+msgctxt "#30936"
+msgid "Choose Local File for XML 2"
+msgstr ""
+
+msgctxt "#30937"
+msgid "Enter URL Location for XML 2"
+msgstr ""
+
+msgctxt "#30938"
+msgid "TVXML 3 Type"
+msgstr ""
+
+msgctxt "#30939"
+msgid "Choose Local File for XML 3"
+msgstr ""
+
+msgctxt "#30940"
+msgid "Enter URL Location for XML 3"
+msgstr ""
+
+msgctxt "#30941"
+msgid "TVXML 4 Type"
+msgstr ""
+
+msgctxt "#30942"
+msgid "Choose Local File for XML 4"
+msgstr ""
+
+msgctxt "#30943"
+msgid "Enter URL Location for XML 4"
+msgstr ""
+
+msgctxt "#30944"
+msgid "TVXML 5 Type"
+msgstr ""
+
+msgctxt "#30945"
+msgid "Choose Local File for XML 5"
+msgstr ""
+
+msgctxt "#30946"
+msgid "Enter URL Location for XML 5"
+msgstr ""
+
+msgctxt "#30947"
+msgid "TVXML 6 Type"
+msgstr ""
+
+msgctxt "#30948"
+msgid "Choose Local File for XML 6"
+msgstr ""
+
+msgctxt "#30949"
+msgid "Enter URL Location for XML 6"
+msgstr ""
+
+msgctxt "#30950"
+msgid "TVXML 7 Type"
+msgstr ""
+
+msgctxt "#30951"
+msgid "Choose Local File for XML 7"
+msgstr ""
+
+msgctxt "#30952"
+msgid "Enter URL Location for XML 7"
+msgstr ""
+
+msgctxt "#30953"
+msgid "TVXML 8 Type"
+msgstr ""
+
+msgctxt "#30954"
+msgid "Choose Local File for XML 8"
+msgstr ""
+
+msgctxt "#30955"
+msgid "Enter URL Location for XML 8"
+msgstr ""
+
+msgctxt "#30956"
+msgid "TVXML 9 Type"
+msgstr ""
+
+msgctxt "#30957"
+msgid "Choose Local File for XML 9"
+msgstr ""
+
+msgctxt "#30958"
+msgid "Enter URL Location for XML 9"
+msgstr ""
+
+msgctxt "#30959"
+msgid "TVXML 10 Type"
+msgstr ""
+
+msgctxt "#30960"
+msgid "Choose Local File for XML 10"
+msgstr ""
+
+msgctxt "#30961"
+msgid "Enter URL Location for XML 10"
+msgstr ""
+
+msgctxt "#30962"
+msgid "You need to enable the login option to use the test version. This feature is only available to members who have donated towards the noobsandnerds development fund. You can disable this option to continue using the standard version."
+msgstr ""
+
+msgctxt "#30963"
+msgid "No test version available"
+msgstr ""
+
+msgctxt "#30964"
+msgid "There is no test version available for this add-on at this time."
+msgstr ""
+
+msgctxt "#30965"
+msgid "Error"
+msgstr ""
+
+msgctxt "#30966"
+msgid "Sorry there was an error trying to retrieve the latest test version, the developer may be working on pushing a new update."
+msgstr ""
+
+msgctxt "#30967"
+msgid "Download XML - Faster for large XMLs but causes stress on your storage"
 msgstr ""

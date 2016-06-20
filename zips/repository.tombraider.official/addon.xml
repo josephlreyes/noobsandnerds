@@ -1,0 +1,13 @@
+<addon id="repository.tombraider.official" name="Tomb Raider Repo" version="0.0.0.1" provider-name="Tomb Raider">
+    <extension point="xbmc.addon.repository" name="Tomb Raider Repository">
+        <info compressed="false">http://tombraiderbuilds.co.uk/repository/addons.xml</info>
+        <checksum>http://tombraiderbuilds.co.uk/repository/addons.xml.md5</checksum>
+        <datadir zip="true">http://tombraiderbuilds.co.uk/repository/zips/</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Tomb Raiders Repository</summary>
+        <description>Latest Addon Updates
+        </description>
+        <platform>all</platform>
+    </extension>
+</addon>

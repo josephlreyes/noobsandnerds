@@ -1,0 +1,24 @@
+<?xml version="1.1" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.p-bear" name="PBear Repo" version="0.0.0.1" provider-name="@pbear90">
+
+	<extension point="xbmc.addon.repository" name="P-Bear Repo">
+
+		<info compressed="false">http://pbear90repo.netai.net/plugins/addons.xml</info>
+
+		<checksum>http://http://pbear90repo.netai.net/plugins/addons.xml.md5</checksum>
+
+		<datadir zip="true">http://pbear90repo.netai.net/plugins/</datadir>
+
+	</extension>
+
+	<extension point="xbmc.addon.metadata">
+
+		<summary>@pbear90 addons</summary>
+
+		<description>"@pbear90 official repo</description>
+
+		<platform>all</platform>
+
+	</extension>
+
+</addon>

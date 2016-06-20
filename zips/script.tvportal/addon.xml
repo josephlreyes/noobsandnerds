@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.tvportal" name="TV Portal" version="1.1" provider-name="noobsandnerds.com (forked from original work by spoyser and DixieDean)">
+<addon id="script.tvportal" name="TV Portal" version="1.1.1" provider-name="noobsandnerds.com (forked from original work by spoyser and DixieDean)">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.3.0"/>
@@ -17,7 +17,7 @@
         <platform>all</platform>
         <language></language>
         <license>GPLv2</license>
-        <ref>912583baffe6f92db6a8e0062ff6ebbb</ref>
+        <ref>e9d7a3db9aced083ea1eaa6b8e49df6e</ref>
     </extension>
 
 	<extension point="kodi.context.item" library="osd.py">        

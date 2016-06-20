@@ -2457,6 +2457,19 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 	</extension>
 </addon>
 
+<addon id="repository.goodfellas" name="GoodFellas" version="0.0.0.1" provider-name="GoodFellas">
+	<extension point="xbmc.addon.repository" name="Good Fellas">
+		<info compressed="false">http://www.goodfellasteam.com/Plugins/addons.xml</info>
+		<checksum>http://www.goodfellasteam.com/Plugins/addons.xml.md5</checksum>
+		<datadir zip="true">http://www.goodfellasteam.com/Plugins/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Welcome to the GoodFellas Repository where you will find all the Live Tv, Movies, and Documentaries</summary>
+		<description>The Best Live Tv and Movies addon</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.googlecode.achilles-projects" name="achilles addons" version="0.0.0.1" provider-name="achilles">
   <extension point="xbmc.addon.repository" name="achilles add-on repository">
     <info compressed="false">http://achilles-projects.googlecode.com/svn/addons/addons.xml</info>
@@ -3466,6 +3479,23 @@ provider-name="MGendyS">
 	</extension>
 </addon>
 
+    <addon id="repository.kaosboxmeta" name="KAOSbox Meta Repo" version="0.0.0.1" provider-name="KAOSbox">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="KAOSbox Repo">
+            <info compressed="false">https://raw.githubusercontent.com/KAOSbox/KAOSbox-meta/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/KAOSbox/KAOSbox-meta/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/KAOSbox/KAOSbox-meta/master/zips/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>Official New Repo for the KAOSbox Meta (www.kaosbox.tv)</summary>
+            <description>Download and install addons for the KAOSbox Meta (www.kaosbox.tv)</description>
+            <platform>all</platform>
+    </extension>
+</addon>
+
 <addon id="repository.karrade" name="Karrade's XBMC Addons" version="0.0.0.1" provider-name="karrade [empasm@gmail.com]">
 	<extension point="xbmc.addon.repository" name="Karrade's XBMC Addon Repository">
 		<info compressed="false">http://github.com/Karrade/xbmc-repo/raw/master/addons.xml</info>
@@ -3536,6 +3566,19 @@ provider-name="MGendyS">
 	<extension point="xbmc.addon.metadata">
 		<summary>Install Kinkins Addons</summary>
 		<description>Install addons by Kinkin</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="repository.kobra" name="[COLOR red][B][I]KOBRA[/I][/B][/COLOR][COLOR grey] [B]REPOSITORY[/B][/COLOR]" version="0.0.0.1" provider-name="[COLOR red][B][I]KOBRA[/I][/B][/COLOR][COLOR grey] [B]BUILDS[/B][/COLOR]">
+	<extension point="xbmc.addon.repository" name="[COLOR red][B][I]KOBRA[/I][/B][/COLOR][COLOR grey] [B]REPOSITORY[/B][/COLOR]">
+		<info compressed="false">https://raw.github.com/Barroni1977/kobra/master/addons.xml</info>
+		<checksum>https://raw.github.com/Barroni1977/kobra/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/Barroni1977/kobra/master/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Kobra Repository</summary>
+		<description>[COLOR red][B][I]KOBRA[/I][/B][/COLOR][COLOR grey] [B]REPOSITORY.[/B][/COLOR] The home of Kobra Builds Add-ons</description>
 		<platform>all</platform>
 	</extension>
 </addon>
@@ -4632,15 +4675,15 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
 	</extension>
 </addon>
 
-<addon id="repo.natko1412" name="natko1412 repo" version="0.0.0.1" provider-name="natko1412">
+<addon id="repository.natko1412" name="natko1412 repo" version="0.0.0.1" provider-name="natko1412">
 <extension point="xbmc.addon.repository" name="Natko's Addon Repository">
 <info compressed="false">https://offshoregit.com/natko1412/addons.xml</info>
 <checksum>https://offshoregit.com/natko1412/addons.xml.md5</checksum>
 <datadir zip="true">https://offshoregit.com/natko1412/zips/</datadir>
 </extension>
 <extension point="xbmc.addon.metadata">
-<summary>Install Natko's Kodi Addons</summary>
-<description>Download and install addons by natko1412. For support visit tvaddons.ag</description>
+<summary>Install all of Natko's Addons</summary>
+<description>Download and install addons by natko1412. For support visit XBMC thread on forum.hr</description>
 <platform>all</platform>
 </extension>
 </addon>
@@ -4771,16 +4814,21 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
 	</extension>
 </addon>
 
-<addon id="repository.nlview" name="NLView" version="0.0.0.1" provider-name="NLView">
-    <extension point="xbmc.addon.repository" name="NLView Repository">
-        <info compressed="true">http://reponlview.site88.net/repo/addons.xml</info>
-        <checksum>http://reponlview.site88.net/repo/addons.xml.md5</checksum>
-        <datadir zip="true">http://reponlview.site88.net/repo</datadir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>Hier kun je de addon NLView downloaden.</summary>
-        <description>Dit is de repository van NLView.</description>
-        <platform>all</platform>
+    <addon id="repository.NLVIEW" name="[B][COLOR lime]NL[/COLOR][COLOR white]View[/COLOR][/B]" version="0.0.0.1" provider-name="NLView">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="NLView Repository">
+            <info compressed="false">https://raw.githubusercontent.com/NLViewJeroen/NLView-Repository/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/NLViewJeroen/NLView-Repository/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/NLViewJeroen/NLView-Repository/master/zips/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary></summary>
+			<description></description>
+			<disclaimer></disclaimer>
+            <platform>all</platform>
     </extension>
 </addon>
 
@@ -4937,16 +4985,16 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 </addon>
 
 <addon id="repository.ororotv" version="0.0.0.1" name="Ororo repository" provider-name="ororo.tv">
-	<extension point="xbmc.addon.repository" name="Ororo repository">
-		<info compressed="false">http://raw.github.com/b331174/repository/master/addons.xml</info>
-		<checksum>http://raw.github.com/b331174/repository/master/addons.xml.md5</checksum>
-		<datadir zip="true">http://raw.github.com/b331174/repository/master/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Ororo repository</summary>
-		<description lang="en">Ororo repository</description>
-		<platform>all</platform>
-	</extension>
+  <extension point="xbmc.addon.repository" name="Ororo repository">
+    <info compressed="false">https://ororo.tv/kodi/addons.xml</info>
+    <checksum>https://ororo.tv/kodi/addons.xml.md5</checksum>
+    <datadir zip="true">https://ororo.tv/kodi/</datadir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Ororo repository</summary>
+    <description lang="en">Ororo repository</description>
+    <platform>all</platform>
+  </extension>
 </addon>
 
 <addon id="repository.otherguysstuff" name="The other Viet Addons" version="0.0.0.1" provider-name="dk">
@@ -4961,6 +5009,30 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
 	</extension>
+</addon>
+
+<addon id="repository.p-bear" name="PBear Repo" version="0.0.0.1" provider-name="@pbear90">
+
+	<extension point="xbmc.addon.repository" name="P-Bear Repo">
+
+		<info compressed="false">http://pbear90repo.netai.net/plugins/addons.xml</info>
+
+		<checksum>http://http://pbear90repo.netai.net/plugins/addons.xml.md5</checksum>
+
+		<datadir zip="true">http://pbear90repo.netai.net/plugins/</datadir>
+
+	</extension>
+
+	<extension point="xbmc.addon.metadata">
+
+		<summary>@pbear90 addons</summary>
+
+		<description>"@pbear90 official repo</description>
+
+		<platform>all</platform>
+
+	</extension>
+
 </addon>
 
 <addon id="repository.p-bear" name="P-Bear Repo" version="0.0.0.1" provider-name="@pbear90">
@@ -5373,13 +5445,13 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
   provider-name="queeup">
   <requires>
     <import addon="xbmc.addon"
-            version="13.0.0"/>
+            version="16.0.0"/>
   </requires>
   <extension point="xbmc.addon.repository"
              name="Unofficial queeup's Add-on Repository">
-    <info compressed="true">http://raw.github.com/queeup/repository.queeup/gotham/addons.xml</info>
-    <checksum>http://raw.github.com/queeup/repository.queeup/gotham/addons.xml.md5</checksum>
-    <datadir zip="true">http://raw.github.com/queeup/repository.queeup/gotham/download</datadir>
+    <info compressed="true">http://raw.github.com/queeup/repository.queeup/jarvis/addons.xml</info>
+    <checksum>http://raw.github.com/queeup/repository.queeup/jarvis/addons.xml.md5</checksum>
+    <datadir zip="true">http://raw.github.com/queeup/repository.queeup/jarvis/download</datadir>
     <hashes>false</hashes>
   </extension>
   <extension point="xbmc.addon.metadata">
@@ -5415,9 +5487,9 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 
 <addon id="repository.ramicspa" name="Ramic Kodi Add-ons" version="0.0.0.1" provider-name="Michal">
 	<extension point="xbmc.addon.repository" name="Ramic Kodi Add-ons Repository">
-		<info compressed="false">https://raw.github.com/ramicspa/kodi/master/addons.xml</info>
-		<checksum>https://raw.github.com/ramicspa/kodi/master/addons.xml.md5</checksum>
-		<datadir zip="false">https://raw.github.com/ramicspa/kodi/master/</datadir>
+		<info compressed="false">http://raw.github.com/ramicspa/kodi/master/helix/addons.xml</info>
+		<checksum>http://raw.github.com/ramicspa/kodi/master/helix/addons.xml.md5</checksum>
+		<datadir zip="false">http://raw.github.com/ramicspa/kodi/master/helix</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Ramic Kodi Add-ons</summary>
@@ -6780,7 +6852,21 @@ Addons Included
 	</extension>
 </addon>
 
-<addon id="repository.ToMeRepo" name=".[COLOR blue]..~ToMeRepo~[/COLOR] [COLOR yellow]Repository.®[/COLOR]" version="0.0.0.1" provider-name="ToMeR">
+<addon id="repository.tombraider.official" name="Tomb Raider Repo" version="0.0.0.1" provider-name="Tomb Raider">
+    <extension point="xbmc.addon.repository" name="Tomb Raider Repository">
+        <info compressed="false">http://tombraiderbuilds.co.uk/repository/addons.xml</info>
+        <checksum>http://tombraiderbuilds.co.uk/repository/addons.xml.md5</checksum>
+        <datadir zip="true">http://tombraiderbuilds.co.uk/repository/zips/</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Tomb Raiders Repository</summary>
+        <description>Latest Addon Updates
+        </description>
+        <platform>all</platform>
+    </extension>
+</addon>
+
+<addon id="repository.ToMeRepo" name=".[COLOR blue]..~ToMeRepo~[/COLOR] [COLOR yellow]Repository...®[/COLOR]" version="0.0.0.1" provider-name="ToMeR">
 	<extension point="xbmc.addon.repository" name="ToMeRepo">
 		<info compressed="false">http://tomerepo.comli.com/Zips/addons.xml</info>
 		<checksum>http://tomerepo.comli.com/Zips/addons.xml.md5</checksum>
@@ -6946,6 +7032,23 @@ Addons Included
     </extension>
     <extension point="xbmc.addon.metadata">
             <summary>Repository for Greek TV and Tune-In Radio add-ons</summary>
+            <description></description>
+            <platform>all</platform>
+    </extension>
+</addon>
+
+    <addon id="repository.Twilight1" name="Twilight1 Addon Repository" version="0.0.0.1" provider-name="Twilight0">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="Twilight1 Addon Repository">
+            <info compressed="false">https://raw.githubusercontent.com/Twilight0/repo.twilight1/master/_repo/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/Twilight0/repo.twilight1/master/_repo/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/Twilight0/repo.twilight1/master/_repo/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>Backup Repository</summary>
             <description></description>
             <platform>all</platform>
     </extension>
@@ -7256,6 +7359,19 @@ Addons Included
 	<extension point="xbmc.addon.metadata">
 		<summary>Repo for Dailyflix</summary>
 		<description>Download and install addons from Vinnydude.......For OFFICIAL !! Support Visit XBMCHUB.COM</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="vodpass" name="vodpass" version="0.0.0.1" provider-name="vodpass">
+	<extension point="xbmc.addon.repository" name="vodpass">
+		<info compressed="false">http://vodpass.site88.net/Zips/addons.xml</info>
+		<checksum>http://vodpass.site88.net/Zips/addons.xml.md5</checksum>
+		<datadir zip="true">http://vodpass.site88.net/Zips/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary> Kodi .</summary>
+		<description>Repository of vodpass</description>
 		<platform>all</platform>
 	</extension>
 </addon>
@@ -8205,7 +8321,7 @@ Addons Included
         </extension>
 </addon>
 
-<addon id="script.tvportal" name="TV Portal" version="1.1" provider-name="noobsandnerds.com (forked from original work by spoyser and DixieDean)">
+<addon id="script.tvportal" name="TV Portal" version="1.1.1" provider-name="noobsandnerds.com (forked from original work by spoyser and DixieDean)">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.3.0"/>
@@ -8223,7 +8339,7 @@ Addons Included
         <platform>all</platform>
         <language></language>
         <license>GPLv2</license>
-        <ref>912583baffe6f92db6a8e0062ff6ebbb</ref>
+        <ref>e9d7a3db9aced083ea1eaa6b8e49df6e</ref>
     </extension>
 
 	<extension point="kodi.context.item" library="osd.py">
@@ -8234,7 +8350,7 @@ Addons Included
 	</extension>
 </addon>
 
-<addon id="script.tvportal.tools" name="TV Portal Tools" version="1.2" provider-name="noobsandnerds.com (modded from original work by spoyser, DixieDean)">
+<addon id="script.tvportal.tools" name="TV Portal Tools" version="1.3" provider-name="whufclee (modded from original work by spoyser, DixieDean)">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.requests" version="2.3.0"/>

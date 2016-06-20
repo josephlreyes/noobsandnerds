@@ -34,6 +34,7 @@ import utils
 import sfile
 import download
 import extract
+import renamer
 
 import sys
 path    = utils.TVP_HOME
@@ -47,25 +48,26 @@ TVP_ADDON    = utils.TVP_ADDON
 TVP_PROFILE  = utils.TVP_PROFILE
 TVP_CHANNELS = utils.TVP_CHANNELS
 
-
-ADDONID  = utils.ADDONID
-ADDON    = utils.ADDON
-HOME     = utils.HOME
-PROFILE  = utils.PROFILE
-VERSION  = utils.VERSION
-ICON     = utils.ICON
-FANART   = utils.FANART
-
-
-GETTEXT  = utils.GETTEXT
-TITLE    = utils.TITLE
-FRODO    = utils.FRODO
-GOTHAM   = utils.GOTHAM
-BASEURL  = utils.GetBaseUrl()
-
+ADDONID    = utils.ADDONID
+ADDON      = utils.ADDON
+HOME       = utils.HOME
+ADDONS     = os.path.join(HOME,'addons')
+PROFILE    = utils.PROFILE
+VERSION    = utils.VERSION
+ICON       = utils.ICON
+FANART     = utils.FANART
+GETTEXT    = utils.GETTEXT
+TITLE      = utils.TITLE
+FRODO      = utils.FRODO
+GOTHAM     = utils.GOTHAM
+BASEURL    = utils.GetBaseUrl()
 KODISOURCE = ADDON.getSetting('KODISOURCE') == 'true'
-USERLOGOS  =  TVP_ADDON.getSetting('logo.type') == '1'
-EXTRAS     =  os.path.join(TVP_PROFILE, 'extras')
+USERLOGOS  = TVP_ADDON.getSetting('logo.type') == '1'
+EXTRAS     = os.path.join(TVP_PROFILE, 'extras')
+artpath    = os.path.join(ADDONS,ADDONID,'resources')
+dialog     = xbmcgui.Dialog()
+logopath   = utils.TVP_ADDON.getSetting('dixie.logo.folder')
+logofolder = os.path.join('special://profile/addon_data/script.tvportal/extras/logos',logopath)
 
 # -----Addon Modes ----- #
 
@@ -93,7 +95,59 @@ _ADDSKINSLIST  = 2000
 _ADDLOGOSLIST  = 2100
 _GETSKINS      = 2200
 _GETLOGOS      = 2300
+_CATEGORIES    = 2400
+_CREATERENAME  = 2500
+_RENAMEART     = 2600
+countryarray =  [['','None'],['AF','Afghanistan'],['AL','Albania'],['DZ','Algeria'],['AO','Angola'],['AR','Argentina'],['AM','Armenia'],['AU','Australia'],
+                ['AT','Austria'],['AZ','Azerbaijan'],['BS','Bahamas'],['BY','Belarus'],['BE','Belgium'],['BO','Bolivia'],['BA','Bosnia'],['BR','Brazil'],
+                ['BG','Bulgaria'],['KM','Cambodia'],['CM','Cameroon'],['CA','Canada'],['CL','Chile'],['CN','China'],['CO','Colombia'],['CR','Costa Rica'],
+                ['HR','Croatia'],['CU','Cuba'],['CY','Cyprus'],['CZ','Czech Republic'],['DK','Denmark'],['DO','Dominican Republic'],['EC','Ecuador'],['EG','Egypt'],
+                ['SV','El Salvador'],['EE','Estonia'],['ET','Ethiopia'],['FI','Finland'],['FR','France'],['GA','Gabon'],['GM','Gambia'],['GE','Georgia'],
+                ['DE','Germany'],['GH','Ghana'],['GR','Greece'],['GT','Guatemala'],['GN','Guinea'],['HT','Haiti'],['HN','Honduras'],['HK','Hong Kong'],
+                ['HU','Hungary'],['IS','Iceland'],['IN','India'],['ID','Indonesia'],['IR','Iran'],['IQ','Iraq'],['IE','Ireland'],['IL','Israel'],['IT','Italy'],
+                ['CI','Ivory Coast'],['JM','Jamaica'],['JP','Japan'],['JO','Jordan'],['KZ','Kazakhstan'],['KE','Kenya'],['XK','Kosovo'],['KW','Kuwait'],
+                ['KG','Kyrgyzstan'],['LA','Laos'],['LV','Latvia'],['LB','Lebanon'],['LR','Liberia'],['LY','Libya'],['LI','Liechstenstein'],['LT','Lithuania'],
+                ['LU','Luxembourg'],['MK','Macedonia'],['MG','Madagascar'],['MW','Malawi'],['MY','Malaysia'],['ML','Mali'],['MT','Malta'],['MU','Mauritius'],
+                ['MX','Mexico'],['MD','Moldova'],['MN','Mongolia'],['ME','Montenegro'],['MA','Morocco'],['MZ','Mozambique'],['MM','Myanmar'],['NA','Namibia'],
+                ['NP','Nepal'],['NL','Netherlands'],['NZ','New Zealand'],['NI','Nicaragua'],['NE','Niger'],['NG','Nigeria'],['NO','Norway'],['OM','Oman'],
+                ['PK','Pakistan'],['PS','Palestine'],['PA','Panama'],['PY','Paraguay'],['PE','Peru'],['PH','Philippines'],['PL','Poland'],['PT','Portugal'],
+                ['PR','Puerto Rico'],['QA','Qatar'],['RO','Romania'],['RU','Russia'],['RW','Rwanda'],['SA','Saudi Arabia'],['SN','Senegal'],['RS','Serbia'],
+                ['SL','Sierra Leone'],['SG','Singapore'],['SK','Slovakia'],['SI','Slovenia'],['SO','Somalia'],['ZA','South Africa'],['KR','South Korea'],
+                ['SS','South Sudan'],['ES','Spain'],['LK','Sri Lanka'],['SD','Sudan'],['SR','Suriname'],['SE','Sweden'],['CH','Switzerland'],['SY','Syria'],
+                ['TW','Taiwan'],['TJ','Tajikistan'],['TZ','Tanzania'],['TH','Thailand'],['TG','Togo'],['TT','Trinidad and Tobago'],['TN','Tunisia'],['TR','Turkey'],
+                ['TM','Turkmenistan'],['UG','Uganda'],['UA','Ukraine'],['AE','United Arab Emireates'],['GB','United Kingdom'],['US','United States'],['UY','Uruguay'],
+                ['UZ','Uzbekistan'],['VE','Venezuela'],['VN','Vietnam'],['YE','Yemen'],['ZM','Zambia'],['ZW','Zimbabwe']]
 
+countrylist = []
+for item in countryarray:
+    countrylist.append(item[1])
+
+# -------------------------------------------------------------- #
+def country(id):
+    newid = id
+    channelpath = os.path.join(TVP_CHANNELS,id)
+    selection = dialog.select('Choose new country',countrylist)
+    countrycode = countryarray[selection][0]
+    
+    if id.endswith(')') and id[-4] == '(':
+        newid = id[:-5]
+    
+    if countrycode:
+        newid = newid+'_('+countrycode+')'
+
+    if newid != id:
+        newpath  = os.path.join(TVP_CHANNELS,newid)
+        os.rename(channelpath, newpath)
+        readfile = open(newpath,'r')
+        content  = readfile.read()
+        readfile.close()
+        writefile = open(newpath,'w')
+        writefile.write(content.replace(id,newid))
+        writefile.close()
+
+    choice = dialog.yesno('Do you want to refresh the page?','Refresh now or continue editing more channel countries?','','Refreshing the page can take some time and be annoying if you have lots to do!')
+    if choice:
+        xbmc.executebuiltin('Container.Refresh')
 
 # --------------------- Addon Settings --------------------- #
 
@@ -123,83 +177,224 @@ if ALPHASORT:
     START_WEIGHT = -1
     END_WEIGHT   = -1
 
-# -------------------------------------------------------------- #
+def categories():
+    addDirectory('folder', 'Edit channels', '', _EDITCHANNELS, '', '', '', '')
+    addDirectory('', 'Rename Artwork', '', _RENAMEART, '', '', '', '')
+    addDirectory('', 'Create a XML rename file (Advanced)', '', _CREATERENAME, '', '', '', '')
+# CREATE A NEW FUNCTION THAT LOOPS THROUGH ART FOLDER RENAMING TO MATCH ITEMS FOUND IN DB
+# IF MULTIPLE MATCHES FOUND SHOW ICON IMAGE AND DIALOG SELECT TO CHOOSE WHICH NAME TO USE
+##########################################################################################
+def CleanFilename(text):
+    text = text.replace('*', '_star')
+    text = text.replace('+', '_plus')
+    text = text.replace(' ', '_')
+
+    text = re.sub('[:\\/?\<>|"]', '', text)
+    text = text.strip()
+    try:    text = text.encode('ascii', 'ignore')
+    except: text = text.decode('utf-8').encode('ascii', 'ignore')
+
+    return text.upper()
+#########################################################################################
+# Initialise the database calls
+def DB_Open():
+    global cur
+    global con
+    con = sqlite.connect(dbpath)
+    cur = con.cursor()
+##########################################################################################
+# Clean up the icons and try to match against existing
+def rename_art():
+    goodset    = []
+    noset      = []
+    nocountry  = []
+    badset     = ['None (Skip)']
+    path = dialog.browse(3, 'Please locate the folder containing your new icons', 'files', '', False, False, HOME)
+# Grab the existing channel names
+    if not os.path.exists(os.path.join(path,'GOOD SET')):
+        os.makedirs(os.path.join(path,'GOOD SET'))
+    if not os.path.exists(os.path.join(path,'UNMATCHED SET')):
+        os.makedirs(os.path.join(path,'UNMATCHED SET'))
+    if not os.path.exists(os.path.join(path,'DUPLICATES SET')):
+        os.makedirs(os.path.join(path,'DUPLICATES SET'))
+    for name in os.listdir(TVP_CHANNELS):
+        name = name.replace('__PLUS1','').replace('_PLUS1','')
+        if name.endswith(')') and name[-4] == '(':
+            name = name[:-5]
+        if not name in nocountry:
+            nocountry.append(name+'.PNG')
+
+# Grab artwork and convert to uppercase and clean up basic strings
+    for name in os.listdir(path):
+        newname = CleanFilename(name)
+        xbmc.log(newname)
+        if newname.endswith('.PNG') and not 'PLUS1' in newname:
+            if newname in nocountry:
+                for item in nocountry:
+
+# If we find a match then attempt to move it to the good set
+                    if newname == item:
+                        try:
+                            xbmc.log('1. renaming %s' %newname)
+                            os.rename(os.path.join(path,name),os.path.join(path,'GOOD SET',newname.replace('.PNG','.png')))
+                            goodset.append(item)
+                            nocountry.remove(item)
+
+# If a match is already in the good set we move to duplicates folder
+                        except:
+                            try:
+                                xbmc.log('2. renaming %s' %newname)
+                                os.rename(os.path.join(path,name),os.path.join(path,'DUPLICATES SET',newname.replace('.PNG','.png')))
+                                try:
+                                    xbmc.log('3. removing %s' %newname)
+                                    nocountry.remove(item)
+                                except:
+                                    pass
+# If there is already a match in the duplicates folder add an incremental number to the end of the filename (before png extension)
+                            except:
+                                pass
+
+# FOLLOWING NOT WORKING - FAILING ON THE RENAME AND LOCKING UP SYSTEM IN A COUNTER LOOP
+#                                counter = 2
+#                                success = 0
+#                                while success == 0:
+#                                    try:
+#                                        xbmc.log('4. renaming %s - counter: %s' % (newname,str(counter)))
+#                                        duppath = os.path.join(path,'DUPLICATES SET',newname.replace('.PNG','_'+str(counter)+'.png'))
+#                                        renpath = os.path.join(path,name)
+#                                        xbmc.log(duppath)
+#                                        xbmc.log(renpath)
+#                                        os.rename(renpath,duppath)
+#                                        xbmc.log('successfully renamed')
+#                                        try:
+#                                            xbmc.log('5. removing %s' %item)
+#                                            nocountry.remove(item)
+#                                        except:
+#                                            pass
+#                                        success = 1
+#                                    except:
+#                                        counter +=1
+
+# If a match hasn't been found we search for items in our channels list that are unmatched. Grab first 3 chars of artwork and see if that exists in any channel names
+            else:
+                xbmc.log('parsing: %s'%newname)
+                for item in nocountry:
+                    if newname[:3] in item:
+                        xbmc.log('adding %s to badset' % item)
+                        badset.append(item)
+                if len(badset)>1:
+                    choice = dialog.select('Channel: %s'%newname,badset)
+
+    # If user chooses to skip then we just move the artwork to the unmatched folder
+                    if choice == 0:
+                        try:
+                            xbmc.log('6. renaming %s' %newname)
+                            os.rename(os.path.join(path,name),os.path.join(path,'UNMATCHED SET',newname.replace('.PNG','.png')))
+                        except:
+                            counter = 2
+                            success = 0
+                            while success == 0:
+                                try:
+                                    xbmc.log('7. renaming %s - counter: %s' % (newname,str(counter)))
+                                    os.rename(os.path.join(path,name),os.path.join(path,'UNMATCHED SET',newname.replace('.PNG','_'+str(counter)+'.png')))
+                                    success = 1
+                                except:
+                                    counter +=1
+
+    # If the user finds a suitable match then we rename it and move to the good folder
+                    else:
+                        finalname = badset[choice]
+                        try:
+                            xbmc.log('8. renaming %s' %newname)
+                            os.rename(os.path.join(path,name),os.path.join(path,'GOOD SET',finalname.replace('.PNG','.png')))
+                            goodset.append(item)
+                            nocountry.remove(finalname)
 
 
+# If the user finds a suitable match but one already exists in the good set we move to duplicates folder
+                        except:
+                            try:
+                                xbmc.log('9. renaming %s' %newname)
+                                os.rename(os.path.join(path,name),os.path.join(path,'DUPLICATES SET',finalname.replace('.PNG','.png')))
+                                try:
+                                    xbmc.log('10. renaming %s' %newname)
+                                    nocountry.remove(item)
+                                except:
+                                    pass
+                            except:
+                                counter = 2
+                                success = 0
+                                while success == 0:
+                                    try:
+                                        xbmc.log('11. renaming %s - counter: %s' % (newname,str(counter)))
+                                        os.rename(os.path.join(path,name),os.path.join(path,'DUPLICATES SET',finalname.replace('.PNG','_'+str(counter)+'.png')))
+                                        try:
+                                            xbmc.log('12. removing %s' %newname)
+                                            nocountry.remove(item)
+                                        except:
+                                            pass
+                                        success = 1
+                                    except:
+                                        counter +=1
 
-#def main():
-#    utils.CheckVersion()
+# If no matches have been found at all we move to the unmatched folder
+                else:
+                    try:
+                        xbmc.log('13. renaming %s' %newname)
+                        os.rename(os.path.join(path,name),os.path.join(path,'UNMATCHED SET',newname.replace('.PNG','.png')))
+                    except:
+                        counter = 2
+                        success = 0
+                        while success == 0:
+                            try:
+                                xbmc.log('14. renaming %s - counter: %s' % (newname,str(counter)))
+                                os.rename(os.path.join(path,name),os.path.join(path,'UNMATCHED SET',newname.replace('.PNG','_'+str(counter)+'.png')))
+                                success = 1
+                            except:
+                                counter +=1
+            badset = ['None (Skip)']
+##########################################################################################
+# Add a directory, can either be a folder type or standalone using the first param as "folder" for folder
+def addDirectory(type,name,url,mode,iconimage = '',fanart = '',video = '',description = ''):    
+    if fanart == '':
+        fanart = FANART
 
-#    addDir('Edit Channels',  _EDITCHANNELS, thumbnail=ICON, fanart=FANART, isFolder=True)
-    
-#    addDir('Add Skins',      _ADDSKINSLIST, thumbnail=ICON, fanart=FANART, isFolder=True)
-#    addDir('Add Logo Packs', _ADDLOGOSLIST, thumbnail=ICON, fanart=FANART, isFolder=True)
-    
+    if iconimage == '':
+        iconimage = os.path.join(ADDONS,ADDONID,'icon.png')
+    elif not os.path.exists(os.path.join(artpath,iconimage)):
+        iconimage = os.path.join(ADDONS,ADDONID,'icon.png')
+    else:
+        iconimage = os.path.join(artpath,iconimage)
 
-#def getSkinList(id):
-#    regex = 'skin name="(.+?)" url="(.+?)" icon="(.+?)" fanart="(.+?)" description="(.+?)"'
-#    url   =  BASEURL + 'skins/'
-
-#    skins = url + 'skinlist.xml'
-#    req   = requests.get(skins)
-#    html  = req.content
-#    items = re.compile(regex).findall(html)
-
-#    for item in items:
-#        label  = item[0]
-#        id     = url + item[1]
-#        icon   = url + item[2]
-#        fanart = url + item[3]
-#        desc   = item[4]
+    u   = sys.argv[0]
+    u += "?url="            +urllib.quote_plus(url)
+    u += "&mode="           +str(mode)
+    u += "&name="           +urllib.quote_plus(name)
+    u += "&iconimage="      +urllib.quote_plus(iconimage)
+    u += "&fanart="         +urllib.quote_plus(fanart)
+    u += "&video="          +urllib.quote_plus(video)
+    u += "&description="    +urllib.quote_plus(description)
         
-#        addDir(label, _GETSKINS, id, desc=desc, thumbnail=icon, fanart=fanart, isFolder=False)
-
-
-#def getSkin(label, url):
-#    path    = os.path.join(EXTRAS, 'skins')
-#    zipfile = os.path.join(path,   'skins.zip')
+    ok  = True
+    liz = xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
     
-#    if utils.DialogYesNo('Would you like to install ' + label, 'and make it your active skin?', 'It will be downloaded and installed into your system.'):
-#        download(path, zipfile)
-#        utils.DialogOK(label + ' skin has been installed successfully.', 'It is now set as your active EPG skin.', 'Please restart TV Portal. Thank you.')
-#        TVP_ADDON.setSetting('common.skin', label)
-
-
-#def getLogosList(id):
-#    regex = 'logopack name="(.+?)" url="(.+?)" icon="(.+?)" fanart="(.+?)" description="(.+?)"'
-#    url   =  BASEURL + 'logos/'
-
-#    logos = url + 'logopacklist.xml'
-#    req   = requests.get(logos)
-#    html  = req.content
-#    items = re.compile(regex).findall(html)
-
-#    for item in items:
-#        label  = item[0]
-#        id     = url + item[1]
-#        icon   = url + item[2]
-#        fanart = url + item[3]
-#        desc   = item[4]
-           
-#        addDir(label, _GETLOGOS, id, desc=desc, thumbnail=icon, fanart=fanart, isFolder=False)
-
-
-#def getLogos(label, url):
-#    path    = os.path.join(EXTRAS, 'logos')
-#    zipfile = os.path.join(path,   'logos.zip')
+    liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
+    liz.setProperty( "Fanart_Image", fanart )
+    liz.setProperty( "Build.Video", video )
     
-#    if utils.DialogYesNo('Would you like to install ' + label, 'and make it your active logo-pack?', 'It will be downloaded and installed into your system.'):
-#        download(path, zipfile)
-#        utils.DialogOK(label + ' logo-pack has been installed successfully.', 'It is now set as your active logo-pack.', 'Please restart TV Portal. Thank you.')
-#        OTT_ADDON.setSetting('common.logo.folder', label)
-
-
+    if 'folder' in type:
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+    
+    else:
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+    
+    return ok
+##########################################################################################
 def download(path, zipfile):
     download.download(url, zipfile)
     extract.all(zipfile, path)
     sfile.remove(zipfile)
-
-
+# -------------------------------------------------------------- #
 def editChannels():
     channelzip = xbmc.translatePath('special://home/addons/script.tvportal.tools/resources/channels.zip')
     cfgfile    = os.path.join(TVP_PROFILE,'settings.cfg')
@@ -216,7 +411,6 @@ def editChannels():
             channel    = ch[2]
             id         = ch[1]         
             title      = channel.title
-            logo       = channel.logo
             weight     = channel.weight
             hidden     = channel.visible == 0
             stream     = channel.streamUrl
@@ -224,6 +418,12 @@ def editChannels():
             desc       = channel.desc
             categories = channel.categories
             isClone    = channel.isClone == 1
+            logo       = channel.logo
+            cleantitle = CleanFilename(channel.title)
+            if cleantitle.endswith(')') and cleantitle[-4]=='(':
+                cleantitle = cleantitle[:-5]
+            if 'default.png' in logo:
+                logo   = os.path.join(logofolder,cleantitle+'.png')
 
             if hidden and not SHOWHIDDEN:
                 continue
@@ -285,8 +485,7 @@ def editChannels():
                 title = '[I]' + title  + '[/I]'
 
             addDir(title, _EDIT, id, weight=weight, thumbnail=logo, fanart=FANART, isFolder=False, menu=menu, infolabels={}, totalItems=totalItems)
-
-
+# -------------------------------------------------------------- #
 def insertSelection(above, theWeight):
     channels   = getAllChannels() #these will be sorted by weight
 
@@ -313,8 +512,7 @@ def insertSelection(above, theWeight):
     cancelSelection()
     
     return True
-
-
+# -------------------------------------------------------------- #
 def insertBelow(theWeight, original, toMove):
     fullList = []
 
@@ -336,8 +534,7 @@ def insertBelow(theWeight, original, toMove):
             fullList.append(ch)
 
     return fullList
-
-
+# -------------------------------------------------------------- #
 def insertAbove(theWeight, original, toMove):
     fullList = []
 
@@ -354,22 +551,18 @@ def insertAbove(theWeight, original, toMove):
         fullList.append(channel)
 
     return fullList
-  
-
+# -------------------------------------------------------------- #
 def inSelection(weight):
     return weight >= START_WEIGHT and weight <= END_WEIGHT
-
-
+# -------------------------------------------------------------- #
 def isSelection():
     return START_WEIGHT > -1
-
-    
+# -------------------------------------------------------------- #
 def cancelSelection():
     xbmcgui.Window(10000).clearProperty('TVP_TOOLS_START')
     xbmcgui.Window(10000).clearProperty('TVP_TOOLS_END')
     return True
-
-
+# -------------------------------------------------------------- #
 def selectChannel(weight):
     value = str(weight)
 
@@ -405,8 +598,7 @@ def selectChannel(weight):
         return True
 
     return False
-
-
+# -------------------------------------------------------------- #
 def addStdMenu(menu):
     sort = 'Sort by TV Portal order' if ALPHASORT else 'Sort alphabetically'
     menu.append((sort, 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _TOGGLESORT)))
@@ -415,8 +607,7 @@ def addStdMenu(menu):
         menu.append(('Launch TV Portal', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _TVP)))
 
     menu.append(('Add-on settings', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _SETTINGS)))
-
-
+# -------------------------------------------------------------- #
 def toggleSort():
     if ALPHASORT:
         ADDON.setSetting('SORT', 'TV Portal Order')
@@ -424,8 +615,7 @@ def toggleSort():
         ADDON.setSetting('SORT', 'Alphabetical')
 
     return True
-
-
+# -------------------------------------------------------------- #
 def rename(id):
     channel = getChannelFromFile(id)    
     title   = channel.title
@@ -444,14 +634,12 @@ def rename(id):
     channel.title = name
 
     return updateChannel(channel, id)
-
-
+# -------------------------------------------------------------- #
 def toggleHide(id):
     channel = getChannelFromFile(id)    
     channel.visible = not channel.visible
     return updateChannel(channel, id)
-
-
+# -------------------------------------------------------------- #
 def showSelection(_show):
     channels   = getAllChannels() #these will be sorted by weight
 
@@ -479,8 +667,7 @@ def showSelection(_show):
     cancelSelection()
 
     return updated
-
-
+# -------------------------------------------------------------- #
 def editChannel(id):
     channel = getChannelFromFile(id) 
     if not channel:
@@ -494,6 +681,7 @@ def editChannel(id):
     DESC         = 600
     CATEGORY     = 700
     CLONE        = 800
+    COUNTRY      = 900
 
     title      = channel.title
     weight     = channel.weight
@@ -505,8 +693,9 @@ def editChannel(id):
     hideLabel = 'Show channel' if hidden else 'Hide channel'
 
     menu = []
-    menu.append(['Rename channel', RENAME])
+    menu.append(['Change country - only use on dummy channels', COUNTRY])
     menu.append(['Change logo',    LOGO])
+    menu.append(['Rename channel', RENAME])
 
     menu.append(['Edit description', DESC])
     menu.append(['Edit categories', CATEGORY])
@@ -522,6 +711,9 @@ def editChannel(id):
         menu.append(['Clone channel', CLONE])
     
     option = selectMenu(title, menu)
+
+    if option == COUNTRY:
+        return country(id)
 
     if option == RENAME:
         return rename(id)
@@ -548,8 +740,7 @@ def editChannel(id):
         return cloneChannel(id)
 
     return False
-
-
+# -------------------------------------------------------------- #
 def editDescription(id):
     channel = getChannelFromFile(id) 
 
@@ -563,8 +754,7 @@ def editDescription(id):
 
     channel.desc = desc
     return updateChannel(channel, id)
-
-
+# -------------------------------------------------------------- #
 def editCategory(id):
     channel = getChannelFromFile(id) 
 
@@ -578,8 +768,7 @@ def editCategory(id):
 
     channel.categories = categories
     return updateChannel(channel, id)
-
-
+# -------------------------------------------------------------- #
 def cloneChannel(id):
     channel = getChannelFromFile(id) 
 
@@ -598,8 +787,7 @@ def cloneChannel(id):
     writeChannelsToFile(fullList)
 
     return True
-
-
+# -------------------------------------------------------------- #
 def removeChannel(id):
     channel = getChannelFromFile(id) 
 
@@ -616,9 +804,7 @@ def removeChannel(id):
     utils.deleteFile(path)
 
     return True
-
-
-
+# -------------------------------------------------------------- #
 def newChannel():
     title = ''
 
@@ -887,7 +1073,7 @@ cacheToDisc = True
 
 
 try:    mode = int(params['mode'])
-except: mode = _EDITCHANNELS
+except: mode = _CATEGORIES
 
 try:    id = urllib.unquote_plus(params['id'])
 except: id = ''
@@ -988,8 +1174,22 @@ if mode == _CLONE:
     doRefresh = cloneChannel(id)
 
 
+if mode == _CATEGORIES:
+    categories()
+
+
 if mode == _EDITCHANNELS:
     editChannels()
+
+
+if mode == _CREATERENAME:
+    choice = dialog.yesno('Rename XML File','This will create a file used for cleaning up channel names when creating XML files with mc2xml or zap2xml. Full details can be found on the forum at [COLOR=dodgerblue]noosandnerds.com[/COLOR].','Would you like to continue?')
+    if choice:
+        renamer.rename()
+
+
+if mode == _RENAMEART:
+    rename_art()
 
 
 if mode == _ADDSKINSLIST:

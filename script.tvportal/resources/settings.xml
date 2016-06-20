@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <settings>
 	<category label="30101">
-	    <setting id="validator"         label="validator"     type="text"   default="0" visible="false" />
-        <setting id="streamURL"         label="streamURL"     type="text"   default="" visible="false" />
- 		<setting type="lsep"            label="30842"/>
-		<setting id="login"             label="30843"        type="bool"   default="false" visible="true" />
- 		<setting id="forum"             label="30844" type="labelenum"     default="None" values="Unofficial Kodi Support|Community Builds Support" visible="eq(-1,true) "/>
-		<setting id="username"          label="30845"      type="text"   default="" visible="eq(-2,true) "/>
-		<setting id="password"          label="30846"      type="text"   default="" visible="eq(-3,true) "/>
-		<setting id="remoteshare"       label="30847"         type="bool"   default="false" visible="eq(-4,true) "/>
-		<setting id="remotelocation"    label="30848"      type="text"   default="" visible="eq(-1,true) "/>
-		<setting id="inipack"           label="30849" type="bool"   default="false" visible="eq(-6,true)"/>
-		<setting id="iconpack"          label="30850"             type="bool"   default="false" visible="eq(-7,true)"/>
-		<setting id="adult"             label="30851"                     type="bool"   default="false" visible="eq(-8,true)"/>
-        <setting id="dixie.url"         label="30117" type="labelenum" values="All Channels|Other" default="All Channels" visible="false" />
+	    <setting id="validator"         	label="validator"   type="text"   		default="0" 															visible="false" />
+        <setting id="streamURL"         	label="streamURL"   type="text"   		default="" 																visible="false" />
+ 		<setting type="lsep"            	label="30842"																									visible="true"/>
+		<setting id="testver"             	label="30900"       type="bool"   		default="false" 														visible="true"/>
+        <setting id="testsettings"          label="30933" 		type="action"  		option="close"																							action="XBMC.RunScript(special://home/addons/script.tvportal/login.py,settings)"																	visible="eq(-1,true)"/>
+ 		<setting type="lsep"                label="30897" 																									visible="true"/>
+		<setting id="login"             	label="30843"       type="bool"   		default="false" 														visible="true" />
+ 		<setting id="forum"             	label="30844" 		type="labelenum"    default="None" 																							values="Unofficial Kodi Support|Community Builds Support"																							visible="eq(-1,true) "/>
+<!-- username / password -->
+		<setting id="username"          	label="30845"      	type="text"   		default="" 																visible="eq(-2,true) "/>
+		<setting id="password"          	label="30846"      	type="text"   		default="" 																visible="eq(-3,true) "/>
+<!-- special login only features -->
+		<setting id="remoteshare"       	label="30847"       type="bool"   		default="false" 														visible="eq(-4,true) "/>
+		<setting id="remotelocation"    	label="30848"      	type="text"   		default="" 																visible="eq(-1,true) "/>
+		<setting id="inichk"          	 	label="30849" 		type="bool"   		default="false" 														visible="eq(-6,true)"/>
+		<setting id="logochk"          		label="30850"       type="bool"   		default="false" 														visible="eq(-7,true)"/>
+		<setting id="catschk"             	label="30876"       type="bool"   		default="false" 														visible="eq(-8,true)"/>
+		<setting id="chanchk"             	label="30877"       type="bool"   		default="false" 														visible="eq(-9,true)"/>
+		<setting id="adult"             	label="30851"       type="bool"   		default="false" 														visible="eq(-10,true)"/>
+        <setting id="dixie.url"         	label="30117" 		type="labelenum" 	default="All Channels"		values="All Channels|Other"	 				visible="false" />
 
  		<setting type="lsep"            label="30852"/>
         <setting id="HOTKEY"            label="30853" type="action"       action="XBMC.RunScript(special://home/addons/script.tvportal/keyProgrammer.py)"/>

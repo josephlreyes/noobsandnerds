@@ -672,6 +672,32 @@
 	</extension>
 </addon>
 
+<addon id="repository.allsorts" name="[COLOR gold]-COMMUNITY-ALLSORTS-[/COLOR]" version="0.0.0.1" provider-name="[COLOR red]-THE-@COMMUNITY-REPO-TEAM[/COLOR]">
+
+	<extension point="xbmc.addon.repository" name="The Community Repository">
+
+		<info compressed="false">http://repo.cazwall.com/comwiz/TesterRepo/addons.xml</info>
+
+		<checksum>http://repo.cazwall.com/comwiz/TesterRepo/addons.xml.md5</checksum>
+
+		<datadir zip="true">http://repo.cazwall.com/comwiz/TesterRepo/</datadir>
+
+	</extension>
+
+	<extension point="xbmc.addon.metadata">
+
+		<summary>[COLOR blue]-SOMETHING FOR EVERYONE-[/COLOR][COLOR lime]-Due to the nature of our content, we are not responsible for the content streamed to your device and neither do we condone piracy so you must satisfy yourself that either you or the sites accessed for streaming have the copyright agreements in place and are entitled to access this content.
+We do not host or upload any video, films, media file, live streams (avi, mov, flv, mpg, mpeg, divx, dvd rip, mp3, mp4, mkv). the community repo team is not responsible for the accuracy, compliance, copyright, legality, decency, or any other aspect of the content of streamed from your device. If you have any legal issues please contact the appropriate media file owners or host sites.
+We have no control over the links on any site that we provide a link to. If you see any form of infringements, please contact appropriate media file owners or host sites immediately-[/COLOR]</summary>
+
+		<description>[COLOR lime]-FROM-THE-REAL-KODI-COMMUNITY-TO-THE-COMMUNITY(IF U PAYED FOR THIS DEMAND A REFUND AS THIS WILL ALWAYS BE FREE)IF U LIKE WHAT WE DO AND WOULD LIKE TO DONATE PLZ DONATE TO- CANCER RESEARCH - NSPCC -OR ANY OTHER CHARITY U THINK WORTHY THX THE COM REPO TEAM[/COLOR]</description>
+
+		<platform>all</platform>
+
+	</extension>
+
+</addon>
+
 <addon id="repository.amiosamy" name="All Addons by amiosamy" version="0.0.0.1" provider-name="amiosamy">
 	<extension point="xbmc.addon.repository" name="Addons from amiosamy">
 		<info compressed="false">https://github.com/amiosamy/my-plugins/blob/master/addon.xml</info>
@@ -1914,15 +1940,15 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
     </extension>
 </addon>
 
-<addon id="repository.dss" name="Dutch Stream Service" version="0.0.0.1" provider-name="DSS">
-	<extension point="xbmc.addon.repository" name="Dutch Stream Service Repository">
+<addon id="repository.dss" name="DSS" version="0.0.0.1" provider-name="DSS">
+	<extension point="xbmc.addon.repository" name=" DSS Repository">
 		<info compressed="true">https://raw.githubusercontent.com/dutchsportstreams/DSS/master/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/dutchsportstreams/DSS/master/addons.xml.md5</checksum>
 		<datadir zip="true">https://raw.githubusercontent.com/dutchsportstreams/DSS/master/repo</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>Repository Dutch Stream Service</summary>
-		<description>Download and install addons from Dutch Stream Service[CR]https://www.facebook.com/groups/DutchStreamService/</description>
+		<summary>Repository DSS</summary>
+		<description>Download and install addons from DSS[CR]</description>
 		<platform>all</platform>
 	</extension>
 </addon>
@@ -3400,6 +3426,24 @@ provider-name="MGendyS">
 	</extension>
 </addon>
 
+    <addon id="repository.jericho" name="[B][COLOR yellow]Jericho[/COLOR][/B]" version="0.0.0.1" provider-name="jericho">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="Jericho Repository">
+            <info compressed="false">http://raw.github.com/jericho-2016/Jericho/master/addons.xml</info>
+            <checksum>http://raw.github.com/jericho-2016/Jericho/master/addons.xml.md5</checksum>
+            <datadir zip="true">http://raw.github.com/jericho-2016/Jericho/master</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary></summary>
+			<description></description>
+			<disclaimer></disclaimer>
+            <platform>all</platform>
+    </extension>
+</addon>
+
 <addon id="repository.jsergio" name="jsergio repo" version="0.0.0.1" provider-name="jsergio">
 	<extension point="xbmc.addon.repository" name="jsergio repo">
         <dir>
@@ -3415,6 +3459,19 @@ provider-name="MGendyS">
 		<summary>Repo for jsergio Add-ons</summary>
 		<description>Repo for jsergio Add-ons</description>
 		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="repository.jumpy.addons" name="jumpy repo" version="0.0.0.1" provider-name="infidel">
+	<extension point="xbmc.addon.repository" name="jumpy repo">
+		<info compressed="false">https://github.com/skeptical/jumpy/raw/gh-pages/addons/addons.xml</info>
+		<checksum>https://github.com/skeptical/jumpy/raw/gh-pages/addons/addons.md5</checksum>
+		<datadir zip="true">https://github.com/skeptical/jumpy/raw/gh-pages/addons/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en">Installs a few addons for the PMS/UMS jumpy-xbmc plugin.</summary>
+		<description lang="en">Updating the jumpy program addon from this repo ensures that the urlresolver and youtube addon are installed.</description>
 	</extension>
 </addon>
 
@@ -4814,21 +4871,16 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
 	</extension>
 </addon>
 
-    <addon id="repository.NLVIEW" name="[B][COLOR lime]NL[/COLOR][COLOR white]View[/COLOR][/B]" version="0.0.0.1" provider-name="NLView">
-        <requires>
-            <import addon="xbmc.addon" version="12.0.0"/>
-        </requires>
-        <extension point="xbmc.addon.repository" name="NLView Repository">
-            <info compressed="false">https://raw.githubusercontent.com/NLViewJeroen/NLView-Repository/master/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/NLViewJeroen/NLView-Repository/master/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/NLViewJeroen/NLView-Repository/master/zips/</datadir>
-            <hashes>false</hashes>
-        </extension>
-        <extension point="xbmc.addon.metadata">
-            <summary></summary>
-			<description></description>
-			<disclaimer></disclaimer>
-            <platform>all</platform>
+<addon id="repository.nlview" name="NLView" version="0.0.0.1" provider-name="NLView">
+    <extension point="xbmc.addon.repository" name="NLView Repository">
+        <info compressed="true">http://reponlview.site88.net/repo/addons.xml</info>
+        <checksum>http://reponlview.site88.net/repo/addons.xml.md5</checksum>
+        <datadir zip="true">http://reponlview.site88.net/repo</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Hier kun je de addon NLView downloaden.</summary>
+        <description>Dit is de repository van NLView.</description>
+        <platform>all</platform>
     </extension>
 </addon>
 
@@ -5017,7 +5069,7 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 
 		<info compressed="false">http://pbear90repo.netai.net/plugins/addons.xml</info>
 
-		<checksum>http://http://pbear90repo.netai.net/plugins/addons.xml.md5</checksum>
+		<checksum>http://pbear90repo.netai.net/plugins/addons.xml.md5</checksum>
 
 		<datadir zip="true">http://pbear90repo.netai.net/plugins/</datadir>
 
@@ -7188,6 +7240,37 @@ Addons Included
 	</extension>
 </addon>
 
+<addon id="repository.unofficialsportsdevil" name="Unofficial SportsDevil Repository" version="0.0.0.1" provider-name="unofficialsportsdevil">
+ <extension point="xbmc.addon.repository" name="Unofficial SportsDevil Repository">
+  <dir>
+   <info compressed="false">
+    https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml
+   </info>
+   <checksum>
+    https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5
+   </checksum>
+   <datadir zip="true">
+    https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/
+   </datadir>
+  </dir>
+  <info compressed="false">
+   https://offshoregit.com/unofficialsportsdevil/addons.xml
+  </info>
+  <checksum>
+   https://offshoregit.com/unofficialsportsdevil/addons.xml.md5
+  </checksum>
+  <datadir zip="true">https://offshoregit.com/unofficialsportsdevil/</datadir>
+ </extension>
+ <extension point="xbmc.addon.metadata">
+  <summary>Unofficial SportsDevil Updates for Kodi</summary>
+  <description>Unofficial SportsDevil Updates for Kodi</description>
+  <platform>all</platform>
+  <forum>
+   https://forums.tvaddons.ag/sportsdevil-addon-for-kodi/
+  </forum>
+ </extension>
+</addon>
+
 <addon id="repository.uplayhd" name="uPlayHD XBMC Add-ons" version="0.0.0.1" provider-name="iClosedz (iClosedz.blogspot.com)">
 	<extension point="xbmc.addon.repository" name="uPlayHD XBMC Add-ons">
 		<info compressed="false">http://bitbucket.org/iClosedz/uplayhd-xbmc-addons/raw/master/addons.xml</info>
@@ -8321,7 +8404,7 @@ Addons Included
         </extension>
 </addon>
 
-<addon id="script.tvportal" name="TV Portal" version="1.1.1" provider-name="noobsandnerds.com (forked from original work by spoyser and DixieDean)">
+<addon id="script.tvportal" name="TV Portal" version="1.1.2" provider-name="noobsandnerds.com (forked from original work by spoyser and DixieDean)">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.3.0"/>

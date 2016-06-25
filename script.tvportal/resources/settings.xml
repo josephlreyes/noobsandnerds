@@ -93,7 +93,8 @@
         <setting id="dummy" label="30129" type="action" option="close" action="XBMC.RunScript(special://home/addons/script.tvportal/backup.py)"  visible="true"/>
         <setting id="dummy" label="30130" type="action" option="close" action="XBMC.RunScript(special://home/addons/script.tvportal/restore.py)" visible="true"/>
  		<setting type="lsep" label="[CR]Fixes"/>
-        <setting id="dummy" label="30126" type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/deleteDB.py)" />
+        <setting id="dummy" label="Delete cookies - use if add-on failing to open" type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/deleteDB.py,cookies)" />
+        <setting id="dummy" label="30126" type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/deleteDB.py, resetDb)" />
         <setting id="dummy" label="30127" type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/resetChannels.py)"/>
 		<setting id="dummy" label="Update listings - rescan XML files for updates" 	  type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/createDB.py,update)" option="close" visible="true" />
         <setting id="dummy" label="Force listings update - only use if the option above doesn't work" type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/createDB.py,rescan)" option="close" visible="true" />

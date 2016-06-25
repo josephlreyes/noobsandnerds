@@ -17,9 +17,8 @@
 #  http://www.gnu.org/copyleft/gpl.html
 #
 
-import xbmc, xbmcaddon, os
+import xbmc, xbmcaddon, xbmcgui, os
 import dixie
-import login
 
 AddonID          =  'script.tvportal'
 ADDON            =  xbmcaddon.Addon(id=AddonID)
@@ -28,10 +27,9 @@ USERDATA         =  xbmc.translatePath(os.path.join('special://home/userdata',''
 ADDON_DATA       =  xbmc.translatePath(os.path.join(USERDATA,'addon_data'))
 ADDONS           =  xbmc.translatePath('special://home/addons')
 cookies          =  os.path.join(ADDON_DATA,AddonID,'cookies')       
+dialog           =  xbmcgui.Dialog()
+cont             =  0
 
-xbmc.executebuiltin("ActivateWindow(busydialog)")
-
-#if __name__ == '__main__':
 if not os.path.exists(os.path.join(ADDON_DATA,AddonID)):
     dixie.log("New addon_data folder created")
     os.makedirs(os.path.join(ADDON_DATA,AddonID))
@@ -41,5 +39,33 @@ else:
 if not os.path.exists(cookies):
     os.makedirs(cookies)
 
-xbmc.executebuiltin('RunScript(special://home/addons/script.tvportal/createDB.py,normal)')
-login.o000O0o()
+try:
+    import login
+    cont = 1
+    xbmc.executebuiltin("ActivateWindow(busydialog)")
+except:
+    xbmc.executebuiltin('ActivateWindow(Programs,addons://sources/executable)')
+    xbmc.executebuiltin("Container.SetViewMode(50)")
+    xbmc.sleep(2000)
+    temparray  = []
+    listcount  = xbmc.getInfoLabel('Container(id).NumItems')
+    listcount = int(listcount)+1
+    counter    = 0
+    while counter < listcount:
+        addonname = xbmc.getInfoLabel('Container(id).ListItem(%s).Label'%counter)
+        temparray.append([counter,addonname])
+        xbmc.log('Addon name: %s | %s'%(addonname,counter))
+        counter += 1
+    for item in temparray:
+        if item[1] == 'TV Portal':
+            pos = item[0]
+            cont = 1
+    xbmc.executebuiltin('Control.Move(50,%s)'%pos)
+    xbmc.sleep(1000)
+    if cont:
+        xbmc.executebuiltin("ActivateWindow(busydialog)")
+        import login
+
+if cont:
+    xbmc.executebuiltin('RunScript(special://home/addons/script.tvportal/createDB.py,normal)')
+    login.o000O0o()

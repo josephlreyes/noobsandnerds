@@ -1,3 +1,7 @@
+v.1.1.2:
+- Added fix for launching from outside programs menu, will now physically open to programs and open TVP from there.
+- Added option to clear cookies
+
 v.1.1.1:
 - Added "development" test versions for donators on noobsandnerds forum (see forum for details on changelog)
 - Added back the ini files

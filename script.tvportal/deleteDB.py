@@ -23,10 +23,12 @@ import xbmcgui
 import xbmcaddon
 import settings
 import dixie
+import sys
+import shutil
 
+cookiepath   = xbmc.translatePath('special://profile/addon_data/script.tvportal/cookies')
 tempdbcheck  = xbmc.translatePath(os.path.join(dixie.PROFILE, 'chanchk'))
 settingsFile = xbmc.translatePath(os.path.join(dixie.PROFILE, 'settings.cfg'))
-
 
 def deleteDB():
     try:
@@ -65,7 +67,14 @@ def delete_file(filename):
         except: 
             tries -= 1 
 
-if __name__ == '__main__':
+if sys.argv[1] == 'cookies':
+    try:
+        shutil.rmtree(cookiepath)
+        dixie.DialogOK('Cookies successfully removed','','Your cookies have been successfully removes, please try logging in again')
+    except:
+        dixie.DialogOK('No cookies present','','No cookies could be found on the system, please check your login info in the settings.')
+
+if sys.argv[1] == 'resetDB':
     dixie.ShowBusy()
     
     if deleteDB():

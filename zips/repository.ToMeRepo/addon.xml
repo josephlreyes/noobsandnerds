@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="repository.ToMeRepo" name=".[COLOR blue]..~ToMeRepo~[/COLOR] [COLOR yellow]Repository...®[/COLOR]" version="0.0.0.1" provider-name="ToMeR">
 	<extension point="xbmc.addon.repository" name="ToMeRepo">
-		<info compressed="false">http://tomerepo.comli.com/Zips/addons.xml</info>
-		<checksum>http://tomerepo.comli.com/Zips/addons.xml.md5</checksum>
-		<datadir zip="true">http://tomerepo.comli.com/Zips</datadir>
+		<info compressed="false">https://github.com/tmkodirepo/repository.ToMeRepo/raw/master/addons.xml</info>
+		<checksum>https://github.com/tmkodirepo/repository.ToMeRepo/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://github.com/tmkodirepo/repository.ToMeRepo/raw/master/Zip</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>מאגר הרחבות קטן ומדוייק.</summary>

@@ -9,5 +9,6 @@
         <summary>Hier kun je de addon NLView downloaden.</summary>
         <description>Dit is de repository van NLView.</description>
         <platform>all</platform>
+        <broken>The website that was serving this repo is no longer active</broken>
     </extension>
 </addon>

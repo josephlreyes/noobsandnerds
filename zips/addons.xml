@@ -146,21 +146,6 @@
     </extension>
 </addon>
 
-<addon id="repository.drascom.xbmc-plugins" name="drascom Add-on Repository" version="0.0.0.1" provider-name="drascom">
-	<extension point="xbmc.addon.repository" name="drascom Add-on Repository">
-		<info compressed="false">http://turkishxbmcscraper.googlecode.com/svn/trunk/addons.xml</info>
-		<checksum>http://turkishxbmcscraper.googlecode.com/svn/trunk/addons.xml.md5</checksum>
-		<datadir zip="false">http://turkishxbmcscraper.googlecode.com/svn/trunk/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Install Add-ons from drascom Add-on Repository</summary>
-		<description>Video plug-ins and Movie info scrapers for XBMC</description>
-		<disclaimer></disclaimer>
-		<platform>all</platform>
-		<broken>This repository is now dead, if you want to manually download the addons you can find them on the old gihub page of xbmc-turkish-plugins</broken>
-	</extension>
-</addon>
-
     <addon id="hellyrepo.kodi" name="HellyRepo" version="0.0.0.1" provider-name="Ivo Helwegen">
         <extension point="xbmc.addon.repository" name="HellyRepo">
             <dir minversion="15.0.0">
@@ -339,6 +324,45 @@
 	</extension>
 </addon>
 
+<addon id="repo.butchabay" name="repository butchabay" version="0.0.0.1" provider-name="butchabay">
+    <extension point="xbmc.addon.repository" name="repository butchabay">
+        <info>http://xbmc-repository-butchabay.googlecode.com/svn/trunk/addons.xml</info>
+        <checksum>http://turkishxbmcscraper.googlecode.com/svn/trunk/addons.xml.md5</checksum>
+        <datadir zip="true">http://xbmc-repository-butchabay.googlecode.com/svn/trunk</datadir>
+    </extension>
+  <extension point="xbmc.addon.metadata">
+        <summary lang="en">Install skins from butchabay's repository.</summary>
+        <description lang="en">download and install skins from googlecode.repository-butchabay.</description>
+        <disclaimer lang="en">no official releases, use at your own risk.</disclaimer>
+        <platform>all</platform>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
+  </extension>
+</addon>
+
+<addon id="repo.hybrid"
+        name="Hybrid Development Repo"
+        version="0.0.0.1"
+        provider-name="Mudislander">
+    <extension point="xbmc.addon.repository"
+        name="Hybrid Development Repo">
+		<dir minversion="15.9.0">
+		<info>https://dl.dropboxusercontent.com/u/73099168/xbmc.repo.mudisle/addons.xml</info>
+		<checksum>https://dl.dropboxusercontent.com/u/73099168/xbmc.repo.mudisle/addons.xml.md5</checksum>
+		<datadir zip="true">https://dl.dropboxusercontent.com/u/73099168/xbmc.repo.mudisle</datadir>
+		<hashes>true</hashes>
+		</dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+		<summary>Hybrid Development Repository</summary>
+		<description>Repository containing the development version of Hybrid a skin for Kodi</description>
+		<disclaimer>You break it - You get to keep the pieces</disclaimer>
+        <license>GPL</license>
+		<platform>all</platform>
+		<noicon>false</noicon>
+		<nofanart>false</nofanart>
+    </extension>
+</addon>
+
 <addon id="repo.hybrid.stable"
         name="Hybrid Stable Repo"
         version="0.0.0.1"
@@ -363,6 +387,28 @@
     </extension>
 </addon>
 
+<addon id="repo.mudisle"
+        name="Mudisle Repo"
+        version="0.0.0.1"
+        provider-name="Mudislander">
+    <extension point="xbmc.addon.repository"
+        name="Mudisle Repo">
+        <info>http://xbmc-skin-convergence.googlecode.com/svn/branches/repo/addons.xml</info>
+        <checksum>http://xbmc-skin-convergence.googlecode.com/svn/branches/repo/addons.xml.md5</checksum>
+        <datadir zip="true">http://xbmc-skin-convergence.googlecode.com/svn/branches/repo</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+ 		<summary>Mudisle File Repository</summary>
+		<description>Mudisle File Repository is the home of Convergence and Confluence-Lite-Mod by C-Team</description>
+		<disclaimer>You break it - You get to keep the pieces</disclaimer>
+        <license>GPL</license>
+		<platform>all</platform>
+		<noicon>false</noicon>
+		<nofanart>false</nofanart>
+        <broken>This repo was on the old googlecode server and is no longer available</broken>
+    </extension>
+</addon>
+
 <addon id="repo.prostreams" name="ProStreams TV Guide Add-on" version="0.0.0.1" provider-name="ProStreams">
 	<extension point="xbmc.addon.repository" name="Pro streams TV Guide Repository">
 		<info compressed="false">https://raw.githubusercontent.com/prostreams/repo/master/addons.xml</info>
@@ -373,19 +419,6 @@
 		<summary>Install ProStreams Dedicated TV Guide </summary>
 		<description>Download and install Routine for prostreams addons </description>
 		<disclaimer> Repository for the Dedicated ProStreams Tv guide addon </disclaimer>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="repository.whitecream" name="Whitecream Repository" version="0.0.0.1" provider-name="Whitecream">
-	<extension point="xbmc.addon.repository" name="Whiteream Addon Repository">
-		<info compressed="false">http://whitecream.googlecode.com/svn/trunk/addon/addons.xml</info>
-		<checksum>http://whitecream.googlecode.com/svn/trunk/addon/addons.xml.md5</checksum>
-		<datadir zip="true">http://whitecream.googlecode.com/svn/trunk/addon/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>The Best [COLOR red][B]XXX[/COLOR][/B] addon for [COLOR red][B]FULL LENGTH[/COLOR][/B] movies on XBMC/KODI</summary>
-		<description>The Best [COLOR red][B]XXX[/COLOR][/B] addon for [COLOR red][B]FULL LENGTH[/COLOR][/B] movies on XBMC/KODI, Follow us on twitter [COLOR blue][B]@WhiteCream01[/COLOR][/B] for updates and to request movies. </description>
 		<platform>all</platform>
 	</extension>
 </addon>
@@ -515,16 +548,16 @@
 </extension>
 </addon>
 
-<addon id="repository.audiodsp.addons" name="Audio DSP Add-ons" version="0.0.0.1" provider-name="Audio DSP Add-ons">
-	<extension point="xbmc.addon.repository" name="Achim's Audio DSP repository">
-		<info compressed="false">https://raw.githubusercontent.com/AchimTuran/kodi-adsp-addons-repo/master/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/AchimTuran/kodi-adsp-addons-repo/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/AchimTuran/kodi-adsp-addons-repo/master/</datadir>
+<addon id="repository.adsp.addons" name="Audio DSP add-ons for Windows" version="0.0.0.1" provider-name="Audio DSP add-ons for Windows">
+	<extension point="xbmc.addon.repository" name="Audio DSP testbuild repository for Windows">
+		<info compressed="false">http://kodi-adsp.bplaced.net/releases/Krypton/windows/addons.xml</info>
+		<checksum>http://kodi-adsp.bplaced.net/releases/Krypton/windows/addons.xml.md5</checksum>
+		<datadir zip="true">http://kodi-adsp.bplaced.net/releases/Krypton/windows/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>Install Audio DSP Add-ons from Achim's repository.</summary>
-		<description>Download Audio DSP Add-ons and have fun ;)</description>
-		<platform>all</platform>
+		<summary>Latest testbuilds of Audio DSP add-ons</summary>
+		<description>Use this add-on repository at your own risk. Furthermore it is only supposed to work the testbuilds from http://forum.kodi.tv/showthread.php?tid=280357</description>
+		<platform>windows</platform>
 	</extension>
 </addon>
 
@@ -589,6 +622,23 @@
 		<disclaimer>The video add-ons hosted by add-ons repository(Aftershock add-ons) makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, video add-ons don't warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on the Internet web site where from data is retrieved or otherwise relating to such materials or on any sites linked to this addon. Videos are streamed directly from video-hosting websites that are having full rights to remove such access to video if required.</disclaimer>
 		<platform>all</platform>
 	</extension>
+</addon>
+
+    <addon id="repository.Agent-47" name="AGENT 47" version="0.0.0.1" provider-name="[COLOR red][B]COLD[/B][/COLOR][COLOR turquoise][B]FIRE[/B][/COLOR]">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="AGENT 47">
+            <info compressed="false">http://repo.run/_repo/addons.xml</info>
+            <checksum>http://repo.run/_repo/addons.xml.md5</checksum>
+            <datadir zip="true">http://repo.run/_repo/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>[COLOR cyan]Best of the best from C0LDFIRE and BillyHope[/COLOR]</summary>
+            <description>Enjoy watching: [COLOR red]Movies[/COLOR], [COLOR yellow]TV-Shovs[/COLOR], [COLOR turquoise]Documentaries[/COLOR], [COLOR limegreen]Toons[/COLOR] and ofcourse [COLOR red]Live TV[/COLOR]</description>
+            <platform>all</platform>
+    </extension>
 </addon>
 
 <addon id="repository.ah" name="AH Add-on repository" version="0.0.0.1" provider-name="AddonHacker">
@@ -1498,33 +1548,6 @@ We have no control over the links on any site that we provide a link to. If you 
 	</extension>
 </addon>
 
-<addon id="repository.communityrepo" name="The Community Repository" version="0.0.0.1" provider-name="The @KodiCommunity Team">
-	<extension point="xbmc.addon.repository" name="The Community Repository">
-		<info compressed="false">http://cloud.appnettv.com/Kodienthusiast/privateuse/RepoPlugins/addons.xml</info>
-		<checksum>http://cloud.appnettv.com/Kodienthusiast/privateuse/RepoPlugins/addons.xml.md5</checksum>
-		<datadir zip="true">http://cloud.appnettv.com/Kodienthusiast/privateuse/RepoPlugins/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>@Kodicommunity Repository</summary>
-		<description>", we bring you "The Community Repository" for all things from the @kodicommunity team currently hold skins and community wizards" massive thanks to appnetv for hosting the repo and also a special thanks to these guys @nathancrumpler1 (crumplestein) @kodicommunity @xeditz @dickothegeordie @hmemar #itonlygetsbetter @kodienthusiasts @nathancrumpler1 @kodicommunity</description>
-		<platform>all</platform>
-		<broken>This repo is now broken, please use the newer repository.communityrepo-3.1</broken>
-	</extension>
-</addon>
-
-<addon id="repository.communityrepo" name="The Community Repository" version="0.0.0.1" provider-name="The @KodiCommunity Team">
-	<extension point="xbmc.addon.repository" name="The Community Repository">
-		<info compressed="false">http://cazwall.com/communityrepo/RepoPlugins/addons.xml</info>
-		<checksum>http://cazwall.com/communityrepo/RepoPlugins/addons.xml.md5</checksum>
-		<datadir zip="true">http://cazwall.com/communityrepo/RepoPlugins/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>@Kodicommunity Repository</summary>
-		<description>" "The Community Repository" for all things from the @kodicommunity team currently hold skins and community wizards" massive thanks to appnetv for hosting the repo and also a special thanks to these guys @nathancrumpler1 (crumplestein) @kodicommunity @xeditz @dickothegeordie @hmemar #itonlygetsbetter @kodienthusiasts @nathancrumpler1 @kodicommunity</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
 <addon id="repository.communityrepo" name="The Community Repository" version="0.0.0.1" provider-name="The @CommunityRepo Team">
 
 	<extension point="xbmc.addon.repository" name="The Community Repository">
@@ -1642,43 +1665,6 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 			<source>https://github.com/crzen/repository.crzen/tree/master/repository.crzen</source>
 		</extension>
 	</addon>
-
-	<addon
-        id="repository.crzen"
-        name="Crzen's Repository"
-        version="0.0.0.1"
-        provider-name="Crzen">
-		<extension point="xbmc.addon.repository" name="Crzen's Repository">
-			<info compressed="false">http://raw.github.com/crzen/repository.crzen/master/addons.xml</info>
-			<checksum>http://raw.github.com/crzen/repository.crzen/master/addons.xml.md5</checksum>
-			<datadir zip="true">http://raw.github.com/crzen/repository.crzen/master/zips</datadir>
-		</extension>
-		<extension point="xbmc.addon.metadata">
-			<summary lang="en">Crzen's Addon Repository</summary>
-			<description lang="en">Addons developed by Crzen.</description>
-			<disclaimer lang="en">For bugs, requests or general questions contact Crzen on the XBMCHUB forum.</disclaimer>
-			<platform>all</platform>
-			<license></license>
-			<language>en</language>
-			<forum>http://www.xbmchub.com/forums/</forum>
-			<website>http://www.xbmchub.com/</website>
-			<email></email>
-			<source>https://github.com/crzen/repository.crzen/tree/master/repository.crzen</source>
-		</extension>
-	</addon>
-
-<addon id="repository.github.cyrus007-xbmc-addons" name="Cyrus007 addons" version="0.0.0.1" provider-name="cyrus007">
-	<extension point="xbmc.addon.repository" name="cyrus007 add-on repository">
-		<info compressed="false">https://github.com/cyrus007/xbmc-addons/raw/master/addons.xml</info>
-		<checksum>https://github.com/cyrus007/xbmc-addons/raw/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://github.com/cyrus007/xbmc-addons/raw/master/repository.cyrus007/repo/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Install Addons from https://github.com/cyrus007/</summary>
-		<description>Download and install addons from cyrus007 repository.</description>
-		<platform>all</platform>
-	</extension>
-</addon>
 
 
 <addon id="repository.d0f21" name="d0f21's XBMC Addons" version="0.0.0.1" provider-name="d0f21">
@@ -1938,6 +1924,21 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
         <description>Donatello and Hybrid Repository</description>
         <platform>all</platform>
     </extension>
+</addon>
+
+<addon id="repository.drascom.xbmc-plugins" name="drascom Add-on Repository" version="0.0.0.1" provider-name="drascom">
+	<extension point="xbmc.addon.repository" name="drascom Add-on Repository">
+		<info compressed="false">http://turkishxbmcscraper.googlecode.com/svn/trunk/addons.xml</info>
+		<checksum>http://turkishxbmcscraper.googlecode.com/svn/trunk/addons.xml.md5</checksum>
+		<datadir zip="false">http://turkishxbmcscraper.googlecode.com/svn/trunk/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install Add-ons from drascom Add-on Repository</summary>
+		<description>Video plug-ins and Movie info scrapers for XBMC</description>
+		<disclaimer></disclaimer>
+		<platform>all</platform>
+		<broken>This repository is now dead, if you want to manually download the addons you can find them on the old gihub page of xbmc-turkish-plugins</broken>
+	</extension>
 </addon>
 
 <addon id="repository.dss" name="DSS" version="0.0.0.1" provider-name="DSS">
@@ -2237,20 +2238,6 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 	</extension>
 </addon>
 
-<addon id="repository.github.fehmer" name="Addons for deaf people" version="0.0.0.1" provider-name="fehmer">
-	<extension point="xbmc.addon.repository" name="fehmer add-on repository">
-		<info compressed="false">https://raw.github.com/fehmer/xbmc-repository/master/addons.xml</info>
-		<checksum>https://raw.github.com/fehmer/xbmc-repository/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/fehmer/xbmc-repository/master/addons</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Install video addons from repository.github.fehmer</summary>
-		<description>Download and install video addons from fehmer repository.</description>
-		<disclaimer>For test usage only. Not stable. Use at own risk. </disclaimer>
-		<platform>all</platform>
-	</extension>
-</addon>
-
 <addon id="repository.fightnight" name="fightnight repository" version="0.0.0.1" provider-name="fightnight">
 	<extension point="xbmc.addon.repository" name="fightnight">
 		<info compressed="false">https://fightnightkodi.svn.codeplex.com/svn/addons/addons.xml</info>
@@ -2391,20 +2378,6 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 	</extension>
 </addon>
 
-<addon id="repository.gbzygil" name="gbzygil's XBMC Addons" version="0.0.0.1" provider-name="gbzygil">
-	<extension point="xbmc.addon.repository" name="gbzygil's XBMC Addon Repository">
-		<info compressed="false">https://github.com/gbzygil/gbzygil-xbmc-repo/raw/master/addons.xml</info>
-		<checksum>https://github.com/gbzygil/gbzygil-xbmc-repo/raw/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://github.com/gbzygil/gbzygil-xbmc-repo/raw/master/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>gbzygil's Addon Repository</summary>
-		<description>Download and install gbzygil's addon repository, home of the olangal.com and rajtamil.com addons!</description>
-		<disclaimer></disclaimer>
-		<platform>all</platform>
-	</extension>
-</addon>
-
     <addon id="repository.GenieTv" name="GenieTv Repo" version="0.0.0.1" provider-name="JayBox">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
@@ -2465,7 +2438,21 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 	</extension>
 </addon>
 
-<addon id="repository.MatsBuilds" name="Goliaths Add-ons repository" version="0.0.0.1" provider-name="Goliath">
+<addon id="repository.github.fehmer" name="Addons for deaf people" version="0.0.0.1" provider-name="fehmer">
+	<extension point="xbmc.addon.repository" name="fehmer add-on repository">
+		<info compressed="false">https://raw.github.com/fehmer/xbmc-repository/master/addons.xml</info>
+		<checksum>https://raw.github.com/fehmer/xbmc-repository/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/fehmer/xbmc-repository/master/addons</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install video addons from repository.github.fehmer</summary>
+		<description>Download and install video addons from fehmer repository.</description>
+		<disclaimer>For test usage only. Not stable. Use at own risk. </disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="repository.goliath" name="Goliaths Add-ons repository" version="0.0.0.1" provider-name="Goliath">
 	<extension point="xbmc.addon.repository" name="Goliaths Repository">
 	<dir>
 		<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
@@ -3037,26 +3024,19 @@ provider-name="MGendyS">
 	</extension>
 </addon>
 
-<addon id="repository.hdrepo.com"
-		name="hdrepo Add-ons"
-		version="0.0.0.1"
-		provider-name="Team HDRepo">
-  <requires>
-    <import addon="xbmc.addon" version="12.0.0"/>
-  </requires>
-	<extension point="xbmc.addon.repository"
-		name="HDrepo Add-on Repository">
-		<info compressed="true">https://raw.github.com/trungk43/xbmc-plugins/master/addons.xml</info>
-		<checksum>https://raw.github.com/trungk43/xbmc-plugins/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/trungk43/xbmc-plugins/master</datadir>
-		<hashes>true</hashes>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">4share and Fshare</summary>
-		<description lang="en"></description>
-		<disclaimer lang="en"></disclaimer>
-		<platform>all</platform>
-	</extension>
+<addon id="repository.he.xbmc" name="HE Xbmc Brasil" version="0.0.0.1" provider-name="hgarcia/eseffair">
+ <extension point="xbmc.addon.repository" name="HE Xbmc Brasil Add-on Repository">
+  <info compressed="false">http://he-repository-brasil.googlecode.com/svn/trunk/addons.xml</info>
+  <checksum>http://he-repository-brasil.googlecode.com/svn/trunk/addons.xml.md5</checksum>
+  <datadir zip="false">http://he-repository-brasil.googlecode.com/svn/trunk/</datadir>
+ </extension>
+ <extension point="xbmc.addon.metadata">
+  <summary>XBMC Addons HE</summary>
+  <description>XBMC Addons HE</description>
+  <disclaimer></disclaimer>
+  <platform>all</platform>
+  <broken>This repo was on the old googlecode server and is no longer available</broken>
+ </extension>
 </addon>
 
 <addon id="repository.hebskins" name="Phenomenal Repository" version="0.0.0.1" provider-name="tomer953">
@@ -3510,9 +3490,9 @@ provider-name="MGendyS">
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
         <extension point="xbmc.addon.repository" name="KAOSbox Repo">
-            <info compressed="false">https://raw.githubusercontent.com/KAOSbox/KAOSbox-Repo/master/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/KAOSbox/KAOSbox-Repo/master/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/KAOSbox/KAOSbox-Repo/master/zips/</datadir>
+            <info compressed="false">https://offshoregit.com/kaosbox/addons.xml</info>
+            <checksum>https://offshoregit.com/kaosbox/addons.xml.md5</checksum>
+            <datadir zip="true">https://offshoregit.com/kaosbox/zips/</datadir>
             <hashes>false</hashes>
         </extension>
         <extension point="xbmc.addon.metadata">
@@ -3678,6 +3658,19 @@ provider-name="MGendyS">
     </extension>
 </addon>
 
+<addon id="repository.kodi-senyor" name="kodi senyor repository" version="0.0.0.1" provider-name="kodi senyor">
+	<extension point="xbmc.addon.repository" name="kodi senyor repository">
+			<info compressed="false">https://github.com/kobiko3030/repository.kodisenyor/raw/master/addons.xml</info>
+			<checksum>https://github.com/kobiko3030/repository.kodisenyor/raw/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://github.com/kobiko3030/repository.kodisenyor/raw/master/Zips/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">kodi-senyor.co.il repo</summary>
+		<description lang="en">kodi-senyor.co.il repo</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.kodibrasilforum" name="Kodi Brasil Forum Repository" version="0.0.0.1" provider-name="Wanilton">
 	<extension point="xbmc.addon.repository" name="Kodi Brasil Forum Repository">
 		<info>http://raw.github.com/kodibrasil/kodibrasilforum/master/addons.xml</info>
@@ -3811,19 +3804,6 @@ provider-name="MGendyS">
         <noicon>false</noicon>
         <nofanart>false</nofanart>
     </extension>
-</addon>
-
-<addon id="repository.kodi-senyor" name="kodi senyor repository" version="0.0.0.1" provider-name="kodi senyor">
-	<extension point="xbmc.addon.repository" name="kodi senyor repository">
-			<info compressed="false">https://github.com/kobiko3030/repository.kodisenyor/raw/master/addons.xml</info>
-			<checksum>https://github.com/kobiko3030/repository.kodisenyor/raw/master/addons.xml.md5</checksum>
-			<datadir zip="true">https://github.com/kobiko3030/repository.kodisenyor/raw/master/Zips/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">kodi-senyor.co.il repo</summary>
-		<description lang="en">kodi-senyor.co.il repo</description>
-		<platform>all</platform>
-	</extension>
 </addon>
 
     <addon id="repository.kodiuktv" name="KODIUKTV Repo" version="0.0.0.1" provider-name="KODIUKTV">
@@ -4700,7 +4680,7 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
 	</extension>
 </addon>
 
-<addon id="repository.nanaddons" name=" Community Portal Addon Repository" version="1.1" provider-name="noobsandnerds.com">
+<addon id="repository.nanaddons" name=" Community Portal Addon Repository" version="0.0.0.1" provider-name="noobsandnerds.com">
 	<extension point="xbmc.addon.repository" name=" Community Portal Addon Repository">
 		<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml.md5</checksum>
@@ -4863,6 +4843,7 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
         <summary>Hier kun je de addon NLView downloaden.</summary>
         <description>Dit is de repository van NLView.</description>
         <platform>all</platform>
+        <broken>The website that was serving this repo is no longer active</broken>
     </extension>
 </addon>
 
@@ -5043,30 +5024,6 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
 	</extension>
-</addon>
-
-<addon id="repository.p-bear" name="PBear Repo" version="0.0.0.1" provider-name="@pbear90">
-
-	<extension point="xbmc.addon.repository" name="P-Bear Repo">
-
-		<info compressed="false">http://pbear90repo.netai.net/plugins/addons.xml</info>
-
-		<checksum>http://pbear90repo.netai.net/plugins/addons.xml.md5</checksum>
-
-		<datadir zip="true">http://pbear90repo.netai.net/plugins/</datadir>
-
-	</extension>
-
-	<extension point="xbmc.addon.metadata">
-
-		<summary>@pbear90 addons</summary>
-
-		<description>"@pbear90 official repo</description>
-
-		<platform>all</platform>
-
-	</extension>
-
 </addon>
 
 <addon id="repository.p-bear" name="P-Bear Repo" version="0.0.0.1" provider-name="@pbear90">
@@ -5346,7 +5303,7 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	<extension point="xbmc.addon.repository" name="MR Network Repository">
 		<info compressed="false">https://raw.githubusercontent.com/indiecrew/ProjectMRNetwork/master/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/indiecrew/ProjectMRNetwork/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/indiecrew/ProjectMRNetwork/master/zip/</datadir>
+		<datadir zip="true">https://raw.github.com/indiecrew/ProjectMRNetwork/master</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 	    <summary lang="en">Install Add-ons from MR Network Repository.</summary>
@@ -5632,22 +5589,6 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
         <disclaimer lang="pl"> - </disclaimer>
         <platform>all</platform>
     </extension>
-</addon>
-
-<addon id="repository.RenegadesTV" name="RenegadesTV Add-on repository" version="0.0.0.1" provider-name="RenegadesTV">
-	<extension point="xbmc.addon.repository" name="RenegadesTV Add-on repository">
-		<dir>
-			<info compressed="false">http://renegadestv.info/r3nautor3po/addons.xml</info>
-			<checksum>http://renegadestv.info/r3nautor3po/addons.xml.md5</checksum>
-			<datadir zip="true">http://renegadestv.info/r3nautor3po/</datadir>
-		</dir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Install Add-ons from RenegadesTV</summary>
-		<description lang="en">Download and install add-ons from RenegadesTV repository.</description>
-		<platform>all</platform>
-		<broken>The website this was linking to appears to be dead</broken>
-	</extension>
 </addon>
 
 <addon id="repository.RenegadesTV" name="RenegadesTV Add-on repository" version="0.0.0.1" provider-name="RenegadesTV">
@@ -6902,9 +6843,9 @@ Addons Included
 
 <addon id="repository.ToMeRepo" name=".[COLOR blue]..~ToMeRepo~[/COLOR] [COLOR yellow]Repository...®[/COLOR]" version="0.0.0.1" provider-name="ToMeR">
 	<extension point="xbmc.addon.repository" name="ToMeRepo">
-		<info compressed="false">http://tomerepo.comli.com/Zips/addons.xml</info>
-		<checksum>http://tomerepo.comli.com/Zips/addons.xml.md5</checksum>
-		<datadir zip="true">http://tomerepo.comli.com/Zips</datadir>
+		<info compressed="false">https://github.com/tmkodirepo/repository.ToMeRepo/raw/master/addons.xml</info>
+		<checksum>https://github.com/tmkodirepo/repository.ToMeRepo/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://github.com/tmkodirepo/repository.ToMeRepo/raw/master/Zip</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>מאגר הרחבות קטן ומדוייק.</summary>
@@ -7428,19 +7369,6 @@ Addons Included
 	</extension>
 </addon>
 
-<addon id="vodpass" name="vodpass" version="0.0.0.1" provider-name="vodpass">
-	<extension point="xbmc.addon.repository" name="vodpass">
-		<info compressed="false">http://vodpass.site88.net/Zips/addons.xml</info>
-		<checksum>http://vodpass.site88.net/Zips/addons.xml.md5</checksum>
-		<datadir zip="true">http://vodpass.site88.net/Zips/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary> Kodi .</summary>
-		<description>Repository of vodpass</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
 <addon id="repository.voinage"
         name="Add-ons by Voinage"
         version="0.0.0.1"
@@ -7644,21 +7572,6 @@ Addons Included
     </description>
     <platform>all</platform>
   </extension>
-</addon>
-
-<addon id="repository.he.xbmc" name="HE Xbmc Brasil" version="0.0.0.1" provider-name="hgarcia/eseffair">
- <extension point="xbmc.addon.repository" name="HE Xbmc Brasil Add-on Repository">
-  <info compressed="false">http://he-repository-brasil.googlecode.com/svn/trunk/addons.xml</info>
-  <checksum>http://he-repository-brasil.googlecode.com/svn/trunk/addons.xml.md5</checksum>
-  <datadir zip="false">http://he-repository-brasil.googlecode.com/svn/trunk/</datadir>
- </extension>
- <extension point="xbmc.addon.metadata">
-  <summary>XBMC Addons HE</summary>
-  <description>XBMC Addons HE</description>
-  <disclaimer></disclaimer>
-  <platform>all</platform>
-  <broken>This repo was on the old googlecode server and is no longer available</broken>
- </extension>
 </addon>
 
 <addon id="repository.xbmc-israel" name=".[COLOR blue]XBMC Israeli [/COLOR][COLOR white] Streaming Sites[/COLOR]" version="0.0.0.1" provider-name="cubicle-vdo">
@@ -8131,21 +8044,6 @@ Addons Included
 	</extension>
 </addon>
 
-<addon id="repository.rawmaintenance" name="Raw Media's Kodi Add-ons" version="0.0.0.1" provider-name="Raw Media">
-	<extension point="xbmc.addon.repository" name="Raw Media's Kodi Add-on Repository">
-		<dir>
-			<info compressed="false">http://raw.github.com/rawmedia/raw_maintenance/master/rawmaintenance_repo/addons.xml</info>
-			<checksum>http://raw.github.com/rawmedia/raw_maintenance/master/rawmaintenance_repo/addons.xml.md5</checksum>
-			<datadir zip="true">http://raw.github.com/rawmedia/raw_maintenance/master/rawmaintenance_repo/</datadir>
-		</dir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Install Add-ons from Raw Media</summary>
-		<description lang="en">Download and install add-ons from Raw Media repository.</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
 <addon id="rogger.repository" name="rogger repository" version="0.0.0.1" provider-name="rogger2">
 	<extension point="xbmc.addon.repository" name="rogger Add-on Repository">
 		<info compressed="false">http://raw.github.com/rogger2/rogger.repository/master/addons.xml</info>
@@ -8244,414 +8142,6 @@ Addons Included
   </extension>
 </addon>
 
-<addon id="superrepo.kodi.helix.external.repositories" name="SuperRepo  Third Party Repositories [Helix][v7]" version="0.0.0.1" provider-name="Bart Otten">
-                <requires>
-                <import addon="xbmc.addon" version="12.0.0"/>
-                </requires>
-                <extension point="xbmc.addon.repository" name="SuperRepo  Third Party Repositories [Helix][v7]">
-                <info compressed="false">
-                http://xml.superrepo.org/v7/.xml/helix/repositories/others/addons.xml
-                </info>
-                <checksum>
-                http://md5.superrepo.org/v7/.md5/helix/repositories/others/addons.xml.md5
-                </checksum>
-                <datadir zip="true">http://redirect.superrepo.org/v7/addons/</datadir>
-                <hashes>true</hashes>
-                </extension>
-                <extension point="xbmc.addon.metadata">
-                <summary>
-                Install add-ons from the SuperRepo  Third Party Repositories Repository
-                </summary>
-                <summary lang="nl">
-                Installeer add-ons uit de SuperRepo  Third Party Repositories Repository
-                </summary>
-                <summary lang="cz">Inštalácia add-ons zo SuperRepo  Third Party Repositories Repozitár</summary>
-                <summary lang="de">
-                Installation von Addons aus dem SuperRepo  Third Party Repositories Repository
-                </summary>
-                <summary lang="pt">Instale add-ons do SuperRepo  Third Party Repositories Repositório</summary>
-                <summary lang="br">Instale add-ons do SuperRepo  Third Party Repositories Repositório</summary>
-                <description>
-                Download and install add-ons for Kodi in the category "Others" using SuperRepo.[CR][CR]By using SuperRepo repositories you will be able to take advantage of our serverside dependency checking, extensive file mirror service and many more.[CR]Visit our website at https://superrepo.org/ to browse the add-ons, create personal addon bundles and install whole bundles at once![CR][CR]
-                </description>
-                <description lang="nl">
-                Download and installeer add-ons voor Kodi in de categorie "Others" via SuperRepo.[CR]Door SuperRepo te installeren kunt u profiteren van onze controle van add-ons en ons uitgebreide server netwerk. Bezoek onze website op https://superrepo.org om door de add-ons te bladeren, persoonlijke add-on bundels te maken en complete bundels in 1 keer te installeren![CR][CR]
-                </description>
-                <description lang="cz">
-                Preber a inštaluj add-ons do kategórie "Others" z SuperRepo.org add-on repozitár.[CR][CR]Ak si našiel add-on ktorý je poškodený alebo nefunkčný, alebo chceš pridať nový add-on, potom prosím pozri na https://superrepo.org/[CR][CR]Repozitár je udržiavaný komunitou Kodi a za pomoci SuperRepo Wiki, a tento preberá add-ons z rôznych zdrojov. Vzhľadom na to, SuperRepo nenesie žiadnu zodpovednosť za služby poskytované týmito add-ons.[CR][CR]Rozšírený repozitár vyvinul Bart Otten[CR][CR]
-                </description>
-                <description lang="de">
-                Lade und installiere Addons der Kategorie "Others" aus dem SuperRepo.org Addon Repository.[CR][CR]Möchtest du ein fehlerhaftes Addon melden oder ein neues Addon vorschlagen, kannst du dies über unsere Webseite http://superrepo.org tun.[CR][CR]Das Repository wird mit Hilfe des SuperRepo Wiki durch die Kodi Community gepflegt und durch unseren Generator aus mehreren Quellen zusammengestellt. Daher übernimmt SuperRepo keinerlei Verantwortung für diesen Service.[CR][CR]Der"eXtended Reposity Generator" wird durch Bart Otten entwickelt.[CR][CR]
-                </description>
-                <description lang="pt">
-                Baixe e instale o add-ons na categoria "Others" do Repositório SuperRepo.org. [CR] [CR] Se você encontrar um add-on quebrado ou não funcionando, ou você gostaria de incluir um outro, por favor visite https://superrepo.org/ [CR] [CR]O repositório é mantida pela comunidade do Kodi usando o Wiki do SuperRepo e o nosso gerador de busca de add-ons múltiplas fontes. Portanto SuperRepo não aceita qualquer responsabilidade por esse serviço.[CR][CR]O Gerador Reposity eXtended é desenvolvido por Bart Otten[CR][CR]
-                </description>
-                <description lang="br">
-                Baixe e instale o add-ons na categoria "Others" do Repositório SuperRepo.org. [CR] [CR] Se você encontrar um add-on quebrado ou não funcionando, ou você gostaria de incluir um outro, por favor visite https://superrepo.org/ [CR][CR]O repositório é mantida pela comunidade do Kodi usando o Wiki do SuperRepo e o nosso gerador de busca de add-ons múltiplas fontes. Portanto SuperRepo não aceita qualquer responsabilidade por esse serviço.[CR][CR]O Gerador Reposity eXtended é desenvolvido por Bart Otten[CR][CR]
-                </description>
-                <disclaimer>
-                The SuperRepo generator fetches addons from multiple sources. Therefore SuperRepo accepts no responsibility for included addons.[CR]
-                </disclaimer>
-                <disclaimer lang="nl">
-                De SuperRepo generator verzamelt addons van verschillende bronnen. Daarom accepteert SuperRepo geen enkele verantwoordelijkheid voor de ingevoegde addons.[CR]
-                </disclaimer>
-                <disclaimer lang="cz">
-                Repozitár je udržiavaný komunitou Kodi a za pomoci SuperRepo Wiki, a tento preberá addons z rôznych zdrojov. Vzhľadom na to, SuperRepo nenesie žiadnu zodpovednosť za služby poskytované týmito addons.[CR]
-                </disclaimer>
-                <disclaimer lang="de">
-                Das Repository wird durch die Kodi Community gepflegt und durch unseren Generator aus mehreren Quellen zusammengestellt. Daher übernimmt SuperRepo keinerlei Verantwortung für die enthaltenen Addons.[CR]
-                </disclaimer>
-                <disclaimer lang="pt">
-                O repositório é mantido pela comunidade comunidade do Kodi e o nosso gerador de busca de addons de múltiplas fontes. Portanto SuperRepo aceita não se responsabiliza por addons incluídos.[CR]
-                </disclaimer>
-                <disclaimer lang="br">
-                O repositório é mantido pela comunidade comunidade do Kodi e o nosso gerador de busca de addons de múltiplas fontes. Portanto SuperRepo aceita não se responsabiliza por addons incluídos.[CR]
-                </disclaimer>
-                <platform>all</platform>
-                <website>https://superrepo.org/</website>
-                </extension>
-                </addon>
-
-<addon id="superrepo.kodi.helix.repositories" name="SuperRepo  Repositories [Helix][v7]" version="0.0.0.1" provider-name="Bart Otten">
-                <requires>
-                <import addon="xbmc.addon" version="12.0.0"/>
-                </requires>
-                <extension point="xbmc.addon.repository" name="SuperRepo  Repositories [Helix][v7]">
-                <info compressed="false">
-                http://xml.superrepo.org/v7/.xml/helix/repositories/superrepo/addons.xml
-                </info>
-                <checksum>
-                http://md5.superrepo.org/v7/.md5/helix/repositories/superrepo/addons.xml.md5
-                </checksum>
-                <datadir zip="true">http://redirect.superrepo.org/v7/addons/</datadir>
-                <hashes>true</hashes>
-                </extension>
-                <extension point="xbmc.addon.metadata">
-                <summary>
-                Install add-ons from the SuperRepo  Repositories Repository
-                </summary>
-                <summary lang="nl">
-                Installeer add-ons uit de SuperRepo  Repositories Repository
-                </summary>
-                <summary lang="cz">Inštalácia add-ons zo SuperRepo  Repositories Repozitár</summary>
-                <summary lang="de">
-                Installation von Addons aus dem SuperRepo  Repositories Repository
-                </summary>
-                <summary lang="pt">Instale add-ons do SuperRepo  Repositories Repositório</summary>
-                <summary lang="br">Instale add-ons do SuperRepo  Repositories Repositório</summary>
-                <description>
-                Download and install add-ons for Kodi in the category "SuperRepo" using SuperRepo.[CR][CR]By using SuperRepo repositories you will be able to take advantage of our serverside dependency checking, extensive file mirror service and many more.[CR]Visit our website at https://superrepo.org/ to browse the add-ons, create personal addon bundles and install whole bundles at once![CR][CR]
-                </description>
-                <description lang="nl">
-                Download and installeer add-ons voor Kodi in de categorie "SuperRepo" via SuperRepo.[CR]Door SuperRepo te installeren kunt u profiteren van onze controle van add-ons en ons uitgebreide server netwerk. Bezoek onze website op https://superrepo.org om door de add-ons te bladeren, persoonlijke add-on bundels te maken en complete bundels in 1 keer te installeren![CR][CR]
-                </description>
-                <description lang="cz">
-                Preber a inštaluj add-ons do kategórie "SuperRepo" z SuperRepo.org add-on repozitár.[CR][CR]Ak si našiel add-on ktorý je poškodený alebo nefunkčný, alebo chceš pridať nový add-on, potom prosím pozri na https://superrepo.org/[CR][CR]Repozitár je udržiavaný komunitou Kodi a za pomoci SuperRepo Wiki, a tento preberá add-ons z rôznych zdrojov. Vzhľadom na to, SuperRepo nenesie žiadnu zodpovednosť za služby poskytované týmito add-ons.[CR][CR]Rozšírený repozitár vyvinul Bart Otten[CR][CR]
-                </description>
-                <description lang="de">
-                Lade und installiere Addons der Kategorie "SuperRepo" aus dem SuperRepo.org Addon Repository.[CR][CR]Möchtest du ein fehlerhaftes Addon melden oder ein neues Addon vorschlagen, kannst du dies über unsere Webseite http://superrepo.org tun.[CR][CR]Das Repository wird mit Hilfe des SuperRepo Wiki durch die Kodi Community gepflegt und durch unseren Generator aus mehreren Quellen zusammengestellt. Daher übernimmt SuperRepo keinerlei Verantwortung für diesen Service.[CR][CR]Der"eXtended Reposity Generator" wird durch Bart Otten entwickelt.[CR][CR]
-                </description>
-                <description lang="pt">
-                Baixe e instale o add-ons na categoria "SuperRepo" do Repositório SuperRepo.org. [CR] [CR] Se você encontrar um add-on quebrado ou não funcionando, ou você gostaria de incluir um outro, por favor visite https://superrepo.org/ [CR] [CR]O repositório é mantida pela comunidade do Kodi usando o Wiki do SuperRepo e o nosso gerador de busca de add-ons múltiplas fontes. Portanto SuperRepo não aceita qualquer responsabilidade por esse serviço.[CR][CR]O Gerador Reposity eXtended é desenvolvido por Bart Otten[CR][CR]
-                </description>
-                <description lang="br">
-                Baixe e instale o add-ons na categoria "SuperRepo" do Repositório SuperRepo.org. [CR] [CR] Se você encontrar um add-on quebrado ou não funcionando, ou você gostaria de incluir um outro, por favor visite https://superrepo.org/ [CR][CR]O repositório é mantida pela comunidade do Kodi usando o Wiki do SuperRepo e o nosso gerador de busca de add-ons múltiplas fontes. Portanto SuperRepo não aceita qualquer responsabilidade por esse serviço.[CR][CR]O Gerador Reposity eXtended é desenvolvido por Bart Otten[CR][CR]
-                </description>
-                <disclaimer>
-                The SuperRepo generator fetches addons from multiple sources. Therefore SuperRepo accepts no responsibility for included addons.[CR]
-                </disclaimer>
-                <disclaimer lang="nl">
-                De SuperRepo generator verzamelt addons van verschillende bronnen. Daarom accepteert SuperRepo geen enkele verantwoordelijkheid voor de ingevoegde addons.[CR]
-                </disclaimer>
-                <disclaimer lang="cz">
-                Repozitár je udržiavaný komunitou Kodi a za pomoci SuperRepo Wiki, a tento preberá addons z rôznych zdrojov. Vzhľadom na to, SuperRepo nenesie žiadnu zodpovednosť za služby poskytované týmito addons.[CR]
-                </disclaimer>
-                <disclaimer lang="de">
-                Das Repository wird durch die Kodi Community gepflegt und durch unseren Generator aus mehreren Quellen zusammengestellt. Daher übernimmt SuperRepo keinerlei Verantwortung für die enthaltenen Addons.[CR]
-                </disclaimer>
-                <disclaimer lang="pt">
-                O repositório é mantido pela comunidade comunidade do Kodi e o nosso gerador de busca de addons de múltiplas fontes. Portanto SuperRepo aceita não se responsabiliza por addons incluídos.[CR]
-                </disclaimer>
-                <disclaimer lang="br">
-                O repositório é mantido pela comunidade comunidade do Kodi e o nosso gerador de busca de addons de múltiplas fontes. Portanto SuperRepo aceita não se responsabiliza por addons incluídos.[CR]
-                </disclaimer>
-                <platform>all</platform>
-                <website>https://superrepo.org/</website>
-                </extension>
-                </addon>
-
-<addon id="superrepo.kodi.isengard.external.repositories" name="SuperRepo  Third Party Repositories [Isengard][v7]" version="0.0.0.1" provider-name="Bart Otten">
-                <requires>
-                <import addon="xbmc.addon" version="12.0.0"/>
-                </requires>
-                <extension point="xbmc.addon.repository" name="SuperRepo  Third Party Repositories [Isengard][v7]">
-                <info compressed="false">
-                http://xml.superrepo.org/v7/.xml/isengard/repositories/others/addons.xml
-                </info>
-                <checksum>
-                http://md5.superrepo.org/v7/.md5/isengard/repositories/others/addons.xml.md5
-                </checksum>
-                <datadir zip="true">http://redirect.superrepo.org/v7/addons/</datadir>
-                <hashes>true</hashes>
-                </extension>
-                <extension point="xbmc.addon.metadata">
-                <summary>
-                Install add-ons from the SuperRepo  Third Party Repositories Repository
-                </summary>
-                <summary lang="nl">
-                Installeer add-ons uit de SuperRepo  Third Party Repositories Repository
-                </summary>
-                <summary lang="cz">Inštalácia add-ons zo SuperRepo  Third Party Repositories Repozitár</summary>
-                <summary lang="de">
-                Installation von Addons aus dem SuperRepo  Third Party Repositories Repository
-                </summary>
-                <summary lang="pt">Instale add-ons do SuperRepo  Third Party Repositories Repositório</summary>
-                <summary lang="br">Instale add-ons do SuperRepo  Third Party Repositories Repositório</summary>
-                <description>
-                Download and install add-ons for Kodi in the category "Others" using SuperRepo.[CR][CR]By using SuperRepo repositories you will be able to take advantage of our serverside dependency checking, extensive file mirror service and many more.[CR]Visit our website at https://superrepo.org/ to browse the add-ons, create personal addon bundles and install whole bundles at once![CR][CR]
-                </description>
-                <description lang="nl">
-                Download and installeer add-ons voor Kodi in de categorie "Others" via SuperRepo.[CR]Door SuperRepo te installeren kunt u profiteren van onze controle van add-ons en ons uitgebreide server netwerk. Bezoek onze website op https://superrepo.org om door de add-ons te bladeren, persoonlijke add-on bundels te maken en complete bundels in 1 keer te installeren![CR][CR]
-                </description>
-                <description lang="cz">
-                Preber a inštaluj add-ons do kategórie "Others" z SuperRepo.org add-on repozitár.[CR][CR]Ak si našiel add-on ktorý je poškodený alebo nefunkčný, alebo chceš pridať nový add-on, potom prosím pozri na https://superrepo.org/[CR][CR]Repozitár je udržiavaný komunitou Kodi a za pomoci SuperRepo Wiki, a tento preberá add-ons z rôznych zdrojov. Vzhľadom na to, SuperRepo nenesie žiadnu zodpovednosť za služby poskytované týmito add-ons.[CR][CR]Rozšírený repozitár vyvinul Bart Otten[CR][CR]
-                </description>
-                <description lang="de">
-                Lade und installiere Addons der Kategorie "Others" aus dem SuperRepo.org Addon Repository.[CR][CR]Möchtest du ein fehlerhaftes Addon melden oder ein neues Addon vorschlagen, kannst du dies über unsere Webseite http://superrepo.org tun.[CR][CR]Das Repository wird mit Hilfe des SuperRepo Wiki durch die Kodi Community gepflegt und durch unseren Generator aus mehreren Quellen zusammengestellt. Daher übernimmt SuperRepo keinerlei Verantwortung für diesen Service.[CR][CR]Der"eXtended Reposity Generator" wird durch Bart Otten entwickelt.[CR][CR]
-                </description>
-                <description lang="pt">
-                Baixe e instale o add-ons na categoria "Others" do Repositório SuperRepo.org. [CR] [CR] Se você encontrar um add-on quebrado ou não funcionando, ou você gostaria de incluir um outro, por favor visite https://superrepo.org/ [CR] [CR]O repositório é mantida pela comunidade do Kodi usando o Wiki do SuperRepo e o nosso gerador de busca de add-ons múltiplas fontes. Portanto SuperRepo não aceita qualquer responsabilidade por esse serviço.[CR][CR]O Gerador Reposity eXtended é desenvolvido por Bart Otten[CR][CR]
-                </description>
-                <description lang="br">
-                Baixe e instale o add-ons na categoria "Others" do Repositório SuperRepo.org. [CR] [CR] Se você encontrar um add-on quebrado ou não funcionando, ou você gostaria de incluir um outro, por favor visite https://superrepo.org/ [CR][CR]O repositório é mantida pela comunidade do Kodi usando o Wiki do SuperRepo e o nosso gerador de busca de add-ons múltiplas fontes. Portanto SuperRepo não aceita qualquer responsabilidade por esse serviço.[CR][CR]O Gerador Reposity eXtended é desenvolvido por Bart Otten[CR][CR]
-                </description>
-                <disclaimer>
-                The SuperRepo generator fetches addons from multiple sources. Therefore SuperRepo accepts no responsibility for included addons.[CR]
-                </disclaimer>
-                <disclaimer lang="nl">
-                De SuperRepo generator verzamelt addons van verschillende bronnen. Daarom accepteert SuperRepo geen enkele verantwoordelijkheid voor de ingevoegde addons.[CR]
-                </disclaimer>
-                <disclaimer lang="cz">
-                Repozitár je udržiavaný komunitou Kodi a za pomoci SuperRepo Wiki, a tento preberá addons z rôznych zdrojov. Vzhľadom na to, SuperRepo nenesie žiadnu zodpovednosť za služby poskytované týmito addons.[CR]
-                </disclaimer>
-                <disclaimer lang="de">
-                Das Repository wird durch die Kodi Community gepflegt und durch unseren Generator aus mehreren Quellen zusammengestellt. Daher übernimmt SuperRepo keinerlei Verantwortung für die enthaltenen Addons.[CR]
-                </disclaimer>
-                <disclaimer lang="pt">
-                O repositório é mantido pela comunidade comunidade do Kodi e o nosso gerador de busca de addons de múltiplas fontes. Portanto SuperRepo aceita não se responsabiliza por addons incluídos.[CR]
-                </disclaimer>
-                <disclaimer lang="br">
-                O repositório é mantido pela comunidade comunidade do Kodi e o nosso gerador de busca de addons de múltiplas fontes. Portanto SuperRepo aceita não se responsabiliza por addons incluídos.[CR]
-                </disclaimer>
-                <platform>all</platform>
-                <website>https://superrepo.org/</website>
-                </extension>
-                </addon>
-
-<addon id="superrepo.kodi.isengard.repositories" name="SuperRepo  Repositories [Isengard][v7]" version="0.0.0.1" provider-name="Bart Otten">
-                <requires>
-                <import addon="xbmc.addon" version="12.0.0"/>
-                </requires>
-                <extension point="xbmc.addon.repository" name="SuperRepo  Repositories [Isengard][v7]">
-                <info compressed="false">
-                http://xml.superrepo.org/v7/.xml/isengard/repositories/superrepo/addons.xml
-                </info>
-                <checksum>
-                http://md5.superrepo.org/v7/.md5/isengard/repositories/superrepo/addons.xml.md5
-                </checksum>
-                <datadir zip="true">http://redirect.superrepo.org/v7/addons/</datadir>
-                <hashes>true</hashes>
-                </extension>
-                <extension point="xbmc.addon.metadata">
-                <summary>
-                Install add-ons from the SuperRepo  Repositories Repository
-                </summary>
-                <summary lang="nl">
-                Installeer add-ons uit de SuperRepo  Repositories Repository
-                </summary>
-                <summary lang="cz">Inštalácia add-ons zo SuperRepo  Repositories Repozitár</summary>
-                <summary lang="de">
-                Installation von Addons aus dem SuperRepo  Repositories Repository
-                </summary>
-                <summary lang="pt">Instale add-ons do SuperRepo  Repositories Repositório</summary>
-                <summary lang="br">Instale add-ons do SuperRepo  Repositories Repositório</summary>
-                <description>
-                Download and install add-ons for Kodi in the category "SuperRepo" using SuperRepo.[CR][CR]By using SuperRepo repositories you will be able to take advantage of our serverside dependency checking, extensive file mirror service and many more.[CR]Visit our website at https://superrepo.org/ to browse the add-ons, create personal addon bundles and install whole bundles at once![CR][CR]
-                </description>
-                <description lang="nl">
-                Download and installeer add-ons voor Kodi in de categorie "SuperRepo" via SuperRepo.[CR]Door SuperRepo te installeren kunt u profiteren van onze controle van add-ons en ons uitgebreide server netwerk. Bezoek onze website op https://superrepo.org om door de add-ons te bladeren, persoonlijke add-on bundels te maken en complete bundels in 1 keer te installeren![CR][CR]
-                </description>
-                <description lang="cz">
-                Preber a inštaluj add-ons do kategórie "SuperRepo" z SuperRepo.org add-on repozitár.[CR][CR]Ak si našiel add-on ktorý je poškodený alebo nefunkčný, alebo chceš pridať nový add-on, potom prosím pozri na https://superrepo.org/[CR][CR]Repozitár je udržiavaný komunitou Kodi a za pomoci SuperRepo Wiki, a tento preberá add-ons z rôznych zdrojov. Vzhľadom na to, SuperRepo nenesie žiadnu zodpovednosť za služby poskytované týmito add-ons.[CR][CR]Rozšírený repozitár vyvinul Bart Otten[CR][CR]
-                </description>
-                <description lang="de">
-                Lade und installiere Addons der Kategorie "SuperRepo" aus dem SuperRepo.org Addon Repository.[CR][CR]Möchtest du ein fehlerhaftes Addon melden oder ein neues Addon vorschlagen, kannst du dies über unsere Webseite http://superrepo.org tun.[CR][CR]Das Repository wird mit Hilfe des SuperRepo Wiki durch die Kodi Community gepflegt und durch unseren Generator aus mehreren Quellen zusammengestellt. Daher übernimmt SuperRepo keinerlei Verantwortung für diesen Service.[CR][CR]Der"eXtended Reposity Generator" wird durch Bart Otten entwickelt.[CR][CR]
-                </description>
-                <description lang="pt">
-                Baixe e instale o add-ons na categoria "SuperRepo" do Repositório SuperRepo.org. [CR] [CR] Se você encontrar um add-on quebrado ou não funcionando, ou você gostaria de incluir um outro, por favor visite https://superrepo.org/ [CR] [CR]O repositório é mantida pela comunidade do Kodi usando o Wiki do SuperRepo e o nosso gerador de busca de add-ons múltiplas fontes. Portanto SuperRepo não aceita qualquer responsabilidade por esse serviço.[CR][CR]O Gerador Reposity eXtended é desenvolvido por Bart Otten[CR][CR]
-                </description>
-                <description lang="br">
-                Baixe e instale o add-ons na categoria "SuperRepo" do Repositório SuperRepo.org. [CR] [CR] Se você encontrar um add-on quebrado ou não funcionando, ou você gostaria de incluir um outro, por favor visite https://superrepo.org/ [CR][CR]O repositório é mantida pela comunidade do Kodi usando o Wiki do SuperRepo e o nosso gerador de busca de add-ons múltiplas fontes. Portanto SuperRepo não aceita qualquer responsabilidade por esse serviço.[CR][CR]O Gerador Reposity eXtended é desenvolvido por Bart Otten[CR][CR]
-                </description>
-                <disclaimer>
-                The SuperRepo generator fetches addons from multiple sources. Therefore SuperRepo accepts no responsibility for included addons.[CR]
-                </disclaimer>
-                <disclaimer lang="nl">
-                De SuperRepo generator verzamelt addons van verschillende bronnen. Daarom accepteert SuperRepo geen enkele verantwoordelijkheid voor de ingevoegde addons.[CR]
-                </disclaimer>
-                <disclaimer lang="cz">
-                Repozitár je udržiavaný komunitou Kodi a za pomoci SuperRepo Wiki, a tento preberá addons z rôznych zdrojov. Vzhľadom na to, SuperRepo nenesie žiadnu zodpovednosť za služby poskytované týmito addons.[CR]
-                </disclaimer>
-                <disclaimer lang="de">
-                Das Repository wird durch die Kodi Community gepflegt und durch unseren Generator aus mehreren Quellen zusammengestellt. Daher übernimmt SuperRepo keinerlei Verantwortung für die enthaltenen Addons.[CR]
-                </disclaimer>
-                <disclaimer lang="pt">
-                O repositório é mantido pela comunidade comunidade do Kodi e o nosso gerador de busca de addons de múltiplas fontes. Portanto SuperRepo aceita não se responsabiliza por addons incluídos.[CR]
-                </disclaimer>
-                <disclaimer lang="br">
-                O repositório é mantido pela comunidade comunidade do Kodi e o nosso gerador de busca de addons de múltiplas fontes. Portanto SuperRepo aceita não se responsabiliza por addons incluídos.[CR]
-                </disclaimer>
-                <platform>all</platform>
-                <website>https://superrepo.org/</website>
-                </extension>
-                </addon>
-
-<addon id="superrepo.kodi.jarvis.external.repositories" name="SuperRepo  Third Party Repositories [Jarvis][v7]" version="0.0.0.1" provider-name="Bart Otten">
-                <requires>
-                <import addon="xbmc.addon" version="12.0.0"/>
-                </requires>
-                <extension point="xbmc.addon.repository" name="SuperRepo  Third Party Repositories [Jarvis][v7]">
-                <info compressed="false">
-                http://xml.superrepo.org/v7/.xml/jarvis/repositories/others/addons.xml
-                </info>
-                <checksum>
-                http://md5.superrepo.org/v7/.md5/jarvis/repositories/others/addons.xml.md5
-                </checksum>
-                <datadir zip="true">http://redirect.superrepo.org/v7/addons/</datadir>
-                <hashes>true</hashes>
-                </extension>
-                <extension point="xbmc.addon.metadata">
-                <summary>
-                Install add-ons from the SuperRepo  Third Party Repositories Repository
-                </summary>
-                <summary lang="nl">
-                Installeer add-ons uit de SuperRepo  Third Party Repositories Repository
-                </summary>
-                <summary lang="cz">Inštalácia add-ons zo SuperRepo  Third Party Repositories Repozitár</summary>
-                <summary lang="de">
-                Installation von Addons aus dem SuperRepo  Third Party Repositories Repository
-                </summary>
-                <summary lang="pt">Instale add-ons do SuperRepo  Third Party Repositories Repositório</summary>
-                <summary lang="br">Instale add-ons do SuperRepo  Third Party Repositories Repositório</summary>
-                <description>
-                Download and install add-ons for Kodi in the category "Others" using SuperRepo.[CR][CR]By using SuperRepo repositories you will be able to take advantage of our serverside dependency checking, extensive file mirror service and many more.[CR]Visit our website at https://superrepo.org/ to browse the add-ons, create personal addon bundles and install whole bundles at once![CR][CR]
-                </description>
-                <description lang="nl">
-                Download and installeer add-ons voor Kodi in de categorie "Others" via SuperRepo.[CR]Door SuperRepo te installeren kunt u profiteren van onze controle van add-ons en ons uitgebreide server netwerk. Bezoek onze website op https://superrepo.org om door de add-ons te bladeren, persoonlijke add-on bundels te maken en complete bundels in 1 keer te installeren![CR][CR]
-                </description>
-                <description lang="cz">
-                Preber a inštaluj add-ons do kategórie "Others" z SuperRepo.org add-on repozitár.[CR][CR]Ak si našiel add-on ktorý je poškodený alebo nefunkčný, alebo chceš pridať nový add-on, potom prosím pozri na https://superrepo.org/[CR][CR]Repozitár je udržiavaný komunitou Kodi a za pomoci SuperRepo Wiki, a tento preberá add-ons z rôznych zdrojov. Vzhľadom na to, SuperRepo nenesie žiadnu zodpovednosť za služby poskytované týmito add-ons.[CR][CR]Rozšírený repozitár vyvinul Bart Otten[CR][CR]
-                </description>
-                <description lang="de">
-                Lade und installiere Addons der Kategorie "Others" aus dem SuperRepo.org Addon Repository.[CR][CR]Möchtest du ein fehlerhaftes Addon melden oder ein neues Addon vorschlagen, kannst du dies über unsere Webseite http://superrepo.org tun.[CR][CR]Das Repository wird mit Hilfe des SuperRepo Wiki durch die Kodi Community gepflegt und durch unseren Generator aus mehreren Quellen zusammengestellt. Daher übernimmt SuperRepo keinerlei Verantwortung für diesen Service.[CR][CR]Der"eXtended Reposity Generator" wird durch Bart Otten entwickelt.[CR][CR]
-                </description>
-                <description lang="pt">
-                Baixe e instale o add-ons na categoria "Others" do Repositório SuperRepo.org. [CR] [CR] Se você encontrar um add-on quebrado ou não funcionando, ou você gostaria de incluir um outro, por favor visite https://superrepo.org/ [CR] [CR]O repositório é mantida pela comunidade do Kodi usando o Wiki do SuperRepo e o nosso gerador de busca de add-ons múltiplas fontes. Portanto SuperRepo não aceita qualquer responsabilidade por esse serviço.[CR][CR]O Gerador Reposity eXtended é desenvolvido por Bart Otten[CR][CR]
-                </description>
-                <description lang="br">
-                Baixe e instale o add-ons na categoria "Others" do Repositório SuperRepo.org. [CR] [CR] Se você encontrar um add-on quebrado ou não funcionando, ou você gostaria de incluir um outro, por favor visite https://superrepo.org/ [CR][CR]O repositório é mantida pela comunidade do Kodi usando o Wiki do SuperRepo e o nosso gerador de busca de add-ons múltiplas fontes. Portanto SuperRepo não aceita qualquer responsabilidade por esse serviço.[CR][CR]O Gerador Reposity eXtended é desenvolvido por Bart Otten[CR][CR]
-                </description>
-                <disclaimer>
-                The SuperRepo generator fetches addons from multiple sources. Therefore SuperRepo accepts no responsibility for included addons.[CR]
-                </disclaimer>
-                <disclaimer lang="nl">
-                De SuperRepo generator verzamelt addons van verschillende bronnen. Daarom accepteert SuperRepo geen enkele verantwoordelijkheid voor de ingevoegde addons.[CR]
-                </disclaimer>
-                <disclaimer lang="cz">
-                Repozitár je udržiavaný komunitou Kodi a za pomoci SuperRepo Wiki, a tento preberá addons z rôznych zdrojov. Vzhľadom na to, SuperRepo nenesie žiadnu zodpovednosť za služby poskytované týmito addons.[CR]
-                </disclaimer>
-                <disclaimer lang="de">
-                Das Repository wird durch die Kodi Community gepflegt und durch unseren Generator aus mehreren Quellen zusammengestellt. Daher übernimmt SuperRepo keinerlei Verantwortung für die enthaltenen Addons.[CR]
-                </disclaimer>
-                <disclaimer lang="pt">
-                O repositório é mantido pela comunidade comunidade do Kodi e o nosso gerador de busca de addons de múltiplas fontes. Portanto SuperRepo aceita não se responsabiliza por addons incluídos.[CR]
-                </disclaimer>
-                <disclaimer lang="br">
-                O repositório é mantido pela comunidade comunidade do Kodi e o nosso gerador de busca de addons de múltiplas fontes. Portanto SuperRepo aceita não se responsabiliza por addons incluídos.[CR]
-                </disclaimer>
-                <platform>all</platform>
-                <website>https://superrepo.org/</website>
-                </extension>
-                </addon>
-
-<addon id="superrepo.kodi.jarvis.repositories" name="SuperRepo  Repositories [Jarvis][v7]" version="0.0.0.1" provider-name="Bart Otten">
-                <requires>
-                <import addon="xbmc.addon" version="12.0.0"/>
-                </requires>
-                <extension point="xbmc.addon.repository" name="SuperRepo  Repositories [Jarvis][v7]">
-                <info compressed="false">
-                http://xml.superrepo.org/v7/.xml/jarvis/repositories/superrepo/addons.xml
-                </info>
-                <checksum>
-                http://md5.superrepo.org/v7/.md5/jarvis/repositories/superrepo/addons.xml.md5
-                </checksum>
-                <datadir zip="true">http://redirect.superrepo.org/v7/addons/</datadir>
-                <hashes>true</hashes>
-                </extension>
-                <extension point="xbmc.addon.metadata">
-                <summary>
-                Install add-ons from the SuperRepo  Repositories Repository
-                </summary>
-                <summary lang="nl">
-                Installeer add-ons uit de SuperRepo  Repositories Repository
-                </summary>
-                <summary lang="cz">Inštalácia add-ons zo SuperRepo  Repositories Repozitár</summary>
-                <summary lang="de">
-                Installation von Addons aus dem SuperRepo  Repositories Repository
-                </summary>
-                <summary lang="pt">Instale add-ons do SuperRepo  Repositories Repositório</summary>
-                <summary lang="br">Instale add-ons do SuperRepo  Repositories Repositório</summary>
-                <description>
-                Download and install add-ons for Kodi in the category "SuperRepo" using SuperRepo.[CR][CR]By using SuperRepo repositories you will be able to take advantage of our serverside dependency checking, extensive file mirror service and many more.[CR]Visit our website at https://superrepo.org/ to browse the add-ons, create personal addon bundles and install whole bundles at once![CR][CR]
-                </description>
-                <description lang="nl">
-                Download and installeer add-ons voor Kodi in de categorie "SuperRepo" via SuperRepo.[CR]Door SuperRepo te installeren kunt u profiteren van onze controle van add-ons en ons uitgebreide server netwerk. Bezoek onze website op https://superrepo.org om door de add-ons te bladeren, persoonlijke add-on bundels te maken en complete bundels in 1 keer te installeren![CR][CR]
-                </description>
-                <description lang="cz">
-                Preber a inštaluj add-ons do kategórie "SuperRepo" z SuperRepo.org add-on repozitár.[CR][CR]Ak si našiel add-on ktorý je poškodený alebo nefunkčný, alebo chceš pridať nový add-on, potom prosím pozri na https://superrepo.org/[CR][CR]Repozitár je udržiavaný komunitou Kodi a za pomoci SuperRepo Wiki, a tento preberá add-ons z rôznych zdrojov. Vzhľadom na to, SuperRepo nenesie žiadnu zodpovednosť za služby poskytované týmito add-ons.[CR][CR]Rozšírený repozitár vyvinul Bart Otten[CR][CR]
-                </description>
-                <description lang="de">
-                Lade und installiere Addons der Kategorie "SuperRepo" aus dem SuperRepo.org Addon Repository.[CR][CR]Möchtest du ein fehlerhaftes Addon melden oder ein neues Addon vorschlagen, kannst du dies über unsere Webseite http://superrepo.org tun.[CR][CR]Das Repository wird mit Hilfe des SuperRepo Wiki durch die Kodi Community gepflegt und durch unseren Generator aus mehreren Quellen zusammengestellt. Daher übernimmt SuperRepo keinerlei Verantwortung für diesen Service.[CR][CR]Der"eXtended Reposity Generator" wird durch Bart Otten entwickelt.[CR][CR]
-                </description>
-                <description lang="pt">
-                Baixe e instale o add-ons na categoria "SuperRepo" do Repositório SuperRepo.org. [CR] [CR] Se você encontrar um add-on quebrado ou não funcionando, ou você gostaria de incluir um outro, por favor visite https://superrepo.org/ [CR] [CR]O repositório é mantida pela comunidade do Kodi usando o Wiki do SuperRepo e o nosso gerador de busca de add-ons múltiplas fontes. Portanto SuperRepo não aceita qualquer responsabilidade por esse serviço.[CR][CR]O Gerador Reposity eXtended é desenvolvido por Bart Otten[CR][CR]
-                </description>
-                <description lang="br">
-                Baixe e instale o add-ons na categoria "SuperRepo" do Repositório SuperRepo.org. [CR] [CR] Se você encontrar um add-on quebrado ou não funcionando, ou você gostaria de incluir um outro, por favor visite https://superrepo.org/ [CR][CR]O repositório é mantida pela comunidade do Kodi usando o Wiki do SuperRepo e o nosso gerador de busca de add-ons múltiplas fontes. Portanto SuperRepo não aceita qualquer responsabilidade por esse serviço.[CR][CR]O Gerador Reposity eXtended é desenvolvido por Bart Otten[CR][CR]
-                </description>
-                <disclaimer>
-                The SuperRepo generator fetches addons from multiple sources. Therefore SuperRepo accepts no responsibility for included addons.[CR]
-                </disclaimer>
-                <disclaimer lang="nl">
-                De SuperRepo generator verzamelt addons van verschillende bronnen. Daarom accepteert SuperRepo geen enkele verantwoordelijkheid voor de ingevoegde addons.[CR]
-                </disclaimer>
-                <disclaimer lang="cz">
-                Repozitár je udržiavaný komunitou Kodi a za pomoci SuperRepo Wiki, a tento preberá addons z rôznych zdrojov. Vzhľadom na to, SuperRepo nenesie žiadnu zodpovednosť za služby poskytované týmito addons.[CR]
-                </disclaimer>
-                <disclaimer lang="de">
-                Das Repository wird durch die Kodi Community gepflegt und durch unseren Generator aus mehreren Quellen zusammengestellt. Daher übernimmt SuperRepo keinerlei Verantwortung für die enthaltenen Addons.[CR]
-                </disclaimer>
-                <disclaimer lang="pt">
-                O repositório é mantido pela comunidade comunidade do Kodi e o nosso gerador de busca de addons de múltiplas fontes. Portanto SuperRepo aceita não se responsabiliza por addons incluídos.[CR]
-                </disclaimer>
-                <disclaimer lang="br">
-                O repositório é mantido pela comunidade comunidade do Kodi e o nosso gerador de busca de addons de múltiplas fontes. Portanto SuperRepo aceita não se responsabiliza por addons incluídos.[CR]
-                </disclaimer>
-                <platform>all</platform>
-                <website>https://superrepo.org/</website>
-                </extension>
-                </addon>
-
 <addon id="Tugafree.repositorio" name="Tugafree Repositorio" version="0.0.0.1" provider-name="Tugafree">
 	<extension point="xbmc.addon.repository" name="Tugafree Add-on Repository">
 		<info compressed="false">http://raw.github.com/Tugafree/Tugafree.repositorio/master/addons.xml</info>
@@ -8666,19 +8156,17 @@ Addons Included
 	</extension>
 </addon>
 
-<addon id="repo.butchabay" name="repository butchabay" version="0.0.0.1" provider-name="butchabay">
-    <extension point="xbmc.addon.repository" name="repository butchabay">
-        <info>http://xbmc-repository-butchabay.googlecode.com/svn/trunk/addons.xml</info>
-        <checksum>http://turkishxbmcscraper.googlecode.com/svn/trunk/addons.xml.md5</checksum>
-        <datadir zip="true">http://xbmc-repository-butchabay.googlecode.com/svn/trunk</datadir>
-    </extension>
-  <extension point="xbmc.addon.metadata">
-        <summary lang="en">Install skins from butchabay's repository.</summary>
-        <description lang="en">download and install skins from googlecode.repository-butchabay.</description>
-        <disclaimer lang="en">no official releases, use at your own risk.</disclaimer>
-        <platform>all</platform>
-        <broken>This repo was on the old googlecode server and is no longer available</broken>
-  </extension>
+<addon id="vodpass" name="vodpass" version="0.0.0.1" provider-name="vodpass">
+	<extension point="xbmc.addon.repository" name="vodpass">
+		<info compressed="false">http://vodpass.site88.net/Zips/addons.xml</info>
+		<checksum>http://vodpass.site88.net/Zips/addons.xml.md5</checksum>
+		<datadir zip="true">http://vodpass.site88.net/Zips/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary> Kodi .</summary>
+		<description>Repository of vodpass</description>
+		<platform>all</platform>
+	</extension>
 </addon>
 
 <addon id="xbmc.repo.elmerohueso" name="elmerohueso's Add-on Repository" version="0.0.0.1" provider-name="elmerohueso">
@@ -8723,30 +8211,6 @@ Addons Included
 	</extension>
 </addon>
 
-<addon id="repo.hybrid"
-        name="Hybrid Development Repo"
-        version="0.0.0.1"
-        provider-name="Mudislander">
-    <extension point="xbmc.addon.repository"
-        name="Hybrid Development Repo">
-		<dir minversion="15.9.0">
-		<info>https://dl.dropboxusercontent.com/u/73099168/xbmc.repo.mudisle/addons.xml</info>
-		<checksum>https://dl.dropboxusercontent.com/u/73099168/xbmc.repo.mudisle/addons.xml.md5</checksum>
-		<datadir zip="true">https://dl.dropboxusercontent.com/u/73099168/xbmc.repo.mudisle</datadir>
-		<hashes>true</hashes>
-		</dir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-		<summary>Hybrid Development Repository</summary>
-		<description>Repository containing the development version of Hybrid a skin for Kodi</description>
-		<disclaimer>You break it - You get to keep the pieces</disclaimer>
-        <license>GPL</license>
-		<platform>all</platform>
-		<noicon>false</noicon>
-		<nofanart>false</nofanart>
-    </extension>
-</addon>
-
 <addon id="xbmc.repo.ivueguide" name="iVue2 TV Guide Repo" version="0.0.0.1" provider-name="iVue">
 	<extension point="xbmc.addon.repository" name="iVue2 TV Guide Add-ons Repository">
 		<info compressed="false">https://raw.githubusercontent.com/totaltec2014/ivue2/master/addons.xml</info>
@@ -8757,20 +8221,6 @@ Addons Included
 		<summary>Install iVue2 TV Guide </summary>
 		<description>Download and install for iVue2 Tv guide addons </description>
 		<disclaimer> Repo for iVue2 Tv guide addon </disclaimer>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="xbmc.repo.tecboxtvguide" name="iVue TV Guide Add-on" version="0.0.0.1" provider-name="DreamHD TECbox">
-	<extension point="xbmc.addon.repository" name="iVue TV Guide Add-ons Repository">
-		<info compressed="false">https://raw.githubusercontent.com/totaltec2014/ivuerepo/master/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/totaltec2014/ivuerepo/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/totaltec2014/ivuerepo/master/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Install iVue TV Guide </summary>
-		<description>Download and install for iVue Tv guide addons </description>
-		<disclaimer> Repo for iVue Tv guide addon </disclaimer>
 		<platform>all</platform>
 	</extension>
 </addon>
@@ -8801,28 +8251,6 @@ Addons Included
     <platform>all</platform>
     <website>http://ls80.github.io/xbmc.repo.leopold/</website>
   </extension>
-</addon>
-
-<addon id="repo.mudisle"
-        name="Mudisle Repo"
-        version="0.0.0.1"
-        provider-name="Mudislander">
-    <extension point="xbmc.addon.repository"
-        name="Mudisle Repo">
-        <info>http://xbmc-skin-convergence.googlecode.com/svn/branches/repo/addons.xml</info>
-        <checksum>http://xbmc-skin-convergence.googlecode.com/svn/branches/repo/addons.xml.md5</checksum>
-        <datadir zip="true">http://xbmc-skin-convergence.googlecode.com/svn/branches/repo</datadir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
- 		<summary>Mudisle File Repository</summary>
-		<description>Mudisle File Repository is the home of Convergence and Confluence-Lite-Mod by C-Team</description>
-		<disclaimer>You break it - You get to keep the pieces</disclaimer>
-        <license>GPL</license>
-		<platform>all</platform>
-		<noicon>false</noicon>
-		<nofanart>false</nofanart>
-        <broken>This repo was on the old googlecode server and is no longer available</broken>
-    </extension>
 </addon>
 
 <addon id="xbmc.repo.nordish-by-nature" name="NordishByNature Addons" version="0.0.0.1" provider-name="mablae">

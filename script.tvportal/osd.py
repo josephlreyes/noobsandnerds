@@ -71,12 +71,15 @@ ACTION_SHOW_INFO = -1 #currently not used
 PATH = os.path.join(dixie.PROFILE, 'extras', 'skins', dixie.SKIN)
 XML  = 'script-tvguide-changer.xml'
 
-AddonID          =  'script.tvportal'
-ADDON            =  xbmcaddon.Addon(id=AddonID)
+AddonID        = 'script.tvportal'
+ADDON          = xbmcaddon.Addon(id=AddonID)
 showSFchannels = ADDON.getSetting('showSFchannels')
 SF_CHANNELS    = ADDON.getSetting('SF_CHANNELS')
 OTT_CHANNELS   = os.path.join(dixie.GetChannelFolder(), 'channels')
 IGNORESTRM     = dixie.GetSetting('ignore.stream') == 'true'
+datapath       = dixie.PROFILE
+logos          = ADDON.getSetting('dixie.logo.folder')
+logofolder     = os.path.join(datapath,'extras','logos',logos)
 
 MAIN          = 5000
 EPG_CHANNEL   = 6000
@@ -186,8 +189,16 @@ class OSD(xbmcgui.WindowXMLDialog):
             xbmcgui.Window(10000).setProperty('OTT_CH_NUMBER', '')       
             self.channel = ''
         else:
-            xbmcgui.Window(10000).setProperty('OTT_CH_LOGO',   channel.logo)
-            xbmcgui.Window(10000).setProperty('OTT_CH_TITLE',  channel.title)
+            if channel.title.endswith(')') and channel.title[-4] == '(':
+                test_title = channel.title[:-5].replace('_',' ').replace(' PLUS1',' +1').replace(' STAR','*').replace('PLUS1','+1').replace('&AMP;','&').replace('&GT;',' ')
+            else:
+                test_title = channel.title.replace('_',' ').replace(' PLUS1',' +1').replace(' STAR','*').replace('PLUS1','+1').replace('&AMP;','&').replace('&GT;',' ')
+            if not 'default.png' in channel.logo:
+                test_logo = channel.logo
+            else:
+                test_logo =  os.path.join(logofolder,test_title.replace(' ','_')+'.png')
+            xbmcgui.Window(10000).setProperty('OTT_CH_LOGO',   test_logo)
+            xbmcgui.Window(10000).setProperty('OTT_CH_TITLE',  test_title)
             xbmcgui.Window(10000).setProperty('OTT_CH_NUMBER', text)
 
         self.updateProgramInfo(channel)

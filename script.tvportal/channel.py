@@ -22,7 +22,7 @@ import urllib
 import os
 import sfile
 import dixie
-
+import xbmc
 
 def tidy(text):
     if (not isinstance(text, unicode)) and (not isinstance(text, str)):
@@ -44,9 +44,12 @@ class Channel(object):
     def set(self, id, title, logo, streamUrl, visible, weight, categories, userDef, desc, isClone):
         if logo:
             logo = tidy(logo)
+# if logo ends with a country code remove it
+            if logo[-5] == ')' and logo[-8] == '(':
+                logo = logo[:-9]
 
-        self.id         = tidy(id)
-        self.title      = tidy(title)
+        self.id         = tidy(id).replace(' ','_')
+        self.title      = tidy(title).replace(' ','_')
         self.categories = tidy(categories)
         self.logo       = logo
         self.streamUrl  = tidy(streamUrl)
@@ -77,7 +80,7 @@ class Channel(object):
         if len(list) > 9:
             isClone = list[9]
         
-        self.set(list[0], list[1], list[2], list[3], list[4], list[5], list[6], userDef, desc, isClone)
+        self.set(list[0], list[1], list[2], list[3], list[4], list[5], list[6], userDef, desc, isClone,)
 
 
     def safeWriteToFile(self, file, text):
@@ -101,7 +104,7 @@ class Channel(object):
 
         self.safeWriteToFile(f, localID)
         self.safeWriteToFile(f, self.title)
-        self.safeWriteToFile(f, self.logo)
+        self.safeWriteToFile(f, self.logo.replace('__PLUS1','').replace('_PLUS1',''))
         self.safeWriteToFile(f, self.streamUrl)
 
         if self.visible:

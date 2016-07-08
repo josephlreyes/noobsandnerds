@@ -27,6 +27,8 @@ datapath    = dixie.PROFILE
 inipath     = os.path.join(datapath, 'ini')
 current_ini = os.path.join(datapath, 'addons.ini')
 
+if not os.path.exists(inipath):
+    os.makedirs(inipath)
 
 def getIni():
     import extract

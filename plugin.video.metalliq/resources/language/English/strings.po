@@ -1,0 +1,501 @@
+# Addon Name: [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]
+# Addon id: plugin.video.metalliq
+# Addon Provider: [COLOR ff0084ff]Q[/COLOR]
+msgid ""
+msgstr ""
+"Project-Id-Version: [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] Addon for Kodi\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2016-02-21 19:19+0200\n"
+"Last-Translator: [COLOR ff0084ff]Q[/COLOR]\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7\n"
+
+msgctxt "#30000"
+msgid "General"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Move down"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Move up"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Clear channels"
+msgstr ""
+
+msgctxt "#30004"
+msgid "Remove channel"
+msgstr ""
+
+msgctxt "#30005"
+msgid "Style"
+msgstr ""
+
+msgctxt "#30010"
+msgid "Players URL"
+msgstr ""
+
+msgctxt "#30012"
+msgid "Install from URL"
+msgstr ""
+
+msgctxt "#30013"
+msgid "Enable all players"
+msgstr ""
+
+msgctxt "#30014"
+msgid "Failed to delete cache"
+msgstr ""
+
+msgctxt "#30015"
+msgid "Style"
+msgstr ""
+
+msgctxt "#30100"
+msgid "Movies"
+msgstr ""
+
+msgctxt "#30101"
+msgid "Enable movie players"
+msgstr ""
+
+msgctxt "#30110"
+msgid "Preferred movie player"
+msgstr ""
+
+msgctxt "#30111"
+msgid "Preferred movie player from library"
+msgstr ""
+
+msgctxt "#30112"
+msgid "Preferred movie player from context menu"
+msgstr ""
+
+msgctxt "#30113"
+msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a movie video source?"
+msgstr ""
+
+msgctxt "#30200"
+msgid "TV Shows"
+msgstr ""
+
+msgctxt "#30201"
+msgid "Enable TV show players"
+msgstr ""
+
+msgctxt "#30210"
+msgid "Preferred TV show player"
+msgstr ""
+
+msgctxt "#30211"
+msgid "Preferred TV show player from library"
+msgstr ""
+
+msgctxt "#30212"
+msgid "Preferred TV show player from context menu"
+msgstr ""
+
+msgctxt "#30213"
+msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a TV show source?"
+msgstr ""
+
+msgctxt "#30300"
+msgid "Library"
+msgstr ""
+
+msgctxt "#30301"
+msgid "Library folders"
+msgstr ""
+
+msgctxt "#30302"
+msgid "Library folder"
+msgstr ""
+
+msgctxt "#30303"
+msgid "Update libraries"
+msgstr ""
+
+msgctxt "#30305"
+msgid "Set added time to release date"
+msgstr ""
+
+msgctxt "#30310"
+msgid "Playlist"
+msgstr ""
+
+msgctxt "#30311"
+msgid "Playlist folders"
+msgstr ""
+
+msgctxt "#30312"
+msgid "Playlist folder"
+msgstr ""
+
+msgctxt "#30313"
+msgid "Update playlists"
+msgstr ""
+
+msgctxt "#30314"
+msgid "Video"
+msgstr ""
+
+msgctxt "#30315"
+msgid "Audio"
+msgstr ""
+
+msgctxt "#30304"
+msgid "Automatic movies library server"
+msgstr ""
+
+msgctxt "#30400"
+msgid "Advanced"
+msgstr ""
+
+msgctxt "#30401"
+msgid "Clear cache"
+msgstr ""
+
+msgctxt "#30402"
+msgid "Use simple selection dialog"
+msgstr ""
+
+msgctxt "#30404"
+msgid "Number of simultaneous searches"
+msgstr ""
+
+msgctxt "#30410"
+msgid "Attempt to hide dialogs while [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] is searching"
+msgstr ""
+
+msgctxt "#30411"
+msgid "Hide progress dialogs"
+msgstr ""
+
+msgctxt "#30412"
+msgid "Hide information dialogs"
+msgstr ""
+
+msgctxt "#30413"
+msgid "Hide keyboard dialog"
+msgstr ""
+
+msgctxt "#30414"
+msgid "Trakt watchlist"
+msgstr ""
+
+msgctxt "#30415"
+msgid "Please go to https://trakt.tv/activate and enter the code"
+msgstr ""
+
+msgctxt "#30416"
+msgid "Next episodes"
+msgstr ""
+
+msgctxt "#30417"
+msgid "Authenticate Trakt"
+msgstr ""
+
+msgctxt "#30418"
+msgid "Add all to library"
+msgstr ""
+
+msgctxt "#30419"
+msgid "Are you sure you want to add your entire Trakt collection to Kodi library?"
+msgstr ""
+
+msgctxt "#30420"
+msgid "Trakt collection"
+msgstr ""
+
+msgctxt "#30421"
+msgid ""
+"Are you sure you want to add your entire Trakt watchlist to Kodi library?"
+msgstr ""
+
+msgctxt "#30422"
+msgid "You must authenticate with Trakt. Do you want to authenticate now?"
+msgstr ""
+
+msgctxt "#30423"
+msgid "My calendar"
+msgstr ""
+
+msgctxt "#30500"
+msgid "Live"
+msgstr ""
+
+msgctxt "#30501"
+msgid "Enable live players"
+msgstr ""
+
+msgctxt "#30510"
+msgid "Preferred live player"
+msgstr ""
+
+msgctxt "#30511"
+msgid "Preferred live player from library"
+msgstr ""
+
+msgctxt "#30512"
+msgid "Preferred live player from context menu"
+msgstr ""
+
+msgctxt "#30513"
+msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a channel source?"
+msgstr ""
+
+msgctxt "#30601"
+msgid "Genres (TMDb)"
+msgstr ""
+
+msgctxt "#30602"
+msgid "Context player"
+msgstr ""
+
+msgctxt "#30603"
+msgid "Show info"
+msgstr ""
+
+msgctxt "#30604"
+msgid "Video not found :("
+msgstr ""
+
+msgctxt "#30605"
+msgid "Add to library"
+msgstr ""
+
+msgctxt "#30606"
+msgid "Do you want to remove your existing players first?"
+msgstr ""
+
+msgctxt "#30607"
+msgid "Enter password"
+msgstr ""
+
+msgctxt "#30608"
+msgid "Players updated"
+msgstr ""
+
+msgctxt "#30609"
+msgid "Enable players"
+msgstr ""
+
+msgctxt "#30610"
+msgid "Season"
+msgstr ""
+
+msgctxt "#30612"
+msgid "Top rated (TMDb)"
+msgstr ""
+
+msgctxt "#30613"
+msgid "Blockbusters (TMDb)"
+msgstr ""
+
+msgctxt "#30614"
+msgid "On the air (TMDb)"
+msgstr ""
+
+msgctxt "#30615"
+msgid "Update players"
+msgstr ""
+
+msgctxt "#30617"
+msgid "Search"
+msgstr ""
+
+msgctxt "#30618"
+msgid "search for"
+msgstr ""
+
+msgctxt "#30619"
+msgid "Next >>"
+msgstr ""
+
+msgctxt "#30620"
+msgid "Error"
+msgstr ""
+
+msgctxt "#30621"
+msgid "Popular (TMDb)"
+msgstr ""
+
+msgctxt "#30622"
+msgid "Select default player"
+msgstr ""
+
+msgctxt "#30623"
+msgid "Failed to update players"
+msgstr ""
+
+msgctxt "#30624"
+msgid "In theatres (TMDb)"
+msgstr ""
+
+msgctxt "#30625"
+msgid "Select player"
+msgstr ""
+
+msgctxt "#30626"
+msgid "Warning"
+msgstr ""
+
+msgctxt "#30627"
+msgid "Library setup"
+msgstr ""
+
+msgctxt "#30628"
+msgid "Play with..."
+msgstr ""
+
+msgctxt "#30629"
+msgid "Trending (Trakt)"
+msgstr ""
+
+msgctxt "#30630"
+msgid "Personal (Trakt)"
+msgstr ""
+
+msgctxt "#30631"
+msgid "Aired (Trakt)"
+msgstr ""
+
+msgctxt "#30632"
+msgid "Premiered (Trakt)"
+msgstr ""
+
+msgctxt "#30633"
+msgid "Search (TMDb)"
+msgstr ""
+
+msgctxt "#30634"
+msgid "Search artist"
+msgstr ""
+
+msgctxt "#30635"
+msgid "Search album"
+msgstr ""
+
+msgctxt "#30636"
+msgid "Search track"
+msgstr ""
+
+msgctxt "#30637"
+msgid "Search list"
+msgstr ""
+
+msgctxt "#30638"
+msgid "Search"
+msgstr ""
+
+msgctxt "#30699"
+msgid "Preferred music type"
+msgstr ""
+
+msgctxt "#30700"
+msgid "Musicvideos"
+msgstr ""
+
+msgctxt "#30701"
+msgid "Enable musicvideo players"
+msgstr ""
+
+msgctxt "#30702"
+msgid "Musicvideo"
+msgstr ""
+
+msgctxt "#30710"
+msgid "Preferred musicvideo player"
+msgstr ""
+
+msgctxt "#30711"
+msgid "Preferred musicvideo player from library"
+msgstr ""
+
+msgctxt "#30712"
+msgid "Preferred musicvideo player from context menu"
+msgstr ""
+
+msgctxt "#30713"
+msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a musicvideo source?"
+msgstr ""
+
+msgctxt "#30714"
+msgid "Personal (Trakt)"
+msgstr ""
+
+msgctxt "#30800"
+msgid "Music"
+msgstr ""
+
+msgctxt "#30801"
+msgid "Enable music players"
+msgstr ""
+
+msgctxt "#30802"
+msgid "Library folder"
+msgstr ""
+
+msgctxt "#30803"
+msgid "Top artists"
+msgstr ""
+
+msgctxt "#30804"
+msgid "Top tracks"
+msgstr ""
+
+msgctxt "#30810"
+msgid "Prefered music player"
+msgstr ""
+
+msgctxt "#30811"
+msgid "Prefered music player from library"
+msgstr ""
+
+msgctxt "#30812"
+msgid "Preferred music player from context menu"
+msgstr ""
+
+msgctxt "#30813"
+msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a music source?"
+msgstr ""
+
+msgctxt "#30814"
+msgid "[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay"
+msgstr ""
+
+msgctxt "#30815"
+msgid "Lists"
+msgstr ""
+
+msgctxt "#30816"
+msgid "Liked lists"
+msgstr ""
+
+msgctxt "#30817"
+msgid "My lists"
+msgstr ""
+
+msgctxt "#30818"
+msgid "Add TV shows to library using library player?"
+msgstr ""
+
+msgctxt "#30819"
+msgid "Choose movie"
+msgstr ""
+
+msgctxt "#30820"
+msgid "Add movies played by name to library automaticly?"
+msgstr ""
+
+msgctxt "#30821"
+msgid "Add TV shows played by name to library automaticly?"
+msgstr ""

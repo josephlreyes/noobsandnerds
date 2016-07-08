@@ -35,7 +35,7 @@ import xbmc
 import xbmcgui
 import xbmcvfs
 import sqlite3
-
+from sqlite3 import dbapi2 as sqlite
 from channel import Channel
 
 import dixie
@@ -50,8 +50,7 @@ GMTOFFSET = dixie.GetGMTOffset()
 
 datapath     = dixie.PROFILE
 settingsFile = os.path.join(datapath, 'settings.cfg')
-
-USE_DB_FILE = True
+USE_DB_FILE  = True
 
 SETTINGS_TO_CHECK = ['']
 
@@ -65,18 +64,22 @@ debug            =  ADDON.getSetting('DEBUG')
 showSFchannels   =  ADDON.getSetting('showSFchannels')
 SF_CHANNELS      =  ADDON.getSetting('SF_CHANNELS')
 adult            =  ADDON.getSetting('adult')
+add_sf_items     =  ADDON.getSetting('add_sf_items')
+USERDATA         =  xbmc.translatePath('special://profile/')
+ADDON_DATA       =  os.path.join(USERDATA,'addon_data')
+dbpath           =  os.path.join(ADDON_DATA,AddonID,'program.db')
 
 if SF_CHANNELS.startswith('special://'):
     SF_CHANNELS  = xbmc.translatePath(SF_CHANNELS)
     
 try:    sfile.makedirs(channelPath)
 except: pass
-
-
+#########################################################################################
+# Find out whether the user has custom logos or built-in logos selected
 def GetLogoType():
     return dixie.GetSetting('logo.type')
-
-
+#########################################################################################
+# Set the global logo folder to use
 def GetLogoFolder():
     CUSTOM = '1'
 
@@ -88,8 +91,8 @@ def GetLogoFolder():
         logoFolder = dixie.GetSetting('dixie.logo.folder')
 
     return logoFolder
-
-
+#########################################################################################
+# Clean up the filename and remove chars that don't play nicely in python
 def CleanFilename(text):
     text = text.replace('*', '_star')
     text = text.replace('+', '_plus')
@@ -100,9 +103,8 @@ def CleanFilename(text):
     try:    text = text.encode('ascii', 'ignore')
     except: text = text.decode('utf-8').encode('ascii', 'ignore')
 
-    return text
-
-
+    return text.upper().replace('&AMP;','&amp;')
+#########################################################################################
 class Program(object):
     def __init__(self, channel, title, startDate, endDate, description, subTitle, imageLarge = None, imageSmall = None, notificationScheduled = None):
 
@@ -138,6 +140,7 @@ class DatabaseSchemaException(sqlite3.DatabaseError):
     pass
 
 
+#########################################################################################
 class Database(object):
     PROGRAM_DB = 'program.db'
 
@@ -263,13 +266,23 @@ class Database(object):
         dixie.SetSetting('PREVLOGO', currLogoFolder)
         
         for ch in channels:
+            dixie.log('### CHAN: '+str(ch))
             channel  = self.getChannelFromFile(ch)
             chtitle = channel.title
 
             if channel == None:
                 continue
 
-            logoFile = os.path.join(logoPath, logoFolder, chtitle.replace(' ', '_') + '.png')
+# Remove the country code from the channel name so we can use a generic universal logo
+            if chtitle.endswith(')') and chtitle[-4] == '(':
+                country = chtitle[-5:]
+                newname = chtitle.replace(country,'')
+
+# If country not set then don't bother replacing the country code
+            else:
+                newname = chtitle
+
+            logoFile = os.path.join(logoPath, logoFolder, newname.replace(' ', '_') + '.png')
 
             if channel.logo <> logoFile:
                 channel.logo = logoFile
@@ -450,136 +463,137 @@ class Database(object):
     def _updateChannelAndProgramListCaches(self, date, progress_callback, clearExistingProgramList):
         sqlite3.register_adapter(datetime.datetime, self.adapt_datetime)
         sqlite3.register_converter('timestamp', self.convert_datetime)
+        return
 
-        if not self._isCacheExpired(date):
-            return
-        
-        dixie.BackupChannels()
+#         toDelete = self.getAllChannels()
+#         if not self._isCacheExpired(date):
+#             return
+# # Create a backup of all the existing channels
+#         dixie.BackupChannels()
+#         self.updateInProgress = True
+#         self.updateFailed = False
+#         dateStr = date.strftime('%Y-%m-%d')
 
-        self.updateInProgress = True
-        self.updateFailed = False
-        dateStr = date.strftime('%Y-%m-%d')
+#         if len(self.channelDict) == 0:
+#             channels = self.getAllChannels()
+#             for channel in channels:
+#                 theChannel = self.getChannelFromFile(channel)
+#                 if theChannel:
+#                     self.channelDict[channel] = theChannel
 
-        if len(self.channelDict) == 0:
-            channels = self.getAllChannels()
-            for channel in channels:
-                theChannel = self.getChannelFromFile(channel)
-                if theChannel:
-                    self.channelDict[channel] = theChannel
+#         try:
+#             dixie.log('Updating caches...')
+#             if progress_callback:
+#                 progress_callback(0)
 
-        try:
-            dixie.log('Updating caches...')
-            if progress_callback:
-                progress_callback(0)
+#             dixie.GetCats()
 
-            dixie.GetCats()
+#             if self.settingsChanged:
+#                 self.source.doSettingsChanged()
 
-            if self.settingsChanged:
-                self.source.doSettingsChanged()
+#             self.settingsChanged = False # only want to update once due to changed settings
+#             weight = 0
 
-            self.settingsChanged = False # only want to update once due to changed settings
+# # Grab the list of channels found in chan.xml
+#             imported = imported_channels = imported_programs = 0
+#             mychannelarray = self.source.getDataFromExternal(date, progress_callback)
+#             for item in mychannelarray:
+#                 imported += 1
 
-            toDelete = self.getAllChannels()
+# # If channel file exists we can add the weight (position)
+#                 if isinstance(item, Channel):
+#                     imported_channels += 1
+#                     channel = item
 
-            weight = 0
+#                     clean = CleanFilename(channel.id)
+#                     if clean in toDelete:
+#                         toDelete.remove(clean)
 
-            imported = imported_channels = imported_programs = 0
-            for item in self.source.getDataFromExternal(date, progress_callback):
-                imported += 1
-
-                if isinstance(item, Channel):
-                    imported_channels += 1
-                    channel = item
-
-                    clean = CleanFilename(channel.id)
-                    if clean in toDelete:
-                        toDelete.remove(clean)
-
-                    weight += 1
-                    channel.weight = weight
-                    self.createChannel(channel)                                   
+#                     weight += 1
+#                     channel.weight = weight
+#                     self.createChannel(channel)                                   
                         
-            #channels updated
-            try:    settings.set('ChannelsUpdated', self.adapt_datetime(datetime.datetime.now()), settingsFile)
-            except: pass
+# # Channels updated
+#             try:    settings.set('ChannelsUpdated', self.adapt_datetime(datetime.datetime.now()), settingsFile)
+#             except: pass
 
-            self.deleteOldChannels(toDelete)
+#             self.deleteOldChannels(toDelete)
 
-            if imported_channels == 0:
-                self.updateFailed = True
-            if imported_programs == 0:
-                self.updateFailed = (not USE_DB_FILE)
+#             if imported_channels == 0:
+#                 self.updateFailed = True
+#             if imported_programs == 0:
+#                 self.updateFailed = (not USE_DB_FILE)
   
-        except SourceUpdateCanceledException:
-            # force source update on next load
-            try:    settings.set('ChannelsUpdated', 0, settingsFile)
-            except: pass
+#         except SourceUpdateCanceledException:
+# # Force source update on next load
+#             try:    settings.set('ChannelsUpdated', 0, settingsFile)
+#             except: pass
 
-        except Exception:
-            import traceback as tb
-            import sys
-            (etype, value, traceback) = sys.exc_info()
-            tb.print_exception(etype, value, traceback)
+#         except Exception:
+#             import traceback as tb
+#             import sys
+#             (etype, value, traceback) = sys.exc_info()
+#             tb.print_exception(etype, value, traceback)
 
-            try:
-                # invalidate cached data
-                try:    settings.set('ChannelsUpdated', 0, settingsFile)
-                except: pass
+#             try:
+# # Invalidate cached data
+#                 try:    settings.set('ChannelsUpdated', 0, settingsFile)
+#                 except: pass
                
-            except:
-                pass
+#             except:
+#                 pass
 
-            self.updateFailed = True
+#             self.updateFailed = True
 
-        update = dixie.GetSetting('updated.channels')
-        if int(update) < 0:
-            dixie.SetSetting('updated.channels', 0)
-            dixie.SetSetting('current.channels', 0)
-        else:
-            dixie.SetSetting('current.channels', update)
-            self.channelDict = {}
-            self.updateInProgress = False
+#         update = dixie.GetSetting('updated.channels')
+#         if int(update) < 0:
+#             dixie.SetSetting('updated.channels', 0)
+#             dixie.SetSetting('current.channels', 0)
+#         else:
+#             dixie.SetSetting('current.channels', update)
+#             self.channelDict = {}
+#             self.updateInProgress = False
 
-        self.initializeChannels()
+#         self.initializeChannels()
 
-        self.updateInProgress = False
+#         self.updateInProgress = False
 
 
-    def deleteOldChannels(self, toDelete):
-        dixie.log('START deleteOldChannels')
+#     def deleteOldChannels(self, toDelete):
+#         dixie.log('START deleteOldChannels')
 
-        dixie.log('Pass 1')
-        dixie.log(toDelete)
-        for i in xrange(len(toDelete), 0, -1):
-            id = toDelete[i-1]
-            try:
-                channel = self.getChannelFromFile(id)
-                dixie.log(channel)
+#         dixie.log('Pass 1')
+#         dixie.log(toDelete)
+#         for i in xrange(len(toDelete), 0, -1):
+#             id = toDelete[i-1]
+#             try:
+#                 channel = self.getChannelFromFile(id)
+#                 dixie.log(channel)
 
-                if channel.isClone == 1:
-                    original = id.split('_clone_')[0]
-                    dixie.log('Clone of %s' % original)
-                    if original not in toDelete:
-                        dixie.log('NOT removing clone %s' % id)
-                        toDelete.remove(id)
+#                 if channel.isClone == 1:
+#                     original = id.split('_clone_')[0]
+#                     dixie.log('Clone of %s' % original)
+#                     if original not in toDelete:
+#                         dixie.log('NOT removing clone %s' % id)
+#                         toDelete.remove(id)
 
-                if channel.userDef == 1:
-                    dixie.log('NOT removing userdef %s' % id)
-                    toDelete.remove(id)
+#                 if channel.userDef == 1:
+#                     dixie.log('NOT removing userdef %s' % id)
+#                     toDelete.remove(id)
 
-            except Exception, e:
-                dixie.log('ERROR in deleteOldChannels %s' % str(e))
+#             except Exception, e:
+#                 dixie.log('ERROR in deleteOldChannels %s' % str(e))
 
-        dixie.log('Pass 2')
-        dixie.log(toDelete)
-        for id in toDelete:
-            try:                
-                dixie.log('Channel %s no longer available' % id)
-                self.removeCleanChannel(id)
-            except:
-                pass
+#         dixie.log('Pass 2')
+#         dixie.log(toDelete)
+#         for id in toDelete:
+#             try:                
+#                 dixie.log('Channel %s no longer available' % id)
+#                 self.removeCleanChannel(id)
+#             except:
+#                 pass
 
-        dixie.log('END deleteOldChannels')
+#         dixie.log('END deleteOldChannels')
 
 
     def getAllChannels(self):
@@ -597,6 +611,7 @@ class Database(object):
                 try:
                     if os.path.exists(os.path.join(SF_CHANNELS,dir,'favourites.xml')):
                         channels.append(dir)
+
                 except:
                     dixie.log("Special characters in directory, skipping: "+dir)
 
@@ -612,10 +627,6 @@ class Database(object):
                     channels.append(file)
                 except:
                     dixie.log("failed to add to array: "+file)
-
-        if debug == 'true':
-            dixie.log('SOURCE CHANNEL SCAN RESULTS:')
-            dixie.log(str(channels))
 
         return channels
 
@@ -669,7 +680,6 @@ class Database(object):
 
     def getChannelFromFile(self, id):
         path = os.path.join(channelPath, id)
-
         if not sfile.exists(path):
             return None
 
@@ -695,12 +705,6 @@ class Database(object):
 
     def _getEPGView(self, channelStart, date, progress_callback, clearExistingProgramList, categories, nmrChannels):
         update = xbmcgui.Window(10000).getProperty('OTT_UPDATE')
-#        if len(update) > 0:
-#            self.removeProgramDB()
-#            import update
-#            update.newEPGAvailable()
-#            self.openP()            
-
         self._updateChannelAndProgramListCaches(date, progress_callback, clearExistingProgramList)
         
         channels  = []
@@ -898,10 +902,13 @@ class Database(object):
 
         now = datetime.datetime.now()
         c = self.connP.cursor()
-        c.execute('SELECT * FROM programs WHERE channel IN ' + strCh  + ' AND source=? AND start_date <= ? AND end_date >= ?', [self.source.KEY, now, now])
-        row = c.fetchone()
-        if row:
-            program = Program(channel, row['title'], row['start_date'], row['end_date'], row['description'], row['subTitle'], row['image_large'], row['image_small'])
+        try:
+            c.execute('SELECT * FROM programs WHERE channel IN ' + strCh  + ' AND source=? AND start_date <= ? AND end_date >= ?', [self.source.KEY, now, now])
+            row = c.fetchone()
+            if row:
+                program = Program(channel, row['title'], row['start_date'], row['end_date'], row['description'], row['subTitle'], row['image_large'], row['image_small'])
+        except:
+            pass
         c.close()
 
         return program
@@ -1081,6 +1088,8 @@ class Database(object):
 
                 c.execute('CREATE TABLE programs(channel TEXT, title TEXT, start_date TIMESTAMP, end_date TIMESTAMP, description TEXT, image_large TEXT, image_small TEXT, source TEXT, subTitle TEXT)')
 
+                c.execute('create TABLE xmls(id INTEGER, size INTEGER)')
+
             self.connP.commit()
             c.close()
 
@@ -1159,8 +1168,7 @@ class Database(object):
 
     def _resetChannels(self):
         self.channelDict = {}
-
-
+#########################################################################################
 class Source(object):
     def getDataFromExternal(self, date, progress_callback = None):
         """
@@ -1186,8 +1194,7 @@ class Source(object):
         if programsLastUpdated is None or programsLastUpdated.day != today.day:
             return True
         return False
-
-
+#########################################################################################
 class XMLTVSource(Source):
     KEY = 'xmltv'
 
@@ -1210,8 +1217,8 @@ class XMLTVSource(Source):
         stat = xbmcvfs.Stat(self.xmltvFile)
         fileUpdated = datetime.datetime.fromtimestamp(stat.st_mtime())
         return fileUpdated > channelsLastUpdated
-
-
+#########################################################################################
+# Set initial paramaters and check if channel list needs updating
 class DIXIESource(Source):
     KEY = 'dixie'
 
@@ -1222,9 +1229,6 @@ class DIXIESource(Source):
 
         current = int(dixie.GetSetting('current.channels'))
         update  = int(dixie.GetSetting('updated.channels'))
-
-        #dixie.log('current = %d' % current)
-        #dixie.log('update  = %d' % update)
 
         if update == -1:
             dixie.SetSetting('updated.channels', current)
@@ -1237,23 +1241,22 @@ class DIXIESource(Source):
         self.KEY += '.' + dixie.GetKey()
         self.xml = None
 
+# Check to see if the global offset has been set
         gmt = addon.getSetting('gmtfrom').replace('GMT', '')
         if gmt == '':
             self.offset = 0
         else:
             self.offset = int(gmt)
-
-
+#########################################################################################
+# Grab the list of channels from chan.xml and if it doesn't exist create a new one from entries in db
     def getDataFromExternal(self, date, progress_callback = None): 
         categories = self.getCategories()
         channels   = os.path.join(datapath, 'chan.xml')
-        
         try:
             if sfile.exists(channels):
                 xml = sfile.read(channels)
         except:
-            dixie.log('Error reading chan.xml')
-        
+            dixie.log('chan.xml does not exist')
         if not self.xml:
             self.xml = xml
             
@@ -1262,11 +1265,10 @@ class DIXIESource(Source):
         context = ElementTree.iterparse(io, events=("start", "end"))
         return parseXMLTV(context, io, len(self.xml), progress_callback, self.offset, categories)
 
-
     def doSettingsChanged(self):
         return
-
-
+#########################################################################################
+# Loop through and grab details of all the category mappings in cats.xml
     def getCategories(self):        
         cat  = dict()
         path = os.path.join(datapath, 'cats.xml')
@@ -1275,8 +1277,7 @@ class DIXIESource(Source):
             if sfile.exists(path):
                 xml = sfile.read(path)
         except:
-            dixie.log("### Category Path Not found")
-        
+            dixie.log("### cats.xml does not exist")
 #        xml = xml.replace('&', '&amp;')
         xml = StringIO.StringIO(xml)
         xml = ElementTree.iterparse(xml, events=("start", "end"))
@@ -1293,8 +1294,8 @@ class DIXIESource(Source):
                 pass
 
         return cat
-        
-
+#########################################################################################
+# Convert datetime into correct format
 def parseXMLTVDate(dateString, offset):
     if dateString is not None:
         if dateString.find(' ') != -1:
@@ -1306,8 +1307,7 @@ def parseXMLTVDate(dateString, offset):
         return d
     else:
         return None
-
-
+#########################################################################################
 def parseXMLTV(context, f, size, progress_callback, offset=0, categories=None):
     event, root = context.next()
     elements_parsed = 0
@@ -1336,7 +1336,6 @@ def parseXMLTV(context, f, size, progress_callback, offset=0, categories=None):
                     try:
                         category = categories[title]
                         result.categories = category
-                        # dixie.log('The category for %s is %s' % (title, category))
                     except:
                         dixie.log('Couldnt find %s in the categories' % (title))
 
@@ -1349,8 +1348,7 @@ def parseXMLTV(context, f, size, progress_callback, offset=0, categories=None):
 
         root.clear()
     f.close()
-    
-
+#########################################################################################
 class FileWrapper(object):
     def __init__(self, filename):
         self.vfsfile = xbmcvfs.File(filename)
@@ -1369,10 +1367,7 @@ class FileWrapper(object):
 
     def tell(self):
         return self.bytesRead
-
-
-
+#########################################################################################
 def instantiateSource():
     activeSource = DIXIESource
     return activeSource(ADDON)
-

@@ -19,30 +19,112 @@
 
 import xbmcgui
 import xbmcaddon
-import os
+import os, re
 import dixie
 import sfile
 
 AddonID        =  'script.tvportal'
 ADDON          =  xbmcaddon.Addon(id=AddonID)
+ADDON_DATA     =  xbmc.translatePath('special://profile/addon_data')
 SF_CHANNELS    =  ADDON.getSetting('SF_CHANNELS')
+SF_METALLIQ    =  ADDON.getSetting('SF_METALLIQ')
+PROVIDER_PATH  =  os.path.join(ADDON_DATA, 'plugin.video.metalliq', 'players')
 OTT_CHANNELS   =  os.path.join(dixie.GetChannelFolder(), 'channels')
 dialog         =  xbmcgui.Dialog()
+#--------------------------------------------------------------------------------------------------
+# Create favourites.xml file for the various providers
+def Create_XML(name):
+    writefile = os.path.join(name,'favourites.xml')
+    writefile = open(writefile,'w+')
+    writefile.write('<favourites>\n')
 
-if SF_CHANNELS.startswith('special://'):
-	SF_CHANNELS = xbmc.translatePath(SF_CHANNELS)
-	
-try:
-    current, dirs, files = sfile.walk(OTT_CHANNELS)
-except Exception, e:
-    dixie.log('Failed to run script: %s' % str(e))
-    
-for file in files:
-    if not os.path.exists(os.path.join(SF_CHANNELS,file)):
-        try:
-            print os.path.join(SF_CHANNELS,file)
-            os.makedirs(os.path.join(SF_CHANNELS,file))
-        except:
-            dixie.log('### Failed to create folder for: %s' % str(file))
+    channels    = name.split(os.sep)
+    channelorig = channels[len(channels)-1]
+    channel     = channelorig.replace('__',' +').replace('_',' ')
+    if channel == '/':
+        channel = channels[len(channels)-2].replace('__',' +').replace('_',' ')
 
-dialog.ok(ADDON.getLocalizedString(30809),ADDON.getLocalizedString(30810))
+    if channel[-5:-3] == ' (':
+        channel    = channel[:-5]
+    counter    = 0
+    for item in provider_array:
+# Grab add-on thumb and add to array
+        thumb           = xbmc.translatePath('special://home/addons/%s/icon.png') % provider_array[counter][2]
+        args            = channel+'|'+provider_array[counter][1]+'|'+provider_array[counter][2]+'|'+provider_array[counter][3]+'|'+channelorig+'|'+provider_array[counter][0]
+        command         = 'RunScript(special://home/addons/script.tvportal/player.py, %s)' % args
+        writefile.write('\t<favourite name="%s" thumb="%s">%s</favourite>\n' % (provider_array[counter][0], thumb, command))
+        counter += 1
+
+    writefile.write('</favourites>')
+    writefile.close()
+#--------------------------------------------------------------------------------------------------
+# Function to grab details from the provier files
+def Grab_Providers():
+    fail        = 0
+    final_array = []
+
+# Walk through files in the providers folder
+    current, dirs, files = sfile.walk(PROVIDER_PATH)
+    for file in files:
+        if fail != 1:
+
+# Turn each line into an array then go through the array and search for keywords
+            with open(os.path.join(PROVIDER_PATH, file),'rb') as fin:
+                content     = fin.read().splitlines()
+                name        = Find_In_Lines(content, '"name"', '"')
+                repository  = Find_In_Lines(content, '"repository"', '"')
+                plugin      = Find_In_Lines(content, '"plugin"', '"')
+                playertype  = Find_In_Lines(content, '"id"', '"')
+
+# If this is a valid live tv provider with relevant info we add to the array
+                for line in content:
+                    if '"live"' in line and '[' in line and not ']' in line and plugin != 'Unknown' and repository != 'Unknown' and repository != 'na' and name != 'Unknown' and playertype != 'Unknown':
+                        final_array.append([name, repository, plugin, playertype])
+    return final_array
+#--------------------------------------------------------------------------------------------------
+# Loop through a list of lines looking for a keyword and a separator
+def Find_In_Lines(content, keyword, splitchar):
+    name = 'Unknown'
+    for line in content:
+        if keyword in line:
+            name_array = line.split(splitchar)
+            try:
+                name       = name_array[len(name_array)-2]
+            except:
+                name       = 'Unknown'
+                fail       = 1
+    return name
+#--------------------------------------------------------------------------------------------------
+if SF_CHANNELS == '':
+    dialog.ok('SF Folder Not Set', 'No Super Favourite location has been set, please the folder location in your settings then run again.')
+else:
+    provider_array  =   Grab_Providers()
+
+    if SF_CHANNELS.startswith('special://'):
+    	SF_CHANNELS = xbmc.translatePath(SF_CHANNELS)
+    	
+    try:
+        current, dirs, files = sfile.walk(OTT_CHANNELS)
+    except Exception, e:
+        dixie.log('Failed to run script: %s' % str(e))
+        
+    for file in files:
+        if not os.path.exists(os.path.join(SF_CHANNELS,file)):
+            try:
+                dixie.log(os.path.join(SF_CHANNELS,file))
+                os.makedirs(os.path.join(SF_CHANNELS,file))
+            except:
+                dixie.log('### Failed to create folder for: %s' % str(file))
+
+    if SF_METALLIQ == 'true':
+        if not os.path.exists(os.path.join(SF_CHANNELS, '-metalliq', file)):
+            os.makedirs(os.path.join(SF_CHANNELS, '-metalliq'))
+        for file in files:
+            if not os.path.exists(os.path.join(SF_CHANNELS, '-metalliq', file)):
+                try:
+                    os.makedirs(os.path.join(SF_CHANNELS, '-metalliq', file))
+                except:
+                    dixie.log('### Failed to create folder for: %s' % str(file))
+            Create_XML(os.path.join(SF_CHANNELS, '-metalliq', file))
+
+    dialog.ok(ADDON.getLocalizedString(30809),ADDON.getLocalizedString(30810))

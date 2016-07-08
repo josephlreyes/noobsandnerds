@@ -1,6 +1,6 @@
 # XBMC Media Center language file
 # Addon Name: TV Guide
-# Addon id: script.tvportal.test
+# Addon id: script.tvportal
 # Addon Provider: twinther [tommy@winther.nu]
 msgid ""
 msgstr ""
@@ -622,7 +622,7 @@ msgid "Enter location for shared addon data"
 msgstr ""
 
 msgctxt "#30849"
-msgid "Enable meta video integration"
+msgid "Sync with online ini files"
 msgstr ""
 
 msgctxt "#30850"
@@ -1094,5 +1094,13 @@ msgid "Sorry there was an error trying to retrieve the latest test version, the 
 msgstr ""
 
 msgctxt "#30967"
-msgid "Download XML - Faster for large XMLs but causes stress on your storage"
+msgid "Use SF MetalliQ links (recommended)"
+msgstr ""
+
+msgctxt "#30968"
+msgid "Use Community XML Files"
+msgstr ""
+
+msgctxt "#30969"
+msgid "[COLOR=gold]Scan in XML File - this can take a long time![/COLOR]"
 msgstr ""

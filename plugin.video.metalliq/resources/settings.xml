@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+    <category label="30000">
+        <setting label="30303" type="action" action="RunPlugin(plugin://plugin.video.metalliq/update_library)"/>
+        <setting label="30013" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/players/all)"/>
+        <setting label="30005" id="style" type="select" values="Clear|Default|Elegant|Embossed|Emerald|Inverted|Meta|" default="Default" />
+        <!--<setting label="30305" type="bool" id="library_set_date" default="false"/>
+        <setting label="Install Missing Add-ons?" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/autoinstall/)"/>
+        <setting subsetting="true" label="Use Confirmation Dialogs?" id="auto_install" type="bool" default="true" visible="true"/>-->
+        <setting label="TotalSetup Done" id="total_setup_done" type="bool" default="false" visible="false"/>
+        <setting label="TotalSetup" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/autosetup/)" visible="eq(-1,false)" />
+        <setting label="Re-run TotalSetup" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/autosetup/)" visible="eq(-2,true)"/>
+        <setting label="30010" id="players_update_url" type="text" default="https://api.github.com/repos/OpenELEQ/verified-metalliq-players/zipball" />
+        <setting subsetting="true" option="close" label="30012" type="action" action="RunPlugin(plugin://plugin.video.metalliq/update_players)"/>
+        <setting label = "30417" type="action" action="RunPlugin(plugin://plugin.video.metalliq/authenticate_trakt)" />
+        <setting label = "trakt access token" id="trakt_access_token" type = "text" visible="false" />
+        <setting label = "trakt refresh token" id="trakt_refresh_token" type = "text" visible="false" />
+        <setting label = "trakt refresh token" id="trakt_expires_at" type = "text" visible="false" />
+    </category>
+    <category label="30100">
+        <setting label="30101" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/players/movies)"/>
+        <setting subsetting="true" visible="false" enable="false" type="text" id="movies_enabled_players" />
+        <setting label="30110" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player/movies)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="movies_default_player" default="selector" />
+        <setting label="30111" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player_fromlib/movies)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="movies_default_player_from_library" default="selector" />
+        <setting label="30112" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player_fromcontext/movies)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="movies_default_player_from_context" default="selector" />
+        <setting label="30302" id="movies_library_folder" type="folder" default="special://profile/addon_data/plugin.video.metalliq/Movies/" />
+        <setting label="30312" id="movies_playlist_folder" type="folder" default="special://profile/playlists/video/MetalliQ/Movies/" />
+        <setting label="30820" id="movies_played_by_add" type="bool" default="true" />
+    </category>
+    <category label="30200">
+        <setting label="30201" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/players/tvshows)"/>
+        <setting subsetting="true" visible="false" enable="false" type="text" id="tv_enabled_players" />
+        <setting label="30210" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player/tvshows)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="tv_default_player" default="selector" />
+        <setting label="30211" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player_fromlib/tvshows)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="tv_default_player_from_library" default="selector" />
+        <setting label="30212" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player_fromcontext/tvshows)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="tv_default_player_from_context" default="selector" />
+        <setting label="30302" id="tv_library_folder" type="folder" default="special://profile/addon_data/plugin.video.metalliq/TVShows/" />
+        <setting label="30312" id="tv_playlist_folder" type="folder" default="special://profile/playlists/video/MetalliQ/TVShows/" />
+        <setting label="30818" id="tv_default_auto_add" type="bool" default="true"/>
+        <setting label="30821" id="tvshows_played_by_add" type="bool" default="true" />
+    </category>
+    <!--<category label="30700">
+        <setting label="30701" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/players/musicvideos)"/>
+        <setting subsetting="true" visible="false" enable="false" type="text" id="musicvideo_enabled_players" />
+        <setting label="30710" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player/musicvideos)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="musicvideo_default_player" default="selector" />
+        <setting label="30711" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player_fromlib/musicvideos)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="musicvideo_default_player_from_library" default="selector" />
+        <setting label="30712" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player_fromcontext/musicvideos)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="musicvideo_default_player_from_context" default="selector" />
+        <setting label="30302" id="musicvideos_library_folder" type="folder" default="special://profile/addon_data/plugin.video.metalliq/Musicvideos/" />
+        <setting label="30312" id="musicvideos_playlist_folder" type="folder" default="special://profile/playlists/video/MetalliQ/Musicvideos/" />
+        <setting label="30699" id="preferred_music_type" type="select" values="audio|video" default="audio" visible="false"/>
+    </category>-->
+    <category label="30800">
+        <setting label="30699" id="preferred_music_type" type="select" values="audio|video" default="audio" visible="true"/>
+        <setting label="30801" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/players/music)"/>
+        <setting subsetting="true" visible="false" enable="false" type="text" id="music_enabled_players" />
+        <setting label="30810" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player/music)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="music_default_player" default="selector" />
+        <setting label="30811" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player_fromlib/music)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="music_default_player_from_library" default="selector" />
+        <setting label="30812" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player_fromcontext/music)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="music_default_player_from_context" default="selector" />
+        <setting label="30302" id="music_library_folder" type="folder" default="special://profile/addon_data/plugin.video.metalliq/Music/" />
+        <setting label="30312" id="music_playlist_folder" type="folder" default="special://profile/playlists/audio/MetalliQ/Music/" />
+        <setting label="30701" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/players/musicvideos)"/>
+        <setting subsetting="true" visible="false" enable="false" type="text" id="musicvideo_enabled_players" />
+        <setting label="30710" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player/musicvideos)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="musicvideo_default_player" default="selector" />
+        <setting label="30711" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player_fromlib/musicvideos)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="musicvideo_default_player_from_library" default="selector" />
+        <setting label="30712" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player_fromcontext/musicvideos)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="musicvideo_default_player_from_context" default="selector" />
+        <setting label="30302" id="musicvideos_library_folder" type="folder" default="special://profile/addon_data/plugin.video.metalliq/Musicvideos/" />
+        <setting label="30312" id="musicvideos_playlist_folder" type="folder" default="special://profile/playlists/video/MetalliQ/Musicvideos/" />
+    </category>
+    <category label="30500">
+        <setting label="30501" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/players/live)"/>
+        <setting subsetting="true" visible="false" enable="false" type="text" id="live_enabled_players" />
+        <setting label="30510" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player/live)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="live_default_player" default="selector" />
+        <!--<setting label="30511" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player_fromlib/live)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="live_default_player_from_library" default="selector" />
+        <setting label="30512" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/settings/default_player_fromcontext/live)"/>
+        <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="live_default_player_from_context" default="selector" />
+        <setting label="30302" id="live_library_folder" type="folder" default="special://profile/addon_data/plugin.video.metalliq/Live/" />
+        <setting label="30312" id="live_playlist_folder" type="folder" default="special://profile/playlists/video/MetalliQ/Live/" />
+        <setting label="Add channels to library using library player?" id="live_default_auto_add" type="bool" default="true"/>-->
+    </category>
+    <category label="30400">
+        <setting label="30401" type="action" action="RunPlugin(plugin://plugin.video.metalliq/clear_cache)"/>
+        <setting label="30402" type="bool" id="use_simple_selector" default="false"/>
+        <setting label="30410" type="bool" id="auto_hide_dialogs" default="true" enable="eq(-1,false)"/>
+            <setting subsetting="true" label="30411" type="bool" id="auto_hide_dialogs_progress" default="true" enable="eq(-1,true)"/>
+            <setting subsetting="true" label="30412" type="bool" id="auto_hide_dialogs_info" default="true" enable="eq(-2,true)"/>
+            <setting subsetting="true" label="30413" type="bool" id="auto_hide_dialogs_keyboard" default="true" enable="eq(-3,true)"/>
+        <setting label="30404" type="slider" id="pool_size" default="15" range="1,15" option="int" />
+    </category>
+</settings>

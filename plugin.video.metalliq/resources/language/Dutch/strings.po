@@ -1,0 +1,500 @@
+# Addon Name: [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]
+# Addon id: plugin.video.metalliq
+# Addon Provider: [COLOR ff0084ff]Q[/COLOR]
+msgid ""
+msgstr ""
+"Project-Id-Version: [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] Addon for Kodi\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2016-03-27 14:00+0100\n"
+"Last-Translator: [COLOR ff0084ff]Q[/COLOR]\n"
+"Language-Team: Dutch\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7\n"
+
+msgctxt "#30000"
+msgid "General"
+msgstr "Algemeen"
+
+msgctxt "#30001"
+msgid "Move down"
+msgstr "Verplaats omlaag"
+
+msgctxt "#30002"
+msgid "Verplaat omhoog"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Clear channels"
+msgstr "Verwijder alle kanalen"
+
+msgctxt "#30004"
+msgid "Remove channel"
+msgstr "Verwijder kanaal"
+
+msgctxt "#30005"
+msgid "Style"
+msgstr "Stijl"
+
+msgctxt "#30010"
+msgid "Players URL"
+msgstr "Spelers URL"
+
+msgctxt "#30012"
+msgid "Install from URL"
+msgstr "Installeer van URL"
+
+msgctxt "#30013"
+msgid "Enable all players"
+msgstr "Activeer alle spelers"
+
+msgctxt "#30014"
+msgid "Failed to delete cache"
+msgstr "Cache niet verwijderd"
+
+msgctxt "#30015"
+msgid "Style"
+msgstr "Stijl"
+
+msgctxt "#30100"
+msgid "Movies"
+msgstr "Films"
+
+msgctxt "#30101"
+msgid "Enable movie players"
+msgstr "Activeer film spelers"
+
+msgctxt "#30110"
+msgid "Preferred movie player"
+msgstr "Voorkeurs film speler"
+
+msgctxt "#30111"
+msgid "Preferred movie player from library"
+msgstr "Voorkeurs film speler vanuit bibliotheek"
+
+msgctxt "#30112"
+msgid "Preferred movie player from context menu"
+msgstr "Voorkeurs speler vanuit context menu"
+
+msgctxt "#30113"
+msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a movie source?"
+msgstr "Wilt u COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] automatisch instellen als een film video bron?"
+
+msgctxt "#30200"
+msgid "TV Shows"
+msgstr "TV-Series"
+
+msgctxt "#30201"
+msgid "Enable TV show players"
+msgstr "TV serie spelers activeren"
+
+msgctxt "#30210"
+msgid "Preferred TV show player"
+msgstr "Voorkeurs TV serie speler"
+
+msgctxt "#30211"
+msgid "Preferred TV show player from library"
+msgstr "Voorkeurs TV serie speler vanuit bibliotheek"
+
+msgctxt "#30212"
+msgid "Preferred TV show player from context menu"
+msgstr "Voorkeurs TV serie speler vanuit context menu"
+
+msgctxt "#30213"
+msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a TV show source?"
+msgstr "Wilt u [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] automatisch instellen als een TV serie video bron?"
+
+msgctxt "#30300"
+msgid "Library"
+msgstr "Bibliotheek"
+
+msgctxt "#30301"
+msgid "Library folder"
+msgstr "Bibliotheek map"
+
+msgctxt "#30302"
+msgid "Library folder"
+msgstr "Bibliotheek map"
+
+msgctxt "#30303"
+msgid "Update library"
+msgstr "Bibliotheek bijwerken"
+
+msgctxt "#30305"
+msgid "Set added time to release date"
+msgstr "Zet tijd van toevoegen bij uitgave datum"
+
+msgctxt "#30310"
+msgid "Playlist"
+msgstr "Afspeellijst"
+
+msgctxt "#30311"
+msgid "Playlist folders"
+msgstr "Afspeellijst mappen"
+
+msgctxt "#30312"
+msgid "Playlist folder"
+msgstr "Afspeellijst map"
+
+msgctxt "#30313"
+msgid "Update playlists"
+msgstr "Afspeellijsten bijwerken"
+
+msgctxt "#30314"
+msgid "Video"
+msgstr ""
+
+msgctxt "#30315"
+msgid "Audio"
+msgstr ""
+
+msgctxt "#30304"
+msgid "Automatic movies library server"
+msgstr "Automatische film bibliotheek server"
+
+msgctxt "#30400"
+msgid "Advanced"
+msgstr "Geavanceerd"
+
+msgctxt "#30401"
+msgid "Clear cache"
+msgstr "Cache wissen"
+
+msgctxt "#30402"
+msgid "Use simple selection dialog"
+msgstr "Gebruik simpel selectie dialoog"
+
+msgctxt "#30404"
+msgid "Number of simultaneous searches"
+msgstr "Aantal gelijktijdige zoekopdrachten"
+
+msgctxt "#30410"
+msgid "Attempt to hide dialogs while [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] is searching"
+msgstr "Probeer dialoogvensters te verbergen terwijl [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] aan het zoeken is"
+
+msgctxt "#30411"
+msgid "Hide progress dialogs"
+msgstr "Verberg voortgangs dialogen"
+
+msgctxt "#30412"
+msgid "Hide information dialogs"
+msgstr "Verberg informatie dialogen"
+
+msgctxt "#30413"
+msgid "Hide keyboard dialog"
+msgstr "Verberg keyboard dialogen"
+
+msgctxt "#30414"
+msgid "Trakt watchlist"
+msgstr "Trakt kijklijst"
+
+msgctxt "#30415"
+msgid "Please go to https://trakt.tv/activate and enter the code"
+msgstr "Ga naar https://trakt.tv/activate en vul de code in"
+
+msgctxt "#30416"
+msgid "Next episodes"
+msgstr "Volgende afleveringen"
+
+msgctxt "#30417"
+msgid "Authenticate Trakt"
+msgstr "Trakt authoriseren"
+
+msgctxt "#30418"
+msgid "Add all to library"
+msgstr "Alles aan bibliotheek toevoegen"
+
+msgctxt "#30419"
+msgid "Are you sure you want to add your entire Trakt collection to Kodi library?"
+msgstr "Weet u zeker dat u uw hele Trakt collectie aan de Kodi bibliotheek wilt toevoegen?"
+
+msgctxt "#30420"
+msgid "Trakt collection"
+msgstr "Trakt collectie"
+
+msgctxt "#30421"
+msgid "Are you sure you want to add your entire Trakt watchlist to Kodi library?"
+msgstr "Weet u zeker dat u uw hele Trakt kijklijst aan de Kodi bibliotheek wilt toevoegen?"
+
+msgctxt "#30422"
+msgid "You must authenticate with Trakt. Do you want to authenticate now?"
+msgstr "U dient Trakt te authoriseren. Wilt u nu authoriseren?"
+
+msgctxt "#30423"
+msgid "My calendar"
+msgstr "Mijn kalender"
+
+msgctxt "#30500"
+msgid "Live"
+msgstr "Live"
+
+msgctxt "#30501"
+msgid "Enable live players"
+msgstr "Activeer live spelers"
+
+msgctxt "#30510"
+msgid "Preferred live player"
+msgstr "Voorkeurs live speler"
+
+msgctxt "#30511"
+msgid "Preferred live player from library"
+msgstr "Voorkeurs live speler vanuit bibliotheek"
+
+msgctxt "#30512"
+msgid "Preferred live player from context menu"
+msgstr "Voorkeurs live speler vanuit context menu"
+
+msgctxt "#30513"
+msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a channel source?"
+msgstr "Wilt u [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] automatisch instellen als een kanalen video bron?"
+
+msgctxt "#30601"
+msgid "Genres"
+msgstr "Genres"
+
+msgctxt "#30602"
+msgid "Context player"
+msgstr "Context speler"
+
+msgctxt "#30603"
+msgid "Show info"
+msgstr "Toon info"
+
+msgctxt "#30604"
+msgid "Video not found :("
+msgstr "Video niet gevonden :("
+
+msgctxt "#30605"
+msgid "Add to library"
+msgstr "Voeg toe aan bibliotheek"
+
+msgctxt "#30606"
+msgid "Do you want to remove your existing players first?"
+msgstr "Wilt u uw huidige spelers eerst verwijderen?"
+
+msgctxt "#30607"
+msgid "Enter password"
+msgstr "Vul wachtwoord in"
+
+msgctxt "#30608"
+msgid "Players updated"
+msgstr "Spelers bijgewerkt"
+
+msgctxt "#30609"
+msgid "Enable players"
+msgstr "Spelers activeren"
+
+msgctxt "#30610"
+msgid "Season"
+msgstr "Seizoen"
+
+msgctxt "#30612"
+msgid "Top rated (TMDb)"
+msgstr "Meest gewaardeerd (TMDb)"
+
+msgctxt "#30613"
+msgid "Blockbusters (TMDb)"
+msgstr "Kaskrakers (TMDb)"
+
+msgctxt "#30614"
+msgid "On the air (TMDb)"
+msgstr "Nu op TV (TMDb)"
+
+msgctxt "#30615"
+msgid "Update players"
+msgstr "Spelers bijwerken"
+
+msgctxt "#30617"
+msgid "Search"
+msgstr "Zoeken"
+
+msgctxt "#30618"
+msgid "search for"
+msgstr "zoeken naar"
+
+msgctxt "#30619"
+msgid "Next >>"
+msgstr "Volgende >>"
+
+msgctxt "#30620"
+msgid "Error"
+msgstr "Fout"
+
+msgctxt "#30621"
+msgid "Popular (TMDb)"
+msgstr "Populair (TMDb)"
+
+msgctxt "#30622"
+msgid "Select default player"
+msgstr "Selecteer standaard speler"
+
+msgctxt "#30623"
+msgid "Failed to update players"
+msgstr "Bijwerken spelers mislukt"
+
+msgctxt "#30624"
+msgid "In theatres (TMDb)"
+msgstr "In de bioscoop (TMDb)"
+
+msgctxt "#30625"
+msgid "Select player"
+msgstr "Selecteer speler"
+
+msgctxt "#30626"
+msgid "Warning"
+msgstr "Waarschuwing"
+
+msgctxt "#30627"
+msgid "Library setup"
+msgstr "Bibliotheek instellen"
+
+msgctxt "#30628"
+msgid "Play with..."
+msgstr "Afspelen met..."
+
+msgctxt "#30629"
+msgid "Trending (Trakt)"
+msgstr "Trending (Trakt)"
+
+msgctxt "#30630"
+msgid "Personal (Trakt)"
+msgstr "Persoonlijk (Trakt)"
+
+msgctxt "#30631"
+msgid "Aired (Trakt)"
+msgstr "Uitgezonden (Trakt)"
+
+msgctxt "#30632"
+msgid "Premiered (Trakt)"
+msgstr "Nieuw seizoen (Trakt)"
+
+msgctxt "#30633"
+msgid "Search (TMDb)"
+msgstr "Zoeken (TMDb)"
+
+msgctxt "#30634"
+msgid "Search (TMDb)"
+msgstr "Zoeken (TMDb)"
+
+msgctxt "#30635"
+msgid "Search album"
+msgstr "Zoek album"
+
+msgctxt "#30636"
+msgid "Search track"
+msgstr "Zoek liedje"
+
+msgctxt "#30637"
+msgid "Search list"
+msgstr "Zoek lijst"
+
+msgctxt "#30638"
+msgid "Search"
+msgstr "Zoeken"
+
+msgctxt "#30699"
+msgid "Preferred music type"
+msgstr "Voorkeurs type muziek"
+
+msgctxt "#30700"
+msgid "Musicvideos"
+msgstr "Muziekvideos"
+
+msgctxt "#30701"
+msgid "Enable musicvideo players"
+msgstr "Activeer muziekvideo spelers"
+
+msgctxt "#30702"
+msgid "Musicvideo"
+msgstr "Muziekvideo"
+
+msgctxt "#30710"
+msgid "Preferred musicvideo player"
+msgstr "Voorkeurs muziekvideo speler"
+
+msgctxt "#30711"
+msgid "Preferred musicvideo player from library"
+msgstr "Voorkeurs muziekvideo speler vanuit bibliotheek"
+
+msgctxt "#30712"
+msgid "Preferred musicvideo player from context menu"
+msgstr "Voorkeurs muziekvideo speler vanuit contextmenu"
+
+msgctxt "#30713"
+msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a musicvideo source?"
+msgstr "Wilt u [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] automatisch instellen als een muziekvideo bron?"
+
+msgctxt "#30714"
+msgid "Personal (Trakt)"
+msgstr "Persoonlijk (Trakt)"
+
+msgctxt "#30800"
+msgid "Music"
+msgstr "Muziek"
+
+msgctxt "#30801"
+msgid "Enable music players"
+msgstr "Schakel muziek spelers in"
+
+msgctxt "#30802"
+msgid "Library folder"
+msgstr "Bibliotheek map"
+
+msgctxt "#30803"
+msgid "Top artists"
+msgstr "Top artiesten"
+
+msgctxt "#30804"
+msgid "Top tracks"
+msgstr "Top nummers"
+
+msgctxt "#30810"
+msgid "Prefered music player"
+msgstr "Voorkeurs muziek speler"
+
+msgctxt "#30811"
+msgid "Prefered music player from library"
+msgstr "Voorkeurs muziek speler vanuit bibliotheek"
+
+msgctxt "#30812"
+msgid "Preferred music player from context menu"
+msgstr "Voorkeurs muziek speler vanuit context menu"
+
+msgctxt "#30813"
+msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a music source?"
+msgstr "Wilt u [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] automatisch instellen als een muziek video bron?"
+
+msgctxt "#30814"
+msgid "[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay"
+msgstr "[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay"
+
+msgctxt "#30815"
+msgid "Lists"
+msgstr "Lijsten"
+
+msgctxt "#30816"
+msgid "Liked lists"
+msgstr "Leuke lijsten"
+
+msgctxt "#30817"
+msgid "My lists"
+msgstr "Mijn lijsten"
+
+msgctxt "#30818"
+msgid "Add TV shows to library using library player?"
+msgstr "Gebruik bibliotheek speler bij toevoegen TV series aan bibliotheek?"
+
+msgctxt "#30819"
+msgid "Choose movie"
+msgstr "Kies film"
+
+msgctxt "#30820"
+msgid "Add movies played by name to library automaticly?"
+msgstr "Voeg films afgespeeld op naam automatisch aan bibliotheek toe?"
+
+msgctxt "#30821"
+msgid "Add TV shows played by name to library automaticly?"
+msgstr "Voeg TV series afgespeeld op naam automatisch toe aan bibliotheek?"

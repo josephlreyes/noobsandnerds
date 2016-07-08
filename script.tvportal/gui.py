@@ -1,5 +1,6 @@
 #
 #      Copyright (C) 2014 Sean Poyser - With acknowledgement to some original code by twinther (Tommy Winther)
+#      TVPortal modifications done by Lee Randall (whufclee)
 #
 #  This Program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -32,7 +33,7 @@ import xbmcaddon
 import xbmc
 import os
 import shutil
-import urllib
+import urllib, urllib2
 
 import dixie
 import deleteDB
@@ -60,35 +61,41 @@ extras      = os.path.join(datapath, 'extras')
 skinfolder  = os.path.join(datapath, extras, 'skins')
 skinpath    = os.path.join(skinfolder, SKIN)
 showcats    = ADDON.getSetting('showcats')
+usecatchup  = ADDON.getSetting('usecatchup')
+logos       = ADDON.getSetting('dixie.logo.folder')
+logofolder  = os.path.join(datapath,'extras','logos',logos)
+plusonepath = xbmc.translatePath('special://home/addons/script.tvportal/resources/flags/plus1.png')
+flagpath    = xbmc.translatePath('special://home/addons/script.tvportal/resources/flags')
+dialog      = xbmcgui.Dialog()
+PATH        = skinpath
 
-PATH = skinpath
-
+# Main window XML for the EPG
 xml_file = os.path.join('script-tvguide-main.xml')
 if os.path.join(SKIN, 'extras', 'skins', 'Default', '720p', xml_file):
     XML  = xml_file
 
 
+# Global modes, used to set what opens depending on what section the user is in
 MODE_EPG = 'EPG'
-MODE_TV = 'TV'
+MODE_TV  = 'TV'
 MODE_OSD = 'OSD'
 
-ACTION_LEFT = 1
-ACTION_RIGHT = 2
-ACTION_UP = 3
-ACTION_DOWN = 4
-ACTION_PAGE_UP = 5
-ACTION_PAGE_DOWN = 6
-ACTION_SELECT_ITEM = 7
-ACTION_PARENT_DIR = 9
-ACTION_PREVIOUS_MENU = 10
-ACTION_SHOW_INFO = 11
-ACTION_NEXT_ITEM = 14
-ACTION_PREV_ITEM = 15
-
-ACTION_MOUSE_WHEEL_UP = 104
-ACTION_MOUSE_WHEEL_DOWN = 105
-ACTION_MOUSE_MOVE = 107
-
+# Button codes
+ACTION_LEFT                = 1
+ACTION_RIGHT               = 2
+ACTION_UP                  = 3
+ACTION_DOWN                = 4
+ACTION_PAGE_UP             = 5
+ACTION_PAGE_DOWN           = 6
+ACTION_SELECT_ITEM         = 7
+ACTION_PARENT_DIR          = 9
+ACTION_PREVIOUS_MENU       = 10
+ACTION_SHOW_INFO           = 11
+ACTION_NEXT_ITEM           = 14
+ACTION_PREV_ITEM           = 15
+ACTION_MOUSE_WHEEL_UP      = 104
+ACTION_MOUSE_WHEEL_DOWN    = 105
+ACTION_MOUSE_MOVE          = 107
 ACTION_TOUCH_TAP           = 401
 ACTION_TOUCH_LONGPRESS     = 411
 ACTION_GESTURE_SWIPE_LEFT  = 511
@@ -98,18 +105,16 @@ ACTION_GESTURE_SWIPE_DOWN  = 541
 ACTION_GESTURE_ZOOM        = 502
 ACTION_GESTURE_ROTATE      = 503
 ACTION_GESTURE_PAN         = 504
+KEYZERO                    = 58
+KEY_NAV_BACK               = 92
+KEY_CONTEXT_MENU           = 117
+KEY_HOME                   = 159
+KEY_SUPER_SEARCH           = 77
 
-KEYZERO = 58
-
-KEY_NAV_BACK = 92
-KEY_CONTEXT_MENU = 117
-KEY_HOME = 159
-KEY_SUPER_SEARCH = 77
-
-CHANNELS_PER_PAGE = 8
-TEXT_COLOR = '0xffffffff'
-FOCUSED_COLOR = '0xffffffff'
-SHADOW_COLOR = 'None'
+CHANNELS_PER_PAGE   = 8
+TEXT_COLOR          = '0xffffffff'
+FOCUSED_COLOR       = '0xffffffff'
+SHADOW_COLOR        = 'None'
 REMOVE_STRM_FILE    = strings(REMOVE_STRM_FILE)
 CHOOSE_STRM_FILE    = strings(CHOOSE_STRM_FILE)
 REMIND_PROGRAM      = strings(REMIND_PROGRAM)
@@ -153,34 +158,36 @@ class ControlAndProgram(object):
         self.program = program
 
 class TVGuide(xbmcgui.WindowXML):
-    C_MAIN_DATE = 4000
-    C_MAIN_TITLE = 4020
-    C_MAIN_TIME = 4021
-    C_MAIN_DESCRIPTION = 4022
-    C_MAIN_IMAGE = 4023
-    C_MAIN_LOGO = 4024
-    C_MAIN_TIMEBAR = 4100
-    C_MAIN_LOADING = 4200
-    C_MAIN_LOADING_PROGRESS = 4201
-    C_MAIN_LOADING_TIME_LEFT = 4202
-    C_MAIN_LOADING_CANCEL = 4203
-    C_MAIN_MOUSE_CONTROLS = 4300
-    C_MAIN_MOUSE_HOME = 4301
-    C_MAIN_MOUSE_LEFT = 4302
-    C_MAIN_MOUSE_UP = 4303
-    C_MAIN_MOUSE_DOWN = 4304
-    C_MAIN_MOUSE_RIGHT = 4305
-    C_MAIN_MOUSE_EXIT = 4306
-    C_MAIN_BACKGROUND = 4600
-    C_MAIN_EPG = 5000
-    C_MAIN_EPG_VIEW_MARKER = 5001
-    C_MAIN_OSD = 6000
-    C_MAIN_OSD_TITLE = 6001
-    C_MAIN_OSD_TIME = 6002
-    C_MAIN_OSD_DESCRIPTION = 6003
-    C_MAIN_OSD_CHANNEL_LOGO = 6004
-    C_MAIN_OSD_CHANNEL_TITLE = 6005
-    C_MAIN_BLACKOUT = 9999
+    C_MAIN_DATE                 = 4000
+    C_MAIN_TITLE                = 4020
+    C_MAIN_TIME                 = 4021
+    C_MAIN_DESCRIPTION          = 4022
+    C_MAIN_IMAGE                = 4023
+    C_MAIN_LOGO                 = 4024
+    C_MAIN_COUNTRY              = 4025
+    C_MAIN_CHANNEL              = 4026
+    C_MAIN_TIMEBAR              = 4100
+    C_MAIN_LOADING              = 4200
+    C_MAIN_LOADING_PROGRESS     = 4201
+    C_MAIN_LOADING_TIME_LEFT    = 4202
+    C_MAIN_LOADING_CANCEL       = 4203
+    C_MAIN_MOUSE_CONTROLS       = 4300
+    C_MAIN_MOUSE_HOME           = 4301
+    C_MAIN_MOUSE_LEFT           = 4302
+    C_MAIN_MOUSE_UP             = 4303
+    C_MAIN_MOUSE_DOWN           = 4304
+    C_MAIN_MOUSE_RIGHT          = 4305
+    C_MAIN_MOUSE_EXIT           = 4306
+    C_MAIN_BACKGROUND           = 4600
+    C_MAIN_EPG                  = 5000
+    C_MAIN_EPG_VIEW_MARKER      = 5001
+    C_MAIN_OSD                  = 6000
+    C_MAIN_OSD_TITLE            = 6001
+    C_MAIN_OSD_TIME             = 6002
+    C_MAIN_OSD_DESCRIPTION      = 6003
+    C_MAIN_OSD_CHANNEL_LOGO     = 6004
+    C_MAIN_OSD_CHANNEL_TITLE    = 6005
+    C_MAIN_BLACKOUT             = 9999
 
     def __new__(cls):
         return super(TVGuide, cls).__new__(cls, XML, PATH)
@@ -326,11 +333,18 @@ class TVGuide(xbmcgui.WindowXML):
         xbmcgui.Window(10000).setProperty('OTT_WINDOW', str(windowID))          
 
         self.initialized = True
-        self._hideControl(self.C_MAIN_MOUSE_CONTROLS, self.C_MAIN_OSD)
+        if ADDON.getSetting('enable.touch') == 'true':
+            self._showControl(self.C_MAIN_MOUSE_CONTROLS)
+        else:
+            self._hideControl(self.C_MAIN_MOUSE_CONTROLS)
+        self._hideControl(self.C_MAIN_OSD)
         self._showControl(self.C_MAIN_EPG, self.C_MAIN_LOADING)
         self._showControl(self.C_MAIN_BLACKOUT)
         self.setControlLabel(self.C_MAIN_LOADING_TIME_LEFT, strings(BACKGROUND_UPDATE_IN_PROGRESS))
-        self.setFocusId(self.C_MAIN_LOADING_CANCEL)
+        try:
+            self.setFocusId(self.C_MAIN_LOADING_CANCEL)
+        except:
+            pass
 
         control = self.getControl(self.C_MAIN_EPG_VIEW_MARKER)
         if control:
@@ -437,10 +451,6 @@ class TVGuide(xbmcgui.WindowXML):
             if not confirmExit or dixie.DialogYesNo('Are you sure you wish to quit TV Portal?'):
                 self.close()
                 return
-
-        elif actionId == ACTION_MOUSE_MOVE:
-            self._showControl(self.C_MAIN_MOUSE_CONTROLS)
-            return
 
         elif actionId == KEY_CONTEXT_MENU:
             if self.player.isPlaying():
@@ -643,34 +653,58 @@ class TVGuide(xbmcgui.WindowXML):
 
 
     def tryProgram(self, program):
+# Work out if it's catchup or live
+        catchup = ''
+        if usecatchup == 'true':
+            choice = dialog.yesno('Catch-up or Live?','[COLOR=dodgerblue]Catchup:[/COLOR] Search for "%s" in one of your add-ons and view with no adverts.'%program.title,'','[COLOR=dodgerblue]Live:[/COLOR] Watch %s?' % program.channel.title, yeslabel='CATCHUP', nolabel='LIVE')
+            if choice:
+                choice = dialog.yesno('Movie or TV?','[COLOR=yellow]%s[/COLOR]' % program.title,'Is this a Movie or a TV show?',yeslabel='MOVIE', nolabel='TV SHOW')
+                if choice:
+                    catchup = 'movies/play_by_name/'+program.title+'/en'
+                else:
+                    catchup = 'tv/play_by_name_only/'+program.title+'/en'
+
         if SHOW_SF == 'true' and OPEN_SF == 'true':
             chanid = CleanFilename(program.channel.id)
             dixie.log("Attempting to open SF folder: "+chanid)
             xbmc.executebuiltin('ActivateWindow(10025,"plugin://plugin.program.super.favourites/?folder=HOME_LIVE_TV/'+chanid+'",return)')
         else:
             if self.playChannel(program.channel):
+                xbmc.log('##### 673')
+                if IGNORESTRM:
+                    xbmc.log('##### 675')
+                    self.database.deleteCustomStreamUrl(program.channel)
                 return
-            result = self.streamingService.detectStream(program.channel)
+            result = self.streamingService.detectStream(program.channel,catchup)
             if not result:
+                xbmc.log('##### 680')
                 if self.touch:
                     return
-                # could not detect stream, show context menu
+
+# could not detect stream, show context menu
                 self._showContextMenu(program)
             elif type(result) == str:
-                # one single stream detected, save it and start streaming
+                xbmc.log('##### 687')
+# one single stream detected, save it and start streaming
                 self.database.setCustomStreamUrl(program.channel, result)
                 self.playChannel(program.channel)
+                if IGNORESTRM:
+                    xbmc.log('##### 692')
+                    self.database.deleteCustomStreamUrl(program.channel)
 
             else:
-                # multiple matches, let user decide
+                xbmc.log('##### 696')
+# multiple matches, let user decide
                 import detect
                 d = detect.StreamAddonDialog(result)
                 d.doModal()
                 
                 if d.stream is not None:
+                    xbmc.log('##### 703')
                     self.database.setCustomStreamUrl(program.channel, d.stream)
                     self.playChannel(program.channel)
                     if IGNORESTRM:
+                        xbmc.log('##### 707')
                         self.database.deleteCustomStreamUrl(program.channel)
 
     def _showContextMenu(self, program):
@@ -790,20 +824,36 @@ class TVGuide(xbmcgui.WindowXML):
         if title in OTT_CHANNEL:
             desc = program.channel.desc
             if desc:
-                title = desc
+                title = urllib2.unquote(desc)
 
         self.setControlLabel(self.C_MAIN_TITLE, '[B]%s[/B]' % title)
         self.setControlLabel(self.C_MAIN_TIME, '[B]%s - %s[/B]' % (self.formatTime(program.startDate+GMTOFFSET), self.formatTime(program.endDate+GMTOFFSET)))
 
         if program.description:
-            description = program.description
+            description = urllib2.unquote(program.description)
         else:
             description = ''
 
         self.setControlText(self.C_MAIN_DESCRIPTION, description)
 
-        if program.channel.logo is not None:
-            self.setControlImage(self.C_MAIN_LOGO, program.channel.logo)
+# Check if the channel has a country code, if it does tidy it up
+        if program.channel.title.endswith(')') and program.channel.title[-4] == '(':
+            test_title = program.channel.title[:-5].replace('_',' ').replace(' PLUS1','').replace(' STAR','*').replace('PLUS1','').replace('&AMP;','&').replace('&GT;',' ')
+        else:
+            test_title = program.channel.title.replace('_',' ').replace(' PLUS1','').replace(' STAR','*').replace('PLUS1','').replace('&AMP;','&').replace('&GT;',' ')
+# Set global channel logo
+        if not 'default.png' in program.channel.logo:
+            self.setControlImage(self.C_MAIN_LOGO, urllib2.unquote(program.channel.logo))
+        else:
+            self.setControlImage(self.C_MAIN_LOGO, os.path.join(logofolder,test_title.replace(' ','_')+'.png'))
+
+# Set global country flag
+        if program.channel.id.endswith(')') and program.channel.id[-4]=='(':
+            self.setControlImage(self.C_MAIN_COUNTRY, os.path.join(flagpath,program.channel.id[-3:-1]+'.png'))
+
+# Set clean global title
+        self.setControlLabel(self.C_MAIN_CHANNEL, test_title)
+
         if program.imageSmall is not None:
             self.setControlImage(self.C_MAIN_IMAGE, program.imageSmall)
 
@@ -949,20 +999,25 @@ class TVGuide(xbmcgui.WindowXML):
         url = self.database.getStreamUrl(channel)
 
         if url:
-            print"### URL ORIG: "+url
-            xbmcgui.Window(10000).setProperty('OTT_CHANNEL', channel.id)
             path = os.path.join(ADDON.getAddonInfo('path'), 'player.py')
-            if url.startswith('UKTV'):
-                self.removeHighlight()
-                xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, False, self.osdEnabled))
+            if not 'tv/play_by_name_only/' in url and not 'movies/search_by_name' in url:
+                xbmc.log('##### 1004')
+                xbmcgui.Window(10000).setProperty('OTT_CHANNEL', channel.id)
+                if url.startswith('UKTV'):
+                    self.removeHighlight()
+                    xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, False, self.osdEnabled))
+                else:
+                    xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, False, self.osdEnabled))
+                    # self.showBlackout()
             else:
-                xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, False, self.osdEnabled))
-                # self.showBlackout()
+                xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, False, ''))
+                xbmc.log('##### 1014')
 
+#            if not 'plugin.video.meta' in url:
             if not wasPlaying:
                 self._hideEpg()
 
-        threading.Timer(2, self.waitForPlayBackStopped).start()
+                threading.Timer(2, self.waitForPlayBackStopped).start()
         self.osdProgram = self.database.getCurrentProgram(self.currentChannel)
 
         return url is not None
@@ -1099,14 +1154,19 @@ class TVGuide(xbmcgui.WindowXML):
             self.osdChannel = self.currentChannel
 
         if self.osdProgram is not None:
-            self.setControlLabel(self.C_MAIN_OSD_TITLE, '[B]%s[/B]' % self.osdProgram.title)
+            self.setControlLabel(self.C_MAIN_OSD_TITLE, '[B]%s[/B]' % urllib2.unquote(self.osdProgram.title))
             self.setControlLabel(self.C_MAIN_OSD_TIME, '[B]%s - %s[/B]' % (self.formatTime(self.osdProgram.startDate), self.formatTime(self.osdProgram.endDate)))
-            self.setControlText(self.C_MAIN_OSD_DESCRIPTION, self.osdProgram.description)
-            self.setControlLabel(self.C_MAIN_OSD_CHANNEL_TITLE, self.osdChannel.title)
+            self.setControlText(self.C_MAIN_OSD_DESCRIPTION, urllib2.unquote(self.osdProgram.description))
+            self.setControlLabel(self.C_MAIN_OSD_CHANNEL_TITLE, urllib2.unquote(self.osdChannel.title))
             if self.osdProgram.channel.logo is not None:
                 self.setControlImage(self.C_MAIN_OSD_CHANNEL_LOGO, self.osdProgram.channel.logo)
             else:
                 self.setControlImage(self.C_MAIN_OSD_CHANNEL_LOGO, '')
+# Set image for country flag
+            if self.osdProgram.channel.country is not None:
+                self.setControlImage(self.C_MAIN_OSD_CHANNEL_COUNTRY, self.osdProgram.channel.country)
+            else:
+                self.setControlImage(self.C_MAIN_OSD_CHANNEL_COUNTRY, '')
 
         self.mode = MODE_OSD
         self._showControl(self.C_MAIN_OSD)
@@ -1127,20 +1187,20 @@ class TVGuide(xbmcgui.WindowXML):
             return # ignore redraw request while redrawing
         debug('onRedrawEPG')
 
-        # self.hideBlackout()
+# self.hideBlackout()
 
         self.redrawingEPG = True
         self.mode = MODE_EPG
         self._showControl(self.C_MAIN_EPG)
         self.updateTimebar()
 
-        # show Loading screen
+# show Loading screen
         self.setControlLabel(self.C_MAIN_LOADING_TIME_LEFT, strings(CALCULATING_REMAINING_TIME))
         self._showControl(self.C_MAIN_LOADING)
         self.setFocusId(self.C_MAIN_LOADING_CANCEL)
         self.hideTimebar()
 
-        # remove existing controls
+# remove existing controls
         self._clearEpg()
 
         try:
@@ -1155,7 +1215,7 @@ class TVGuide(xbmcgui.WindowXML):
         
         self.refreshChannelLabels(self.channelIdx)
 
-        # date and time row
+# date and time row
         self.setControlLabel(self.C_MAIN_DATE, self.formatDate(self.viewStartDate))
         for col in range(1, 5):
             self.setControlLabel(4000 + col, self.formatTime(startTime))
@@ -1165,18 +1225,40 @@ class TVGuide(xbmcgui.WindowXML):
             self.onEPGLoadError()
             return
 
-        # set channel logo or text
+# set channel logo/text etc. MAKE SURE you have the relevant id's setup in the skin otherwise it will fail
         for idx in range(0, CHANNELS_PER_PAGE):
             if idx >= len(channels):
                 self.setControlImage(4110 + idx, ' ')
                 self.setControlLabel(4010 + idx, ' ')
+                self.setControlImage(4210 + idx, ' ')
+                self.setControlLabel(4250 + idx, ' ')
             else:
                 channel = channels[idx]
+
+# Set country flag
+                if channel.title.endswith(')') and channel.title[-4]=='(':
+                    self.setControlImage(4210 + idx, os.path.join(flagpath,channel.title[-3:-1]+'.png'))
+                else:
+                    self.setControlImage(4210 + idx, ' ')
+
+# Set +1 path
+                if 'PLUS1' in channel.title:
+                    self.setControlImage(4250 + idx, plusonepath)
+                else:
+                    self.setControlImage(4250 + idx, ' ')
+
+# Set clean title - this needs to be done after setting flag as we remove country code for better search results via meta and ini files
+                if channel.title.endswith(')') and channel.title[-4] == '(':
+                    channel.title = channel.title[:-5].replace('_',' ').replace(' PLUS1','').replace(' STAR','*').replace('PLUS1','').replace('&AMP;','&').replace('&GT;',' ')
+                else:
+                    channel.title = channel.title.replace('_',' ').replace(' PLUS1','').replace(' STAR','*').replace('PLUS1','').replace('&AMP;','&').replace('&GT;',' ')
                 self.setControlLabel(4010 + idx, channel.title)
-                if channel.logo is not None:
+
+# Set channel logo
+                if not 'default.png' in channel.logo:
                     self.setControlImage(4110 + idx, channel.logo)
                 else:
-                    self.setControlImage(4110 + idx, ' ')
+                    self.setControlImage(4110 + idx, os.path.join(logofolder, channel.title.replace(' ','_')+'.png'))
 
         for program in programs:
             idx = channels.index(program.channel)
@@ -1455,7 +1537,10 @@ class TVGuide(xbmcgui.WindowXML):
     def setControlLabel(self, controlId, label):
         control = self.getControl(controlId)
         if control and label:
-            control.setLabel(label)
+            try:
+                control.setLabel(label)
+            except:
+                pass
 
     def setControlText(self, controlId, text):
         control = self.getControl(controlId)
@@ -2077,17 +2162,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         streams = self.streamingService.getAddonStreams(item.getProperty('addon_id'))
         items = list()
         for (label, stream) in streams:
-            if item.getProperty('addon_id') == "plugin.video.meta":
-                label = self.channel.title
-                chanx  = channel.title.replace(" ","%20").replace("_","%20")
-                if chanx.endswith("%20HDTV"):
-                    chanx = chanx.replace("%20HDTV","")
-                if chanx.endswith("%20HD"):
-                    chanx = chanx.replace("%20HD","")
-                if chanx.endswith("%20plus1"):
-                    chanx = chanx.replace("%20plus1","+1")
-                dixie.log(chanx+"end")
-                stream = stream.replace("<channel>", chanx)
+            if item.getProperty('addon_id') == "plugin.video.meta" or item.getProperty('addon_id') == "plugin.video.metalliq":
+                stream = stream.replace("<channel>", self.channel.title)
             item = xbmcgui.ListItem(label)
             item.setProperty('stream', stream)
             items.append(item)
@@ -2229,5 +2305,3 @@ class CategoriesMenu(xbmcgui.WindowXMLDialog):
             item = xbmcgui.ListItem(category, iconImage = iconImage)
             item.setProperty('idx', str(idx))
             listControl.addItem(item)
-
-

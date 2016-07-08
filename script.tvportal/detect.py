@@ -73,7 +73,10 @@ class StreamAddonDialog(xbmcgui.WindowXMLDialog):
         items = list()
         for id, label, url in self.addons:
             try:
-                if id.startswith('SF_'):
+                if '-metalliq' in id:
+                    icon        = xbmcaddon.Addon(id='plugin.video.metalliq').getAddonInfo('icon')
+                    name = ''
+                elif id.startswith('SF_'):
                     dir  = id.split('SF_', 1)[-1]
                     cfg  = os.path.join(dir, 'folder.cfg')
                     icon = settings.get('ICON', cfg)

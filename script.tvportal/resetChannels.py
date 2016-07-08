@@ -31,28 +31,14 @@ def resetChannels():
     dialog  = xbmcgui.Dialog()
     path    = dixie.GetChannelFolder()
     chan    = os.path.join(path, 'channels')
-    chanchk = xbmc.translatePath(os.path.join('special://profile/addon_data/',AddonID,'chanchk'))
-    chanxml = xbmc.translatePath(os.path.join('special://profile/addon_data/',AddonID,'chan.xml'))
+    chanchk = xbmc.translatePath(os.path.join('special://profile/addon_data/',AddonID,'chan.xml'))
     catsxml = xbmc.translatePath(os.path.join('special://profile/addon_data/',AddonID,'cats.xml'))
-    cfg     = xbmc.translatePath(os.path.join('special://profile/addon_data/',AddonID,'settings.cfg'))
     success = 0
 
     try:
         os.remove(chanchk)
     except:
         dixie.log("### IMPORTANT ### Failed to remove the chanchk file in addon_data, please manually remove if it's still there")
-
-    try:
-        os.remove(cfg)
-    except:
-        dixie.log("### IMPORTANT ### Failed to remove the settings.cfg file in addon_data, please manually remove if it's still there")
-
-    if os.path.exists(chanxml):
-        try:
-            os.remove(chanxml)
-            success = 1
-        except:
-            dixie.log("### IMPORTANT ### Unable to remove the chan.xml file in your addon_data folder. Please manually delete")
 
     if sfile.exists(chan):
         xbmc.executebuiltin('Dialog.Show(busydialog)')
@@ -67,7 +53,7 @@ def resetChannels():
         dialog.ok('TV Portal - Reset Channels', 'There was nothing to reset, please try running the add-on again so it can repopulate your channels.')
 
     if os.path.exists(catsxml):
-        choice = dialog.yesno('Do You Need To Reset Categories?','It\'s highly unlikely you\'ll need to use this but if your main categories list has become corrupt it can cause problems. Would you like to reset the categories to the addon default?')
+        choice = dialog.yesno('Do You Need To Reset Categories?','It\'s highly unlikely you\'ll need to use this but if your main categories list has become corrupt it can cause problems. Would you like to reset the categories to the defaults?')
         if choice == 1:
             try:
                 os.remove(catsxml)

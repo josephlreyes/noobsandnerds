@@ -18,11 +18,12 @@ import json
 
 import dixie
 
-ADDON    = dixie.ADDON
-autoplay = dixie.GetSetting('autoplay')
-LOCAL    = dixie.GetSetting('local.ini') == 'true'
-FTVINI   = dixie.GetSetting('ftv.ini')
-datapath = dixie.PROFILE
+ADDON       = dixie.ADDON
+SF_METALLIQ = dixie.GetSetting('SF_METALLIQ')
+autoplay    = dixie.GetSetting('autoplay')
+LOCAL       = dixie.GetSetting('local.ini') == 'true'
+FTVINI      = dixie.GetSetting('ftv.ini')
+datapath    = dixie.PROFILE
 
 
 class StreamsService(object):
@@ -149,6 +150,7 @@ class StreamsService(object):
 
         sfAddon = xbmcaddon.Addon(id = SUPERFAVES)
 
+# Detect the root folder for SF items, set to default if not already set
         ROOT = sfAddon.getSetting('FOLDER')
         if not ROOT:
             ROOT = 'special://profile/addon_data/plugin.program.super.favourites/'
@@ -157,7 +159,7 @@ class StreamsService(object):
 
         items = []
 
-        self._locateSuperFavourites(title.lower(), folder, items)
+        self._locateSuperFavourites(title.upper(), folder, items)
 
         return items
 
@@ -172,7 +174,7 @@ class StreamsService(object):
             folder = os.path.join(current, dir)
 
 # check against SF list, if it exists then match up
-            if dir.lower().replace('_',' ') == title:
+            if dir.upper() == title:
 #                cfg      = os.path.join(folder, 'folder.cfg')
 #                autoplay = settings.get('AUTOPLAY', cfg)
 
@@ -187,8 +189,9 @@ class StreamsService(object):
                     uFolder = urllib.quote_plus(folder)
                     toAdd   = 'plugin://plugin.program.super.favourites/?label=%s&mode=%d&path=%s' % (uTitle, mode, uFolder)
                     toAdd   = '__SF__ActivateWindow(10025,"%s",return)' % toAdd
-                    
-                items.append(['SF_'+folder, toAdd])
+                xbmc.log('##### FOLDER: %s' % folder)
+                if os.path.exists(xbmc.translatePath(os.path.join(folder,'favourites.xml'))):
+                    items.append(['SF_'+folder, toAdd])
 
             self._locateSuperFavourites(title, folder, items)
         
@@ -199,99 +202,122 @@ class StreamsService(object):
     def getAddonStreams(self, id):
         return self.addonsParser.items(id)
 
-    def detectStream(self, channel):
+    def detectStream(self, channel, catchup=''):
         """
         @param channel:
         @type channel: source.Channel
         """
 
         matches = list()
+        catchuplist = ['plugin.video.meta','plugin.video.metalliq']
+        dixie.log('CATCHUP: %s'%catchup)
 
-        # Get any Super Favourites with channel name
-        superFaves = self.locateSuperFavourites(channel.title)
-        
-        if superFaves:
-            if len(superFaves) == 1:
-                matches.append((superFaves[0][0], 'Super Folder', superFaves[0][1]))
-            else:
-                index = 0
-                for superFave in superFaves:
-                    index += 1
-                    label = 'Super Folder (%d)' % index
-                    matches.append((superFave[0], label, superFave[1]))        
+# If user chooses to watch via catchup then call meta addons
+        if catchup != '':
+            for item in catchuplist:
+                try:
+                    xbmcaddon.Addon(item)
+                except Exception:
+                    continue # ignore addons that are not installed
+                catchup = catchup.replace(' ','+')
+                for (label, stream) in self.getAddonStreams(item):
+                    stream = str(stream.replace("<channel>",catchup))
+                    addontitle = xbmcaddon.Addon(id=item).getAddonInfo('name')
+                matches.append((item, addontitle, stream))
 
-        # Get any Add-ons with channel name
-        for id in self.getAddons():
-            try:
-                xbmcaddon.Addon(id)
-            except Exception:
-                continue # ignore addons that are not installed
+# For a live tv selection grab valid ini files and present options
+        else:
 
-            for (label, stream) in self.getAddonStreams(id):
-                label = label.upper()
-                channel.title = channel.title.upper()
-# Added meta support
-                if id == "plugin.video.meta":
-                    label = channel.title
-#                    stream = str(stream.replace("<channel>", channel.title.replace(" ","%20")))
-                    chanx  = channel.title.replace(" ","%20").replace("_","%20")
-                    if chanx.endswith("%20HDTV"):
-                        chanx = chanx.replace("%20HDTV","")
-                    if chanx.endswith("%20HD"):
-                        chanx = chanx.replace("%20HD","")
-                    if chanx.endswith("%20plus1"):
-                        chanx = chanx.replace("%20plus1","+1")
-                    dixie.log(chanx+"end")
-                    stream = str(stream.replace("<channel>", chanx))
-#                if label == channel.title:
-#                    matches.append((id, label, stream))
-               
-                if (channel.title in label) or (label in channel.title):
-                    matches.append((id, label, stream))
-
-        
-        # Get any Kodi Favourites with channel name
-        kodiFaves = self.loadFavourites()
-        
-        if kodiFaves:
-            id = 'kodi-favourite'
+# Get any Super Favourites with channel name
+            superFaves = self.locateSuperFavourites(channel.id)
             
-            for (label, stream) in kodiFaves:
-                label = label.upper()
-                channel.title = channel.title.upper()
+            if superFaves:
+                if len(superFaves) == 1 and not '-metalliq' in superFaves[0][0]:
+                    matches.append((superFaves[0][0], 'Super Folder', superFaves[0][1]))
+                elif len(superFaves) == 1 and '-metalliq' in superFaves[0][0] and SF_METALLIQ == 'true':
+                    matches.append((superFaves[0][0], 'MetalliQ', superFaves[0][1]))
+                else:
+                    index = 0
+                    for superFave in superFaves:
+                        if '-metalliq' in superFave[0] and SF_METALLIQ == 'true':
+                            label = 'MetalliQ'
+                            matches.append((superFave[0], label, superFave[1]))        
+                        elif not '-metalliq' in superFave[0]:
+                            if len(superFaves) == 2 and ('-metalliq' in superFaves[0][0] or '-metalliq' in superFaves[1][0]):
+                                label = 'Super Folder'
+                            else:
+                                index += 1
+                                label = 'Super Folder (%d)' % index
+                            matches.append((superFave[0], label, superFave[1]))        
 
-                if (channel.title in label) or (label in channel.title):
-                    matches.append((id, label, stream))
+# Get any Add-ons with channel name
+            for id in self.getAddons():
+                try:
+                    xbmcaddon.Addon(id)
+                except Exception:
+                    continue # ignore addons that are not installed
+
+                for (label, stream) in self.getAddonStreams(id):
+                    label = label.upper()
+                    channel.title = channel.title.upper().replace('_',' ')
+
+# If meta is chosen we clean the name up a bit more
+                    if SF_METALLIQ == 'false':
+                        if id == "plugin.video.metalliq" or id == "plugin.video.meta":
+                            label = channel.title
+                            chanx  = channel.title.replace(" ","+").replace("_","+")
+                            if chanx.endswith("%20HDTV"):
+                                chanx = chanx.replace("%20HDTV","")
+                            if chanx.endswith("%20HD"):
+                                chanx = chanx.replace("%20HD","")
+                            if chanx.endswith("%20PLUS1"):
+                                chanx = chanx.replace("%20PLUS1","")
+                            stream = str(stream.replace("<channel>",'live/%s/None/en'% chanx))
+                            dixie.log('STREAM: %s'%stream)
+                   
+                    if (channel.title in label) or (label in channel.title):
+                        matches.append((id, label, stream))
+        
+# Get any Kodi Favourites with channel name
+            kodiFaves = self.loadFavourites()
+            
+            if kodiFaves:
+                id = 'kodi-favourite'
                 
+                for (label, stream) in kodiFaves:
+                    label = label.upper()
+                    channel.title = channel.title.upper()
 
-        # Get any Playlist entries with channel name
-        iptvPlaylist = self.loadPlaylist()
-        
-        if iptvPlaylist:
-            id = 'iptv-playlist'
-        
-            for (label, stream) in iptvPlaylist:
-                label = label.upper()
-                channel.title = channel.title.upper()
-
-                if (channel.title in label) or (label in channel.title):
-                    matches.append((id, label, stream))
-
-
-        # Get entries from PVRchannels with channel name    
-        import pvr
-        PVRchannels = pvr.getPVRChannels()
-        
-        if PVRchannels:
-            id = 'xbmc.pvr'
+                    if (channel.title in label) or (label in channel.title):
+                        matches.append((id, label, stream))
+                    
+# Get any Playlist entries with channel name
+            iptvPlaylist = self.loadPlaylist()
             
-            for (label, stream) in PVRchannels:
-                label = label.upper()
-                channel.title = channel.title.upper()
+            if iptvPlaylist:
+                id = 'iptv-playlist'
+            
+                for (label, stream) in iptvPlaylist:
+                    label = label.upper()
+                    channel.title = channel.title.upper()
 
-                if (channel.title in label) or (label in channel.title):
-                    matches.append((id, label, stream))
-        
+                    if (channel.title in label) or (label in channel.title):
+                        matches.append((id, label, stream))
+
+# Get entries from PVRchannels with channel name    
+            import pvr
+            PVRchannels = pvr.getPVRChannels()
+            
+            if PVRchannels:
+                id = 'xbmc.pvr'
+                
+                for (label, stream) in PVRchannels:
+                    label = label.upper()
+                    channel.title = channel.title.upper()
+
+                    if (channel.title in label) or (label in channel.title):
+                        matches.append((id, label, stream))
+            
 
         if len(matches) == 1:
             return matches[0][2]

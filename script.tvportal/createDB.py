@@ -5,6 +5,7 @@
 #  I M P O R T A N T :
 
 #  You are free to use this code under the rules set out in the license below.
+#  Should you wish to re-use this code please credit whufclee for the original work.
 #  However under NO circumstances should you remove this license!
 
 #  GPL:
@@ -25,10 +26,9 @@
 
 # Global imports
 import xbmc, xbmcgui, os, xbmcaddon, sys, urllib2, urllib
-import time, datetime, re, shutil, csv, hashlib
+import time, datetime, re, shutil, csv, hashlib, binascii
 import dixie, sfile, download
 import calendar as cal
-import xml.etree.ElementTree as ET
 
 from sqlite3 import dbapi2 as sqlite
 from time import mktime
@@ -36,37 +36,59 @@ from time import mktime
 import sys, traceback
 
 # Global variables
-AddonID     =  'script.tvportal'
-ADDON       =  xbmcaddon.Addon(id=AddonID)
-ADDONS      =  xbmc.translatePath('special://home/addons/')
-USERDATA    =  xbmc.translatePath('special://profile/')
-ADDON_DATA  =  xbmc.translatePath(os.path.join(USERDATA,'addon_data'))
-dbpath      =  xbmc.translatePath(os.path.join(ADDON_DATA,AddonID,'program.db'))
-dialog      =  xbmcgui.Dialog()
-dp          =  xbmcgui.DialogProgress()
-updateicon  =  os.path.join(ADDONS,AddonID,'resources','update.png')
-chanxmlfile =  os.path.join(ADDON_DATA,AddonID,'chan.xml')
-catsxfile   =  os.path.join(ADDON_DATA,AddonID,'cats.xml')
-xmlmaster   =  os.path.join(ADDONS,AddonID,'resources','chan.xml')
-catsmaster  =  os.path.join(ADDONS,AddonID,'resources','cats.xml')
-csvfile     =  os.path.join(ADDON_DATA,AddonID,'programs.csv')
-tempxml     =  os.path.join(ADDON_DATA,AddonID,'temp.xml')
-path        =  dixie.GetChannelFolder()
-chan        =  os.path.join(path, 'channels')
-log_path    =  xbmc.translatePath('special://logpath/')
-usenanxml   =  ADDON.getSetting('usenanxml')
-stop        =  0
-chanchange  =  0
-catschange  =  0
-errorlist   = ['none']
+AddonID      =  'script.tvportal'
+ADDON        =  xbmcaddon.Addon(id=AddonID)
+ADDONS       =  xbmc.translatePath('special://home/addons/')
+USERDATA     =  xbmc.translatePath('special://profile/')
+ADDON_DATA   =  os.path.join(USERDATA,'addon_data')
+dbpath       =  os.path.join(ADDON_DATA,AddonID,'program.db')
+dialog       =  xbmcgui.Dialog()
+dp           =  xbmcgui.DialogProgress()
+updateicon   =  os.path.join(ADDONS,AddonID,'resources','update.png')
+chanxmlfile  =  os.path.join(ADDON_DATA,AddonID,'chan.xml')
+catsxfile    =  os.path.join(ADDON_DATA,AddonID,'cats.xml')
+xmlmaster    =  os.path.join(ADDONS,AddonID,'resources','chan.xml')
+catsmaster   =  os.path.join(ADDONS,AddonID,'resources','cats.xml')
+csvfile      =  os.path.join(ADDON_DATA,AddonID,'programs.csv')
+tempxml      =  os.path.join(ADDON_DATA,AddonID,'temp.xml')
+tempurl      =  os.path.join(ADDON_DATA,AddonID,'extras','logos','None','icon_placeholder')
+path         =  dixie.GetChannelFolder()
+chan         =  os.path.join(path, 'channels')
+log_path     =  xbmc.translatePath('special://logpath/')
+stop         =  0
+chanchange   =  0
+catschange   =  0
+errorlist    = ['none']
 
+countryarray =  [['AF','Afghanistan'],['AL','Albania'],['DZ','Algeria'],['AO','Angola'],['AR','Argentina'],['AM','Armenia'],['AU','Australia'],
+                ['AT','Austria'],['AZ','Azerbaijan'],['BS','Bahamas'],['BY','Belarus'],['BE','Belgium'],['BO','Bolivia'],['BA','Bosnia'],['BR','Brazil'],
+                ['BG','Bulgaria'],['KM','Cambodia'],['CM','Cameroon'],['CA','Canada'],['CL','Chile'],['CN','China'],['CO','Colombia'],['CR','Costa Rica'],
+                ['HR','Croatia'],['CU','Cuba'],['CY','Cyprus'],['CZ','Czech Republic'],['DK','Denmark'],['DO','Dominican Republic'],['EC','Ecuador'],['EG','Egypt'],
+                ['SV','El Salvador'],['EE','Estonia'],['ET','Ethiopia'],['FI','Finland'],['FR','France'],['GA','Gabon'],['GM','Gambia'],['GE','Georgia'],
+                ['DE','Germany'],['GH','Ghana'],['GR','Greece'],['GT','Guatemala'],['GN','Guinea'],['HT','Haiti'],['HN','Honduras'],['HK','Hong Kong'],
+                ['HU','Hungary'],['IS','Iceland'],['IN','India'],['ID','Indonesia'],['IR','Iran'],['IQ','Iraq'],['IE','Ireland'],['IL','Israel'],['IT','Italy'],
+                ['CI','Ivory Coast'],['JM','Jamaica'],['JP','Japan'],['JO','Jordan'],['KZ','Kazakhstan'],['KE','Kenya'],['XK','Kosovo'],['KW','Kuwait'],
+                ['KG','Kyrgyzstan'],['LA','Laos'],['LV','Latvia'],['LB','Lebanon'],['LR','Liberia'],['LY','Libya'],['LI','Liechstenstein'],['LT','Lithuania'],
+                ['LU','Luxembourg'],['MK','Macedonia'],['MG','Madagascar'],['MW','Malawi'],['MY','Malaysia'],['ML','Mali'],['MT','Malta'],['MU','Mauritius'],
+                ['MX','Mexico'],['MD','Moldova'],['MN','Mongolia'],['ME','Montenegro'],['MA','Morocco'],['MZ','Mozambique'],['MM','Myanmar'],['NA','Namibia'],
+                ['NP','Nepal'],['NL','Netherlands'],['NZ','New Zealand'],['NI','Nicaragua'],['NE','Niger'],['NG','Nigeria'],['NO','Norway'],['OM','Oman'],
+                ['PK','Pakistan'],['PS','Palestine'],['PA','Panama'],['PY','Paraguay'],['PE','Peru'],['PH','Philippines'],['PL','Poland'],['PT','Portugal'],
+                ['PR','Puerto Rico'],['QA','Qatar'],['RO','Romania'],['RU','Russia'],['RW','Rwanda'],['SA','Saudi Arabia'],['SN','Senegal'],['RS','Serbia'],
+                ['SL','Sierra Leone'],['SG','Singapore'],['SK','Slovakia'],['SI','Slovenia'],['SO','Somalia'],['ZA','South Africa'],['KR','South Korea'],
+                ['SS','South Sudan'],['ES','Spain'],['LK','Sri Lanka'],['SD','Sudan'],['SR','Suriname'],['SE','Sweden'],['CH','Switzerland'],['SY','Syria'],
+                ['TW','Taiwan'],['TJ','Tajikistan'],['TZ','Tanzania'],['TH','Thailand'],['TG','Togo'],['TT','Trinidad and Tobago'],['TN','Tunisia'],['TR','Turkey'],
+                ['TM','Turkmenistan'],['UG','Uganda'],['UA','Ukraine'],['AE','United Arab Emireates'],['GB','United Kingdom'],['US','United States'],['UY','Uruguay'],
+                ['UZ','Uzbekistan'],['VE','Venezuela'],['VN','Vietnam'],['YE','Yemen'],['ZM','Zambia'],['ZW','Zimbabwe']]
 ##########################################################################################
-# Initialise the database calls
-def DB_Open():
-    global cur
-    global con
-    con = sqlite.connect(dbpath)
-    cur = con.cursor()
+# Check if the online file date has changed
+def Check_Date(url):
+    req = urllib2.Request(url)
+    req.add_header('User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+    conn = urllib2.urlopen(req)
+    last_modified = conn.info().getdate('last-modified')
+    last_modified = time.strftime('%Y%m%d%H%M%S', last_modified)
+    dixie.log("Last modified: "+last_modified)
+    return last_modified
 ##########################################################################################
 # Clean up the database and remove stale listings
 def Clean_DB():
@@ -83,138 +105,243 @@ def Clean_DB():
     cur.close()
     xbmc.executebuiltin('Dialog.Close(busydialog)')
 ##########################################################################################
-# Clear the stored xml sizes so we can force an update scan
-def Wipe_XML_Sizes():
-    DB_Open()
-    cur.execute("DELETE FROM xmls WHERE id > 0")
-    cur.execute("VACUUM")
-    con.commit()
-    cur.close()
-##########################################################################################
-## Function to open a URL
-def Open_URL(url):
-    req = urllib2.Request(url)
-    req.add_header('User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-    response = urllib2.urlopen(req)
-    link     = response.read()
-    response.close()
-    return link
-##########################################################################################
-# Check if the online file date has changed
-def Check_Date(url):
-    req = urllib2.Request(url)
-    req.add_header('User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-    conn = urllib2.urlopen(req)
-    last_modified = conn.info().getdate('last-modified')
-    last_modified = time.strftime('%Y%m%d%H%M%S', last_modified)
-    dixie.log("Last modified: "+last_modified)
-    return last_modified
-##########################################################################################
-# Grab XML paths and offsets
-def Grab_XML_Settings(xnumber):
-    isurl      = 0
-    addxmltodb = 1
-    xmltype    = ADDON.getSetting('xmlpath'+xnumber+'.type')
-    offset     = ADDON.getSetting('offset'+xnumber)
-    if xmltype == 'File':
-        dixie.log("XML"+xnumber+': Local File')
-        xmlpath = ADDON.getSetting('xmlpath'+xnumber+'.file')
-        localcheck = hashlib.md5(open(xmlpath,'rb').read()).hexdigest()
-    elif xmltype == 'URL':
-        xmlpath = ADDON.getSetting('xmlpath'+xnumber+'.url')
-        dixie.log("XML"+xnumber+': URL')
-        localcheck = Check_Date(xmlpath)
-    else:
-        dixie.log("XML"+xnumber+': None')
-        addxmltodb = 0
-        return "None"
-    if addxmltodb:
-# Try to access the db, if it's locked we wait 5s and try again
-        try:
-            DB_Open()
-            cur.execute("SELECT COUNT(*) from xmls where id LIKE '"+xnumber+"';")
-            data = cur.fetchone()[0]
-            if data:
-                cur.execute("SELECT size FROM xmls WHERE id=?", (xnumber,))
-                newdata = str(cur.fetchone()[0])
-                dixie.log('Existing entry size: '+str(newdata))
-                if newdata != localcheck:
-#                dixie.log('Updating XML'+xnumber+' size in db to '+localcheck)
-#                cur.execute("update xmls set size='"+localcheck+"' where id LIKE '"+xnumber+"';")
-                    if xmltype == 'URL':
-                        isurl = 1
-                else:
-                    dixie.log('No change in XML'+xnumber+' so no need to update')
-                    addxmltodb = 0
-            else:
-#            dixie.log('Adding XML'+xnumber+' size to db - '+localcheck)
-#            cur.execute("insert into xmls (id, size) values ('"+xnumber+"','"+localcheck+"');")
-                if xmltype == 'URL':
-                    isurl = 1
-            cur.close()
-            con.close()
-        except:
-            xbmc.sleep(5000)
-            Grab_XML_Settings(xnumber)
+# Return a clean filename that won't cause errors
+def CleanFilename(text):
+    text = text.replace(' *',                  '*')
+    text = text.replace(' +',                  '+')
+    text = text.replace(' HDTV',                '')
+    text = text.replace(' HD',                  '')
+    text = text.replace(' SDTV',                '')
+    text = text.replace(' SD ',                 '')
+    text = text.replace(' (EAST)',              '')
+    text = text.replace(' (WEST)',              '')
+    text = text.replace('ROGERS ',              '')
+    text = text.replace('THE SPORTS NETWORK','TSN')
+    text = text.replace(' CANADA',              '')
+    text = text.replace('(CANADA)',             '')
+    text = text.replace('>',                    '')
+    text = text.replace('_',                   ' ')
 
-        if addxmltodb == 1:
-            Start(xmlpath,offset,isurl)
-            if data and newdata != localcheck:
-                DB_Open()
-                dixie.log('Updating XML'+xnumber+' size in db to '+localcheck)
-                cur.execute("update xmls set size='"+localcheck+"' where id LIKE '"+xnumber+"';")
-            else:
-                DB_Open()
-                dixie.log('Adding XML'+xnumber+' size to db - '+localcheck)
-                cur.execute("insert into xmls (id, size) values ('"+xnumber+"','"+localcheck+"');")
-            con.commit()
-            cur.close()
-            con.close()
-
-##########################################################################################
-# Return the last error
-def Last_Error():
-    errorstring = traceback.format_exc()
-    dixie.log("ERROR: "+errorstring)
-    errorlinematch  = re.compile(': line (.+?),').findall(errorstring)
-    errormatch      = errorlinematch[0] if (len(errorlinematch) > 0) else ''
-    return errormatch
-##########################################################################################
-# Function to convert timestamp into proper integer that can be used for schedules
-def Time_Convert(starttime,xsource,offset):
-# Split the time from the string that also contains the time difference
-    starttime, diff  = starttime.split(' ')
-
-    year             = starttime[:4]
-    month            = starttime[4:6]
-    day              = starttime[6:8]
-    hour             = starttime[8:10]
-    minute           = starttime[10:12]
-    secs             = starttime[12:14]
-
-# Convert the time diff factor into an integer we can work with
-    if xsource == "'zap2it.com'":
-        diff         = int(diff[:-2])-1+int(offset) # The -1 is to bring in line with BST
-    else:
-        diff         = int(diff[:-2])+1+int(offset) # The +1 is to convert from UTC format
-    starttime        = datetime.datetime(int(year),int(month),int(day),int(hour),int(minute),int(secs))
-    starttime        = starttime + datetime.timedelta(hours=diff)
-    starttime        = time.mktime(starttime.timetuple())
-
-    return int(starttime)
-##########################################################################################
-# Check if item already exists in database
-def updateDB(chan, s_date):
-    entryexists = 0
-
-# Changed start_date from = to LIKE (03.05.16)
-    cur.execute('select channel, start_date from programs where channel LIKE "'+chan+'" and start_date LIKE "'+s_date+'";')
+    text = re.sub('[:\\/?\<>|"]', '', text)
+    text = text.strip()
     try:
-        row = cur.fetchone()
-        if row:
-            return True
+        text = text.encode('ascii', 'ignore')
     except:
-        return False
+        text = text.decode('utf-8').encode('ascii', 'ignore')
+    text = text.upper()
+    return text.replace('&AMP;','&amp;').replace('&GT;','&gt;')
+##########################################################################################
+# Return a clean filename that won't cause errors
+def CleanDBname(text):
+    text = text.replace('*', '_STAR')
+    text = text.replace('+', '_PLUS')
+    text = text.replace(' ', '_')
+
+    try:
+        text = text.encode('ascii', 'ignore')
+    except:
+        text = text.decode('utf-8').encode('ascii', 'ignore')
+    text = text.upper()
+    dixie.log('Converted: %s'%text.replace('&AMP;','&'))
+    return text.replace('&AMP;','&')
+#########################################################################################
+# Create the main database
+def Create_DB():
+    if not os.path.exists(dbpath):
+        DB_Open()
+        versionvalues = [1,4,0]
+        try:
+            cur.execute('create table programs(channel TEXT, title TEXT, start_date TIMESTAMP, end_date TIMESTAMP, description TEXT, image_large TEXT, image_small TEXT, source TEXT, subTitle TEXT);')
+            con.commit()
+            cur.execute('create table updates(id INTEGER, source TEXT, date TEXT, programs_updated TIMESTAMP, PRIMARY KEY(id));')
+            con.commit()
+            cur.execute('create table version(major INTEGER, minor INTEGER, patch INTEGER);')
+            con.commit()
+            cur.execute('create table xmls(id INTEGER, size INTEGER);')
+            con.commit()
+            cur.execute("insert into version (major, minor, patch) values (?, ?, ?);", versionvalues)
+            con.commit()
+
+        except:
+            dixie.log("### Valid program.db file exists")
+
+        cur.close()
+        con.close()
+##########################################################################################
+# Create CSV for import and update chan.xml and cats.xml
+def Create_CSV(channels,channelcount,listingcount,programmes,xsource,offset,xnumber):
+    listpercent =  1
+    listcount   =  1
+    mode        =  1
+    usecountry  =  ADDON.getSetting('usecountry%s' % xnumber)
+    country     =  ADDON.getSetting('country%s' % xnumber)
+    dixie.log('### country: %s' % country)
+    for item in countryarray:
+        if item[1] == country:
+            country =  item[0]
+    dixie.log('### country code: %s' % country)
+    if os.path.exists(dbpath):
+        mode = 2
+    xbmc.executebuiltin("Dialog.Close(busydialog)")
+
+# Read main chan.xml into memory so we can add any new channels
+    if not os.path.exists(chanxmlfile):
+        writefile   = open(chanxmlfile,'w+')
+        writefile.write('<?xml version="1.0" encoding="UTF-8"?>\n<tv>\n</tv>\n')
+        writefile.close()
+
+    if not os.path.exists(catsxfile):
+        writefile   = open(catsxfile,'w+')
+        writefile.write('<?xml version="1.0" encoding="UTF-8"?>\n<Document>\n</Document>\n')
+        writefile.close()
+
+    chanxml     =  open(chanxmlfile,'r')
+    content     = chanxml.read()
+    chanxml.close()
+
+    writefile   = open(chanxmlfile,'w+')
+    replacefile = content.replace('</tv>','')
+    writefile.write(replacefile)
+    writefile.close()
+    writefile   = open(chanxmlfile,'a')
+
+# Read cats.xml into memory so we can add any new channels
+    catsxml     = open(catsxfile,'r')
+    content2    = catsxml.read()
+    catsxml.close()
+
+    writefile2  = open(catsxfile,'w+')
+    replacefile = content2.replace('</Document>','')
+    writefile2.write(replacefile)
+    writefile2.close()
+    writefile2  = open(catsxfile,'a')
+
+# Set a temporary list matching channel id with real name
+    dixie.log("Creating List of channels")
+    tempchans   = []
+    idarray     = []
+    newchans    = []
+    dixie.log("Channels Found: "+str(channelcount))
+    xbmc.executebuiltin("XBMC.Notification("+ADDON.getLocalizedString(30816)+str(channelcount)+","+ADDON.getLocalizedString(30812)+",10000,"+updateicon+")")
+    for channel in channels:
+        donotadd    = 0
+        channelid   = re.compile('channel id="(.+?)"').findall(channel)[0]
+        displayname = re.compile('<display-name.*>(.+?)<\/display-name>').findall(channel)
+
+        if xsource.replace("'",'') == 'BDS' or len(displayname) < 4:
+            displayname = displayname[0].encode('ascii', 'ignore').replace('\n','').replace("'",'').replace(",",'').replace(".",'').upper().replace('&','&amp;')
+        else:
+            displayname = displayname[3].encode('ascii', 'ignore').replace('\n','').replace("'",'').replace(",",'').replace(".",'').upper().replace('&','&amp;')
+        if  displayname=='INDEPENDENT' or 'AFFILIATE' in displayname or displayname=='SATELLITE' or displayname=='SPORTS SATELLITE' or 'PPV' in displayname or 'SKYCUST' in displayname or 'PAID PROGRAMMING' in displayname or 'VOD ' in displayname:
+            donotadd = 1
+        newdisplay = CleanFilename(displayname)
+        if usecountry == 'true' or int(xnumber) > 10:
+            newdisplay += (' (%s)' % country)
+        if not newdisplay in newchans and donotadd == 0:
+
+# Add channel to chan.xml file
+            if not '<channel id="'+str(newdisplay)+'">' in content:
+                writefile.write('  <channel id="'+newdisplay+'">\n    <display-name lang="en">'+newdisplay+'</display-name>\n  </channel>\n')
+# Add channel to cats.xml file
+            if not '<channel>'+str(newdisplay)+'</channel>' in content2:
+                writefile2.write(' <cats>\n    <category>Uncategorised</category>\n    <channel>'+newdisplay+'</channel>\n </cats>\n')
+            tempchans.append([channelid,newdisplay,displayname])
+            newchans.append(newdisplay)
+            idarray.append(channelid)
+        else:
+            dixie.log("### Duplicate channel - skipping "+str(newdisplay))
+    writefile.write('</tv>')
+    writefile.close()
+    writefile2.write('</Document>')
+    writefile2.close()
+
+# Loop through and grab each channel listing and add to array
+    xbmc.executebuiltin("XBMC.Notification("+ADDON.getLocalizedString(30815)+","+ADDON.getLocalizedString(30812)+",10000,"+updateicon+")")
+    currentlist  = []
+    dixie.log("Total Listings to scan in: "+str(listingcount))
+    xbmc.executebuiltin("XBMC.Notification("+ADDON.getLocalizedString(30818)+"[COLOR=dodgerblue]"+str(listingcount)+"[/COLOR],"+ADDON.getLocalizedString(30812)+",10000,"+updateicon+")")
+    writetofile = open(csvfile,'w+')
+    dp.create('Converting XML','','Please wait...','')
+    writetofile.write('channel,title,start_date,end_date,description,image_large,image_small,source,subTitle')
+    for programme in programmes:
+        try:
+            channel    = re.compile('channel="(.+?)">').findall(programme)[0].encode('ascii', 'ignore').replace(' ','_')
+            if channel in idarray:
+                starttime  = re.compile('start="(.+?)"').findall(programme)[0]
+                starttime2 = Time_Convert(starttime,xsource,offset)
+                endtime    = re.compile('stop="(.+?)"').findall(programme)[0]
+                endtime2   = Time_Convert(endtime,xsource,offset)
+                try:
+                    title  = re.compile('title.*">(.+?)<\/title>').findall(programme)[0].encode('ascii', 'ignore').replace(',','.').replace('"','&quot;')
+                except:
+                    title = "No information available"
+                try:
+                    subtitle = re.compile('<sub-title.*>(.+?)<\/sub-title>').findall(programme)[0].encode('ascii', 'ignore').replace(',','.').replace('"','&quot;')
+                except:
+                    subtitle = ''
+                try:
+                    desc = re.compile('<desc.*>(.+?)<\/desc>').findall(programme)[0].encode('ascii', 'ignore').replace(',','.').replace('"','&quot;')
+                except:
+                    desc = 'No information available'
+                try:
+                    icon = re.compile('<icon src="(.+?)"').findall(programme)[0]
+                except:
+                    icon = 'special://home/addons/'+AddonID+'/resources/dummy.png'
+
+# Convert the channel id to real channel name
+                for matching in tempchans:
+                    if matching[0] == channel:
+                        cleanchan = CleanDBname(matching[1])
+                        writetofile.write('\n"'+str(cleanchan)+'","'+str(title)+'",'+str(starttime2)+','+str(endtime2)+',"'+str(desc)+'",,'+str(icon)+',dixie.ALL CHANNELS,'+subtitle+',')
+
+                listcount += 1
+                if listcount == int(listingcount/100):
+                    listcount = 0
+                    dp.update(listpercent,'','','')
+                    listpercent +=1
+            else:
+                listcount += 1
+                if listcount == int(listingcount/100):
+                    listcount = 0
+                    dp.update(listpercent,'','','')
+                    listpercent +=1
+
+        except:
+            try:
+                dixie.log("FAILED to pull details for item: "+str(title)+": "+str(subtitle))
+            except:
+                dixie.log("FAILED to import #"+str(listcount))
+                listcount += 1
+                if listcount == int(listingcount/100):
+                    listcount = 0
+                    dp.update(listpercent,'','','')
+                    listpercent +=1
+    writetofile.close()
+    Import_CSV(mode)
+##########################################################################################
+# Initialise the database calls
+def DB_Open():
+    global cur
+    global con
+    con = sqlite.connect(dbpath)
+    cur = con.cursor()
+##########################################################################################
+# Attempt to fix badly formed XML files with special characters in
+def Fix_XML(errorline):
+    dixie.log("FIX_XML Function started")
+    counter = 1
+    rawfile = open(xmlpath,"r")
+    lines = rawfile.readlines()
+    rawfile.close()
+
+    newfile = open(xmlpath,'w')
+    for line in lines:
+        counterstr = str(counter)
+        if counterstr == errorline:
+            dixie.log("Removing Line "+counterstr)
+        else:
+            newfile.write(line)
+        counter += 1
 ##########################################################################################
 # Work out how many days worth of guides we have available
 def Get_Dates():
@@ -265,23 +392,92 @@ def Get_Dates():
             dixie.log("Successfully inserted rows")
     cur.close()
     con.close()
+#########################################################################################
+# Grab the urls
+def Grab_URL():
+    with open(tempurl) as f:
+        content = f.read().splitlines()
+        return content
 ##########################################################################################
-# Attempt to fix badly formed XML files with special characters in
-def Fix_XML(errorline):
-    dixie.log("FIX_XML Function started")
-    counter = 1
-    rawfile = open(xmlpath,"r")
-    lines = rawfile.readlines()
-    rawfile.close()
+# Grab XML paths and offsets
+def Grab_XML_Settings(xnumber):
+    isurl      = 0
+    addxmltodb = 1
+    xmltype    = ADDON.getSetting('xmlpath%s.type' % xnumber)
+    offset     = ADDON.getSetting('offset%s' % xnumber)
+    countryxml = ADDON.getSetting('country%s' % xnumber)
+    dixie.log('#### %s' % countryxml)
+    xmlpath    = 'None'
+    login      =  ADDON.getSetting('login')
+    username   =  ADDON.getSetting('username')
+    password   =  ADDON.getSetting('password')
 
-    newfile = open(xmlpath,'w')
-    for line in lines:
-        counterstr = str(counter)
-        if counterstr == errorline:
-            dixie.log("Removing Line "+counterstr)
-        else:
-            newfile.write(line)
-        counter += 1
+    if countryxml != 'None' and int(xnumber) > 10 and login == 'true' and username != '' and password != '':
+ #       try:
+            xml_urls = Grab_URL()
+            for item in xml_urls:
+                item  = binascii.unhexlify(item)
+                items = item.split('|')
+                if items[0] == countryxml:
+                    xmlpath = items[2]
+            if countryxml:
+                dixie.log('#### XMLPATH: %s' % xmlpath)
+                localcheck = Check_Date(xmlpath)
+                dixie.log('#### LOCALCHECK: %s' % localcheck)
+            isurl = 2
+#        except:
+#           addxmltodb = 0
+
+# If the XML type is a local file    
+    elif xmltype == 'File':
+        dixie.log("XML"+xnumber+': Local File')
+        xmlpath = ADDON.getSetting('xmlpath%s.file' % xnumber)
+        localcheck = hashlib.md5(open(xmlpath,'rb').read()).hexdigest()
+    
+# If the XML type is an online file
+    elif xmltype == 'URL':
+        xmlpath = ADDON.getSetting('xmlpath%s.url' % xnumber)
+        dixie.log("XML"+xnumber+': URL')
+        localcheck = Check_Date(xmlpath)
+
+# Otherwise it's not a valid entry so we skip adding to db
+    else:
+        dixie.log("XML"+xnumber+': None')
+        addxmltodb = 0
+
+# Try to access the db, if it's locked we wait 5s and try again
+    if addxmltodb == 1 and xmlpath != 'None':
+        try:
+            DB_Open()
+            cur.execute("SELECT COUNT(*) from xmls where id LIKE '"+xnumber+"';")
+            data = cur.fetchone()[0]
+            dixie.log('### Data: %s' % data)
+            if data:
+                cur.execute("SELECT size FROM xmls WHERE id=?", (xnumber,))
+                newdata = str(cur.fetchone()[0])
+                dixie.log('### Existing entry size: '+str(newdata))
+            else:
+                newdata = 0
+            cur.close()
+            con.close()
+        except:
+            dixie.log('### Failed to open db, running again')
+            xbmc.sleep(5000)
+            Grab_XML_Settings(xnumber)
+
+        if addxmltodb == 1 and newdata != localcheck:
+            Start(xmlpath, offset, isurl, xnumber)
+            if data != 0:
+                DB_Open()
+                dixie.log('Updating XML'+xnumber+' size in db to '+localcheck)
+                cur.execute("update xmls set size='"+localcheck+"' where id LIKE '"+xnumber+"';")
+            else:
+                DB_Open()
+                dixie.log('Adding XML'+xnumber+' size to db - '+localcheck)
+                cur.execute("insert into xmls (id, size) values ('"+xnumber+"','"+localcheck+"');")
+            con.commit()
+            cur.close()
+            con.close()
 ##########################################################################################
 # Attempt to grab the contents of the XML and fix if badly formed
 def Grab_XML_Tree(xpath):
@@ -307,135 +503,6 @@ def Grab_XML_Tree(xpath):
                 dialog.ok('Badly Formed XML File','You have an error on line [COLOR=dodgerblue]'+str(traceerror)+'[/COLOR] of your XML file. Press OK to continue scanning, we will then try and fix any errors.')
                 Fix_XML(traceerror)
     return tree
-##########################################################################################
-# Create CSV for import and update chan.xml and cats.xml
-def Create_CSV(channels,channelcount,listingcount,programmes,xsource,offset):
-    listpercent =  1
-    listcount   =  1
-    mode        =  1
-    if os.path.exists(dbpath):
-        mode = 2
-    try:
-        os.remove(os.path.join(ADDON_DATA, AddonID, 'settings.cfg'))
-    except:
-        dixie.log("No settings.cfg file to remove")
-    xbmc.executebuiltin("Dialog.Close(busydialog)")
-
-# Read main chan.xml into memory so we can add any new channels
-    if not os.path.exists(chanxmlfile):
-        writefile   = open(chanxmlfile,'w+')
-        writefile.write('<?xml version="1.0" encoding="UTF-8"?>\n<tv>\n</tv>\n')
-        writefile.close()
-
-    chanxml     =  open(chanxmlfile,'r')
-    content     = chanxml.read()
-    chanxml.close()
-
-    writefile   = open(chanxmlfile,'w+')
-    replacefile = content.replace('</tv>','')
-    writefile.write(replacefile)
-    writefile.close()
-    writefile   = open(chanxmlfile,'a')
-
-# Read cats.xml into memory so we can add any new channels
-    catsxml     = open(os.path.join(ADDON_DATA,AddonID,'cats.xml'),'r')
-    content2    = catsxml.read()
-    catsxml.close()
-
-    writefile2  = open(os.path.join(ADDON_DATA,AddonID,'cats.xml'),'w+')
-    replacefile = content2.replace('</Document>','')
-    writefile2.write(replacefile)
-    writefile2.close()
-    writefile2  = open(os.path.join(ADDON_DATA,AddonID,'cats.xml'),'a')
-
-# Set a temporary list matching channel id with real name
-    dixie.log("Creating List of channels")
-    tempchans    = []
-    dixie.log("Channels Found: "+str(channelcount))
-    xbmc.executebuiltin("XBMC.Notification("+ADDON.getLocalizedString(30816)+str(channelcount)+","+ADDON.getLocalizedString(30812)+",10000,"+updateicon+")")
-    for channel in channels:
-        channelid   = channel.get("id")
-        displayname = channel.findall('display-name')
-        if len(displayname) > 3 and displayname[3]!='Independent' and not 'Affiliate' in displayname[3] and displayname[3]!='Satellite' and displayname[3]!='Sports Satellite' :
-            displayname = displayname[3].text.encode('ascii', 'ignore').replace('&','&amp;').replace("'",'').replace(",",'').replace(".",'')
-        else:
-            displayname = displayname[0].text.encode('ascii', 'ignore').replace('&','&amp;').replace("'",'').replace(",",'').replace(".",'')
-
-        if displayname in tempchans:
-            displayname  = 'donotadd'
-
-        if not displayname in tempchans:
-# Add channel to chan.xml file
-            if not '<channel id="'+str(displayname)+'">' in content:
-                writefile.write('  <channel id="'+displayname+'">\n    <display-name lang="en">'+displayname+'</display-name>\n  </channel>\n')
-# Add channel to cats.xml file
-            if not '<channel>'+str(displayname)+'</channel>' in content2:
-                writefile2.write(' <cats>\n    <category>Uncategorised</category>\n    <channel>'+displayname+'</channel>\n </cats>\n')
-            tempchans.append([channelid,displayname])
-        else:
-            dixie.log("### Duplicate channel - skipping "+str(displayname))
-
-
-    writefile.write('</tv>')
-    writefile.close()
-    writefile2.write('</Document>')
-    writefile2.close()
-
-# Loop through and grab each channel listing and add to array
-    xbmc.executebuiltin("XBMC.Notification("+ADDON.getLocalizedString(30815)+","+ADDON.getLocalizedString(30812)+",10000,"+updateicon+")")
-    currentlist  = []
-    dixie.log("Total Listings to scan in: "+str(listingcount))
-    xbmc.executebuiltin("XBMC.Notification("+ADDON.getLocalizedString(30818)+"[COLOR=dodgerblue]"+str(listingcount)+"[/COLOR],"+ADDON.getLocalizedString(30812)+",10000,"+updateicon+")")
-    writetofile = open(csvfile,'w+')
-    dp.create('Converting XML','','Please wait...','')
-    writetofile.write('channel,title,start_date,end_date,description,image_large,image_small,source,subTitle')
-    for programme in programmes:
-#        try:
-        icon = 'special://home/addons/'+AddonID+'/resources/dummy.png'
-        starttime  = programme.get("start")
-        starttime2 = Time_Convert(starttime,xsource,offset)
-        endtime    = programme.get("stop")
-        endtime2   = Time_Convert(endtime,xsource,offset)
-        channel    = programme.get("channel").encode('ascii', 'ignore')
-        try:
-            title  = programme.find('title').text.encode('ascii', 'ignore').replace(',','.').replace('"','&quot;')
-        except:
-            title = "No information available"
-        try:
-            subtitle = programme.find('sub-title').text.encode('ascii', 'ignore').replace(',','.').replace('"','&quot;')
-        except:
-            subtitle = ''
-        try:
-            desc = programme.findtext('desc', default='No programme information available').encode('ascii', 'ignore').replace(',','.').replace('"','&quot;')
-        except:
-            desc = 'No information available'
-        for icon in programme.iter('icon'):
-            icon = str(icon.attrib).replace("{'src': '",'').replace("'}",'').replace(',','.').replace('"','&quot;')
-
-# Convert the channel id to real channel name
-        for matching in tempchans:
-            if matching[0] == channel:
-                cleanchan = str(matching[1])
-
-# Check if this already exists in the database
-        if str(cleanchan)!='donotadd':
-            writetofile.write('\n"'+str(cleanchan)+'","'+str(title)+'",'+str(starttime2)+','+str(endtime2)+',"'+str(desc)+'",,'+str(icon)+',dixie.ALL CHANNELS,'+subtitle+',')
-
-        listcount += 1
-        if listcount == int(listingcount/100):
-            listcount = 0
-            dp.update(listpercent,'','','')
-            listpercent = listpercent+1
-
-#        except:
-#            try:
-#                dixie.log("FAILED to pull details for item: "+str(title)+": "+str(subtitle))
-#            except:
-#                dixie.log("FAILED to import #"+str(listcount))
-#            listcount += 1
-
-    writetofile.close()
-    Import_CSV(mode)
 ##########################################################################################
 # Import the newly created csv file
 def Import_CSV(mode):
@@ -464,18 +531,28 @@ def Import_CSV(mode):
             os.remove(tempxml)
         except:
             dixie.log("Unable to remove temp xml file, must be in use still")
-
-#        openepg = dialog.yesno(ADDON.getLocalizedString(30819),ADDON.getLocalizedString(30820))
-#        if openepg:
-#            xbmc.executebuiltin('RunAddon('+AddonID+")'")
-
+##########################################################################################
+# Return the last error
+def Last_Error():
+    errorstring = traceback.format_exc()
+    dixie.log("ERROR: "+errorstring)
+    errorlinematch  = re.compile(': line (.+?),').findall(errorstring)
+    errormatch      = errorlinematch[0] if (len(errorlinematch) > 0) else ''
+    return errormatch
+##########################################################################################
+## Function to open a URL
+def Open_URL(url):
+    req = urllib2.Request(url)
+    req.add_header('User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+    response = urllib2.urlopen(req)
+    link     = response.read()
+    response.close()
+    return link.decode('utf-8', 'ignore')
 ##########################################################################################
 # Remove the channel folders so we can repopulate. All mappings will be lost unless set in the master chan.xml
-def Start(xpath,offset,isurl):
+def Start(xpath, offset, isurl, xnumber):
     stop    = 0
-    dixie.log("XPATH: "+xpath)
-    if not os.path.exists(catsxfile):
-        shutil.copyfile(catsmaster,catsxfile)
+    dixie.log("### XPATH: "+xpath)
     try:
         os.remove(os.path.join(ADDON_DATA, AddonID, 'settings.cfg'))
     except:
@@ -496,30 +573,39 @@ def Start(xpath,offset,isurl):
         xbmc.executebuiltin("XBMC.Notification("+ADDON.getLocalizedString(30807)+","+ADDON.getLocalizedString(30811)+",10000,"+updateicon+")")
         xbmc.executebuiltin("ActivateWindow(busydialog)")
 
-# Grab the xml source, differenet sources require different methods of conversion
+# Read the local xml file
+        if isurl == 0:
+            readfile = open(xpath,'r')
+            content  = readfile.read().decode('utf-8', 'ignore')
+            readfile.close()
+
+# Read the community xml file
         if isurl == 1:
             dixie.log('File is URL, downloading to temp.xml')
-            download.download(xpath,tempxml)
+            download.download(xpath, tempxml)
             xpath = tempxml
 
-        with open(xpath) as myfile:
-            head = str([next(myfile) for x in xrange(5)])
-            xmlsource = str(re.compile('source-info-name="(.+?)"').findall(head))
-            xmlsource = str(xmlsource).replace('[','').replace(']','')
+# Read the community xml file
+        if isurl == 2:
+            download.download(xpath, tempxml)
+            xpath = tempxml
+
+            readfile = open(xpath, 'r')
+            content  = readfile.read().decode('utf-8', 'ignore')
+            readfile.close()
+
+        xmlsource = re.compile('source-info-name="(.+?)"').findall(content)
+        try:
+            xmlsource = xmlsource[0]
+        except:
+            xmlsource = 'unknown'
+
             dixie.log("XML TV SOURCE: "+xmlsource)
+        channels   = re.compile('<channel id="[\s\S]*?<\/channel').findall(content)
+        programmes = re.compile('<programme[\s\S]*?<\/programme').findall(content)
 
-# Initialise the Elemettree params
-        tree = Grab_XML_Tree(xpath)
-
-# Get root item of tree
-        root         =  tree.getroot()
-
-# Grab all channels in XML
-        channels   =  root.findall("./channel")
+# Get total amount of channels
         channelcount =  len(channels)
-
-# Grab all programmes in XML
-        programmes   =  root.findall("./programme")
 
 # Get total amount of programmes
         listingcount =  len(programmes)
@@ -529,32 +615,55 @@ def Start(xpath,offset,isurl):
             cur.close()
             con.close()
         except:
-            dixie.log("Database not open, we can continue")
-        Create_CSV(channels,channelcount,listingcount,programmes,xmlsource,offset)
+            dixie.log("### Database not open, we can continue")
+        Create_CSV(channels,channelcount,listingcount,programmes,xmlsource,offset,xnumber)
 ##########################################################################################
-# Create the main database
-def Create_DB():
-    if not os.path.exists(dbpath):
+# Function to convert timestamp into proper integer that can be used for schedules
+def Time_Convert(starttime,xsource,offset):
+# Split the time from the string that also contains the time difference
+    starttime, diff  = starttime.split(' ')
+
+    year             = starttime[:4]
+    month            = starttime[4:6]
+    day              = starttime[6:8]
+    hour             = starttime[8:10]
+    minute           = starttime[10:12]
+    secs             = starttime[12:14]
+
+# Convert the time diff factor into an integer we can work with
+    if xsource.replace("'",'') == "zap2it.com":
+        diff         = int(diff[:-2])-1+int(offset) # The -1 is to bring in line with BST
+    else:
+        diff         = int(diff[:-2])+1+int(offset) # The +1 is to convert from UTC format
+    starttime        = datetime.datetime(int(year),int(month),int(day),int(hour),int(minute),int(secs))
+    starttime        = starttime + datetime.timedelta(hours=diff)
+    starttime        = time.mktime(starttime.timetuple())
+
+    return int(starttime)
+##########################################################################################
+# Check if item already exists in database
+def updateDB(chan, s_date):
+    entryexists = 0
+
+# Changed start_date from = to LIKE (03.05.16)
+    cur.execute('select channel, start_date from programs where channel LIKE "'+chan+'" and start_date LIKE "'+s_date+'";')
+    try:
+        row = cur.fetchone()
+        if row:
+            return True
+    except:
+        return False
+##########################################################################################
+# Clear the stored xml sizes so we can force an update scan
+def Wipe_XML_Sizes():
+    try:
         DB_Open()
-        versionvalues = [1,4,0]
-        try:
-            cur.execute('create table programs(channel TEXT, title TEXT, start_date TIMESTAMP, end_date TIMESTAMP, description TEXT, image_large TEXT, image_small TEXT, source TEXT, subTitle TEXT);')
-            con.commit()
-            cur.execute('create table updates(id INTEGER, source TEXT, date TEXT, programs_updated TIMESTAMP, PRIMARY KEY(id));')
-            con.commit()
-            cur.execute('create table version(major INTEGER, minor INTEGER, patch INTEGER);')
-            con.commit()
-            cur.execute('create table xmls(id INTEGER, size INTEGER);')
-            con.commit()
-            cur.execute("insert into version (major, minor, patch) values (?, ?, ?);", versionvalues)
-            con.commit()
-
-        except:
-            dixie.log("### Valid program.db file exists")
-
+        cur.execute("DELETE FROM xmls WHERE id > 0")
+        cur.execute("VACUUM")
+        con.commit()
         cur.close()
-        con.close()
-
+    except:
+        pass
 ############### SCRIPT STARTS HERE ###############
 
 # Allow update to take place if set off from settings menu even if music/video is playing
@@ -571,19 +680,6 @@ if sys.argv[1]=='full':
     dixie.log('### START CHECK ###')
     dixie.log('Checking for updated listings and clearing out old data')
 
-if usenanxml == 'true':
-    if not os.path.exists(chanxmlfile):
-        dixie.log("Copying chan.xml to addon_data")
-        shutil.copyfile(xmlmaster, chanxmlfile)
-    else:
-        dixie.log("Chan.xml file already exists in addon_data")
-
-    if not os.path.exists(catsxfile):
-        dixie.log("Copying cats.xml to addon_data")
-        shutil.copyfile(catsmaster, catsxfile)
-    else:
-        dixie.log("Cats.xml file exists in addon_data")
-
 xbmc.executebuiltin("XBMC.Notification("+ADDON.getLocalizedString(30837)+","+ADDON.getLocalizedString(30838)+",5000,"+updateicon+")")
 Create_DB()
 Grab_XML_Settings('1')
@@ -591,6 +687,21 @@ Grab_XML_Settings('2')
 Grab_XML_Settings('3')
 Grab_XML_Settings('4')
 Grab_XML_Settings('5')
+Grab_XML_Settings('6')
+Grab_XML_Settings('7')
+Grab_XML_Settings('8')
+Grab_XML_Settings('9')
+Grab_XML_Settings('10')
+Grab_XML_Settings('11')
+Grab_XML_Settings('12')
+Grab_XML_Settings('13')
+Grab_XML_Settings('14')
+Grab_XML_Settings('15')
+Grab_XML_Settings('16')
+Grab_XML_Settings('17')
+Grab_XML_Settings('18')
+Grab_XML_Settings('19')
+Grab_XML_Settings('20')
 if sys.argv[1]!='normal':
     Clean_DB()
     xbmc.executebuiltin("XBMC.Notification("+ADDON.getLocalizedString(30839)+","+ADDON.getLocalizedString(30840)+",5000,"+updateicon+")")

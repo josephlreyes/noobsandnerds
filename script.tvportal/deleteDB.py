@@ -67,21 +67,24 @@ def delete_file(filename):
         except: 
             tries -= 1 
 
-if sys.argv[1] == 'cookies':
-    try:
-        shutil.rmtree(cookiepath)
-        dixie.DialogOK('Cookies successfully removed','','Your cookies have been successfully removes, please try logging in again')
-    except:
-        dixie.DialogOK('No cookies present','','No cookies could be found on the system, please check your login info in the settings.')
+try:
+    if sys.argv[1] == 'cookies':
+        try:
+            shutil.rmtree(cookiepath)
+            dixie.DialogOK('Cookies successfully removed','','Your cookies have been successfully removes, please try logging in again')
+        except:
+            dixie.DialogOK('No cookies present','','No cookies could be found on the system, please check your login info in the settings.')
 
-if sys.argv[1] == 'resetDB':
-    dixie.ShowBusy()
-    
-    if deleteDB():
-        dixie.CloseBusy()
-        dixie.DialogOK('EPG successfully reset.', 'It will be re-created next time', 'you start the guide')    
-    
-    else:
-        dixie.CloseBusy()
-        d = xbmcgui.Dialog()
-        dixie.DialogOK('Failed to reset EPG.', 'Database may be locked,', 'please restart Kodi and try again')
+    if sys.argv[1] == 'resetDB':
+        dixie.ShowBusy()
+        
+        if deleteDB():
+            dixie.CloseBusy()
+            dixie.DialogOK('EPG successfully reset.', 'It will be re-created next time', 'you start the guide')    
+        
+        else:
+            dixie.CloseBusy()
+            d = xbmcgui.Dialog()
+            dixie.DialogOK('Failed to reset EPG.', 'Database may be locked,', 'please restart Kodi and try again')
+except:
+    pass

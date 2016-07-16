@@ -412,7 +412,17 @@ def metalliq_play(args):
                 xbmc.executebuiltin('UpdateLocalAddons')
                 xbmc.executebuiltin('UpdateAddonRepos')
                 xbmc.sleep(2000)
-                run = 1
+                counter = 0
+                while not run and counter < 10:
+                    try:
+                        reponame = repoid.getAddonInfo('name')
+                        run = 1
+                    except:
+                        xbmc.sleep(1000)
+                        counter += 1
+                if counter == 10:
+                    dialog.ok('Possible problem detected', 'There may have been a problem installing this repository, please click on the item again.')
+
     if run == 1:
         xbmc.executebuiltin("ActivateWindow(10025,plugin://%s,return)" % plugin)
         xbmc.sleep(1500)
@@ -438,23 +448,23 @@ def metalliq_play(args):
         xbmc.executebuiltin('RunPlugin(plugin://plugin.video.metalliq/live/%s/None/en/%s)' % (channel, playertype))
 
 # Check if playback works
-    while stop == 0:
-        okwindow = xbmc.getCondVisibility('Window.IsActive(okdialog)')
-        if okwindow:
-            while okwindow:
-                okwindow = xbmc.getCondVisibility('Window.IsActive(okdialog)')
-            stop = 2
-            xbmc.log('stop == 2')
-        player   = xbmc.getCondVisibility('Player.Playing')
-        if player:
-            stop = 3
-    if stop == 2:
-        if dialog.yesno('Edit Search Term?','Would you like to edit the channel name? It may be this add-on has a slightly different spelling of [COLOR=dodgerblue]%s[/COLOR]' % channel):
-            Edit_Search(channel, repository, plugin, playertype, channel_orig, itemname)
-        else:
-            Edit_SF_Name('bad', playertype, channel_orig, itemname)
-    if stop == 3:
-        Edit_SF_Name('good', playertype, channel_orig, itemname)
+        while stop == 0:
+            okwindow = xbmc.getCondVisibility('Window.IsActive(okdialog)')
+            if okwindow:
+                while okwindow:
+                    okwindow = xbmc.getCondVisibility('Window.IsActive(okdialog)')
+                stop = 2
+                xbmc.log('stop == 2')
+            player   = xbmc.getCondVisibility('Player.Playing')
+            if player:
+                stop = 3
+        if stop == 2:
+            if dialog.yesno('Edit Search Term?','Would you like to edit the channel name? It may be this add-on has a slightly different spelling of [COLOR=dodgerblue]%s[/COLOR]' % channel):
+                Edit_Search(channel, repository, plugin, playertype, channel_orig, itemname)
+            else:
+                Edit_SF_Name('bad', playertype, channel_orig, itemname)
+        if stop == 3:
+            Edit_SF_Name('good', playertype, channel_orig, itemname)
 #---------------------------------------------------------------------------------------------------
 args = sys.argv[1]
 if '|' in args:

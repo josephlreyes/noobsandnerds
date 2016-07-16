@@ -9,7 +9,7 @@
 		<setting id="testver"             	label="30900"       type="bool"   		default="false" 													visible="true"/>
         <setting id="testsettings"          label="30933" 		type="action"  		option="close"																								action="XBMC.RunScript(special://home/addons/script.tvportal/login.py,settings)"													visible="eq(-1,true)"/>
  		<setting type="lsep"                label="30897" 																								visible="true"/>
-		<setting id="login"             	label="30843"       type="bool"   		default="false" 													visible="true" />
+		<setting id="login"             	label="30843"       type="bool"   		default="true" 													visible="true" />
  		<setting id="forum"             	label="30844" 		type="text"    		default="Unofficial Kodi Support" 									visible="false" />
 
 <!-- username / password -->
@@ -19,19 +19,19 @@
 <!-- special login only features -->
 		<setting id="remoteshare"       	label="30847"       type="bool"   		default="false" 													visible="eq(-4,true) "/>
 		<setting id="remotelocation"    	label="30848"      	type="text"   		default="" 															visible="eq(-1,true) "/>
-		<setting id="inichk"          	 	label="30849" 		type="bool"   		default="false" 													visible="eq(-6,true)"/>
-		<setting id="logochk"          		label="30850"       type="bool"   		default="false" 													visible="eq(-7,true)"/>
+		<setting id="inichk"          	 	label="30849" 		type="bool"   		default="true" 													visible="eq(-6,true)"/>
+		<setting id="logochk"          		label="30850"       type="bool"   		default="true" 													visible="eq(-7,true)"/>
 		<setting id="catschk"             	label="30876"       type="bool"   		default="false" 													visible="eq(-8,true)"/>
 		<setting id="chanchk"             	label="30877"       type="bool"   		default="false" 													visible="eq(-9,true)"/>
 		<setting id="adult"             	label="30851"       type="bool"   		default="false" 													visible="eq(-10,true)"/>
-		<setting id="xmlchk"      			label="30968"       type="bool"   		default="false" 													visible="eq(-11,true)"/>
+		<setting id="xmlchk"      			label="30968"       type="bool"   		default="true" 													visible="eq(-11,true)"/>
 <!-- Login XML 1 Listings details -->
  		<setting type="lsep"            	label="30927"																								visible="eq(-1,true)"/>
-		<setting id="country11"	        	label="Country 1"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-2,true)"/>
+		<setting id="country11"	        	label="Country 1"	type="labelenum"	default="United Kingdom"																						values="None|Austria|Canada|Denmark|Finland|Germany|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-2,true)"/>
  		<setting id="offset11"           	label="30934" 		type="labelenum"	default="0" 																						values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" 													visible="eq(-3,true)"/>
 <!-- Login XML 2 Listings details -->
  		<setting type="lsep"				label="30897" 																								visible="eq(-4,true)"/>
-		<setting id="country12"	        	label="Country 2"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-5,true)"/>
+		<setting id="country12"	        	label="Country 2"	type="labelenum"	default="United States"																						values="None|Austria|Canada|Denmark|Finland|Germany|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-5,true)"/>
  		<setting id="offset12"           	label="30934" 		type="labelenum"	default="0" 																						values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" 													visible="eq(-6,true)"/>
 <!-- Login XML 3 Listings details -->
  		<setting type="lsep"				label="30897" 																								visible="eq(-7,true)"/>
@@ -197,8 +197,8 @@
  		<setting type="lsep"            	label="30897" 																									visible="true"/>
 <!-- Use NaN categories and channels configs -->
  		<setting type="lsep"            	label="30875" 																									visible="true"/>
-		<setting id="usenanchan"        	label="30841"       type="bool"   default="false" 																visible="true"/>
-		<setting id="usenancats"        	label="30874"       type="bool"   default="false" 																visible="true"/>
+		<setting id="usenanchan"        	label="30841"       type="bool"   default="true" 																visible="true"/>
+		<setting id="usenancats"        	label="30874"       type="bool"   default="true" 																visible="true"/>
  		<setting type="lsep"            	label="30897" 																									visible="true"/>
 <!-- XML 1 Listings details -->
  		<setting type="lsep"            	label="30927"																									visible="true"/>

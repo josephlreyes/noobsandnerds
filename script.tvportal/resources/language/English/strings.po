@@ -466,7 +466,7 @@ msgid "SF Folders Creation Complete"
 msgstr ""
 
 msgctxt "#30810"
-msgid "Your Super Favourites path has now been updated. Channels will only show if they have at least one favourite added. We recommend adding multiple favourites in each section so the addon can try them all until it finds a working one."
+msgid "Your Super Favourites path has now been updated. Channels will only show if they have at least one favourite added."
 msgstr ""
 
 msgctxt "#30811"
@@ -1103,4 +1103,8 @@ msgstr ""
 
 msgctxt "#30969"
 msgid "[COLOR=gold]Scan in XML File - this can take a long time![/COLOR]"
+msgstr ""
+
+msgctxt "#30970"
+msgid "Both your standard SF folders and Metalliq SF folders have been created.  Super Favourites will only show as options in the EPG if you actually add a favourite to one or more of the folders."
 msgstr ""

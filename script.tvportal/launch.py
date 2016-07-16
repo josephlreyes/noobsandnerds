@@ -22,7 +22,6 @@ import xbmcaddon
 import xbmcgui
 import urllib
 import urllib2
-from hashlib import md5
 import socket
 import os
 import re
@@ -68,9 +67,7 @@ usenancats   = ADDON.getSetting('usenancats')
 logofolder   = os.path.join('special://profile/addon_data/script.tvportal/extras/logos',logos)
 image        = xbmcgui.ControlImage
 
-FIRSTRUN = dixie.GetSetting('FIRSTRUN') == 'true'
-
-
+#########################################################################################
 def showChangelog(addonID=None):
     try:
         f     = open(ADDON.getAddonInfo('changelog'))
@@ -81,8 +78,7 @@ def showChangelog(addonID=None):
 
     except:
         pass
-
-
+#########################################################################################
 def showText(heading, text):
     id = 10147
 
@@ -101,8 +97,7 @@ def showText(heading, text):
             # return
         except:
             pass
-
-
+#########################################################################################
 def CheckForChannels():
     dir    = dixie.GetChannelFolder()
     folder = os.path.join(dir, 'channels')
@@ -115,16 +110,13 @@ def CheckForChannels():
     backup = os.path.join(dir, 'channels-backup')
     if not sfile.exists(backup):
         dixie.BackupChannels()
-
-
+#########################################################################################
 def CheckIniVersion():
     getIni.getIni()
-
-
+#########################################################################################
 def CheckFilmOn():
     getIni.ftvIni()
-
-
+#########################################################################################
 def CopyKeymap():
     return
     src = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'zOTT.xml')
@@ -145,8 +137,7 @@ def CopyKeymap():
 
     xbmc.sleep(1000)
     xbmc.executebuiltin('Action(reloadkeymaps)')
-
-
+#########################################################################################
 def RemoveKeymap():
     return
     src = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')), 'super_favourites_menu.xml')
@@ -331,8 +322,7 @@ def create_channels(sfchannels):
     writefile.close()
     writefile2.write('</Document>')
     writefile2.close()
-
-
+#########################################################################################
 xbmc.executebuiltin("ActivateWindow(busydialog)")
 kodi = True
 if xbmcgui.Window(10000).getProperty('OTT_KODI').lower() == 'false':

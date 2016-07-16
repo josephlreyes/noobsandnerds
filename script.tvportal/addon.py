@@ -1,6 +1,14 @@
+# TV Portal EPG Launcher
+# Copyright (C) 2016 Lee Randall (whufclee)
 #
-#      Copyright (C) 2016 noobsandnerds.com
-#
+
+#  I M P O R T A N T :
+
+#  You are free to use this code under the rules set out in the license below.
+#  Should you wish to re-use this code please credit whufclee for the original work.
+#  However under NO circumstances should you remove this license!
+
+#  GPL:
 #  This Program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation; either version 2, or (at your option)
@@ -12,19 +20,25 @@
 #  GNU General Public License for more details.
 #
 #  You should have received a copy of the GNU General Public License
-#  along with XBMC; see the file COPYING.  If not, write to
+#  along with this Program; see the file LICENSE.txt.  If not, write to
 #  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 #  http://www.gnu.org/copyleft/gpl.html
-#
 
 import xbmc, xbmcaddon, xbmcgui, os
 import dixie, shutil
 
 AddonID          =  'script.tvportal'
 ADDON            =  xbmcaddon.Addon(id=AddonID)
+SFADDON          =  xbmcaddon.Addon(id='plugin.program.super.favourites')
 showSFchannels   =  ADDON.getSetting('showSFchannels')
 usenanchan       =  ADDON.getSetting('usenanchan')
 usenancats       =  ADDON.getSetting('usenancats')
+sf_channels      =  ADDON.getSetting('SF_CHANNELS')
+showSFchannels   =  ADDON.getSetting('showSFchannels')
+add_sf_items     =  ADDON.getSetting('add_sf_items')
+sf_metalliq      =  ADDON.getSetting('SF_METALLIQ')
+firstrun         =  ADDON.getSetting('FIRSTRUN')
+sf_folder        =  SFADDON.getSetting('FOLDER')
 USERDATA         =  xbmc.translatePath(os.path.join('special://home/userdata',''))
 ADDON_DATA       =  xbmc.translatePath(os.path.join(USERDATA,'addon_data'))
 ADDONS           =  xbmc.translatePath('special://home/addons')
@@ -41,7 +55,7 @@ chanxml          =  os.path.join(datapath,   'chan.xml')
 catsxml          =  os.path.join(datapath,   'cats.xml')
 dialog           =  xbmcgui.Dialog()
 cont             =  0
-
+#########################################################################################
 if not os.path.exists(os.path.join(ADDON_DATA,AddonID)):
     dixie.log("New addon_data folder created")
     os.makedirs(os.path.join(ADDON_DATA,AddonID))
@@ -62,6 +76,23 @@ if not os.path.exists(chanxml) and usenanchan == 'true':
     shutil.copyfile(xmlmaster, chanxml)
 else:
     dixie.log("Chan.xml file already exists in addon_data")
+
+if sf_channels == '' and (sf_metalliq == 'true' or add_sf_items == 'true' or showSFchannels == 'true') and firstrun == 'false':
+    if dialog.yesno('Super Folder Setup', 'Your Super Folders have not yet been setup, would you like to do so now? If you choose no you can always set it up manually later.'):
+        if not os.path.exists(xbmc.translatePath(sf_folder)) or sf_folder == '':
+            dialog.ok('Invalid location', 'The location you have setup in your Super Favourites add-on is not valid. Please browse to a valid folder - we recommend using the default plugin.program.super.favourites folder in addon_data.')
+            SF_Path = dialog.browse(3, 'Select the new Super Favourite data path', 'files', '', False, False)
+            SFADDON.setSetting('FOLDER', SF_Path)
+        default_path = os.path.join(sf_folder,'HOME_LIVE_TV')
+        try:
+            os.makedirs(default_path)
+            ADDON.setSetting('SF_CHANNELS', default_path)
+            xbmc.executebuiltin('RunScript(special://home/addons/script.tvportal/createFolders.py)')
+            ADDON.setSetting('FIRSTRUN', 'true')
+        except:
+            dialog.ok('Error creating folders', 'Sorry there was an error trying to create folders in the path specified. Please make sure you have write access to the path.')
+    else:
+        ADDON.setSetting('FIRSTRUN', 'true')
 
 if not os.path.exists(catsxml) and usenancats == 'true':
     dixie.log("Copying cats.xml to addon_data")

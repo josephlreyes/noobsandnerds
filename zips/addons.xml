@@ -8136,7 +8136,7 @@ Addons Included
         </extension>
 </addon>
 
-<addon id="script.tvportal" name="TV Portal" version="2.0" provider-name="whufclee, DixieDean, Spoyser">
+<addon id="script.tvportal" name="TV Portal" version="2.0.1" provider-name="whufclee, DixieDean, Spoyser">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.3.0"/>

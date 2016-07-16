@@ -1,6 +1,14 @@
+# TV Portal Folder Generator
+# Copyright (C) 2016 Lee Randall (whufclee)
 #
-#      Copyright (C) 2016 noobsandnerds.com
-#
+
+#  I M P O R T A N T :
+
+#  You are free to use this code under the rules set out in the license below.
+#  Should you wish to re-use this code please credit whufclee for the original work.
+#  However under NO circumstances should you remove this license!
+
+#  GPL:
 #  This Program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation; either version 2, or (at your option)
@@ -12,10 +20,9 @@
 #  GNU General Public License for more details.
 #
 #  You should have received a copy of the GNU General Public License
-#  along with Kodi; see the file COPYING.  If not, write to
+#  along with this Program; see the file LICENSE.txt.  If not, write to
 #  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 #  http://www.gnu.org/copyleft/gpl.html
-#
 
 import xbmcgui
 import xbmcaddon
@@ -64,22 +71,23 @@ def Grab_Providers():
     final_array = []
 
 # Walk through files in the providers folder
-    current, dirs, files = sfile.walk(PROVIDER_PATH)
-    for file in files:
-        if fail != 1:
+    if os.path.exists(PROVIDER_PATH):
+        current, dirs, files = sfile.walk(PROVIDER_PATH)
+        for file in files:
+            if fail != 1:
 
-# Turn each line into an array then go through the array and search for keywords
-            with open(os.path.join(PROVIDER_PATH, file),'rb') as fin:
-                content     = fin.read().splitlines()
-                name        = Find_In_Lines(content, '"name"', '"')
-                repository  = Find_In_Lines(content, '"repository"', '"')
-                plugin      = Find_In_Lines(content, '"plugin"', '"')
-                playertype  = Find_In_Lines(content, '"id"', '"')
+    # Turn each line into an array then go through the array and search for keywords
+                with open(os.path.join(PROVIDER_PATH, file),'rb') as fin:
+                    content     = fin.read().splitlines()
+                    name        = Find_In_Lines(content, '"name"', '"')
+                    repository  = Find_In_Lines(content, '"repository"', '"')
+                    plugin      = Find_In_Lines(content, '"plugin"', '"')
+                    playertype  = Find_In_Lines(content, '"id"', '"')
 
-# If this is a valid live tv provider with relevant info we add to the array
-                for line in content:
-                    if '"live"' in line and '[' in line and not ']' in line and plugin != 'Unknown' and repository != 'Unknown' and repository != 'na' and name != 'Unknown' and playertype != 'Unknown':
-                        final_array.append([name, repository, plugin, playertype])
+    # If this is a valid live tv provider with relevant info we add to the array
+                    for line in content:
+                        if '"live"' in line and '[' in line and not ']' in line and plugin != 'Unknown' and repository != 'Unknown' and repository != 'na' and name != 'Unknown' and playertype != 'Unknown':
+                            final_array.append([name, repository, plugin, playertype])
     return final_array
 #--------------------------------------------------------------------------------------------------
 # Loop through a list of lines looking for a keyword and a separator
@@ -96,35 +104,39 @@ def Find_In_Lines(content, keyword, splitchar):
     return name
 #--------------------------------------------------------------------------------------------------
 if SF_CHANNELS == '':
-    dialog.ok('SF Folder Not Set', 'No Super Favourite location has been set, please the folder location in your settings then run again.')
+    dialog.ok('SF Folder Not Set', 'No Super Favourite location has been set, please set the folder location in your settings then run again.')
 else:
     provider_array  =   Grab_Providers()
-
-    if SF_CHANNELS.startswith('special://'):
-    	SF_CHANNELS = xbmc.translatePath(SF_CHANNELS)
-    	
-    try:
-        current, dirs, files = sfile.walk(OTT_CHANNELS)
-    except Exception, e:
-        dixie.log('Failed to run script: %s' % str(e))
-        
-    for file in files:
-        if not os.path.exists(os.path.join(SF_CHANNELS,file)):
-            try:
-                dixie.log(os.path.join(SF_CHANNELS,file))
-                os.makedirs(os.path.join(SF_CHANNELS,file))
-            except:
-                dixie.log('### Failed to create folder for: %s' % str(file))
-
-    if SF_METALLIQ == 'true':
-        if not os.path.exists(os.path.join(SF_CHANNELS, '-metalliq', file)):
-            os.makedirs(os.path.join(SF_CHANNELS, '-metalliq'))
+    if len(provider_array) > 0:
+        if SF_CHANNELS.startswith('special://'):
+            SF_CHANNELS = xbmc.translatePath(SF_CHANNELS)
+            
+        try:
+            current, dirs, files = sfile.walk(OTT_CHANNELS)
+        except Exception, e:
+            dixie.log('Failed to run script: %s' % str(e))
+            
         for file in files:
-            if not os.path.exists(os.path.join(SF_CHANNELS, '-metalliq', file)):
+            if not os.path.exists(os.path.join(SF_CHANNELS,file)):
                 try:
-                    os.makedirs(os.path.join(SF_CHANNELS, '-metalliq', file))
+                    dixie.log(os.path.join(SF_CHANNELS,file))
+                    os.makedirs(os.path.join(SF_CHANNELS,file))
                 except:
                     dixie.log('### Failed to create folder for: %s' % str(file))
-            Create_XML(os.path.join(SF_CHANNELS, '-metalliq', file))
 
-    dialog.ok(ADDON.getLocalizedString(30809),ADDON.getLocalizedString(30810))
+        if SF_METALLIQ == 'true':
+            if not os.path.exists(os.path.join(SF_CHANNELS, '-metalliq', file)):
+                os.makedirs(os.path.join(SF_CHANNELS, '-metalliq'))
+            for file in files:
+                if not os.path.exists(os.path.join(SF_CHANNELS, '-metalliq', file)):
+                    try:
+                        os.makedirs(os.path.join(SF_CHANNELS, '-metalliq', file))
+                    except:
+                        dixie.log('### Failed to create folder for: %s' % str(file))
+                Create_XML(os.path.join(SF_CHANNELS, '-metalliq', file))
+            dialog.ok(ADDON.getLocalizedString(30809),ADDON.getLocalizedString(30970))
+
+        else:
+            dialog.ok(ADDON.getLocalizedString(30809),ADDON.getLocalizedString(30810))
+    else:
+        dialog.ok('No Providers Found', 'No MetalliQ providers could be found.', 'Please open up your MetalliQ add-on settings and check you have the Live TV providers setup and enabled.')

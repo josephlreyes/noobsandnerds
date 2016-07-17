@@ -1,4 +1,5 @@
 import re
+import urllib
 from xbmcswift2 import xbmc
 from meta import plugin, LANG
 from meta.utils.text import to_unicode
@@ -48,7 +49,10 @@ def get_channel_parameters(channel, program, language):
                                re.IGNORECASE|re.UNICODE)
     parameters = {}
     parameters['name'] = channel
+    parameters['urlname'] = urllib.quote(parameters['name'])
+    parameters['shortname'] = parameters['name'][1:-1]
     parameters['basename'] = re.sub(channel_regex, r"\1",channel)
+    parameters['shortbasename'] = parameters['basename'][1:-1]
     parameters['extension'] = re.sub(channel_regex, r"\2",channel)
     parameters['delay'] = re.sub(channel_regex, r"\3", channel)
     parameters['program'] = program

@@ -12,7 +12,7 @@ from meta.navigation.base import get_icon_path, get_background_path
 from lastfm import lastfm
 
 from language import get_string as _
-from settings import SETTING_MUSIC_LIBRARY_FOLDER
+from settings import SETTING_MUSIC_LIBRARY_FOLDER, SETTING_MUSIC_PLAYLIST_FOLDER
 
 def update_library():
     # setup library folder
@@ -124,7 +124,10 @@ def add_music_to_library(library_folder, artist_name, album_name, track_name):
 def setup_library(library_folder):
     if library_folder[-1] != "/":
         library_folder += "/"
-
+    playlist_folder = plugin.get_setting(SETTING_MUSIC_PLAYLIST_FOLDER, converter=str)
+    if plugin.get_setting(SETTING_MUSIC_PLAYLIST_FOLDER, converter=str)[-1] != "/": playlist_folder += "/"
+    # create folders
+    if not xbmcvfs.exists(playlist_folder): xbmcvfs.mkdir(playlist_folder)
     if not xbmcvfs.exists(library_folder):
         # create folder
         xbmcvfs.mkdir(library_folder)
@@ -144,6 +147,9 @@ def setup_library(library_folder):
 def auto_music_setup(library_folder):
     if library_folder[-1] != "/":
         library_folder += "/"
+    playlist_folder = plugin.get_setting(SETTING_MUSIC_PLAYLIST_FOLDER, converter=str)
+    if plugin.get_setting(SETTING_MUSIC_PLAYLIST_FOLDER, converter=str)[-1] != "/": playlist_folder += "/"
+    if not xbmcvfs.exists(playlist_folder): xbmcvfs.mkdir(playlist_folder)
     if not xbmcvfs.exists(library_folder):
         xbmcvfs.mkdir(library_folder)
         source_thumbnail = get_icon_path("music")

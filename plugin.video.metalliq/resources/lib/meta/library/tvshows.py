@@ -61,7 +61,7 @@ def add_tvshow_to_library(library_folder, show, play_plugin = None):
         try: 
             xbmcvfs.mkdir(playlist_folder)
         except:
-            plugin.notify(msg=_('Creation of Meta Playlist Folder'), title=_('Failed'), delay=5000)
+            plugin.notify(msg=_('Creation of [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] Playlist Folder'), title=_('Failed'), delay=5000, image=get_icon_path("lists"))
             pass
     playlist_file = os.path.join(playlist_folder, id+".xsp")
     if not xbmcvfs.exists(playlist_file):
@@ -207,9 +207,11 @@ def get_player_plugin_from_library(id):
 def setup_library(library_folder):
     if library_folder[-1] != "/":
         library_folder += "/"
-
+    playlist_folder = plugin.get_setting(SETTING_TV_PLAYLIST_FOLDER, converter=str)
+    if plugin.get_setting(SETTING_TV_PLAYLIST_FOLDER, converter=str)[-1] != "/": playlist_folder += "/"
+    # create folders
+    if not xbmcvfs.exists(playlist_folder): xbmcvfs.mkdir(playlist_folder)
     if not xbmcvfs.exists(library_folder):
-        # create folder
         xbmcvfs.mkdir(library_folder)
         
         # auto configure folder
@@ -229,6 +231,9 @@ def setup_library(library_folder):
 def auto_tvshows_setup(library_folder):
     if library_folder[-1] != "/":
         library_folder += "/"
+    playlist_folder = plugin.get_setting(SETTING_TV_PLAYLIST_FOLDER, converter=str)
+    if plugin.get_setting(SETTING_TV_PLAYLIST_FOLDER, converter=str)[-1] != "/": playlist_folder += "/"
+    if not xbmcvfs.exists(playlist_folder): xbmcvfs.mkdir(playlist_folder)
     if not xbmcvfs.exists(library_folder):
         xbmcvfs.mkdir(library_folder)
         source_thumbnail = get_icon_path("tv")

@@ -1,3 +1,55 @@
+v1.0.[COLOR ff0084ff]8[/COLOR]
+- Fixed extended info's context menu integration
+- Hid library-folder location in settings (can still be changed by manually editing settings.xml in addon_data)
+- Moved some settings around a little bit
+- Added option to change language for TMDb-lookups (independent from main addon language which is still equal to system language)
+- Fixed playback when Trakt is unreachable
+ 
+v1.0.[COLOR ff0084ff]7[/COLOR]
+- Background changeable independent of theme
+- Added custom theme and background option
+- Added parameters: {shortname/title} = name/title[1:-1], {urlname/title} = urllib.quote(name/title)
+- Changed a couple of defaults in settings
+- Added some context-menu options: Direct link to EIM/[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay, Trailers, Recommended (exits [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR])
+- Added option to disable library updates
+
+v1.0.[COLOR ff0084ff]6[/COLOR]
+- Added themes
+- Added setting to auto-add stuff played by name to library
+- Added setting to use default library player when adding to library for tv shows (enabled by default)
+- Added parameters: sortname/sorttitle = name or title without article
+- Added hints: @anycontaining:Inc1|Inc2|Inc3 = next steps in dirs containing one (or more) of the inc's specified, @anynotcontaining:Exc1|Exc2|Exc3 = next steps in dirs NOT containing any of the exc's specified
+- Added shortcuts to settings accessible via pluginpath
+- Added direct link to [COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay in contextmenu
+- Added some missing translations
+- Changed player format and content (not backwards compatible with older version of [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] or Meta-video addon)
+- Changed default player-repo location
+- Merged v1.1.5 of Meta video
+- Added to noobsandnerds-repository to add functionality to TVPortal
+
+v1.0.4
+- Added metadata to addon.xml
+- Fixed trakt next episodes
+- Switched from Meta's trakt-api to [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]'s own, unique trakt-api
+v1.0.2
+- Fixed iconpath in source-creation
+v1.0.1
+- Moved images to git
+- Added @anyexcept parameter which is @any with exclusions added. Example: "@anyexcept:Exclusion1|Exclusion2|Exclusion3" (Exclusions need to exactly match dir to be excluded)
+v1.0.0
+- Movies get their own folders
+- Custom artwork (Metal)
+- Added Music
+- Added Musicvideos
+- Added toggle for music/musicvideos
+- Added TotalSetup-button to download, unzip & enable all players and set up all sources
+- Added option to parse specific player in pluginpath
+- When tvshows are added to library, a smartplaylists for that show is created as well
+- Added music categories.
+
+=============================
+[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] v1.0.0 forked from Meta v1.1.5
+
 v1.1.5
 - maintenance
 

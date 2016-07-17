@@ -295,9 +295,10 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="1.0.5" provider-name="[COLOR ff0084ff]Q[/COLOR], Midraal, forked from Team Metate's Meta-video">
+<addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="1.0.8" provider-name="[COLOR ff0084ff]Q[/COLOR], Midraal, forked from Team Metate's Meta-video">
   <requires>
     <import addon="xbmc.python" version="2.19.0"/>
+    <import addon="repository.q"/>
     <import addon="script.module.requests"/>
     <import addon="script.module.futures" version="2.2.0"/>
   </requires>

@@ -1,11 +1,12 @@
 import re
 import json
 from xbmcswift2 import xbmc
+import urllib
 
 from meta import plugin, import_tmdb, import_tvdb, create_tvdb, LANG
 from meta.gui import dialogs
 from meta.utils.properties import set_property
-from meta.utils.text import to_unicode 
+from meta.utils.text import to_unicode, to_utf8
 from meta.library.tvshows import get_player_plugin_from_library
 from meta.info import get_tvshow_metadata_tvdb, get_season_metadata_tvdb, get_episode_metadata_tvdb
 from meta.play.players import get_needed_langs, ADDON_SELECTOR
@@ -73,7 +74,8 @@ def play_episode(id, season, episode, mode):
             dialogs.ok(_("Episode info not found"), msg)
             return
         
-        params[lang].update(trakt_ids)
+        if trakt_ids != None:
+            params[lang].update(trakt_ids)
         params[lang]['info'] = show_info
         params[lang] = to_unicode(params[lang])
 
@@ -120,17 +122,18 @@ def get_episode_parameters(show, season, episode):
     parameters['showname'] = show['seriesname']
     #parameters['clearname'], _ = xbmc.getCleanMovieTitle(parameters['showname'])
     parameters['clearname'] = re.sub("(\(.*?\))", "", show['seriesname']).strip()
-    articles = ['a ', 'an ', 'the ']
-    if parameters['clearname']:
-        for article in articles:
-            if str(parameters['clearname']).startswith(article): parameters['sortname'] = str(parameters['clearname']).replace(article,'')
-            else: parameters['sortname'] = parameters['clearname']
-        parameters['shortname'] = parameters['clearname'][1:]
+    parameters['urlname'] = urllib.quote(parameters['clearname'])
+    articles = ['a ', 'A ', 'An ', 'an ', 'The ', 'the ']
+    parameters['sortname'] = parameters['clearname']
+    for article in articles:
+        if to_utf8(parameters['clearname']).startswith(article): parameters['sortname'] = to_utf8(parameters['clearname']).replace(article,'')
+    parameters['shortname'] = parameters['clearname'][1:-1]
     parameters['absolute_number'] = episode_obj.get('absolute_number')
     parameters['title'] = episode_obj.get('episodename', str(episode))
+    parameters['urltitle'] = urllib.quote(parameters['title'])
     parameters['firstaired'] = episode_obj.get('firstaired')
     parameters['year'] = show.get('year', 0)
-    parameters['imdb'] = show.get('imdb_id', '')    
+    parameters['imdb'] = show.get('imdb_id', '')
 
     try:
         genre = [x for x in show['genre'].split('|') if not x == '']

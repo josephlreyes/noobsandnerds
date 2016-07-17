@@ -126,7 +126,7 @@ def live_search_term(term):
 
 
 
-@plugin.route('/live/<channel>/<program>/<language>/<mode>', options = {"program": "None", "language": "en"})
+@plugin.route('/live/<channel>/<program>/<language>/<mode>', options = {"program": "None", "language": "en", "mode": "external"})
 def live_play(channel, program=None, language="en", mode="external"):
     """ Activate channel search """
     play_channel(channel, program, language, mode)

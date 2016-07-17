@@ -39,6 +39,14 @@ msgctxt "#30005"
 msgid "Style"
 msgstr "Stijl"
 
+msgctxt "#30006"
+msgid "Select stream..."
+msgstr "Selecteer stream..."
+
+msgctxt "#30007"
+msgid "Add to list"
+msgstr "Voeg toe aan lijst"
+
 msgctxt "#30010"
 msgid "Players URL"
 msgstr "Spelers URL"
@@ -56,8 +64,80 @@ msgid "Failed to delete cache"
 msgstr "Cache niet verwijderd"
 
 msgctxt "#30015"
-msgid "Style"
-msgstr "Stijl"
+msgid "Background"
+msgstr "Achtergrond"
+
+msgctxt "#30016"
+msgid "Custom style folder"
+msgstr "Eigen stijl map"
+
+msgctxt "#30017"
+msgid "Custom background folder"
+msgstr "Eigen achtergrond map"
+
+msgctxt "#30030"
+msgid "All movie players"
+msgstr "Alle film spelers"
+
+msgctxt "#30031"
+msgid "All tvshow players"
+msgstr "Alle tv-serie spelers"
+
+msgctxt "#30032"
+msgid "All musicvideo players"
+msgstr "Alle muziekvideo spelers"
+
+msgctxt "#30033"
+msgid "All music players"
+msgstr "Alle muziek spelers"
+
+msgctxt "#30034"
+msgid "All live players"
+msgstr "Alle live spelers"
+
+msgctxt "#30035"
+msgid "All players"
+msgstr "Alle spelers"
+
+msgctxt "#30036"
+msgid "Enabled"
+msgstr "Geactiveerd"
+
+msgctxt "#30037"
+msgid "Automated install"
+msgstr "Geautomatiseerde installatie"
+
+msgctxt "#30038"
+msgid "Started"
+msgstr "Gestart"
+
+msgctxt "#30039"
+msgid "Players"
+msgstr "Spelers"
+
+msgctxt "#30040"
+msgid "Updated"
+msgstr "Bijgewerkt"
+
+msgctxt "#30041"
+msgid "Movies library folder"
+msgstr "Films bibliotheek map"
+
+msgctxt "#30042"
+msgid "TVshows library folder"
+msgstr "TVseries bibliotheek map "
+
+msgctxt "#30043"
+msgid "Music library folder"
+msgstr "Muziek bibliotheek map"
+
+msgctxt "#30044"
+msgid "Setup done"
+msgstr "Setup gereed"
+
+msgctxt "#30045"
+msgid "Completed"
+msgstr "Voltooid"
 
 msgctxt "#30100"
 msgid "Movies"
@@ -83,6 +163,14 @@ msgctxt "#30113"
 msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a movie source?"
 msgstr "Wilt u COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] automatisch instellen als een film video bron?"
 
+msgctxt "#30114"
+msgid "Movie trailer"
+msgstr "Film trailer"
+
+msgctxt "#30115"
+msgid "Recommended movies (TMDb)"
+msgstr "Aanbevolen films (TMDb)"
+
 msgctxt "#30200"
 msgid "TV Shows"
 msgstr "TV-Series"
@@ -107,6 +195,14 @@ msgctxt "#30213"
 msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a TV show source?"
 msgstr "Wilt u [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] automatisch instellen als een TV serie video bron?"
 
+msgctxt "#30214"
+msgid "TV trailer"
+msgstr "TV trailer"
+
+msgctxt "#30215"
+msgid "Recommended TV shows (TMDb)"
+msgstr "Aanbevolen TV series (TMDb)"
+
 msgctxt "#30300"
 msgid "Library"
 msgstr "Bibliotheek"
@@ -120,12 +216,28 @@ msgid "Library folder"
 msgstr "Bibliotheek map"
 
 msgctxt "#30303"
-msgid "Update library"
+msgid "Update libraries"
 msgstr "Bibliotheek bijwerken"
 
 msgctxt "#30305"
 msgid "Set added time to release date"
 msgstr "Zet tijd van toevoegen bij uitgave datum"
+
+msgctxt "#30306"
+msgid "Enable library updates"
+msgstr "Schakel bibliotheek updates in"
+
+msgctxt "#30307"
+msgid "Movies library updates enabled"
+msgstr ""
+
+msgctxt "#30308"
+msgid "TV shows library updates enabled"
+msgstr ""
+
+msgctxt "#30309"
+msgid "Music library updates enabled"
+msgstr ""
 
 msgctxt "#30310"
 msgid "Playlist"
@@ -498,3 +610,15 @@ msgstr "Voeg films afgespeeld op naam automatisch aan bibliotheek toe?"
 msgctxt "#30821"
 msgid "Add TV shows played by name to library automaticly?"
 msgstr "Voeg TV series afgespeeld op naam automatisch toe aan bibliotheek?"
+
+msgctxt "#30822"
+msgid "Meta"
+msgstr "Meta"
+
+msgctxt "#30823"
+msgid "Adding music to database"
+msgstr "Muziek toevoegen aan database"
+
+msgctxt "#30824"
+msgid "Enable library updates"
+msgstr "Schakel bibliotheek updates in"

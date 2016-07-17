@@ -17,8 +17,11 @@ from language import get_string as _
 
 @plugin.cached(TTL=60, cache="trakt")
 def get_trakt_ids(*args, **kwargs):
-    from trakt import trakt
-    return trakt.find_trakt_ids(*args, **kwargs)
+    try:
+        from trakt import trakt
+        return trakt.find_trakt_ids(*args, **kwargs)
+    except:
+        return None
 
 def active_players(media, filters={}):
     if media == "movies":

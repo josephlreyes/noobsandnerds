@@ -1,7 +1,10 @@
 from xbmcswift2 import Plugin, xbmc
+from settings import SETTING_LANGUAGE_ID
 
 plugin = Plugin()
-LANG = xbmc.getLanguage(xbmc.ISO_639_1)
+
+if plugin.get_setting(SETTING_LANGUAGE_ID, converter=str) == "system": LANG = xbmc.getLanguage(xbmc.ISO_639_1)
+else: LANG = plugin.get_setting(SETTING_LANGUAGE_ID, converter=str)
 
 def import_tmdb():
     """ Lazy import tmdb """

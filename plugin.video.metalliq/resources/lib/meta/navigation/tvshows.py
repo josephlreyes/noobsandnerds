@@ -622,26 +622,16 @@ def build_tvshow_info(tvdb_show, tmdb_show=None):
     
 def make_tvshow_item(info):                        
     tvdb_id = info['tvdb_id']
-    
-    context_menu = [
-     (
-      _("[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay"),
-      "RunScript(script.qlickplay,info=tvinfo,tvdb_id={0})".format(tvdb_id)
-     ),
-     (   
-      _("Add to library"),
-      "RunPlugin({0})".format(plugin.url_for("tv_add_to_library", id=tvdb_id))
-     ),
-     (
-      _("Show info"), 'Action(Info)'
-     ),
-     (
-      _("Add to list"),
-      "RunPlugin({0})".format(plugin.url_for("lists_add_show_to_list", src='tvdb', id=tvdb_id,))
-     )
-    ]
-             
-    return {'label': info['title'],
+
+    if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): context_menu = [(_("[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay"), "RunScript(script.qlickplay,info=tvinfo,tvdb_id={0})".format(tvdb_id)), (_("TV trailer"),"RunScript(script.qlickplay,info=playtvtrailer,tvdb_id={0})".format(tvdb_id)), (_("Recommended tv shows (TMDb)"),"ActivateWindow(10025,plugin://script.qlickplay/?info=similartvshows&tvdb_id={0})".format(tvdb_id))]
+    elif xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): context_menu = [(_("Extended TV show info"), "RunScript(script.extendedinfo,info=extendedtvinfo,tvdb_id={0})".format(tvdb_id)), (_("TV trailer"),"RunScript(script.extendedinfo,info=playtvtrailer,tvdb_id={0})".format(tvdb_id)), (_("Recommended tv shows (TMDb)"),"ActivateWindow(10025,plugin://script.extendedinfo/?info=similartvshows&tvdb_id={0})".format(tvdb_id))]
+    else: context_menu = []
+
+    context_menu.append((_("Add to library"),"RunPlugin({0})".format(plugin.url_for("tv_add_to_library", id=tvdb_id))))
+    context_menu.append((_("Add to list"), "RunPlugin({0})".format(plugin.url_for("lists_add_show_to_list", src='tvdb', id=tvdb_id))))
+    context_menu.append((_("Show info"),'Action(Info)'))
+
+    return {'label': to_utf8(info['title']),
             'path': plugin.url_for("tv_tvshow", id=tvdb_id),
             'context_menu': context_menu,
             'thumbnail': info['poster'],
@@ -666,22 +656,10 @@ def list_seasons_tvdb(id):
             continue
         
         season_info = get_season_metadata_tvdb(show_info, season)
+        if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): context_menu = [(_("[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay"), "RunScript(script.qlickplay,info=seasoninfo,tvshow={0},season={1})".format(title, season_num)), (_("TV trailer"),"RunScript(script.qlickplay,info=playtvtrailer,tvdb_id={0})".format(id)), (_("Recommended tv shows (TMDb)"),"ActivateWindow(10025,plugin://script.qlickplay/?info=similartvshows&tvdb_id={0})".format(id))]
+        elif xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): context_menu = [(_("Extended season info"), "RunScript(script.extendedinfo,info=seasoninfo,tvshow={0},season={1})".format(title, season_num)), (_("TV trailer"),"RunScript(script.extendedinfo,info=playtvtrailer,tvdb_id={0})".format(id)), (_("Recommended tv shows (TMDb)"),"ActivateWindow(10025,plugin://script.extendedinfo/?info=similartvshows&tvdb_id={0})".format(id))]
+        else: context_menu = []
 
-        context_menu = [
-            (
-             _("[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay"),
-             "RunScript(script.qlickplay,info=seasoninfo,tvshow={0},season={1})".format(title, season_num)
-            ),
-            (
-                _("Show info"), 'Action(Info)'
-            ),
-            (
-                _("Add to list"),
-                "RunPlugin({0})".format(plugin.url_for("lists_add_season_to_list",
-                                                       src='tvdb', id=id, season=season_num))
-            )
-        ]
-        
         items.append({'label': u"%s %d" % (_("Season"), season_num),
                       'path': plugin.url_for(tv_season, id=id, season_num=season_num),
                       'context_menu': context_menu,
@@ -712,26 +690,14 @@ def list_episodes_tvdb(id, season_num):
             break
         
         episode_info = get_episode_metadata_tvdb(season_info, episode)
-                        
-        context_menu = [
-         (
-          _("[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay"),
-          "RunScript(script.qlickplay,info=episodeinfo,tvshow={0},season={1},episode={2})".format(title, season_num, episode_num)
-         ),
-         (
-          _("Select stream..."),
-          "PlayMedia({0})".format(plugin.url_for("tv_play", id=id, season=season_num, episode=episode_num, mode='select'))
-         ),
-         (
-          _("Show info"),
-          'Action(Info)'
-         ),
-         (
-          _("Add to list"),
-          "RunPlugin({0})".format(plugin.url_for("lists_add_episode_to_list", src='tvdb', id=id,
-                                                 season=season_num, episode = episode_num))
-         ),
-        ]
+
+        if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): context_menu = [(_("[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay"), "RunScript(script.qlickplay,info=episodeinfo,tvshow={0},season={1},episode={2})".format(title, season_num, episode_num)), (_("TV trailer"),"RunScript(script.qlickplay,info=playtvtrailer,tvdb_id={0})".format(id)), (_("Recommended tv shows (TMDb)"),"ActivateWindow(10025,plugin://script.qlickplay/?info=similartvshows&tvdb_id={0})".format(id))]
+        elif xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): context_menu = [(_("Extended episode info"), "RunScript(script.extendedinfo,info=episodeinfo,tvshow={0},season={1},episode={2})".format(title, season_num, episode_num)), (_("TV trailer"),"RunScript(script.extendedinfo,info=playtvtrailer,tvdb_id={0})".format(id)), (_("Recommended tv shows (TMDb)"),"ActivateWindow(10025,plugin://script.extendedinfo/?info=similartvshows&tvdb_id={0})".format(id))]
+        else: context_menu = []
+
+        context_menu.append((_("Select stream..."),"PlayMedia({0})".format(plugin.url_for("tv_play", id=id, season=season_num, episode=episode_num, mode='select'))))
+        context_menu.append((_("Add to list"), "RunPlugin({0})".format(plugin.url_for("lists_add_episode_to_list", src='tvdb', id=id, season=season_num, episode = episode_num))))
+        context_menu.append((_("Show info"),'Action(Info)'))
         
         items.append({'label': episode_info.get('title'),
                       'path': plugin.url_for("tv_play", id=id, season=season_num, episode=episode_num, mode='default'),

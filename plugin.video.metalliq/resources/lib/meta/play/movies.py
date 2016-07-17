@@ -1,9 +1,10 @@
 import json
 
 from xbmcswift2 import xbmc
+import urllib
 
 from meta import plugin, import_tmdb, LANG
-from meta.utils.text import to_unicode, parse_year
+from meta.utils.text import to_unicode, parse_year, to_utf8
 from meta.utils.properties import set_property
 from meta.info import get_movie_metadata
 from meta.play.players import get_needed_langs, ADDON_SELECTOR
@@ -49,7 +50,8 @@ def play_movie(tmdb_id, mode):
         else:
             tmdb_data = tmdb.Movies(tmdb_id).info(language=lang)
         params[lang] = get_movie_parameters(tmdb_data)
-        params[lang].update(trakt_ids)
+        if trakt_ids != None:
+            params[lang].update(trakt_ids)
         params[lang]['info'] = movie_info
         params[lang] = to_unicode(params[lang])
 
@@ -74,10 +76,16 @@ def get_movie_parameters(movie):
     parameters['id'] = movie['id']
     parameters['imdb'] = movie['imdb_id']
     parameters['title'] = movie['title']
-    parameters['shorttitle'] = parameters['title'][1:]
+    parameters['urltitle'] = urllib.quote(parameters['title'])
+    parameters['sorttitle'] = parameters['title']
+    articles = ['a ', 'A ', 'An ', 'an ', 'The ', 'the ']
+    for article in articles:
+        if to_utf8(parameters['title']).startswith(article): parameters['sorttitle'] = to_utf8(parameters['title']).replace(article,'')
+    parameters['shorttitle'] = parameters['title'][1:-1]
     parameters['original_title'] = movie['original_title']
     parameters['date'] = movie['release_date']
     parameters['year'] = parse_year(movie['release_date'])
     parameters['name'] = u'%s (%s)' % (parameters['title'], parameters['year'])
+    parameters['urlname'] = urllib.quote(parameters['name'])
     
     return parameters

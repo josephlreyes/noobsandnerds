@@ -316,29 +316,15 @@ def make_movie_item(movie_info, is_list = False):
     else:
         id = imdb_id 
         src = 'imdb'
-    
-    context_menu = [
-     (
-      _("[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay"),
-      "RunScript(script.qlickplay,info=movieinfo,id={0})".format(id)
-     ),
-     (
-       _("Select stream..."),
-       "PlayMedia({0})".format(plugin.url_for("movies_play", src=src, id=id, mode='select'))
-     ),
-     (
-      _("Add to library"), 
-      "RunPlugin({0})".format(plugin.url_for("movies_add_to_library", src=src, id=id))
-     ),
-     (
-      _("Add to list"),
-      "RunPlugin({0})".format(plugin.url_for("lists_add_movie_to_list", src=src, id=id))
-     ),
-     (
-      _("Show info"),
-      'Action(Info)'
-     ),
-    ]
+
+    if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): context_menu = [(_("[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay"), "RunScript(script.qlickplay,info=movieinfo,id={0})".format(id)), (_("Movie trailer"),"RunScript(script.qlickplay,info=playtrailer,id={0})".format(id)), (_("Recommended movies (TMDb)"),"ActivateWindow(10025,plugin://script.qlickplay/?info=similarmovies&id={0})".format(id))]
+    elif xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): context_menu = [(_("Extended movie info"), "RunScript(script.extendedinfo,info=extendedinfo,id={0})".format(id)), (_("Movie trailer"),"RunScript(script.extendedinfo,info=playtrailer,id={0})".format(id)), (_("Recommended movies (TMDb)"),"ActivateWindow(10025,plugin://script.extendedinfo/?info=similarmovies&id={0})".format(id))]
+    else: context_menu = []
+
+    context_menu.append((_("Select stream..."),"PlayMedia({0})".format(plugin.url_for("movies_play", src=src, id=id, mode='select'))))
+    context_menu.append((_("Add to library"),"RunPlugin({0})".format(plugin.url_for("movies_add_to_library", src=src, id=id))))
+    context_menu.append((_("Add to list"),"RunPlugin({0})".format(plugin.url_for("lists_add_movie_to_list", src=src, id=id))))
+    context_menu.append((_("Show info"),'Action(Info)'))
 
     if is_list:
         context_menu.append(

@@ -8,7 +8,7 @@ from meta.utils.text import equals
 
 from language import get_string as _
 
-from settings import SETTING_STYLE
+from settings import SETTING_STYLE, SETTING_STYLE_FOLDER, SETTING_BACKGROUND, SETTING_BACKGROUND_FOLDER
 
 def caller_name():
     return sys._getframe(2).f_code.co_name
@@ -45,12 +45,13 @@ def search(search_func, term = None):
         plugin.redirect(url)
 
 def get_icon_path(icon_name):
-    style = plugin.get_setting(SETTING_STYLE, converter=str)
-    return os.path.join('https://raw.githubusercontent.com/OpenELEQ/Style/master/MetalliQ/', style.lower() , icon_name+".png")
+    if plugin.get_setting(SETTING_STYLE, converter=str) != "Custom": return os.path.join('https://raw.githubusercontent.com/OpenELEQ/Style/master/MetalliQ/', str(plugin.get_setting(SETTING_STYLE, converter=str).lower()) + "/" , icon_name+".png")
+    else: return os.path.join(plugin.get_setting(SETTING_STYLE_FOLDER, converter=str), icon_name+".png")
 
 def get_background_path():
-    style = plugin.get_setting(SETTING_STYLE, converter=str)
-    return os.path.join('https://raw.githubusercontent.com/OpenELEQ/Style/master/MetalliQ/', style.lower() , "fanart.png")
+    if plugin.get_setting(SETTING_BACKGROUND, converter=str) == "Matching": return os.path.join('https://raw.githubusercontent.com/OpenELEQ/Style/master/MetalliQ/backgrounds/', str(plugin.get_setting(SETTING_STYLE, converter=str).lower()) + ".png")
+    elif plugin.get_setting(SETTING_BACKGROUND, converter=str) == "Custom": return os.path.join(plugin.get_setting(SETTING_BACKGROUND_FOLDER, converter=str), "fanart.png")
+    else: return os.path.join('https://raw.githubusercontent.com/OpenELEQ/Style/master/MetalliQ/backgrounds/', str(plugin.get_setting(SETTING_BACKGROUND, converter=str).lower()) + ".png")
 
 def get_genre_icon(genre_id):
     genre_id = int(genre_id)

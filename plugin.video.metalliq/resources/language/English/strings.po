@@ -39,6 +39,14 @@ msgctxt "#30005"
 msgid "Style"
 msgstr ""
 
+msgctxt "#30006"
+msgid "Select stream..."
+msgstr ""
+
+msgctxt "#30007"
+msgid "Add to list"
+msgstr ""
+
 msgctxt "#30010"
 msgid "Players URL"
 msgstr ""
@@ -56,7 +64,79 @@ msgid "Failed to delete cache"
 msgstr ""
 
 msgctxt "#30015"
-msgid "Style"
+msgid "Background"
+msgstr ""
+
+msgctxt "#30016"
+msgid "Custom style folder"
+msgstr ""
+
+msgctxt "#30017"
+msgid "Custom background folder"
+msgstr ""
+
+msgctxt "#30030"
+msgid "All movie players"
+msgstr ""
+
+msgctxt "#30031"
+msgid "All tvshow players"
+msgstr ""
+
+msgctxt "#30032"
+msgid "All musicvideo players"
+msgstr ""
+
+msgctxt "#30033"
+msgid "All music players"
+msgstr ""
+
+msgctxt "#30034"
+msgid "All live players"
+msgstr ""
+
+msgctxt "#30035"
+msgid "All players"
+msgstr ""
+
+msgctxt "#30036"
+msgid "Enabled"
+msgstr ""
+
+msgctxt "#30037"
+msgid "Automated install"
+msgstr ""
+
+msgctxt "#30038"
+msgid "Started"
+msgstr ""
+
+msgctxt "#30039"
+msgid "Players"
+msgstr ""
+
+msgctxt "#30040"
+msgid "Updated"
+msgstr ""
+
+msgctxt "#30041"
+msgid "Movies library folder"
+msgstr ""
+
+msgctxt "#30042"
+msgid "TVshows library folder"
+msgstr ""
+
+msgctxt "#30043"
+msgid "Music library folder"
+msgstr ""
+
+msgctxt "#30044"
+msgid "Setup done"
+msgstr ""
+
+msgctxt "#30045"
+msgid "Completed"
 msgstr ""
 
 msgctxt "#30100"
@@ -83,6 +163,14 @@ msgctxt "#30113"
 msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a movie video source?"
 msgstr ""
 
+msgctxt "#30114"
+msgid "Movie trailer"
+msgstr ""
+
+msgctxt "#30115"
+msgid "Recommended movies (TMDb)"
+msgstr ""
+
 msgctxt "#30200"
 msgid "TV Shows"
 msgstr ""
@@ -107,6 +195,14 @@ msgctxt "#30213"
 msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a TV show source?"
 msgstr ""
 
+msgctxt "#30214"
+msgid "TV trailer"
+msgstr ""
+
+msgctxt "#30215"
+msgid "Recommended TV shows (TMDb)"
+msgstr ""
+
 msgctxt "#30300"
 msgid "Library"
 msgstr ""
@@ -125,6 +221,22 @@ msgstr ""
 
 msgctxt "#30305"
 msgid "Set added time to release date"
+msgstr ""
+
+msgctxt "#30306"
+msgid "Enable library updates"
+msgstr ""
+
+msgctxt "#30307"
+msgid "Movies library updates enabled"
+msgstr ""
+
+msgctxt "#30308"
+msgid "TV shows library updates enabled"
+msgstr ""
+
+msgctxt "#30309"
+msgid "Music library updates enabled"
 msgstr ""
 
 msgctxt "#30310"
@@ -498,4 +610,16 @@ msgstr ""
 
 msgctxt "#30821"
 msgid "Add TV shows played by name to library automaticly?"
+msgstr ""
+
+msgctxt "#30822"
+msgid "Meta"
+msgstr ""
+
+msgctxt "#30823"
+msgid "Adding music to database"
+msgstr ""
+
+msgctxt "#30824"
+msgid "Enable library updates"
 msgstr ""

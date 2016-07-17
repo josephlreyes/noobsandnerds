@@ -89,18 +89,21 @@ def clear_cache():
 @plugin.route('/update_library')
 def update_library():
     is_updating = get_property("updating_library")
-    
     now = time.time()
     if is_updating and now - int(is_updating) < 120:
         plugin.log.debug("Skipping library update")
         return
-        
-    try:
-        set_property("updating_library", int(now))
-        meta.library.tvshows.update_library()
-        meta.library.movies.update_library()
-        meta.library.music.update_library()
-    finally:
+    if plugin.get_setting(SETTING_LIBRARY_UPDATES, converter=bool) == True:
+        #plugin.notify(msg=_('Library'), title=_('Updating'), delay=5000, image=get_icon_path("metalliq"))
+        try:
+            set_property("updating_library", int(now))
+            meta.library.tvshows.update_library()
+            meta.library.movies.update_library()
+            meta.library.music.update_library()
+        finally:
+            clear_property("updating_library")
+    else:
+        #plugin.notify(msg=_('Library'), title=_('Not updating'), delay=5000, image=get_icon_path("metalliq"))
         clear_property("updating_library")
 
 @plugin.route('/authenticate_trakt')
@@ -175,7 +178,7 @@ def settings_set_players(media):
 @plugin.route('/settings/default_player/<media>')
 def settings_set_default_player(media):
     players = active_players(media)
-    #players.insert(0, ADDON_SELECTOR)
+    players.insert(0, ADDON_SELECTOR)
     
     selection = dialogs.select(_("Select player"), [p.title for p in players])
     if selection >= 0:
@@ -198,7 +201,7 @@ def settings_set_default_player(media):
 @plugin.route('/settings/default_player_fromlib/<media>')
 def settings_set_default_player_fromlib(media):
     players = active_players(media)
-    #players.insert(0, ADDON_SELECTOR)
+    players.insert(0, ADDON_SELECTOR)
     
     selection = dialogs.select(_("Select player"), [p.title for p in players])
     if selection >= 0:

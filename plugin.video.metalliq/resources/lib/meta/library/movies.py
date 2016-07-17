@@ -12,7 +12,7 @@ from meta.gui import dialogs
 from meta.navigation.base import get_icon_path, get_background_path
 
 from language import get_string as _
-from settings import SETTING_MOVIES_LIBRARY_FOLDER, SETTING_LIBRARY_SET_DATE
+from settings import SETTING_MOVIES_LIBRARY_FOLDER, SETTING_MOVIES_PLAYLIST_FOLDER, SETTING_LIBRARY_SET_DATE
 
 @plugin.cached(TTL=60*2)
 def query_movies_server(url):
@@ -69,11 +69,13 @@ def add_movie_to_library(library_folder, src, id, date):
 def setup_library(library_folder):
     if library_folder[-1] != "/":
         library_folder += "/"
-
+    playlist_folder = plugin.get_setting(SETTING_MOVIES_PLAYLIST_FOLDER, converter=str)
+    if plugin.get_setting(SETTING_MOVIES_PLAYLIST_FOLDER, converter=str)[-1] != "/": playlist_folder += "/"
+    # create folders
+    if not xbmcvfs.exists(playlist_folder): xbmcvfs.mkdir(playlist_folder)
     if not xbmcvfs.exists(library_folder):
         # create folder
         xbmcvfs.mkdir(library_folder)
-        
         # auto configure folder
         msg = _("Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a movies video source?")
         if dialogs.yesno(_("Library setup"), msg):
@@ -91,6 +93,10 @@ def setup_library(library_folder):
 def auto_movie_setup(library_folder):
     if library_folder[-1] != "/":
         library_folder += "/"
+    playlist_folder = plugin.get_setting(SETTING_MOVIES_PLAYLIST_FOLDER, converter=str)
+    if plugin.get_setting(SETTING_MOVIES_PLAYLIST_FOLDER, converter=str)[-1] != "/": playlist_folder += "/"
+    # create folders
+    if not xbmcvfs.exists(playlist_folder): xbmcvfs.mkdir(playlist_folder)
     if not xbmcvfs.exists(library_folder):
         xbmcvfs.mkdir(library_folder)
         source_thumbnail = get_icon_path("movies")

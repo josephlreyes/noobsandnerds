@@ -17,7 +17,12 @@ if __name__ == "__main__":
             f.write(line)    
 
 #GENERATED
+SETTING_LANGUAGE_ID = "language_id"
 SETTING_STYLE = "style"
+SETTING_STYLE_FOLDER = "style_custom_folder"
+SETTING_BACKGROUND = "background"
+SETTING_BACKGROUND_FOLDER = "background_custom_folder"
+SETTING_LIBRARY_UPDATES = "library_updates"
 SETTING_PLAYERS_UPDATE_URL = "players_update_url"
 SETTING_MOVIES_ENABLED_PLAYERS = "movies_enabled_players"
 SETTING_MOVIES_DEFAULT_PLAYER = "movies_default_player"

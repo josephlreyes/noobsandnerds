@@ -277,12 +277,12 @@ def search_for_list(list_name, page):
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_premiered_last_week():
-    from datetime import *
+    from datetime import date, timedelta
     yesterweek = str(date.today() - timedelta(days=8))
     return call_trakt("calendars/shows/premieres/{0}/1?".format(yesterweek), params={'extended':'full,images'}, with_auth=False)
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_aired_yesterday():
-    from datetime import *
+    from datetime import date, timedelta
     yesterday = str(date.today() - timedelta(days=2))
     return call_trakt("calendars/shows/{0}/1?".format(yesterday), params={'extended':'full,images'}, with_auth=False)

@@ -153,7 +153,7 @@ class StreamsService(object):
 # Detect the root folder for SF items, set to default if not already set
         ROOT = sfAddon.getSetting('FOLDER')
         if not ROOT:
-            ROOT = 'special://profile/addon_data/plugin.program.super.favourites/'
+            ROOT = 'special://profile/addon_data/plugin.program.super.favourites'
 
         folder = os.path.join(ROOT, 'Super Favourites')
 
@@ -230,6 +230,7 @@ class StreamsService(object):
 
 # Get any Super Favourites with channel name
             superFaves = self.locateSuperFavourites(channel.id)
+            xbmc.log('### SF: %s' % superFaves)
             
             if superFaves:
                 if len(superFaves) == 1 and not '-metalliq' in superFaves[0][0]:

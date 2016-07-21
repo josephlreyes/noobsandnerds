@@ -295,7 +295,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="1.0.8" provider-name="[COLOR ff0084ff]Q[/COLOR], Midraal, forked from Team Metate's Meta-video">
+<addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="1.0.9" provider-name="[COLOR ff0084ff]Q[/COLOR], Midraal, forked from Team Metate's Meta-video">
   <requires>
     <import addon="xbmc.python" version="2.19.0"/>
     <import addon="repository.q"/>
@@ -337,6 +337,27 @@
       <content>livetv</content>
     </supportedcontent>
   <forum>http://www.noobsandnerds.com/support/showthread.php?tid=16682</forum>
+  </extension>
+</addon>
+
+<addon id="plugin.video.revvedup"
+	name="Revved Up"
+	version="0.0.1"
+	provider-name="Deezel">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.addon.common" version="2.0.0"/>
+    <import addon="plugin.video.youtube" version="5.0.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Nascar Replays</summary>
+    <description lang="en">Replays for all you Nascar Fans.[CR]Big thanks to Coldkeys for his help with this addon.[CR]Thanks to whuflclee and everyone at noobsandnerds.com for their support as well. [CR] and a big shout out to Dabutcher for the idea!!</description>
+    <platform>all</platform>
+    <forum>http://noobsandnerds.com/support</forum>
+    <website>http://noobsandnerds.com</website>
   </extension>
 </addon>
 
@@ -8137,7 +8158,7 @@ Addons Included
         </extension>
 </addon>
 
-<addon id="script.tvportal" name="TV Portal" version="2.0.1" provider-name="whufclee, DixieDean, Spoyser">
+<addon id="script.tvportal" name="TV Portal" version="2.0.3" provider-name="whufclee, DixieDean, Spoyser">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.3.0"/>

@@ -163,15 +163,63 @@ def trakt_authenticate():
         return True
     return False
 
-    
+@plugin.cached(TTL=CACHE_TTL, cache="trakt")
+def trakt_get_trending_shows_paginated(page):
+    result, pages = call_trakt("shows/trending?".format(), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    return result, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
-def trakt_get_trending_shows():
-    return call_trakt("shows/trending?".format(), params={'extended':'full,images'}, with_auth=False)
+def trakt_get_trending_shows_paginated(page):
+    result, pages = call_trakt("shows/trending?".format(), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    return result, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
-def trakt_get_trending_movies():
-    return call_trakt("movies/trending?".format(), params={'extended':'full,images'}, with_auth=False)
+def trakt_get_popular_shows_paginated(page):
+    result, pages = call_trakt("shows/popular?".format(), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    return result, pages
+
+@plugin.cached(TTL=CACHE_TTL, cache="trakt")
+def trakt_get_played_shows_paginated(page):
+    result, pages = call_trakt("shows/played/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    return result, pages
+
+@plugin.cached(TTL=CACHE_TTL, cache="trakt")
+def trakt_get_watched_shows_paginated(page):
+    result, pages = call_trakt("shows/watched/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    return result, pages
+
+@plugin.cached(TTL=CACHE_TTL, cache="trakt")
+def trakt_get_collected_shows_paginated(page):
+    result, pages = call_trakt("shows/collected/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    return result, pages
+
+@plugin.cached(TTL=CACHE_TTL, cache="trakt")
+def trakt_get_trending_movies_paginated(page):
+    return call_trakt("movies/trending?".format(), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+
+@plugin.cached(TTL=CACHE_TTL, cache="trakt")
+def trakt_get_popular_movies_paginated(page):
+    return call_trakt("movies/popular?".format(), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+
+@plugin.cached(TTL=CACHE_TTL, cache="trakt")
+def trakt_get_played_movies_paginated(page):
+    return call_trakt("movies/played/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+
+@plugin.cached(TTL=CACHE_TTL, cache="trakt")
+def trakt_get_watched_movies_paginated(page):
+    return call_trakt("movies/watched/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+
+@plugin.cached(TTL=CACHE_TTL, cache="trakt")
+def trakt_get_collected_movies_paginated(page):
+    return call_trakt("movies/collected/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+
+@plugin.cached(TTL=CACHE_TTL, cache="trakt")
+def trakt_get_collected_movies_paginated(page):
+    return call_trakt("movies/collected/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+
+@plugin.cached(TTL=CACHE_TTL, cache="trakt")
+def trakt_get_related_movies_paginated(imdb_id):
+    return call_trakt("movies/{0}/related?".format(imdb_id), params={'extended':'full,images','limit': 200}, with_auth=False)
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_collection(type):

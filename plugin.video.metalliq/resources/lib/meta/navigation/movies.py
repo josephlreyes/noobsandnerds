@@ -11,8 +11,7 @@ from meta.library.movies import setup_library, add_movie_to_library
 from meta.library.tools import scan_library
 from meta.navigation.base import search, get_icon_path, get_genre_icon, get_background_path, get_base_genres, caller_name, caller_args
 from language import get_string as _
-from settings import CACHE_TTL, SETTING_MOVIES_LIBRARY_FOLDER, SETTING_MOVIES_PLAY_BY_ADD
-
+from settings import CACHE_TTL, SETTING_MOVIES_LIBRARY_FOLDER, SETTING_MOVIES_PLAY_BY_ADD, SETTING_VIEW_ENABLED, SETTING_VIEW_MOVIES
 
 MOVIE_SORT_METHODS = [xbmcplugin.SORT_METHOD_UNSORTED, xbmcplugin.SORT_METHOD_LABEL, xbmcplugin.SORT_METHOD_DATE, xbmcplugin.SORT_METHOD_VIDEO_YEAR]
 
@@ -26,14 +25,14 @@ def movies():
             'icon': get_icon_path("search"),
         },
         {
+            'label': _("Blockbusters (TMDb)"),
+            'path': plugin.url_for(movies_blockbusters, page='1'),
+            'icon': get_icon_path("most_voted"),
+        },
+        {
             'label': _("Genres (TMDb)"),
             'path': plugin.url_for(movies_genres),
             'icon': get_icon_path("genres"),
-        },
-        {
-            'label': _("Popular (TMDb)"),
-            'path': plugin.url_for(movies_most_popular, page='1'),
-            'icon': get_icon_path("popular"),
         },
         {
             'label': _("In theatres (TMDb)"),
@@ -41,18 +40,38 @@ def movies():
             'icon': get_icon_path("intheatres"),
         },
         {
+            'label': _("Popular (TMDb)"),
+            'path': plugin.url_for(movies_most_popular, page='1'),
+            'icon': get_icon_path("popular"),
+        },
+        {
             'label': _("Top rated (TMDb)"),
             'path': plugin.url_for(movies_top_rated, page='1'),
             'icon': get_icon_path("top_rated"),
         },
         {
-            'label': _("Blockbusters (TMDb)"),
-            'path': plugin.url_for(movies_blockbusters, page='1'),
-            'icon': get_icon_path("most_voted"),
+            'label': _("Most played (Trakt)"),
+            'path': plugin.url_for(movies_trakt_played, page='1'),
+            'icon': get_icon_path("player"),
+        },
+        {
+            'label': _("Most watched (Trakt)"),
+            'path': plugin.url_for(movies_trakt_watched, page='1'),
+            'icon': get_icon_path("traktwatchlist"),
+        },
+        {
+            'label': _("Most collected (Trakt)"),
+            'path': plugin.url_for(movies_trakt_collected, page='1'),
+            'icon': get_icon_path("traktcollection"),
+        },
+        {
+            'label': _("Popular (Trakt)"),
+            'path': plugin.url_for(movies_trakt_popular, page='1'),
+            'icon': get_icon_path(""),
         },
         {
             'label': _("Trending (Trakt)"),
-            'path': plugin.url_for(movies_blockbusters, page='1'),
+            'path': plugin.url_for(movies_trakt_trending, page='1'),
             'icon': get_icon_path("trending"),
         },
         {
@@ -61,11 +80,9 @@ def movies():
             'icon': get_icon_path("trakt"), # TODO
         }
     ]
-
     fanart = plugin.addon.getAddonInfo('fanart')
     for item in items:
         item['properties'] = {'fanart_image' : get_background_path()}
-        
     return items
 
 @plugin.route('/movies/trakt')
@@ -104,7 +121,7 @@ def my_trakt_movies():
     fanart = plugin.addon.getAddonInfo('fanart')
     for item in items:
         item['properties'] = {'fanart_image' : get_background_path()}
-        
+
     return items
 
 @plugin.route('/movies/search')
@@ -185,11 +202,115 @@ def movies_genres():
               'path': plugin.url_for(movies_genre, id=id, page='1') } 
             for id, name in genres.items()], key=lambda k: k['label'])
 
-@plugin.route('/movies/trakt/trending')
-def movies_trakt_trending():
+@plugin.route('/movies/trakt/trending/<page>')
+def movies_trakt_trending(page):
     from trakt import trakt
-    result = trakt.trakt_get_trending_movies()
-    return plugin.finish(list_trakt_movies(result), sort_methods=MOVIE_SORT_METHODS)
+    results, pages = trakt.trakt_get_trending_movies_paginated(page)
+    return plugin.finish(list_trakt_movies_trending_paginated(results, pages, page), sort_methods=MOVIE_SORT_METHODS)
+
+def list_trakt_movies_trending_paginated(results, pages, page):
+    from trakt import trakt
+    results = sorted(results,key=lambda item: item["movie"]["title"].lower().replace("the ", ""))
+    genres_dict = dict([(x['slug'], x['name']) for x in trakt.trakt_get_genres("movies")])
+    movies = [get_trakt_movie_metadata(item["movie"], genres_dict) for item in results]
+    items = [make_movie_item(movie) for movie in movies]
+    nextpage = int(page) + 1
+    print "QQQQQ1" + pages
+    print "QQQQQ2" + page
+    if pages > page:
+        items.append({
+            'label': _("Next page  >>  (%s/%s)" % (nextpage, pages)).format(),
+            'path': plugin.url_for("movies_trakt_trending", page=int(page) + 1),
+            'icon': get_icon_path("item_next"),
+        })
+    return items
+
+@plugin.route('/movies/trakt/popular/<page>')
+def movies_trakt_popular(page):
+    from trakt import trakt
+    results, pages = trakt.trakt_get_popular_movies_paginated(page)
+    return plugin.finish(list_trakt_movies_popular_paginated(results, pages, page), sort_methods=MOVIE_SORT_METHODS)
+
+def list_trakt_movies_popular_paginated(results, pages, page):
+    from trakt import trakt
+    results = sorted(results,key=lambda item: item["title"].lower().replace("the ", ""))
+    genres_dict = dict([(x['slug'], x['name']) for x in trakt.trakt_get_genres("movies")])
+    movies = [get_trakt_movie_metadata(item, genres_dict) for item in results]
+    items = [make_movie_item(movie) for movie in movies]
+    nextpage = int(page) + 1
+    if pages > page:
+        items.append({
+            'label': _("Next page  >>  (%s/%s)" % (nextpage, pages)).format(),
+            'path': plugin.url_for("movies_trakt_popular", page=int(page) + 1),
+            'icon': get_icon_path("item_next"),
+        })
+    return items
+
+@plugin.route('/movies/trakt/played/<page>')
+def movies_trakt_played(page):
+    from trakt import trakt
+    results, total_items = trakt.trakt_get_played_movies_paginated(page)
+    return plugin.finish(list_trakt_movies_played_paginated(results, total_items, page), sort_methods=MOVIE_SORT_METHODS)
+
+def list_trakt_movies_played_paginated(results, total_items, page):
+    from trakt import trakt
+    results = sorted(results,key=lambda item: item["movie"]["title"].lower().replace("the ", ""))
+    genres_dict = dict([(x['slug'], x['name']) for x in trakt.trakt_get_genres("movies")])
+    movies = [get_trakt_movie_metadata(item["movie"], genres_dict) for item in results]
+    items = [make_movie_item(movie) for movie in movies]
+    nextpage = int(page) + 1
+    pages = int(total_items) // 99 + (int(total_items) % 99 > 0)
+    if int(pages) > int(page):
+        items.append({
+            'label': _("Next page  >>  (%s/%s)" % (nextpage, pages)).format(),
+            'path': plugin.url_for("movies_trakt_played", page=int(page) + 1),
+            'icon': get_icon_path("item_next"),
+        })
+    return items
+
+@plugin.route('/movies/trakt/watched/<page>')
+def movies_trakt_watched(page):
+    from trakt import trakt
+    results, total_items = trakt.trakt_get_watched_movies_paginated(page)
+    return plugin.finish(list_trakt_movies_watched_paginated(results, total_items, page), sort_methods=MOVIE_SORT_METHODS)
+
+def list_trakt_movies_watched_paginated(results, total_items, page):
+    from trakt import trakt
+    results = sorted(results,key=lambda item: item["movie"]["title"].lower().replace("the ", ""))
+    genres_dict = dict([(x['slug'], x['name']) for x in trakt.trakt_get_genres("movies")])
+    movies = [get_trakt_movie_metadata(item["movie"], genres_dict) for item in results]
+    items = [make_movie_item(movie) for movie in movies]
+    nextpage = int(page) + 1
+    pages = int(total_items) // 99 + (int(total_items) % 99 > 0)
+    if int(pages) > int(page):
+        items.append({
+            'label': _("Next page  >>  (%s/%s)" % (nextpage, pages)).format(),
+            'path': plugin.url_for("movies_trakt_watched", page=int(page) + 1),
+            'icon': get_icon_path("item_next"),
+        })
+    return items
+
+@plugin.route('/movies/trakt/collected/<page>')
+def movies_trakt_collected(page):
+    from trakt import trakt
+    results, pages = trakt.trakt_get_collected_movies_paginated(page)
+    return plugin.finish(list_trakt_movies_collected_paginated(results, total_items, page), sort_methods=MOVIE_SORT_METHODS)
+
+def list_trakt_movies_collected_paginated(results, total_items, page):
+    from trakt import trakt
+    results = sorted(results,key=lambda item: item["movie"]["title"].lower().replace("the ", ""))
+    genres_dict = dict([(x['slug'], x['name']) for x in trakt.trakt_get_genres("movies")])
+    movies = [get_trakt_movie_metadata(item["movie"], genres_dict) for item in results]
+    items = [make_movie_item(movie) for movie in movies]
+    nextpage = int(page) + 1
+    pages = int(total_items) // 99 + (int(total_items) % 99 > 0)
+    if int(pages) > int(page):
+        items.append({
+            'label': _("Next page  >>  (%s/%s)" % (nextpage, pages)).format(),
+            'path': plugin.url_for("movies_trakt_collected", page=int(page) + 1),
+            'icon': get_icon_path("item_next"),
+        })
+    return items
 
 @plugin.route('/movies/trakt/collection')
 def movies_trakt_collection():
@@ -258,6 +379,24 @@ def movies_add_to_library(src, id):
     add_movie_to_library(library_folder, src, id, date)   
     scan_library(type="video")
 
+@plugin.route('/movies/related/<id>')
+def movies_related(id):
+    import_tmdb()
+    movie = tmdb.Movies(id).info()
+    imdb_id = movie.get('imdb_id')
+    from trakt import trakt
+    results = trakt.trakt_get_related_movies_paginated(imdb_id)
+    print "QQQQQ0" + str(results)
+    return plugin.finish(list_trakt_movies_related(results), sort_methods=MOVIE_SORT_METHODS)
+
+def list_trakt_movies_related(results):
+    from trakt import trakt
+    results = sorted(results,key=lambda item: item["title"].lower().replace("the ", ""))
+    genres_dict = dict([(x['slug'], x['name']) for x in trakt.trakt_get_genres("movies")])
+    movies = [get_trakt_movie_metadata(item, genres_dict) for item in results]
+    items = [make_movie_item(movie) for movie in movies]
+    return items
+
 @plugin.route('/movies/play/<src>/<id>/<mode>')
 def movies_play(src, id, mode="external"):
     import_tmdb()
@@ -294,7 +433,7 @@ def list_tmdb_movies(result):
             })
 
     return items
-    
+
 def list_trakt_movies(results):
     from trakt import trakt
     
@@ -304,7 +443,7 @@ def list_trakt_movies(results):
     movies = [get_trakt_movie_metadata(item["movie"], genres_dict) for item in results]
     items = [make_movie_item(movie) for movie in movies]
     return items
-    
+
 def make_movie_item(movie_info, is_list = False):
 
     tmdb_id = movie_info.get('tmdb')
@@ -321,6 +460,7 @@ def make_movie_item(movie_info, is_list = False):
     elif xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): context_menu = [(_("Extended movie info"), "RunScript(script.extendedinfo,info=extendedinfo,id={0})".format(id)), (_("Movie trailer"),"RunScript(script.extendedinfo,info=playtrailer,id={0})".format(id)), (_("Recommended movies (TMDb)"),"ActivateWindow(10025,plugin://script.extendedinfo/?info=similarmovies&id={0})".format(id))]
     else: context_menu = []
 
+    context_menu.append((_("Related Movies (Trakt)"),"ActivateWindow(10025,{0})".format(plugin.url_for("movies_related", id=id))))
     context_menu.append((_("Select stream..."),"PlayMedia({0})".format(plugin.url_for("movies_play", src=src, id=id, mode='select'))))
     context_menu.append((_("Add to library"),"RunPlugin({0})".format(plugin.url_for("movies_add_to_library", src=src, id=id))))
     context_menu.append((_("Add to list"),"RunPlugin({0})".format(plugin.url_for("lists_add_movie_to_list", src=src, id=id))))

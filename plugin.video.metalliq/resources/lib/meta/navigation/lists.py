@@ -81,6 +81,7 @@ def lists_trakt_search_for_lists():
 @plugin.route('/lists/search_for_lists_term/<term>/<page>')
 def lists_search_for_lists_term(term,page):
     lists, pages = trakt.search_for_list(term, page)
+    print "QQQQQ"+str(trakt.search_for_list(term, 1))
     page = int(page)
     pages = int(pages)
     items = []

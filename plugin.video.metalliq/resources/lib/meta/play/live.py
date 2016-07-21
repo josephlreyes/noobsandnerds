@@ -4,10 +4,12 @@ from xbmcswift2 import xbmc
 from meta import plugin, LANG
 from meta.utils.text import to_unicode
 from meta.library.live import get_player_plugin_from_library
+from meta.navigation.base import get_icon_path, get_background_path
 from meta.play.players import get_needed_langs, ADDON_SELECTOR
 from meta.play.base import active_players, action_cancel, action_play, on_play_video
 
 from settings import SETTING_USE_SIMPLE_SELECTOR, SETTING_LIVE_DEFAULT_PLAYER_FROM_CONTEXT, SETTING_LIVE_DEFAULT_PLAYER_FROM_LIBRARY, SETTING_LIVE_DEFAULT_PLAYER, SETTING_LIVE_LIBRARY_FOLDER
+from language import get_string as _
 
 def play_channel(channel, program, language, mode):
     # Get players to use
@@ -21,10 +23,10 @@ def play_channel(channel, program, language, mode):
         play_plugin = plugin.get_setting(SETTING_LIVE_DEFAULT_PLAYER)
     else:
         play_plugin = mode
-    players = active_players("live", filters = {"channel": channel})
+    players = active_players("live")
     players = [p for p in players if p.id == play_plugin] or players
     if not players:
-        xbmc.executebuiltin( "Action(Info)")
+        plugin.notify(msg=_('Enable live players'), title=_('First'), delay=1000, image=get_icon_path("live"))
         action_cancel()
         return
 

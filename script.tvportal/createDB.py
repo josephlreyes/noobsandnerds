@@ -265,8 +265,9 @@ def Create_CSV(channels,channelcount,listingcount,programmes,xsource,offset,xnum
     writetofile.write('channel,title,start_date,end_date,description,image_large,image_small,source,subTitle')
     for programme in programmes:
         try:
-            channel    = re.compile('channel="(.+?)">').findall(programme)[0].encode('ascii', 'ignore').replace(' ','_')
-            if channel in idarray:
+            channel    = re.compile('channel="(.+?)">').findall(programme)[0]
+            if channel in str(idarray):
+#                channel = channel.encode('ascii', 'ignore').replace(' ','_')
                 starttime  = re.compile('start="(.+?)"').findall(programme)[0]
                 starttime2 = Time_Convert(starttime,xsource,offset)
                 endtime    = re.compile('stop="(.+?)"').findall(programme)[0]
@@ -413,7 +414,7 @@ def Grab_XML_Settings(xnumber):
     password   =  ADDON.getSetting('password')
 
     if countryxml != 'None' and int(xnumber) > 10 and login == 'true' and username != '' and password != '':
- #       try:
+        try:
             xml_urls = Grab_URL()
             for item in xml_urls:
                 item  = binascii.unhexlify(item)
@@ -424,9 +425,9 @@ def Grab_XML_Settings(xnumber):
                 dixie.log('#### XMLPATH: %s' % xmlpath)
                 localcheck = Check_Date(xmlpath)
                 dixie.log('#### LOCALCHECK: %s' % localcheck)
-            isurl = 2
-#        except:
-#           addxmltodb = 0
+            isurl = 1
+        except:
+           addxmltodb = 0
 
 # If the XML type is a local file    
     elif xmltype == 'File':
@@ -436,6 +437,7 @@ def Grab_XML_Settings(xnumber):
     
 # If the XML type is an online file
     elif xmltype == 'URL':
+        isurl   = 1
         xmlpath = ADDON.getSetting('xmlpath%s.url' % xnumber)
         dixie.log("XML"+xnumber+': URL')
         localcheck = Check_Date(xmlpath)
@@ -573,26 +575,16 @@ def Start(xpath, offset, isurl, xnumber):
         xbmc.executebuiltin("XBMC.Notification("+ADDON.getLocalizedString(30807)+","+ADDON.getLocalizedString(30811)+",10000,"+updateicon+")")
         xbmc.executebuiltin("ActivateWindow(busydialog)")
 
-# Read the local xml file
-        if isurl == 0:
-            readfile = open(xpath,'r')
-            content  = readfile.read().decode('utf-8', 'ignore')
-            readfile.close()
-
-# Read the community xml file
-        if isurl == 1:
+# Download the online xml file
+        if isurl:
             dixie.log('File is URL, downloading to temp.xml')
             download.download(xpath, tempxml)
             xpath = tempxml
 
-# Read the community xml file
-        if isurl == 2:
-            download.download(xpath, tempxml)
-            xpath = tempxml
-
-            readfile = open(xpath, 'r')
-            content  = readfile.read().decode('utf-8', 'ignore')
-            readfile.close()
+# Read contents of xml
+        readfile = open(xpath, 'r')
+        content  = readfile.read().decode('utf-8', 'ignore')
+        readfile.close()
 
         xmlsource = re.compile('source-info-name="(.+?)"').findall(content)
         try:

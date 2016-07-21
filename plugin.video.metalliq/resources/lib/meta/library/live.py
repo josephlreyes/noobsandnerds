@@ -11,7 +11,7 @@ from meta.library.tools import add_source
 from meta.gui import dialogs
 from meta.navigation.base import get_icon_path, get_background_path
 
-from settings import SETTING_LIVE_LIBRARY_FOLDER, SETTING_LIBRARY_SET_DATE
+from settings import SETTING_LIVE_LIBRARY_FOLDER, SETTING_LIBRARY_SET_DATE, SETTING_LIVE_PLAYLIST_FOLDER
 from language import get_string as _
 
 def update_library():    
@@ -58,7 +58,7 @@ def add_channel_to_library(library_folder, channel, play_plugin = None):
     if not xbmcvfs.exists(strm_filepath):
         changed = True
         strm_file = xbmcvfs.File(strm_filepath, 'w')
-        content = plugin.url_for("live_play", channel=channel, mode='library')
+        content = plugin.url_for("live_play", channel=channel, program="None", language="en", mode="library")
         strm_file.write(content)
         strm_file.close()
     return changed
@@ -90,6 +90,11 @@ def get_player_plugin_from_library(library_channel):
 def setup_library(library_folder):
     if library_folder[-1] != "/":
         library_folder += "/"
+    metalliq_playlist_folder = "special://profile/playlists/mixed/MetalliQ/"
+    if not xbmcvfs.exists(metalliq_playlist_folder): xbmcvfs.mkdir(metalliq_playlist_folder)
+    playlist_folder = plugin.get_setting(SETTING_LIVE_PLAYLIST_FOLDER, converter=str)
+    # create folders
+    if not xbmcvfs.exists(playlist_folder): xbmcvfs.mkdir(playlist_folder)
     if not xbmcvfs.exists(library_folder):
         # create folder
         xbmcvfs.mkdir(library_folder)
@@ -97,7 +102,7 @@ def setup_library(library_folder):
         msg = _("Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a channel video source?")
         if dialogs.yesno(_("Library setup"), msg):
             source_thumbnail = get_icon_path("live")
-            source_name = "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] Channels"
+            source_name = "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] " + _("Channels")
             source_content = "('{0}','','','',0,0,'<settings></settings>',0,0,NULL,NULL)".format(library_folder)
             add_source(source_name, library_folder, source_content, source_thumbnail)
     # return translated path
@@ -110,7 +115,7 @@ def auto_live_setup(library_folder):
         try:
             xbmcvfs.mkdir(library_folder)
             source_thumbnail = get_icon_path("live")
-            source_name = "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] Channels"
+            source_name = "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] " + _("Channels")
             source_content = "('{0}','','','',0,0,'<settings></settings>',0,0,NULL,NULL)".format(library_folder)
             add_source(source_name, library_folder, source_content, source_thumbnail)
             return True

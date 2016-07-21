@@ -124,6 +124,8 @@ def add_music_to_library(library_folder, artist_name, album_name, track_name):
 def setup_library(library_folder):
     if library_folder[-1] != "/":
         library_folder += "/"
+    metalliq_playlist_folder = "special://profile/playlists/mixed/MetalliQ/"
+    if not xbmcvfs.exists(metalliq_playlist_folder): xbmcvfs.mkdir(metalliq_playlist_folder)
     playlist_folder = plugin.get_setting(SETTING_MUSIC_PLAYLIST_FOLDER, converter=str)
     if plugin.get_setting(SETTING_MUSIC_PLAYLIST_FOLDER, converter=str)[-1] != "/": playlist_folder += "/"
     # create folders
@@ -134,26 +136,27 @@ def setup_library(library_folder):
         msg = _("Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a music source?")
         if dialogs.yesno(_("Library setup"), msg):
             source_thumbnail = get_icon_path("tv")
-            
-            source_name = "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] Music"
-            
+            source_name = "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] "  + _("Music")
             source_content = "('{0}','musicvideos','metadata.musicvideos.imvdb','',2147483647,0,'<settings/>',0,0,NULL,NULL)".format(library_folder)
-
             add_source(source_name, library_folder, source_content, source_thumbnail)
-
     # return translated path
     return xbmc.translatePath(library_folder)
 
 def auto_music_setup(library_folder):
     if library_folder[-1] != "/":
         library_folder += "/"
+    metalliq_playlist_folder = "special://profile/playlists/mixed/MetalliQ/"
+    if not xbmcvfs.exists(metalliq_playlist_folder): xbmcvfs.mkdir(metalliq_playlist_folder)
     playlist_folder = plugin.get_setting(SETTING_MUSIC_PLAYLIST_FOLDER, converter=str)
     if plugin.get_setting(SETTING_MUSIC_PLAYLIST_FOLDER, converter=str)[-1] != "/": playlist_folder += "/"
     if not xbmcvfs.exists(playlist_folder): xbmcvfs.mkdir(playlist_folder)
     if not xbmcvfs.exists(library_folder):
-        xbmcvfs.mkdir(library_folder)
-        source_thumbnail = get_icon_path("music")
-        source_name = "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] Music"
-        source_content = "('{0}','musicvideos','metadata.musicvideos.imvdb','',2147483647,0,'<settings/>',0,0,NULL,NULL)".format(library_folder)
-        add_source(source_name, library_folder, source_content, source_thumbnail)
-
+        try:
+            xbmcvfs.mkdir(library_folder)
+            source_thumbnail = get_icon_path("music")
+            source_name = "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] "  + _("Music")
+            source_content = "('{0}','musicvideos','metadata.musicvideos.imvdb','',2147483647,0,'<settings/>',0,0,NULL,NULL)".format(library_folder)
+            add_source(source_name, library_folder, source_content, source_thumbnail)
+            return True
+        except:
+            False

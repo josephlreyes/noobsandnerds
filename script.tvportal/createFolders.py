@@ -26,7 +26,7 @@
 
 import xbmcgui
 import xbmcaddon
-import os, re
+import os, re, sys
 import dixie
 import sfile
 
@@ -41,8 +41,8 @@ dialog         =  xbmcgui.Dialog()
 #--------------------------------------------------------------------------------------------------
 # Create favourites.xml file for the various providers
 def Create_XML(name):
-    writefile = os.path.join(name,'favourites.xml')
-    writefile = open(writefile,'w+')
+    favpath   = os.path.join(name,'favourites.xml')
+    writefile = open(favpath,'w+')
     writefile.write('<favourites>\n')
 
     channels    = name.split(os.sep)
@@ -55,6 +55,7 @@ def Create_XML(name):
         channel    = channel[:-5]
     counter    = 0
     for item in provider_array:
+
 # Grab add-on thumb and add to array
         thumb           = xbmc.translatePath('special://home/addons/%s/icon.png') % provider_array[counter][2]
         args            = channel+'|'+provider_array[counter][1]+'|'+provider_array[counter][2]+'|'+provider_array[counter][3]+'|'+channelorig+'|'+provider_array[counter][0]
@@ -103,6 +104,14 @@ def Find_In_Lines(content, keyword, splitchar):
                 fail       = 1
     return name
 #--------------------------------------------------------------------------------------------------
+if sys.argv[1] == 'silent':
+    silent = 1
+else:
+    silent = 0
+
+xbmc.log('##### SILENT = %s' % sys.argv[1])
+
+
 if SF_CHANNELS == '':
     dialog.ok('SF Folder Not Set', 'No Super Favourite location has been set, please set the folder location in your settings then run again.')
 else:
@@ -127,16 +136,21 @@ else:
         if SF_METALLIQ == 'true':
             if not os.path.exists(os.path.join(SF_CHANNELS, '-metalliq', file)):
                 os.makedirs(os.path.join(SF_CHANNELS, '-metalliq'))
-            for file in files:
-                if not os.path.exists(os.path.join(SF_CHANNELS, '-metalliq', file)):
-                    try:
-                        os.makedirs(os.path.join(SF_CHANNELS, '-metalliq', file))
-                    except:
-                        dixie.log('### Failed to create folder for: %s' % str(file))
-                Create_XML(os.path.join(SF_CHANNELS, '-metalliq', file))
-            dialog.ok(ADDON.getLocalizedString(30809),ADDON.getLocalizedString(30970))
+            try:
+                for file in files:
+                    if not os.path.exists(os.path.join(SF_CHANNELS, '-metalliq', file)):
+                        try:
+                            os.makedirs(os.path.join(SF_CHANNELS, '-metalliq', file))
+                        except:
+                            dixie.log('### Failed to create folder for: %s' % str(file))
+                    dixie.log('## Creating xml for: %s' % file)
+                    Create_XML(os.path.join(SF_CHANNELS, '-metalliq', file))
+            except:
+                pass
+            if not silent:
+                dialog.ok(ADDON.getLocalizedString(30809),ADDON.getLocalizedString(30970))
 
-        else:
+        elif not silent:
             dialog.ok(ADDON.getLocalizedString(30809),ADDON.getLocalizedString(30810))
     else:
         dialog.ok('No Providers Found', 'No MetalliQ providers could be found.', 'Please open up your MetalliQ add-on settings and check you have the Live TV providers setup and enabled.')

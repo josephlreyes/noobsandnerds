@@ -47,6 +47,14 @@ msgctxt "#30007"
 msgid "Add to list"
 msgstr ""
 
+msgctxt "#30008"
+msgid "Channel"
+msgstr ""
+
+msgctxt "#30009"
+msgid "Channels"
+msgstr ""
+
 msgctxt "#30010"
 msgid "Players URL"
 msgstr ""
@@ -75,12 +83,20 @@ msgctxt "#30017"
 msgid "Custom background folder"
 msgstr ""
 
+msgctxt "#30020"
+msgid "My channels"
+msgstr ""
+
+msgctxt "#30021"
+msgid "New channel"
+msgstr ""
+
 msgctxt "#30030"
 msgid "All movie players"
 msgstr ""
 
 msgctxt "#30031"
-msgid "All tvshow players"
+msgid "All tv show players"
 msgstr ""
 
 msgctxt "#30032"
@@ -124,7 +140,7 @@ msgid "Movies library folder"
 msgstr ""
 
 msgctxt "#30042"
-msgid "TVshows library folder"
+msgid "TV shows library folder"
 msgstr ""
 
 msgctxt "#30043"
@@ -172,7 +188,7 @@ msgid "Recommended movies (TMDb)"
 msgstr ""
 
 msgctxt "#30200"
-msgid "TV Shows"
+msgid "TV shows"
 msgstr ""
 
 msgctxt "#30201"
@@ -300,7 +316,7 @@ msgid "Hide keyboard dialog"
 msgstr ""
 
 msgctxt "#30414"
-msgid "Trakt watchlist"
+msgid "Watchlist"
 msgstr ""
 
 msgctxt "#30415"
@@ -324,12 +340,11 @@ msgid "Are you sure you want to add your entire Trakt collection to Kodi library
 msgstr ""
 
 msgctxt "#30420"
-msgid "Trakt collection"
+msgid "Collection"
 msgstr ""
 
 msgctxt "#30421"
-msgid ""
-"Are you sure you want to add your entire Trakt watchlist to Kodi library?"
+msgid "Are you sure you want to add your entire Trakt watchlist to Kodi library?"
 msgstr ""
 
 msgctxt "#30422"
@@ -337,7 +352,11 @@ msgid "You must authenticate with Trakt. Do you want to authenticate now?"
 msgstr ""
 
 msgctxt "#30423"
-msgid "My calendar"
+msgid "Calendar"
+msgstr ""
+
+msgctxt "#30424"
+msgid "Recommendations"
 msgstr ""
 
 msgctxt "#30500"
@@ -508,6 +527,10 @@ msgctxt "#30638"
 msgid "Search"
 msgstr ""
 
+msgctxt "#30639"
+msgid "Next page  >>  (%s/%s)"
+msgstr ""
+
 msgctxt "#30699"
 msgid "Preferred music type"
 msgstr ""
@@ -542,6 +565,26 @@ msgstr ""
 
 msgctxt "#30714"
 msgid "Personal (Trakt)"
+msgstr ""
+
+msgctxt "#30715"
+msgid "Popular (Trakt)"
+msgstr ""
+
+msgctxt "#30716"
+msgid "Most played (Trakt)"
+msgstr ""
+
+msgctxt "#30717"
+msgid "Most watched (Trakt)"
+msgstr ""
+
+msgctxt "#30718"
+msgid "Most collected (Trakt)"
+msgstr ""
+
+msgctxt "#30719"
+msgid "Related movies (Trakt)"
 msgstr ""
 
 msgctxt "#30800"
@@ -622,4 +665,20 @@ msgstr ""
 
 msgctxt "#30824"
 msgid "Enable library updates"
+msgstr ""
+
+msgctxt "#30825"
+msgid "Appearance"
+msgstr ""
+
+msgctxt "#30826"
+msgid "Views"
+msgstr ""
+
+msgctxt "#30827"
+msgid "Language for TMDb"
+msgstr ""
+
+msgctxt "#30828"
+msgid "Force views"
 msgstr ""

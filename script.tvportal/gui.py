@@ -511,7 +511,7 @@ class TVGuide(xbmcgui.WindowXML):
 
         if actionId in range(KEYZERO, KEYZERO+10):
             now = datetime.datetime.today()
-            #don't allow 2 OSD to be created
+# Don't allow 2 OSD to be created
             if (now - self.osdWhen).seconds > 1.5:
                 self.osdWhen = now
                 key = actionId - KEYZERO
@@ -667,44 +667,47 @@ class TVGuide(xbmcgui.WindowXML):
         if SHOW_SF == 'true' and OPEN_SF == 'true':
             chanid = CleanFilename(program.channel.id)
             dixie.log("Attempting to open SF folder: "+chanid)
-            xbmc.executebuiltin('ActivateWindow(10025,"plugin://plugin.program.super.favourites/?folder=HOME_LIVE_TV/'+chanid+'",return)')
+
+# Grab path for live tv section in SF
+            try:
+                SF_FOLDER = ADDON.getSetting('SF_CHANNELS')
+                SF_ARRAY  = SF_FOLDER.split(os.sep)
+                SF_LEN    = len(SF_ARRAY)
+                if SF_LEN > 0:
+                    SF_PATH = SF_ARRAY[SF_LEN-1]
+            except:
+                SF_PATH = 'HOME_LIVE_TV'
+            xbmc.executebuiltin('ActivateWindow(10025,"plugin://plugin.program.super.favourites/?folder=%s/%s",return)' % (SF_PATH, chanid))
         else:
             if self.playChannel(program.channel):
-                xbmc.log('##### 673')
                 if IGNORESTRM:
-                    xbmc.log('##### 675')
                     self.database.deleteCustomStreamUrl(program.channel)
                 return
             result = self.streamingService.detectStream(program.channel,catchup)
             if not result:
-                xbmc.log('##### 680')
                 if self.touch:
                     return
 
 # could not detect stream, show context menu
                 self._showContextMenu(program)
             elif type(result) == str:
-                xbmc.log('##### 687')
+
 # one single stream detected, save it and start streaming
                 self.database.setCustomStreamUrl(program.channel, result)
                 self.playChannel(program.channel)
                 if IGNORESTRM:
-                    xbmc.log('##### 692')
                     self.database.deleteCustomStreamUrl(program.channel)
 
-            else:
-                xbmc.log('##### 696')
 # multiple matches, let user decide
+            else:
                 import detect
                 d = detect.StreamAddonDialog(result)
                 d.doModal()
                 
                 if d.stream is not None:
-                    xbmc.log('##### 703')
                     self.database.setCustomStreamUrl(program.channel, d.stream)
                     self.playChannel(program.channel)
                     if IGNORESTRM:
-                        xbmc.log('##### 707')
                         self.database.deleteCustomStreamUrl(program.channel)
 
     def _showContextMenu(self, program):
@@ -1001,7 +1004,6 @@ class TVGuide(xbmcgui.WindowXML):
         if url:
             path = os.path.join(ADDON.getAddonInfo('path'), 'player.py')
             if not 'tv/play_by_name_only/' in url and not 'movies/search_by_name' in url:
-                xbmc.log('##### 1004')
                 xbmcgui.Window(10000).setProperty('OTT_CHANNEL', channel.id)
                 if url.startswith('UKTV'):
                     self.removeHighlight()
@@ -1011,9 +1013,7 @@ class TVGuide(xbmcgui.WindowXML):
                     # self.showBlackout()
             else:
                 xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, False, ''))
-                xbmc.log('##### 1014')
 
-#            if not 'plugin.video.meta' in url:
             if not wasPlaying:
                 self._hideEpg()
 

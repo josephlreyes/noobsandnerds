@@ -16,7 +16,7 @@ ICON            = os.path.join(HOME, 'icon.png')
 ICON            = xbmc.translatePath(ICON)
 ADDONS          = xbmc.translatePath('special://home/addons')
 PACKAGES        = os.path.join(ADDONS, 'packages')
-SF_CHANNELS     =  ADDON.getSetting('SF_CHANNELS')
+SF_CHANNELS     = ADDON.getSetting('SF_CHANNELS')
 dialog          = xbmcgui.Dialog()
 dp              = xbmcgui.DialogProgress()
 
@@ -64,7 +64,6 @@ def get_params(p):
     return param
 #---------------------------------------------------------------------------------------------------
 def playSF(url):
-    dixie.log("### URL: "+url)
     launchID = '10025'
     if xbmcgui.Window(10000).getProperty('OTT_LAUNCH_ID') == launchID:
         url = url.replace('ActivateWindow(%s' % launchID, 'ActivateWindow(10501')
@@ -383,25 +382,31 @@ def alternateStream(url):
 #---------------------------------------------------------------------------------------------------
 def metalliq_play(args):
     run        = 0
-    stop       = 0
     windowopen = 0
-    xbmc.log('### metalliq play args: %s' % args)
+    dixie.log('### metalliq play args: %s' % args)
     channel, repository, plugin, playertype, channel_orig, itemname = args.split('|')
     dixie.log('### %s' % channel)
     dixie.log('### %s' % repository)
     dixie.log('### %s' % plugin)
     dixie.log('### %s' % playertype)
+
+# Check if add-on is installed
     try:
         addonid         = xbmcaddon.Addon(id=plugin)
         addonname       = addonid.getAddonInfo('name')
         updateicon      = os.path.join(ADDONS, plugin, 'icon.png')
         xbmc.executebuiltin("XBMC.Notification(Please Wait...,Searching for  [COLOR=dodgerblue]"+channel+"[/COLOR] ,5000,"+updateicon+")")
         xbmc.executebuiltin('RunPlugin(plugin://plugin.video.metalliq/live/%s/None/en/%s)' % (channel, playertype))
+        Check_Playback(channel, repository, plugin, playertype, channel_orig, itemname)
+
+# If not check if the relevant repo is installed
     except:
         try:
             repoid          = xbmcaddon.Addon(id=repository)
             reponame        = repoid.getAddonInfo('name')
             run             = 1
+
+# If not then install the relevant repo
         except:
             if dialog.yesno('Repository Install', 'To install the add-on required you need the following repo:','[COLOR=dodgerblue]%s[/COLOR]' % repository,'Would you like to install?'):
                 dp.create('Downloading','[COLOR=dodgerblue]%s[/COLOR]' % repository,'Please Wait')
@@ -411,60 +416,48 @@ def metalliq_play(args):
                 dp.close()
                 xbmc.executebuiltin('UpdateLocalAddons')
                 xbmc.executebuiltin('UpdateAddonRepos')
-                xbmc.sleep(2000)
-                counter = 0
-                while not run and counter < 10:
-                    try:
-                        reponame = repoid.getAddonInfo('name')
-                        run = 1
-                    except:
-                        xbmc.sleep(1000)
-                        counter += 1
-                if counter == 10:
-                    dialog.ok('Possible problem detected', 'There may have been a problem installing this repository, please click on the item again.')
+                xbmc.sleep(4000)
+                run = 1
 
+
+# If add-on wasn't installed we install it
     if run == 1:
         xbmc.executebuiltin("ActivateWindow(10025,plugin://%s,return)" % plugin)
         xbmc.sleep(1500)
         activewindow = True
         while activewindow:
             activewindow = xbmc.getCondVisibility('Window.IsActive(yesnodialog)')
-        xbmc.sleep(500)
-        activewindow = xbmc.getCondVisibility('Window.IsActive(progressdialog)')
+            xbmc.sleep(500)
+        xbmc.sleep(1000)
+        activewindow = True
         while activewindow:
             activewindow = xbmc.getCondVisibility('Window.IsActive(progressdialog)')
-        xbmc.sleep(500)
-        activewindow = xbmc.getCondVisibility('Window.IsActive(textviewer)')
-        if activewindow:
-            windowopen = 1
-        while activewindow:
-            activewindow = xbmc.getCondVisibility('Window.IsActive(textviewer)')
-        if windowopen:
-            xbmc.executebuiltin('Action(BACK)')
-        xbmc.sleep(300)
-        xbmc.executebuiltin('Action(BACK)')
-        updateicon      = os.path.join(ADDONS, plugin, 'icon.png')
-        xbmc.executebuiltin("XBMC.Notification(Please Wait...,Searching for  [COLOR=dodgerblue]"+channel+"[/COLOR] ,5000,"+updateicon+")")
-        xbmc.executebuiltin('RunPlugin(plugin://plugin.video.metalliq/live/%s/None/en/%s)' % (channel, playertype))
+            xbmc.sleep(500)
 
+# Update enabled metalliq players
+        xbmc.executebuiltin('RunPlugin(plugin://plugin.video.metalliq/settings/players/tvportal)')
+#---------------------------------------------------------------------------------------------------
 # Check if playback works
-        while stop == 0:
-            okwindow = xbmc.getCondVisibility('Window.IsActive(okdialog)')
-            if okwindow:
-                while okwindow:
-                    okwindow = xbmc.getCondVisibility('Window.IsActive(okdialog)')
-                stop = 2
-                xbmc.log('stop == 2')
-            player   = xbmc.getCondVisibility('Player.Playing')
-            if player:
-                stop = 3
-        if stop == 2:
-            if dialog.yesno('Edit Search Term?','Would you like to edit the channel name? It may be this add-on has a slightly different spelling of [COLOR=dodgerblue]%s[/COLOR]' % channel):
-                Edit_Search(channel, repository, plugin, playertype, channel_orig, itemname)
-            else:
-                Edit_SF_Name('bad', playertype, channel_orig, itemname)
-        if stop == 3:
-            Edit_SF_Name('good', playertype, channel_orig, itemname)
+def Check_Playback(channel, repository, plugin, playertype, channel_orig, itemname):
+    stop       = 0
+    while not stop:
+        okwindow = xbmc.getCondVisibility('Window.IsActive(okdialog)')
+        if okwindow:
+            while okwindow:
+                dixie.log('### OK DIALOG PRESENT')
+                okwindow = xbmc.getCondVisibility('Window.IsActive(okdialog)')
+            stop = 1
+        player   = xbmc.getCondVisibility('Player.Playing')
+        if player:
+            stop = 2
+    if stop == 1:
+        if dialog.yesno('Edit Search Term?','Would you like to edit the channel name? It may be this add-on has a slightly different spelling of [COLOR=dodgerblue]%s[/COLOR]' % channel):
+            Edit_Search(channel, repository, plugin, playertype, channel_orig, itemname)
+        else:
+            Edit_SF_Name('bad', playertype, channel_orig, itemname)
+    if stop == 2:
+        dixie.log('### PLAYBACK GOOD')
+        Edit_SF_Name('good', playertype, channel_orig, itemname)
 #---------------------------------------------------------------------------------------------------
 args = sys.argv[1]
 if '|' in args:

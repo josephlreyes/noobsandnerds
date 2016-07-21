@@ -45,7 +45,7 @@ def root():
             'icon': get_icon_path("movies"),
         },
         {
-            'label': _("TV Shows"),
+            'label': _("TV shows"),
             'path': plugin.url_for("tv"),
             'icon': get_icon_path("tv"),
         },
@@ -114,8 +114,8 @@ def trakt_authenticate():
 @plugin.route('/settings/players/<media>')
 def settings_set_players(media):
     playericon = get_icon_path("player")
+    medias = ["movies","tvshows","musicvideos","music","live"]
     if media == "all":
-        medias = ["movies","tvshows","musicvideos","music","live"]
         for media in medias:
             mediatype = media.replace('es','e').replace('ws','w').replace('all','').replace('os','o')
             players = get_players(media)
@@ -135,6 +135,11 @@ def settings_set_players(media):
                     raise Exception("invalid parameter %s" % media)
             plugin.notify(msg=_('All '+mediatype+' players'), title=_('Enabled'), delay=1000, image=get_icon_path("player"))
         plugin.notify(msg=_('All players'), title=_('Enabled'), delay=1000, image=get_icon_path("player"))
+        return True
+    elif media == "tvportal":
+        players = get_players("live")
+        selected = [p.id for p in players]
+        plugin.set_setting(SETTING_LIVE_ENABLED_PLAYERS, selected)
         return
     else:
         mediatype = media.replace('es','e ').replace('ws','w ').replace('all','').replace('ve','ve ').replace('_','')
@@ -265,35 +270,6 @@ def auto_setup():
     else:
         plugin.notify(msg=_('Players update'), title=_('Failed'), delay=1000, image=get_icon_path("player"))
     xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/settings/players/all/)")
-    movielibraryfolder = plugin.get_setting(SETTING_MOVIES_LIBRARY_FOLDER)
-    try:
-        meta.library.movies.auto_movie_setup(movielibraryfolder)
-        plugin.notify(msg=_('Movies library folder'), title=_('Setup Done'), delay=1000, image=get_icon_path("movies"))
-    except:
-        plugin.notify(msg=_('Movies library folder'), title=_('Setup Failed'), delay=1000, image=get_icon_path("movies"))
-    tvlibraryfolder = plugin.get_setting(SETTING_TV_LIBRARY_FOLDER)
-    try:
-        meta.library.tvshows.auto_tvshows_setup(tvlibraryfolder)
-        plugin.notify(msg=_('TVShows library folder'), title=_('Setup Done'), delay=1000, image=get_icon_path("tv"))
-    except:
-        plugin.notify(msg=_('TVShows library folder'), title=_('Setup Failed'), delay=1000, image=get_icon_path("tv"))
-    musiclibraryfolder = plugin.get_setting(SETTING_MUSIC_LIBRARY_FOLDER)
-    try:
-        meta.library.music.auto_music_setup(musiclibraryfolder)
-        plugin.notify(msg=_('Music library folder'), title=_('Setup Done'), delay=1000, image=get_icon_path("music"))
-    except:
-        plugin.notify(msg=_('Music library folder'), title=_('Setup Failed'), delay=1000, image=get_icon_path("music"))
-#    livelibraryfolder = plugin.get_setting(SETTING_LIVE_LIBRARY_FOLDER)
-#    try:
-#        meta.library.live.auto_live_setup(livelibraryfolder)
-#        plugin.notify(msg=_('Live library folder'), title=_('Setup Done'), delay=1000, image=get_icon_path("live"))
-#    except:
-#        plugin.notify(msg=_('Live library folder'), title=_('Setup Failed'), delay=1000, image=get_icon_path("live"))
-    xbmc.sleep(5000)
-    while xbmc.getCondVisibility("Window.IsActive(dialoginfo)"):
-        if not xbmc.getCondVisibility("Window.IsActive(dialoginfo)"):
-            break
-    plugin.notify(msg=_('Automated install'), title=_('Completed'), delay=5000, image=get_icon_path("metalliq"))
     xbmc.executebuiltin('ClearProperty(running,home)')
 
 @plugin.route('/autoinstall')
@@ -324,6 +300,10 @@ def livesettings():
 def advancedsettings():
     openSettings(addonid, 5.0)
 
+@plugin.route('/settings/appearance/')
+def appearancesettings():
+    openSettings(addonid, 6.3)
+
 def openSettings(addonid, focus=None):
     try:
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % addonid)
@@ -338,12 +318,28 @@ def openSettings(addonid, focus=None):
 def main():
     if '/movies' in sys.argv[0]:
         xbmcplugin.setContent(int(sys.argv[1]), 'movies')
+        if plugin.get_setting(SETTING_VIEW_ENABLED, bool) == True:
+            plugin.set_view_mode(plugin.get_setting(SETTING_VIEW_MOVIES, int))
     elif '/tv' in sys.argv[0]:
         xbmcplugin.setContent(int(sys.argv[1]), 'tvshows')
-    elif '/musicvideos' in sys.argv[0]:
-        xbmcplugin.setContent(int(sys.argv[1]), 'musicvideos')
+        if plugin.get_setting(SETTING_VIEW_ENABLED, bool) == True:
+            plugin.set_view_mode(plugin.get_setting(SETTING_VIEW_TV, int))
     elif '/music' in sys.argv[0]:
-        xbmcplugin.setContent(int(sys.argv[1]), 'music')
+        xbmcplugin.setContent(int(sys.argv[1]), 'musicvideos')
+        if plugin.get_setting(SETTING_VIEW_ENABLED, bool) == True:
+            plugin.set_view_mode(plugin.get_setting(SETTING_VIEW_MUSIC, int))
+    elif '/live' in sys.argv[0]:
+        xbmcplugin.setContent(int(sys.argv[1]), 'LiveTV')
+        if plugin.get_setting(SETTING_VIEW_ENABLED, bool) == True:
+            plugin.set_view_mode(plugin.get_setting(SETTING_VIEW_LIVE, int))
+    elif '/list' in sys.argv[0]:
+        xbmcplugin.setContent(int(sys.argv[1]), 'playlists')
+        if plugin.get_setting(SETTING_VIEW_ENABLED, bool) == True:
+            plugin.set_view_mode(plugin.get_setting(SETTING_VIEW_LIST, int))
+#    else:
+#       xbmcplugin.setContent(int(sys.argv[1]), 'Video')
+#         if plugin.get_setting(SETTING_VIEW_ENABLED, bool) == True:
+#            plugin.set_view_mode(plugin.get_setting(SETTING_VIEW_MAIN, int))
     plugin.run()
 
 if __name__ == '__main__':

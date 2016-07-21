@@ -1,3 +1,9 @@
+v.2.0.3:
+- New startup options, a great setup solution for noobs who don't venture into the settings.
+- Better integration with MetalliQ, should no longer be any crashes.
+- Fixed UK listings and added Irish to the options.
+- Fixed the scanning of online and local xml files, now works with webgrab++, zap2xml and mc2xml.
+
 v.2.0:
 
 - Auto grabbing of channel data now available to NaN members (US & UK currently very good and well organised)

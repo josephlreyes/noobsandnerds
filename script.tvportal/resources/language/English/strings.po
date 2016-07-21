@@ -642,7 +642,7 @@ msgid "[B]Click to program Mini-Guide Hot Key[/B]"
 msgstr ""
 
 msgctxt "#30854"
-msgid "Only show listings you have channels set for"
+msgid "Super Favourite / MetalliQ Integration"
 msgstr ""
 
 msgctxt "#30855"
@@ -1107,4 +1107,16 @@ msgstr ""
 
 msgctxt "#30970"
 msgid "Both your standard SF folders and Metalliq SF folders have been created.  Super Favourites will only show as options in the EPG if you actually add a favourite to one or more of the folders."
+msgstr ""
+
+msgctxt "#30971"
+msgid "Clear Cookies - use if having problems with login."
+msgstr ""
+
+msgctxt "#30972"
+msgid "Update SF folders on every start"
+msgstr ""
+
+msgctxt "#30973"
+msgid "Enable All MetalliQ Players"
 msgstr ""

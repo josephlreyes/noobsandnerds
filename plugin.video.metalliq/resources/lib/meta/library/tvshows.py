@@ -35,7 +35,7 @@ def update_library():
     updated = 0
     for id in shows:
         id = int(id)
-        
+        print "QQQQQ"+str(tvdb[id])
         # add to library
         with tvdb.session.cache_disabled():
             if add_tvshow_to_library(library_folder, tvdb[id]):
@@ -128,6 +128,7 @@ def add_tvshow_to_library(library_folder, show, play_plugin = None):
             
             delete = False
             if not episode.has_aired(flexible=True):
+                print "QQQQZ"+str(episode)
                 delete = True
                 #break
             
@@ -207,37 +208,39 @@ def get_player_plugin_from_library(id):
 def setup_library(library_folder):
     if library_folder[-1] != "/":
         library_folder += "/"
+    metalliq_playlist_folder = "special://profile/playlists/mixed/MetalliQ/"
+    if not xbmcvfs.exists(metalliq_playlist_folder): xbmcvfs.mkdir(metalliq_playlist_folder)
     playlist_folder = plugin.get_setting(SETTING_TV_PLAYLIST_FOLDER, converter=str)
     if plugin.get_setting(SETTING_TV_PLAYLIST_FOLDER, converter=str)[-1] != "/": playlist_folder += "/"
     # create folders
     if not xbmcvfs.exists(playlist_folder): xbmcvfs.mkdir(playlist_folder)
     if not xbmcvfs.exists(library_folder):
         xbmcvfs.mkdir(library_folder)
-        
         # auto configure folder
         msg = _("Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a tv shows source?")
         if dialogs.yesno(_("Library setup"), msg):
             source_thumbnail = get_icon_path("tv")
-            
-            source_name = "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] TVShows"
-            
+            source_name = "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] " + _("TV Shows")
             source_content = "('{0}','tvshows','metadata.tvdb.com','',0,0,'<settings><setting id=\"RatingS\" value=\"TheTVDB\" /><setting id=\"absolutenumber\" value=\"false\" /><setting id=\"dvdorder\" value=\"false\" /><setting id=\"fallback\" value=\"true\" /><setting id=\"fanart\" value=\"true\" /><setting id=\"language\" value=\"{1}\" /></settings>',0,0,NULL,NULL)".format(library_folder, LANG)
-
             add_source(source_name, library_folder, source_content, source_thumbnail)
-
     # return translated path
     return xbmc.translatePath(library_folder)
 
 def auto_tvshows_setup(library_folder):
     if library_folder[-1] != "/":
         library_folder += "/"
+    metalliq_playlist_folder = "special://profile/playlists/mixed/MetalliQ/"
+    if not xbmcvfs.exists(metalliq_playlist_folder): xbmcvfs.mkdir(metalliq_playlist_folder)
     playlist_folder = plugin.get_setting(SETTING_TV_PLAYLIST_FOLDER, converter=str)
     if plugin.get_setting(SETTING_TV_PLAYLIST_FOLDER, converter=str)[-1] != "/": playlist_folder += "/"
     if not xbmcvfs.exists(playlist_folder): xbmcvfs.mkdir(playlist_folder)
     if not xbmcvfs.exists(library_folder):
-        xbmcvfs.mkdir(library_folder)
-        source_thumbnail = get_icon_path("tv")
-        source_name = "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] TV-Shows"
-        source_content = "('{0}','tvshows','metadata.tvdb.com','',0,0,'<settings><setting id=\"RatingS\" value=\"TheTVDB\" /><setting id=\"absolutenumber\" value=\"false\" /><setting id=\"dvdorder\" value=\"false\" /><setting id=\"fallback\" value=\"true\" /><setting id=\"fanart\" value=\"true\" /><setting id=\"language\" value=\"{1}\" /></settings>',0,0,NULL,NULL)".format(library_folder, LANG)
-        add_source(source_name, library_folder, source_content, source_thumbnail)
-
+        try:
+            xbmcvfs.mkdir(library_folder)
+            source_thumbnail = get_icon_path("tv")
+            source_name = "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] " + _("TV Shows")
+            source_content = "('{0}','tvshows','metadata.tvdb.com','',0,0,'<settings><setting id=\"RatingS\" value=\"TheTVDB\" /><setting id=\"absolutenumber\" value=\"false\" /><setting id=\"dvdorder\" value=\"false\" /><setting id=\"fallback\" value=\"true\" /><setting id=\"fanart\" value=\"true\" /><setting id=\"language\" value=\"{1}\" /></settings>',0,0,NULL,NULL)".format(library_folder, LANG)
+            add_source(source_name, library_folder, source_content, source_thumbnail)
+            return True
+        except:
+            False

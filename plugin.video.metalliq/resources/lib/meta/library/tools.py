@@ -2,11 +2,8 @@ import os
 import glob
 import time
 import xml.etree.ElementTree as ET
-try:
-    from sqlite3 import dbapi2 as database
-except:
-    from pysqlite2 import dbapi2 as database
-
+try: from sqlite3 import dbapi2 as database
+except: from pysqlite2 import dbapi2 as database
 from xbmcswift2 import xbmc
 from meta.utils.rpc import RPC
 
@@ -15,13 +12,12 @@ def scan_library(type="video"):
      (xbmc.getCondVisibility('Library.IsScanning') or \
      xbmc.getCondVisibility('Window.IsActive(progressdialog)')):
         xbmc.sleep(1000)
-    xbmc.executebuiltin('UpdateLibrary({0})'.format(type))
-    
+    xbmc.executebuiltin('UpdateLibrary(video)')
+    xbmc.executebuiltin('UpdateLibrary(music)')
+
 def get_movie_from_library(imdbnumber):
     imdbnumber = str(imdbnumber)
-    
     db_movies = RPC.video_library.get_movies(properties=['title', 'file', 'imdbnumber'])
-        
     for movie in db_movies.get('movies', []):
         if movie['imdbnumber'] != imdbnumber:
             continue
@@ -34,16 +30,12 @@ def get_episode_from_library(imdbnumber, season, episode):
     imdbnumber = str(imdbnumber)
     season = int(season)
     episode = int(episode)
-    
     db_shows = RPC.video_library.get_tvshows(properties=['imdbnumber', 'file'])
-    
     for show in db_shows.get('tvshows', []):
         if show['imdbnumber'] != imdbnumber:
             continue
-            
         db_episodes = RPC.video_library.get_episodes(tvshowid=show["tvshowid"],\
             season=season, properties=['episode', 'file', 'title'])
-        
         for ep in db_episodes.get('episodes', []):
             if ep['episode'] != episode:
                 continue
@@ -73,23 +65,18 @@ def add_source(source_name, source_path, source_content, source_thumbnail):
         <default pathversion="1" />
     </files>
 </sources>""")
-    
     existing_source = _get_source_attr(xml_file, source_name, "path")
     if existing_source and existing_source != source_path:
         _remove_source_content(existing_source)
-    
     if _add_source_xml(xml_file, source_name, source_path, source_thumbnail):
         _set_source_content(source_content)
-    
 #########   XML functions   #########
 
 def _add_source_xml(xml_file, name, path, thumbnail):
     tree = ET.parse(xml_file)
     root = tree.getroot()
     sources = root.find('video')
-
     existing_source = None
-    
     for source in sources.findall('source'):
         xml_name = source.find("name").text
         xml_path = source.find("path").text
@@ -97,7 +84,6 @@ def _add_source_xml(xml_file, name, path, thumbnail):
         if xml_name == name or xml_path == path or xml_thumbnail == thumbnail:
             existing_source = source
             break
-            
     if existing_source is not None:
         xml_name = source.find("name").text
         xml_path = source.find("path").text
@@ -125,7 +111,6 @@ def _add_source_xml(xml_file, name, path, thumbnail):
         new_path.text = path
         new_thumbnail.text = thumbnail
         new_allowsharing.text = "true"
-    
     _indent_xml(root)
     tree.write(xml_file)
     return True
@@ -161,19 +146,15 @@ def _db_execute(db_name, command):
     databaseFile = _get_database(db_name)
     if not databaseFile:
         return False
-        
     dbcon = database.connect(databaseFile)
     dbcur = dbcon.cursor()
-    
     dbcur.execute(command)
     #try:
     #    dbcur.execute(command)
     #except database.Error as e:
     #    print "MySQL Error :", e.args[0], q.decode("utf-8")
     #    return False
-        
     dbcon.commit()
-    
     return True
 
 def _get_database(db_name):
@@ -191,4 +172,3 @@ def _set_source_content(content):
     q = "INSERT OR REPLACE INTO path (strPath,strContent,strScraper,strHash,scanRecursive,useFolderNames,strSettings,noUpdate,exclude,dateAdded,idParentPath) VALUES "
     q += content
     return _db_execute("MyVideos*.db", q)
-    

@@ -33,11 +33,17 @@ SFADDON          =  xbmcaddon.Addon(id='plugin.program.super.favourites')
 showSFchannels   =  ADDON.getSetting('showSFchannels')
 usenanchan       =  ADDON.getSetting('usenanchan')
 usenancats       =  ADDON.getSetting('usenancats')
+username         =  ADDON.getSetting('username')
+password	     =  ADDON.getSetting('password')
+uselogin 		 =  ADDON.getSetting('login')
 sf_channels      =  ADDON.getSetting('SF_CHANNELS')
 showSFchannels   =  ADDON.getSetting('showSFchannels')
 add_sf_items     =  ADDON.getSetting('add_sf_items')
 sf_metalliq      =  ADDON.getSetting('SF_METALLIQ')
 firstrun         =  ADDON.getSetting('FIRSTRUN')
+update_folders   =  ADDON.getSetting('update_folders')
+enable_players   =  ADDON.getSetting('enable_players')
+usecatchup       =  ADDON.getSetting('usecatchup')
 sf_folder        =  SFADDON.getSetting('FOLDER')
 USERDATA         =  xbmc.translatePath(os.path.join('special://home/userdata',''))
 ADDON_DATA       =  xbmc.translatePath(os.path.join(USERDATA,'addon_data'))
@@ -79,26 +85,39 @@ else:
 
 if sf_channels == '' and (sf_metalliq == 'true' or add_sf_items == 'true' or showSFchannels == 'true') and firstrun == 'false':
     if dialog.yesno('Super Folder Setup', 'Your Super Folders have not yet been setup, would you like to do so now? If you choose no you can always set it up manually later.'):
-        if not os.path.exists(xbmc.translatePath(sf_folder)) or sf_folder == '':
+        if sf_folder == '':
+            sf_folder = xbmc.translatePath('special://profile/addon_data/plugin.program.super.favourites')
+        elif not os.path.exists(xbmc.translatePath(sf_folder)):
             dialog.ok('Invalid location', 'The location you have setup in your Super Favourites add-on is not valid. Please browse to a valid folder - we recommend using the default plugin.program.super.favourites folder in addon_data.')
-            SF_Path = dialog.browse(3, 'Select the new Super Favourite data path', 'files', '', False, False)
-            SFADDON.setSetting('FOLDER', SF_Path)
-        default_path = os.path.join(sf_folder,'HOME_LIVE_TV')
+            sf_folder = dialog.browse(3, 'Select the new Super Favourite data path', 'files', '', False, False)
+        SFADDON.setSetting('FOLDER',sf_folder)
+        SFADDON.setSetting('SHOWUNAVAIL','true')
+        SFADDON.setSetting('SHOWNEW','false')
+        SFADDON.setSetting('SHOWXBMC','false')
+        SFADDON.setSetting('SHOWSEP','false')
+        SFADDON.setSetting('ALPHA_SORT','true')
+        default_path = os.path.join(sf_folder,'Super Favourites', 'HOME_LIVE_TV')
         try:
             os.makedirs(default_path)
             ADDON.setSetting('SF_CHANNELS', default_path)
-            xbmc.executebuiltin('RunScript(special://home/addons/script.tvportal/createFolders.py)')
             ADDON.setSetting('FIRSTRUN', 'true')
         except:
             dialog.ok('Error creating folders', 'Sorry there was an error trying to create folders in the path specified. Please make sure you have write access to the path.')
     else:
         ADDON.setSetting('FIRSTRUN', 'true')
 
+if firstrun == 'false' and usecatchup == 'true':
+	dialog.ok('CATCHUP ENABLED', 'To be able to use the catchup option you\'ll need certain third party add-ons installed. Please check the MetalliQ support thread at noobsandnerds.com for details of supported add-ons.')
+
 if not os.path.exists(catsxml) and usenancats == 'true':
     dixie.log("Copying cats.xml to addon_data")
     shutil.copyfile(catsmaster, catsxml)
 else:
     dixie.log("Cats.xml file exists in addon_data")
+
+if uselogin == 'true' and (password == '' or username == ''):
+    dialog.ok('ENTER LOGIN CREDENTIALS', 'You have the login option enabled in settings but have not entered your credentials. If you aren\'t yet a member you can register for free on the forum at [COLOR=dodgerblue]noobsandnerds.com[/COLOR].')
+    ADDON.openSettings()
 
 try:
     import login
@@ -129,4 +148,8 @@ except:
 
 if cont:
     xbmc.executebuiltin('RunScript(special://home/addons/script.tvportal/createDB.py,normal)')
+    if enable_players == 'true':
+        xbmc.executebuiltin('RunPlugin(plugin://plugin.video.metalliq/settings/players/all)')
     login.Ii11Ii1I()
+    if update_folders == 'true':
+        xbmc.executebuiltin('RunScript(special://home/addons/script.tvportal/createFolders.py,silent)')

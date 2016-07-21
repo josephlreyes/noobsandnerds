@@ -24,8 +24,8 @@ msgid "Move down"
 msgstr "Verplaats omlaag"
 
 msgctxt "#30002"
-msgid "Verplaat omhoog"
-msgstr ""
+msgid "Move up"
+msgstr "Verplaats omhoog"
 
 msgctxt "#30003"
 msgid "Clear channels"
@@ -46,6 +46,14 @@ msgstr "Selecteer stream..."
 msgctxt "#30007"
 msgid "Add to list"
 msgstr "Voeg toe aan lijst"
+
+msgctxt "#30008"
+msgid "Channel"
+msgstr "Kanaal"
+
+msgctxt "#30009"
+msgid "Channels"
+msgstr "Kanalen"
 
 msgctxt "#30010"
 msgid "Players URL"
@@ -75,13 +83,21 @@ msgctxt "#30017"
 msgid "Custom background folder"
 msgstr "Eigen achtergrond map"
 
+msgctxt "#30020"
+msgid "My channels"
+msgstr "Mijn kanalen"
+
+msgctxt "#30021"
+msgid "New channel"
+msgstr "Nieuw kanaal"
+
 msgctxt "#30030"
 msgid "All movie players"
 msgstr "Alle film spelers"
 
 msgctxt "#30031"
-msgid "All tvshow players"
-msgstr "Alle tv-serie spelers"
+msgid "All tv show players"
+msgstr "Alle tv serie spelers"
 
 msgctxt "#30032"
 msgid "All musicvideo players"
@@ -124,8 +140,8 @@ msgid "Movies library folder"
 msgstr "Films bibliotheek map"
 
 msgctxt "#30042"
-msgid "TVshows library folder"
-msgstr "TVseries bibliotheek map "
+msgid "TV shows library folder"
+msgstr "TV series bibliotheek map "
 
 msgctxt "#30043"
 msgid "Music library folder"
@@ -172,8 +188,8 @@ msgid "Recommended movies (TMDb)"
 msgstr "Aanbevolen films (TMDb)"
 
 msgctxt "#30200"
-msgid "TV Shows"
-msgstr "TV-Series"
+msgid "TV shows"
+msgstr "TV series"
 
 msgctxt "#30201"
 msgid "Enable TV show players"
@@ -229,15 +245,15 @@ msgstr "Schakel bibliotheek updates in"
 
 msgctxt "#30307"
 msgid "Movies library updates enabled"
-msgstr ""
+msgstr "Films bibliotheek updates ingeschakeld"
 
 msgctxt "#30308"
 msgid "TV shows library updates enabled"
-msgstr ""
+msgstr "TV series bibliotheek updates ingeschakeld"
 
 msgctxt "#30309"
 msgid "Music library updates enabled"
-msgstr ""
+msgstr "Muziek bibliotheek updates ingeschakeld"
 
 msgctxt "#30310"
 msgid "Playlist"
@@ -257,11 +273,11 @@ msgstr "Afspeellijsten bijwerken"
 
 msgctxt "#30314"
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 msgctxt "#30315"
 msgid "Audio"
-msgstr ""
+msgstr "Audio"
 
 msgctxt "#30304"
 msgid "Automatic movies library server"
@@ -300,8 +316,8 @@ msgid "Hide keyboard dialog"
 msgstr "Verberg keyboard dialogen"
 
 msgctxt "#30414"
-msgid "Trakt watchlist"
-msgstr "Trakt kijklijst"
+msgid "Watchlist"
+msgstr "Kijklijst"
 
 msgctxt "#30415"
 msgid "Please go to https://trakt.tv/activate and enter the code"
@@ -324,8 +340,8 @@ msgid "Are you sure you want to add your entire Trakt collection to Kodi library
 msgstr "Weet u zeker dat u uw hele Trakt collectie aan de Kodi bibliotheek wilt toevoegen?"
 
 msgctxt "#30420"
-msgid "Trakt collection"
-msgstr "Trakt collectie"
+msgid "Collection"
+msgstr "Collectie"
 
 msgctxt "#30421"
 msgid "Are you sure you want to add your entire Trakt watchlist to Kodi library?"
@@ -336,8 +352,12 @@ msgid "You must authenticate with Trakt. Do you want to authenticate now?"
 msgstr "U dient Trakt te authoriseren. Wilt u nu authoriseren?"
 
 msgctxt "#30423"
-msgid "My calendar"
-msgstr "Mijn kalender"
+msgid "Calendar"
+msgstr "Kalender"
+
+msgctxt "#30424"
+msgid "Recommendations"
+msgstr "Aanraders"
 
 msgctxt "#30500"
 msgid "Live"
@@ -507,6 +527,10 @@ msgctxt "#30638"
 msgid "Search"
 msgstr "Zoeken"
 
+msgctxt "#30639"
+msgid "Next page  >>  (%s/%s)"
+msgstr "Volgende pagina  >>  (%s/%s)"
+
 msgctxt "#30699"
 msgid "Preferred music type"
 msgstr "Voorkeurs type muziek"
@@ -542,6 +566,26 @@ msgstr "Wilt u [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] automati
 msgctxt "#30714"
 msgid "Personal (Trakt)"
 msgstr "Persoonlijk (Trakt)"
+
+msgctxt "#30715"
+msgid "Popular (Trakt)"
+msgstr "Populair (Trakt)"
+
+msgctxt "#30716"
+msgid "Most played (Trakt)"
+msgstr "Meest afgespeeld (Trakt)"
+
+msgctxt "#30717"
+msgid "Most watched (Trakt)"
+msgstr "Meest bekeken (Trakt)"
+
+msgctxt "#30718"
+msgid "Most collected (Trakt)"
+msgstr "Meest verzameld (Trakt)"
+
+msgctxt "#30719"
+msgid "Related movies (Trakt)"
+msgstr "Gerelateerde films (Trakt)"
 
 msgctxt "#30800"
 msgid "Music"
@@ -622,3 +666,19 @@ msgstr "Muziek toevoegen aan database"
 msgctxt "#30824"
 msgid "Enable library updates"
 msgstr "Schakel bibliotheek updates in"
+
+msgctxt "#30825"
+msgid "Appearance"
+msgstr "Uiterlijk"
+
+msgctxt "#30826"
+msgid "Views"
+msgstr "Weergaves"
+
+msgctxt "#30827"
+msgid "Language for TMDb"
+msgstr "Taal voor TMDb"
+
+msgctxt "#30828"
+msgid "Force views"
+msgstr "Forceer weergaves"

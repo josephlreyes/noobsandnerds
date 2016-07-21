@@ -27,43 +27,43 @@
 		<setting id="xmlchk"      			label="30968"       type="bool"   		default="true" 													visible="eq(-11,true)"/>
 <!-- Login XML 1 Listings details -->
  		<setting type="lsep"            	label="30927"																								visible="eq(-1,true)"/>
-		<setting id="country11"	        	label="Country 1"	type="labelenum"	default="United Kingdom"																						values="None|Austria|Canada|Denmark|Finland|Germany|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-2,true)"/>
- 		<setting id="offset11"           	label="30934" 		type="labelenum"	default="0" 																						values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" 													visible="eq(-3,true)"/>
+		<setting id="country11"	        	label="Country 1"	type="labelenum"	default="United Kingdom"																						values="None|Austria|Canada|Denmark|Finland|Germany|Ireland|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-2,true)"/>
+ 		<setting id="offset11"           	label="30934" 		type="labelenum"	default="-2" 																						values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" 													visible="eq(-3,true)"/>
 <!-- Login XML 2 Listings details -->
  		<setting type="lsep"				label="30897" 																								visible="eq(-4,true)"/>
-		<setting id="country12"	        	label="Country 2"	type="labelenum"	default="United States"																						values="None|Austria|Canada|Denmark|Finland|Germany|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-5,true)"/>
+		<setting id="country12"	        	label="Country 2"	type="labelenum"	default="United States"																						values="None|Austria|Canada|Denmark|Finland|Germany|Ireland|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-5,true)"/>
  		<setting id="offset12"           	label="30934" 		type="labelenum"	default="0" 																						values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" 													visible="eq(-6,true)"/>
 <!-- Login XML 3 Listings details -->
  		<setting type="lsep"				label="30897" 																								visible="eq(-7,true)"/>
-		<setting id="country13"	        	label="Country 3"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-8,true)"/>
+		<setting id="country13"	        	label="Country 3"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Ireland|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-8,true)"/>
  		<setting id="offset13"           	label="30934" 		type="labelenum"	default="0" 																						values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" 													visible="eq(-9,true)"/>
 <!-- Login XML 4 Listings details -->
  		<setting type="lsep"				label="30897" 																								visible="eq(-10,true)"/>
-		<setting id="country14"	        	label="Country 4"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-11,true)"/>
+		<setting id="country14"	        	label="Country 4"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Ireland|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-11,true)"/>
  		<setting id="offset14"           	label="30934" 		type="labelenum"	default="0" 																						values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" 													visible="eq(-12,true)"/>
 <!-- Login XML 5 Listings details -->
  		<setting type="lsep"				label="30897" 																								visible="eq(-13,true)"/>
-		<setting id="country15"	        	label="Country 5"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-14,true)"/>
+		<setting id="country15"	        	label="Country 5"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Ireland|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-14,true)"/>
  		<setting id="offset15"           	label="30934" 		type="labelenum"	default="0" 																						values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" 													visible="eq(-15,true)"/>
 <!-- Login XML 6 Listings details -->
  		<setting type="lsep"				label="30897" 																								visible="eq(-16,true)"/>
-		<setting id="country16"	        	label="Country 6"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-17,true)"/>
+		<setting id="country16"	        	label="Country 6"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Ireland|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-17,true)"/>
  		<setting id="offset16"           	label="30934" 		type="labelenum"	default="0" 																						values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" 													visible="eq(-18,true)" />
 <!-- Login XML 7 Listings details -->
  		<setting type="lsep"				label="30897" 																								visible="eq(-19,true)"/>
-		<setting id="country17"	        	label="Country 7"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-20,true)" />
+		<setting id="country17"	        	label="Country 7"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Ireland|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-20,true)" />
  		<setting id="offset17"           	label="30934" 		type="labelenum"	default="0" 																						values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" 													visible="eq(-21,true)" />
 <!-- Login XML 8 Listings details -->
  		<setting type="lsep"				label="30897" 																								visible="eq(-22,true)"/>
-		<setting id="country18"	        	label="Country 8"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-23,true)" />
+		<setting id="country18"	        	label="Country 8"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Ireland|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-23,true)" />
  		<setting id="offset18"           	label="30934" 		type="labelenum"	default="0" 																						values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" 													visible="eq(-24,true)" />
 <!-- Login XML 9 Listings details -->
  		<setting type="lsep"				label="30897" 																								visible="eq(-25,true)"/>
-		<setting id="country19"	        	label="Country 9"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-26,true)" />
+		<setting id="country19"	        	label="Country 9"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Ireland|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-26,true)" />
  		<setting id="offset19"           	label="30934" 		type="labelenum"	default="0" 																						values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" 													visible="eq(-27,true)" />
 <!-- Login XML 10 Listings details -->
  		<setting type="lsep"				label="30897" 																								visible="eq(-28,true)"/>
-		<setting id="country20"	        	label="Country 10"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-29,true)" />
+		<setting id="country20"	        	label="Country 10"	type="labelenum"	default="None"																						values="None|Austria|Canada|Denmark|Finland|Germany|Ireland|Netherlands|Norway|Poland|Sweden|Switzerland|United Kingdom|United States"				visible="eq(-29,true)" />
  		<setting id="offset20"           	label="30934" 		type="labelenum"	default="0" 																						values="-12|-11|-10|-9|-8|-7|-6|-5|-4|-3|-2|-1|0|+1|+2|+3|+4|+5|+6|+7|+8|+9|+10|+11|+12" 													visible="eq(-30,true)" />
 <!-- scan in XML files -->
 		<setting id="dummy"					label="30969"		type="action" 	action="XBMC.RunScript(special://home/addons/script.tvportal/createDB.py,update)"						option="close" 																																	visible="eq(-31,true)" />
@@ -110,7 +110,9 @@
 		<setting id="showSFchannels"		label="30855" 		type="bool" 	default="false" 															visible="true" />
 		<setting id="openfolder"			label="30896"   	type="bool"   	default="false"  															visible="true" />
 	    <setting id="SF_METALLIQ"			label="30967" 		type="bool"		default="true"      														visible="true"/>
-		<setting id="dummy"					label="30858" 		type="action" 	action="XBMC.RunScript(special://home/addons/script.tvportal/createFolders.py)" option="close" 																																	   visible="true" />
+	    <setting id="enable_players"		label="30973" 		type="bool"		default="true"      														visible="true"/>
+	    <setting id="update_folders"		label="30972" 		type="bool"		default="true"      														visible="true"/>
+		<setting id="dummy"					label="30858" 		type="action" 	action="XBMC.RunScript(special://home/addons/script.tvportal/createFolders.py,normal)" option="close" 																																	   visible="true" />
 		<setting id="autoplay" 		        label="30856"   	type="bool"   	default="false"  															visible="false" />
  		<setting type="lsep"                label="30897" 																									visible="true"/>
  		<setting type="lsep"                label="30859"																									visible="true"/>
@@ -174,6 +176,7 @@
 		<setting id="dummy" 				label="30912" 	  	type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/createDB.py,update)" option="close" visible="true" />
         <setting id="dummy" 				label="30913" 		type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/createDB.py,rescan)" option="close" visible="true" />
         <setting id="dummy" 				label="30131" 		type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/restoreChannels.py)" />
+        <setting id="dummy" 				label="30971" 		type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/clearCookies.py)" />
         <setting id="dummy" 				label="30132" 		type="action" action="XBMC.RunScript(special://home/addons/script.tvportal/resetAddon.py)" />
     </category>
 

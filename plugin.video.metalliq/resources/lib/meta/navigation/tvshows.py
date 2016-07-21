@@ -36,14 +36,14 @@ def tv():
             'icon': get_icon_path("genres"),
         },
         {
-            'label': _("Popular (TMDb)"),
-            'path': plugin.url_for(tv_most_popular, page='1'),
-            'icon': get_icon_path("popular"),
-        },
-        {
             'label': _("On the air (TMDb)"),
             'path': plugin.url_for(tv_now_playing, page='1'),
             'icon': get_icon_path("ontheair"),
+        },
+        {
+            'label': _("Popular (TMDb)"),
+            'path': plugin.url_for(tv_most_popular, page='1'),
+            'icon': get_icon_path("popular"),
         },
         {
             'label': _("Top rated (TMDb)"),
@@ -51,19 +51,39 @@ def tv():
             'icon': get_icon_path("top_rated"),
         },
         {
-            'label': _("Trending (Trakt)"),
-            'path': plugin.url_for(tv_trakt_trending, page='1'),
-            'icon': get_icon_path("trending"),
-        },
-        {
             'label': _("Aired (Trakt)"),
             'path': plugin.url_for(tv_trakt_aired_yesterday, page='1'),
             'icon': get_icon_path("aired"),
         },
         {
+            'label': _("Most played (Trakt)"),
+            'path': plugin.url_for(tv_trakt_played, page='1'),
+            'icon': get_icon_path("player"),
+        },
+        {
+            'label': _("Most watched (Trakt)"),
+            'path': plugin.url_for(tv_trakt_watched, page='1'),
+            'icon': get_icon_path("traktwatchlist"),
+        },
+        {
+            'label': _("Most collected (Trakt)"),
+            'path': plugin.url_for(tv_trakt_collected, page='1'),
+            'icon': get_icon_path("traktcollection"),
+        },
+        {
+            'label': _("Popular (Trakt)"),
+            'path': plugin.url_for(tv_trakt_popular, page='1'),
+            'icon': get_icon_path("traktrecommendations"),
+        },
+        {
             'label': _("Premiered (Trakt)"),
             'path': plugin.url_for(tv_trakt_premiered_last_week, page='1'),
             'icon': get_icon_path("premiered"),
+        },
+        {
+            'label': _("Trending (Trakt)"),
+            'path': plugin.url_for(tv_trakt_trending, page='1'),
+            'icon': get_icon_path("trending"),
         },
         {
             'label': _("Personal (Trakt)"),
@@ -228,12 +248,114 @@ def tv_trakt_aired_yesterday():
     from trakt import trakt
     result = trakt.trakt_get_aired_yesterday()
     return list_aired_episodes(result)
-    
-@plugin.route('/tv/trakt/trending')
-def tv_trakt_trending():
+
+@plugin.route('/tv/trakt/trending/<page>')
+def tv_trakt_trending(page):
     from trakt import trakt
-    result = trakt.trakt_get_trending_shows()
-    return list_trakt_tvshows(result)
+    results, pages = trakt.trakt_get_trending_shows_paginated(page)
+    return list_trakt_tvshows_trending_paginated(results, pages, page)
+
+def list_trakt_tvshows_trending_paginated(results, pages, page):
+    from trakt import trakt
+    results = sorted(results,key=lambda item: item["show"]["title"].lower().replace("the ", ""))
+    genres_dict = trakt_get_genres()
+    shows = [get_tvshow_metadata_trakt(item["show"], genres_dict) for item in results]
+    items = [make_tvshow_item(show) for show in shows if show.get('tvdb_id')]
+    nextpage = int(page) + 1
+    if pages > page:
+        items.append({
+            'label': _("Next page  >>  (%s/%s)" % (nextpage, pages)).format(),
+            'path': plugin.url_for("tv_trakt_trending", page=int(page) + 1),
+            'icon': get_icon_path("item_next"),
+        })
+    return items
+
+@plugin.route('/tv/trakt/popular/<page>')
+def tv_trakt_popular(page):
+    from trakt import trakt
+    results, pages = trakt.trakt_get_popular_shows_paginated(page)
+    return list_trakt_tvshows_popular_paginated(results, pages, page)
+
+def list_trakt_tvshows_popular_paginated(results, pages, page):
+    from trakt import trakt
+    results = sorted(results,key=lambda item: item["title"].lower().replace("the ", ""))
+    genres_dict = trakt_get_genres()
+    shows = [get_tvshow_metadata_trakt(item, genres_dict) for item in results]
+    items = [make_tvshow_item(show) for show in shows if show.get('tvdb_id')]
+    nextpage = int(page) + 1
+    if pages > page:
+        items.append({
+            'label': _("Next page  >>  (%s/%s)" % (nextpage, pages)).format(),
+            'path': plugin.url_for("tv_trakt_popular", page=int(page) + 1),
+            'icon': get_icon_path("item_next"),
+        })
+    return items
+
+@plugin.route('/tv/trakt/played/<page>')
+def tv_trakt_played(page):
+    from trakt import trakt
+    results, total_items = trakt.trakt_get_played_shows_paginated(page)
+    return list_trakt_tvshows_played_paginated(results, total_items, page)
+
+def list_trakt_tvshows_played_paginated(results, total_items, page):
+    from trakt import trakt
+    results = sorted(results,key=lambda item: item["show"]["title"].lower().replace("the ", ""))
+    genres_dict = trakt_get_genres()
+    shows = [get_tvshow_metadata_trakt(item["show"], genres_dict) for item in results]
+    items = [make_tvshow_item(show) for show in shows if show.get('tvdb_id')]
+    nextpage = int(page) + 1
+    pages = int(total_items) // 99 + (int(total_items) % 99 > 0)
+    if int(pages) > int(page):
+        items.append({
+            'label': _("Next page  >>  (%s/%s)" % (nextpage, pages)).format(),
+            'path': plugin.url_for("tv_trakt_played", page=int(page) + 1),
+            'icon': get_icon_path("item_next"),
+        })
+    return items
+
+@plugin.route('/tv/trakt/watched/<page>')
+def tv_trakt_watched(page):
+    from trakt import trakt
+    results, total_items = trakt.trakt_get_watched_shows_paginated(page)
+    return list_trakt_tvshows_watched_paginated(results, total_items, page)
+
+def list_trakt_tvshows_watched_paginated(results, total_items, page):
+    from trakt import trakt
+    results = sorted(results,key=lambda item: item["show"]["title"].lower().replace("the ", ""))
+    genres_dict = trakt_get_genres()
+    shows = [get_tvshow_metadata_trakt(item["show"], genres_dict) for item in results]
+    items = [make_tvshow_item(show) for show in shows if show.get('tvdb_id')]
+    nextpage = int(page) + 1
+    pages = int(total_items) // 99 + (int(total_items) % 99 > 0)
+    if int(pages) > int(page):
+        items.append({
+            'label': _("Next page  >>  (%s/%s)" % (nextpage, pages)).format(),
+            'path': plugin.url_for("tv_trakt_watched", page=int(page) + 1),
+            'icon': get_icon_path("item_next"),
+        })
+    return items
+
+@plugin.route('/tv/trakt/collected/<page>')
+def tv_trakt_collected(page):
+    from trakt import trakt
+    results, total_items = trakt.trakt_get_collected_shows_paginated(page)
+    return list_trakt_tvshows_watched_paginated(results, total_items, page)
+
+def list_trakt_tvshows_collected_paginated(results, total_items, page):
+    from trakt import trakt
+    results = sorted(results,key=lambda item: item["show"]["title"].lower().replace("the ", ""))
+    genres_dict = trakt_get_genres()
+    shows = [get_tvshow_metadata_trakt(item["show"], genres_dict) for item in results]
+    items = [make_tvshow_item(show) for show in shows if show.get('tvdb_id')]
+    nextpage = int(page) + 1
+    pages = int(total_items) // 99 + (int(total_items) % 99 > 0)
+    if int(pages) > int(page):
+        items.append({
+            'label': _("Next page  >>  (%s/%s)" % (nextpage, pages)).format(),
+            'path': plugin.url_for("tv_trakt_collected", page=int(page) + 1),
+            'icon': get_icon_path("item_next"),
+        })
+    return items
 
 @plugin.cached_route('/tv/most_popular/<page>', TTL=CACHE_TTL)
 def tv_most_popular(page):

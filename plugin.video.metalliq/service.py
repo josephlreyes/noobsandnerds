@@ -129,7 +129,7 @@ class Monitor(xbmc.Monitor):
 
     def add_folder_to_music_database(self, music_folder):
         pDialog = xbmcgui.DialogProgress()
-        pDialog.create(_('[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]'), _('adding music to database'))
+        pDialog.create('[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]', _('adding music to database'))
         self.setup_database_connection()
         music_folder = xbmc.translatePath(music_folder)  # translate from special:// to absolute
         for dirName, subdirList, fileList in os.walk(music_folder):
@@ -199,7 +199,7 @@ def future(seconds):
 def main():
     go_idle(25)
     if plugin.get_setting(SETTING_TOTAL_SETUP_DONE, converter=bool) == False:
-        xbmc.executebuiltin('RunPlugin(plugin://plugin.video.metalliq/autosetup/)')
+        xbmc.executebuiltin('RunPlugin(plugin://plugin.video.metalliq/totalsetup/)')
         plugin.set_setting(SETTING_TOTAL_SETUP_DONE, "true")
     next_update = future(0)
     while not xbmc.abortRequested:

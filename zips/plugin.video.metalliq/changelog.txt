@@ -1,3 +1,17 @@
+v1.1.[COLOR ff0084ff]0[/COLOR]
+- Added (all?) missing translations
+- Added option to set the number of items per page for Trakt sections, default is 42
+- Added a seperate search-sections (both with and without specified query) enabling user to store searches by favouriting them
+- Added players-setup and sources-setup
+- Added seperate guide integration so users can keep their enabled player settings
+- Added another theme (Azure, thanks to Will Martins)
+- Changed playlist-folder locations to use kodi's default playlist locations
+- Fixed auto-adding with default player or tvshows
+- Newly added search section allows searching & browsing of Trakt lists without logging in
+- Removed trakt authorization from settings as it wasn't working properly. To authorize: browse to a personal section and you will be prompted
+- Moved "add to library" to top of contextmenu
+- Moved trailer to 2nd position in contextmenu
+
 v1.0.[COLOR ff0084ff]9[/COLOR]
 - Added channel source for library channels
 - Added live library functionality

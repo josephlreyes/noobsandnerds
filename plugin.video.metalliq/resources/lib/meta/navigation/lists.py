@@ -8,6 +8,7 @@ from meta.navigation.tvshows import make_tvshow_item, tv_play, tv_season
 from meta.gui import dialogs
 from language import get_string as _
 from trakt import trakt
+from settings import SETTING_TRAKT_PER_PAGE
 
 @plugin.route('/lists')
 def lists():
@@ -81,7 +82,6 @@ def lists_trakt_search_for_lists():
 @plugin.route('/lists/search_for_lists_term/<term>/<page>')
 def lists_search_for_lists_term(term,page):
     lists, pages = trakt.search_for_list(term, page)
-    print "QQQQQ"+str(trakt.search_for_list(term, 1))
     page = int(page)
     pages = int(pages)
     items = []
@@ -110,6 +110,17 @@ def lists_search_for_lists_term(term,page):
             fanart = plugin.addon.getAddonInfo('fanart')
             for item in items:
                 item['properties'] = {'fanart_image' : get_background_path()}
+    if (len(items) < plugin.get_setting(SETTING_TRAKT_PER_PAGE, int) and pages > page):
+        page = page + 1
+        results = lists_search_for_lists_term(term, page)
+        return items + results
+    if pages > page:
+        items.append({
+            'label': _("Next page").format() + "  >>  (%s/%s)" % (page + 1, pages),
+            'path': plugin.url_for("lists_search_for_lists_term", term = term, page=page + 1),
+            'icon': get_icon_path("traktlikedlists"),
+        })
+    return items
 
     if (len(items) < 25 and pages > page):
         page = page + 1
@@ -122,7 +133,6 @@ def lists_search_for_lists_term(term,page):
             'icon': get_icon_path("traktlikedlists"),  # TODO
         })
     return items
-
 
 @plugin.route('/lists/trakt/show_list/<user>/<slug>')
 def lists_trakt_show_list(user, slug):
@@ -138,7 +148,7 @@ def _lists_trakt_show_list(list_items):
         list_items = eval(urllib.unquote(list_items))
 
     items = []
-    for list_item in list_items[:25]:
+    for list_item in list_items[:int(plugin.get_setting(SETTING_TRAKT_PER_PAGE, int))]:
         item = None
         item_type = list_item["type"]
 
@@ -269,12 +279,13 @@ def _lists_trakt_show_list(list_items):
 
         if item is not None:
             items.append(item)
-    if len(list_items) >= 25:
+    if len(list_items) >= plugin.get_setting(SETTING_TRAKT_PER_PAGE, int):
+        page = 1
+        pages = len(list_items) // plugin.get_setting(SETTING_TRAKT_PER_PAGE, int) + (len(list_items) % plugin.get_setting(SETTING_TRAKT_PER_PAGE, int) > 0)
         items.append({
-            'label': _('Next >>'),
-            'path': plugin.url_for(_lists_trakt_show_list, list_items=str(list_items[25:]))
+            'label': _("Next page").format() + "  >>  (%s/%s)" % (int(page) + 1, int(pages)),
+            'path': plugin.url_for(_lists_trakt_show_list, list_items=str(list_items[int(plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)):]))
         })
-
     for item in items:
         item['properties'] = {'fanart_image' : get_background_path()}
     return items

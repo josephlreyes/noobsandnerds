@@ -1,14 +1,16 @@
 import os
 from xbmcswift2 import xbmc, xbmcvfs
+from meta.gui import dialogs
 from meta import plugin, LANG
 from meta.play.base import active_players
 from meta.play.players import ADDON_DEFAULT, ADDON_SELECTOR
-from meta.play.live import play_channel
+from meta.play.channelers import ADDON_STANDARD, ADDON_PICKER
+from meta.play.live import play_channel, play_channel_from_guide
 from meta.navigation.base import search, get_icon_path, get_genre_icon, get_background_path, get_genres, get_tv_genres, caller_name, caller_args
 from meta.library.live import setup_library, add_channel_to_library
 from meta.utils.text import to_unicode, to_utf8
 from language import get_string as _
-from settings import CACHE_TTL, SETTING_LIVE_LIBRARY_FOLDER
+from settings import CACHE_TTL, SETTING_LIVE_LIBRARY_FOLDER, SETTING_LIVE_DEFAULT_AUTO_ADD
 
 def get_channels():
     storage = plugin.get_storage("channels")
@@ -45,7 +47,7 @@ def remove_channel(channel):
 
 @plugin.route('/live/add_to_library/<channel>/<mode>')
 def live_add_to_library(channel, mode):
-    if mode != None and plugin.get_setting('live_default_auto_add', bool):
+    if mode != None and plugin.get_setting(SETTING_LIVE_DEFAULT_AUTO_ADD, bool):
         player = mode
     else:
         players = active_players("live", filters = {'network': channel.get('network')})
@@ -187,3 +189,8 @@ def live_search_term(term):
 def live_play(channel, program=None, language="en", mode="external"):
     """ Play <channel> """
     play_channel(channel, program, language, mode)
+
+@plugin.route('/live_guide/<channel>/<program>/<language>/<mode>', options = {"program": "None", "language": "en", "mode": "external"})
+def guide_live_play(channel, program=None, language="en", mode="external"):
+    """ Play <channel> from a guide """
+    play_channel_from_guide(channel, program, language, mode)

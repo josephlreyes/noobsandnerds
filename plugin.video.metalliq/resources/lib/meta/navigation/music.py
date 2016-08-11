@@ -677,7 +677,7 @@ def music_add_artist_to_library(artist_name):
     total_albums = len(album_results)
     index = 0
     pDialog = xbmcgui.DialogProgress()
-    pDialog.create(_('[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]'), _("{0} {1} {2}").format(_("Adding"), artist_name, _("to library")))
+    pDialog.create('[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]', _("{0} {1} {2}").format(_("Adding"), artist_name, _("to library")))
     for album in album_results["album"]:
         album_name = to_utf8(album["name"])
         percent_done = int(math.floor((float(index) / total_albums) * 100))

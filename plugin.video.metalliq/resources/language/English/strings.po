@@ -147,11 +147,19 @@ msgctxt "#30043"
 msgid "Music library folder"
 msgstr ""
 
+msgctxt "#30043"
+msgid "Music library folder"
+msgstr ""
+
 msgctxt "#30044"
-msgid "Setup done"
+msgid "Live library folder"
 msgstr ""
 
 msgctxt "#30045"
+msgid "Setup done"
+msgstr ""
+
+msgctxt "#30046"
 msgid "Completed"
 msgstr ""
 
@@ -208,7 +216,7 @@ msgid "Preferred TV show player from context menu"
 msgstr ""
 
 msgctxt "#30213"
-msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a TV show source?"
+msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a TV shows source?"
 msgstr ""
 
 msgctxt "#30214"
@@ -524,11 +532,11 @@ msgid "Search list"
 msgstr ""
 
 msgctxt "#30638"
-msgid "Search"
+msgid "Search (Trakt)"
 msgstr ""
 
 msgctxt "#30639"
-msgid "Next page  >>  (%s/%s)"
+msgid "Next page"
 msgstr ""
 
 msgctxt "#30699"
@@ -585,6 +593,22 @@ msgstr ""
 
 msgctxt "#30719"
 msgid "Related movies (Trakt)"
+msgstr ""
+
+msgctxt "#30720"
+msgid "Period to use for Most-sections (Trakt)"
+msgstr ""
+
+msgctxt "#30721"
+msgid "Items per page (Trakt)"
+msgstr ""
+
+msgctxt "#30722"
+msgid "Number of days to use for Recently updated-section (Trakt)"
+msgstr ""
+
+msgctxt "#30723"
+msgid "Recently updated (Trakt)"
 msgstr ""
 
 msgctxt "#30800"
@@ -681,4 +705,24 @@ msgstr ""
 
 msgctxt "#30828"
 msgid "Force views"
+msgstr ""
+
+msgctxt "#30829"
+msgid "Extended movie info"
+msgstr ""
+
+msgctxt "#30830"
+msgid "Extended tv show info"
+msgstr ""
+
+msgctxt "#30831"
+msgid "Play by name"
+msgstr ""
+
+msgctxt "#30832"
+msgid "Play by name only"
+msgstr ""
+
+msgctxt "#30833"
+msgid "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]"
 msgstr ""

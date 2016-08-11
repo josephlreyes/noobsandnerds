@@ -7,7 +7,7 @@ from meta.utils.text import to_unicode
 EXTENSION = ".metalliq.json"
 HTML_TAGS_REGEX = re.compile(r'\[/?(?:color|b|i|u).*?\]', re.I|re.UNICODE)
 
-class AddonPlayer(object):
+class AddonChanneler(object):
     def __init__(self, filename, media, meta):
         self.media = media
         self.title = meta["name"]
@@ -24,7 +24,7 @@ class AddonPlayer(object):
         code = self._postprocess
         if not code or not isinstance(code, basestring) or "__" in code:
             return link
-        link = eval(code, {"__builtins__": {}, "link": link})        
+        link = eval(code, {"__builtins__": {}, "link": link})
         return link
 
     def is_empty(self):
@@ -32,13 +32,13 @@ class AddonPlayer(object):
             return True
         return not bool(self.commands)
 
-def get_players(media, filters = {}):
+def get_channelers(media, filters = {}):
     assert media in ("tvshows", "movies", "musicvideos", "music", "live")
-    players = []
-    players_path = "special://profile/addon_data/{0}/players/".format(plugin.id)
-    files = [x for x in xbmcvfs.listdir(players_path)[1] if x.endswith(EXTENSION)]
+    channelers = []
+    channelers_path = "special://profile/addon_data/{0}/players/".format(plugin.id)
+    files = [x for x in xbmcvfs.listdir(channelers_path)[1] if x.endswith(EXTENSION)]
     for file in files:
-        path = players_path + file
+        path = channelers_path + file
         try:
             f = xbmcvfs.File(path)
             try:
@@ -46,47 +46,46 @@ def get_players(media, filters = {}):
                 meta = json.loads(content)
             finally:
                 f.close()
-            player = AddonPlayer(file, media, meta)
-            if not player.is_empty():
-                players.append(player)
+            channeler = AddonChanneler(file, media, meta)
+            if not channeler.is_empty():
+                channelers.append(channeler)
         except Exception, e:
             plugin.log.error(repr(e))
-            msg = "player %s is invalid" % file
-            xbmcgui.Dialog().ok('Invalid player', msg)
+            msg = "channeler %s is invalid" % file
+            xbmcgui.Dialog().ok('Invalid channeler', msg)
             raise
-    return sort_players(players, filters)
+    return sort_channelers(channelers, filters)
 
-def sort_players(players, filters = {}):
+def sort_channelers(channelers, filters = {}):
     result = []
-    for player in players:
+    for channeler in channelers:
         filtered = False
         checked = False
         for filter_key, filter_value in filters.items():    
-            value = player.filters.get(filter_key)
+            value = channeler.filters.get(filter_key)
             if value:
                 checked = True
                 if to_unicode(value) != to_unicode(filter_value):
                     filtered = True
         if not filtered:
             needs_browsing = False
-            for command_group in player.commands:
+            for command_group in channeler.commands:
                 for command in command_group:
                     if command.get('steps'):
                         needs_browsing = True
                         break
-            result.append((not checked, needs_browsing, player.order, player.clean_title.lower(), player))
+            result.append((not checked, needs_browsing, channeler.order, channeler.clean_title.lower(), channeler))
     result.sort()
     return [x[-1] for x in result]
 
-def get_needed_langs(players):
+def get_needed_langs(channelers):
     languages = set()
-    for player in players:
-        for command_group in player.commands:  
+    for channeler in channelers:
+        for command_group in channeler.commands:  
             for command in command_group:
                 command_lang = command.get("language", "en")
                 languages.add(command_lang)
     return languages
 
-ADDON_SELECTOR = AddonPlayer("selector", "any", meta={"name": "Selector"})
-ADDON_CONTEXT = AddonPlayer("context", "any", meta={"name": "Context"})
-ADDON_DEFAULT = AddonPlayer("default", "any", meta={"name": "Default"})
+ADDON_PICKER = AddonChanneler("picker", "any", meta={"name": "Picker"})
+ADDON_STANDARD = AddonChanneler("standard", "any", meta={"name": "Standard"})

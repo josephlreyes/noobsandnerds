@@ -165,61 +165,62 @@ def trakt_authenticate():
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_trending_shows_paginated(page):
-    result, pages = call_trakt("shows/trending?".format(), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    result, pages = call_trakt("shows/trending?".format(), params={'extended':'full,images','limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page, with_auth=False)
     return result, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_trending_shows_paginated(page):
-    result, pages = call_trakt("shows/trending?".format(), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    result, pages = call_trakt("shows/trending?".format(), params={'extended':'full,images','limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page, with_auth=False)
     return result, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_popular_shows_paginated(page):
-    result, pages = call_trakt("shows/popular?".format(), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    result, pages = call_trakt("shows/popular?".format(), params={'extended':'full,images','limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page, with_auth=False)
     return result, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_played_shows_paginated(page):
-    result, pages = call_trakt("shows/played/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    result, pages = call_trakt("shows/played/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page, with_auth=False)
     return result, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_watched_shows_paginated(page):
-    result, pages = call_trakt("shows/watched/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    result, pages = call_trakt("shows/watched/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page, with_auth=False)
     return result, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_collected_shows_paginated(page):
-    result, pages = call_trakt("shows/collected/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    result, pages = call_trakt("shows/collected/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page, with_auth=False)
     return result, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_trending_movies_paginated(page):
-    return call_trakt("movies/trending?".format(), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    result, pages = call_trakt("movies/trending?".format(), params={'extended':'full,images','limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page, with_auth=False)
+    return result, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_popular_movies_paginated(page):
-    return call_trakt("movies/popular?".format(), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    result, pages = call_trakt("movies/popular?".format(), params={'extended':'full,images','limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page, with_auth=False)
+    return result, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_played_movies_paginated(page):
-    return call_trakt("movies/played/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    result, pages = call_trakt("movies/played/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page, with_auth=False)
+    return result, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_watched_movies_paginated(page):
-    return call_trakt("movies/watched/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    result, pages = call_trakt("movies/watched/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page, with_auth=False)
+    return result, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_collected_movies_paginated(page):
-    return call_trakt("movies/collected/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
-
-@plugin.cached(TTL=CACHE_TTL, cache="trakt")
-def trakt_get_collected_movies_paginated(page):
-    return call_trakt("movies/collected/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': 99}, pagination= True, page = page, with_auth=False)
+    result, pages = call_trakt("movies/collected/{0}?".format(plugin.get_setting(SETTING_TRAKT_PERIOD, str)), params={'extended':'full,images','limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page, with_auth=False)
+    return  result, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_related_movies_paginated(imdb_id):
-    return call_trakt("movies/{0}/related?".format(imdb_id), params={'extended':'full,images','limit': 200}, with_auth=False)
+    return call_trakt("movies/{0}/related?".format(imdb_id), params={'extended':'full,images', 'limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page, with_auth=False)
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_collection(type):
@@ -235,7 +236,7 @@ def trakt_get_lists():
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def trakt_get_liked_lists(page = 1):
-    result, pages = call_trakt("users/likes/lists", params={'limit': 25}, pagination= True, page = page)
+    result, pages = call_trakt("users/likes/lists", params={'limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page)
     return result, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
@@ -310,7 +311,7 @@ def get_movie(id):
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def get_recommendations(type):
-    return call_trakt("/recommendations/{0}".format(type), params={'extended': 'full,images'})
+    return call_trakt("/recommendations/{0}".format(type), params={'extended': 'full,images', 'limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)})
 
 def add_to_list(username, slug, data):
     return call_trakt("/users/{0}/lists/{1}/items".format(username, slug), data = data)
@@ -320,17 +321,34 @@ def remove_from_list(username, slug, data):
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def search_for_list(list_name, page):
-    results, pages = call_trakt("search", params={'type': "list", 'query': list_name, 'limit': 25}, pagination= True, page = page)
+    results, pages = call_trakt("search", params={'type': "list", 'query': list_name, 'limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page)
     return results, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
-def trakt_get_premiered_last_week():
-    from datetime import date, timedelta
-    yesterweek = str(date.today() - timedelta(days=8))
-    return call_trakt("calendars/shows/premieres/{0}/1?".format(yesterweek), params={'extended':'full,images'}, with_auth=False)
+def search_for_movie_paginated(movie_title, page):
+    results, pages = call_trakt("search", params={'type': "movie", 'query': movie_title, 'limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page)
+    return results, pages
 
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
-def trakt_get_aired_yesterday():
+def search_for_tvshow_paginated(show_name, page):
+    results, pages = call_trakt("search", params={'type': "show", 'query': show_name, 'limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page)
+    return results, pages
+
+@plugin.cached(TTL=CACHE_TTL, cache="trakt")
+def trakt_get_premiered_last_week(page):
+    from datetime import date, timedelta
+    yesterweek = str(date.today() - timedelta(days=8))
+    return call_trakt("calendars/shows/premieres/{0}/1?".format(yesterweek), params={'extended':'full,images', 'limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, page = page, with_auth=False)
+
+@plugin.cached(TTL=CACHE_TTL, cache="trakt")
+def trakt_get_aired_yesterday(page):
     from datetime import date, timedelta
     yesterday = str(date.today() - timedelta(days=2))
-    return call_trakt("calendars/shows/{0}/1?".format(yesterday), params={'extended':'full,images'}, with_auth=False)
+    return call_trakt("calendars/shows/{0}/1?".format(yesterday), params={'extended':'full,images', 'limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, page = page, with_auth=False)
+
+@plugin.cached(TTL=CACHE_TTL, cache="trakt")
+def trakt_updated_shows(page):
+    from datetime import date, timedelta
+    start_date = str(date.today() - timedelta(days=plugin.get_setting(SETTING_TRAKT_DAYS, int)))
+    results, pages = call_trakt("shows/updates/{0}?".format(start_date), params={'extended':'full,images', 'limit': plugin.get_setting(SETTING_TRAKT_PER_PAGE, int)}, pagination= True, page = page, with_auth=False)
+    return results, pages

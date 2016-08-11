@@ -1,7 +1,6 @@
 import json
 from traceback import print_exc
 from xbmcswift2 import xbmc, xbmcgui
-
 from meta import plugin
 from meta.gui import dialogs
 from meta.utils.executor import execute
@@ -9,11 +8,10 @@ from meta.utils.properties import set_property
 from meta.utils.text import to_unicode, urlencode_path, apply_parameters
 from meta.library.tools import get_movie_from_library, get_episode_from_library
 from meta.play.players import get_players
+from meta.play.channelers import get_channelers
 from meta.play.lister import Lister
-
 from settings import *
 from language import get_string as _
-
 
 @plugin.cached(TTL=60, cache="trakt")
 def get_trakt_ids(*args, **kwargs):
@@ -36,14 +34,30 @@ def active_players(media, filters={}):
         setting = SETTING_LIVE_ENABLED_PLAYERS
     else:
         raise Exception("invalid parameter %s" % media)
-        
     try:
         enabled = plugin.get_setting(setting)
     except:
         enabled = []
-        
-    return [p for p in get_players(media, filters) \
-            if p.id in enabled]
+    return [p for p in get_players(media, filters) if p.id in enabled]
+
+def active_channelers(media, filters={}):
+    if media == "movies":
+        setting = SETTING_MOVIES_ENABLED_CHANNELERS
+    elif media == "tvshows":
+        setting = SETTING_TV_ENABLED_CHANNELERS
+    elif media == "musicvideos":
+        setting = SETTING_MUSICVIDEOS_ENABLED_CHANNELERS
+    elif media == "music":
+        setting = SETTING_MUSIC_ENABLED_CHANNELERS
+    elif media == "live":
+        setting = SETTING_LIVE_ENABLED_CHANNELERS
+    else:
+        raise Exception("invalid parameter %s" % media)
+    try:
+        enabled = plugin.get_setting(setting)
+    except:
+        enabled = []
+    return [p for p in get_channelers(media, filters) if p.id in enabled]
 
 def action_cancel(clear_playlist=True):
     if clear_playlist:

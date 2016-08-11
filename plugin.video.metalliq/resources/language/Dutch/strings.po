@@ -148,10 +148,14 @@ msgid "Music library folder"
 msgstr "Muziek bibliotheek map"
 
 msgctxt "#30044"
+msgid "Live library folder"
+msgstr "Live bibliotheek map"
+
+msgctxt "#30045"
 msgid "Setup done"
 msgstr "Setup gereed"
 
-msgctxt "#30045"
+msgctxt "#30046"
 msgid "Completed"
 msgstr "Voltooid"
 
@@ -237,7 +241,7 @@ msgstr "Bibliotheek bijwerken"
 
 msgctxt "#30305"
 msgid "Set added time to release date"
-msgstr "Zet tijd van toevoegen bij uitgave datum"
+msgstr "Zet tijd van toevoegen bij uitgifte datum"
 
 msgctxt "#30306"
 msgid "Enable library updates"
@@ -524,12 +528,12 @@ msgid "Search list"
 msgstr "Zoek lijst"
 
 msgctxt "#30638"
-msgid "Search"
-msgstr "Zoeken"
+msgid "Search (Trakt)"
+msgstr "Zoeken (Trakt)"
 
 msgctxt "#30639"
-msgid "Next page  >>  (%s/%s)"
-msgstr "Volgende pagina  >>  (%s/%s)"
+msgid "Next page"
+msgstr "Volgende pagina"
 
 msgctxt "#30699"
 msgid "Preferred music type"
@@ -586,6 +590,22 @@ msgstr "Meest verzameld (Trakt)"
 msgctxt "#30719"
 msgid "Related movies (Trakt)"
 msgstr "Gerelateerde films (Trakt)"
+
+msgctxt "#30720"
+msgid "Period to use for Most-sections (Trakt)"
+msgstr "Periode gebruikt in Meest-secties (Trakt)"
+
+msgctxt "#30721"
+msgid "Items per page (Trakt)"
+msgstr "Items per pagina (Trakt)"
+
+msgctxt "#30722"
+msgid "Number of days to use for Recently updated-section (Trakt)"
+msgstr "Aantal dagen voor gebruik in Recent geüpdate-sectie (Trakt)"
+
+msgctxt "#30723"
+msgid "Recently updated (Trakt)"
+msgstr "Recent geüupdate"
 
 msgctxt "#30800"
 msgid "Music"
@@ -682,3 +702,23 @@ msgstr "Taal voor TMDb"
 msgctxt "#30828"
 msgid "Force views"
 msgstr "Forceer weergaves"
+
+msgctxt "#30829"
+msgid "Extended movie info"
+msgstr "Uitgebreide film informatie"
+
+msgctxt "#30830"
+msgid "Extended tv show info"
+msgstr "Uitgebreide tv serie informatie"
+
+msgctxt "#30831"
+msgid "Play by name"
+msgstr "Afspelen op naam"
+
+msgctxt "#30832"
+msgid "Play by name only"
+msgstr "Afspelen op alleen naam"
+
+msgctxt "#30833"
+msgid "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]"
+msgstr "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]"

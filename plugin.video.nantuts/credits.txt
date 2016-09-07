@@ -1,0 +1,5 @@
+Credits
+
+ColdKeys - Plugin Template
+WhufcLee - Kodi, Python Kodi, Hardware and Kodi Addon Tutorials
+DaButcher - DaButcher Digs Deeper Live Chat, Kodi Matters Live Chat and Kodi 101 Tutorials

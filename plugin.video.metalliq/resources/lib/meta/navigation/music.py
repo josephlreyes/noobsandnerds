@@ -4,7 +4,7 @@ from meta.gui import dialogs
 from meta.utils.text import to_utf8
 from meta.play.players import ADDON_DEFAULT, ADDON_SELECTOR
 from meta.play.music import play_music, play_musicvideo
-from meta.navigation.base import search, get_icon_path, get_background_path, get_genre_icon, get_genres, get_tv_genres, caller_name, caller_args
+from meta.navigation.base import get_icon_path, get_background_path, get_genre_icon, get_genres, get_tv_genres, caller_name, caller_args
 from meta.library.music import setup_library, add_music_to_library
 from meta.library.tools import scan_library
 from language import get_string as _
@@ -119,18 +119,18 @@ def music_search():
 
 @plugin.route('/music/search/artist')
 def music_search_artist():
-    search(music_search_artist_term)
-
+    term = plugin.keyboard(heading=_("search for"))
+    return music_search_artist_term(term, 1)
 
 @plugin.route('/music/search/album')
 def music_search_album():
-    search(music_search_album_term)
-
+    term = plugin.keyboard(heading=_("search for"))
+    return music_search_album_term(term, 1)
 
 @plugin.route('/music/search/track')
 def music_search_track():
-    search(music_search_track_term)
-
+    term = plugin.keyboard(heading=_("search for"))
+    return music_search_track_term(term, 1)
 
 @plugin.route('/music/top_artists/<page>', options={'page': "1"})
 def music_top_artists(page):

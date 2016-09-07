@@ -16,7 +16,7 @@ from meta.play import updater
 from meta.play.base import active_players, active_channelers
 from meta.play.players import get_players, ADDON_SELECTOR 
 from meta.play.channelers import get_channelers, ADDON_PICKER
-from meta.navigation.base import get_icon_path, get_background_path, search
+from meta.navigation.base import get_icon_path, get_background_path
 import meta.navigation.movies
 import meta.navigation.tvshows
 import meta.navigation.live
@@ -28,6 +28,9 @@ import meta.library.music
 import meta.library.live
 from language import get_string as _
 from settings import *
+
+FORCE = plugin.get_setting(SETTING_FORCE_VIEW, bool)
+VIEW  = plugin.get_setting(SETTING_MAIN_VIEW, int)
 
 addonid = 'plugin.video.metalliq'
 
@@ -69,7 +72,8 @@ def root():
     fanart = plugin.addon.getAddonInfo('fanart')
     for item in items:
         item['properties'] = {'fanart_image' : get_background_path()}
-    return items
+    if FORCE == True: plugin.set_view_mode(VIEW); return items
+    else: return items
 
 @plugin.route('/clear_cache')
 def clear_cache():
@@ -83,7 +87,7 @@ def clear_cache():
                 shutil.rmtree(file_path)
         except Exception, e:
             traceback.print_exc()
-    plugin.notify(msg=_('Cache'), title=_('Deleted'), delay=5000, image=get_icon_path("metalliq"))
+    plugin.notify(msg='Cache', title='Deleted', delay=5000, image=get_icon_path("metalliq"))
 
 @plugin.route('/update_library')
 def update_library():
@@ -374,7 +378,7 @@ def root_search():
         },
         {
             'label': _("Movies") + ": " + _("Search (TMDb)"),
-            'path': plugin.url_for("movies_search", page='1'),
+            'path': plugin.url_for("tmdb_movies_search", page='1'),
             'icon': get_icon_path("movies"),
         },
         {
@@ -384,7 +388,12 @@ def root_search():
         },
         {
             'label': _("TV shows") + ": " + _("Search (TMDb)"),
-            'path': plugin.url_for("tv_search"),
+            'path': plugin.url_for("tmdb_tv_search"),
+            'icon': get_icon_path("tv"),
+        },
+        {
+            'label': _("TV shows") + ": " + _("Search (TVDb)"),
+            'path': plugin.url_for("tvdb_tv_search"),
             'icon': get_icon_path("tv"),
         },
         {
@@ -440,7 +449,7 @@ def root_search_term(term, page):
         },
         {
             'label': _("Movies") + " - " + _("Search (TMDb)") + ": " + search_entered,
-            'path': plugin.url_for("movies_search_term", term=search_entered, page='1'),
+            'path': plugin.url_for("tmdb_movies_search_term", term=search_entered, page='1'),
             'icon': get_icon_path("movies"),
         },
         {
@@ -450,7 +459,12 @@ def root_search_term(term, page):
         },
         {
             'label': _("TV shows") + " - " + _("Search (TMDb)") + ": " + search_entered,
-            'path': plugin.url_for("tv_search_term", term=search_entered, page='1'),
+            'path': plugin.url_for("tmdb_tv_search_term", term=search_entered, page='1'),
+            'icon': get_icon_path("tv"),
+        },
+        {
+            'label': _("TV shows") + " - " + _("Search (TVDb)") + ": " + search_entered,
+            'path': plugin.url_for("tvdb_tv_search_term", term=search_entered, page='1'),
             'icon': get_icon_path("tv"),
         },
         {
@@ -484,32 +498,149 @@ def root_search_term(term, page):
         item['properties'] = {'fanart_image' : get_background_path()}
     return items
 
+@plugin.route('/toggle')
+def toggle_context_toggle():
+    if xbmc.getCondVisibility("Skin.HasSetting(Toggling)") != True: plugin.notify(msg="Toggling", title="Switched on", delay=5000, image=get_icon_path("metalliq"))
+    else: plugin.notify(msg="Toggling", title="Switched off", delay=5000, image=get_icon_path("metalliq"))
+    xbmc.executebuiltin("Skin.ToggleSetting(Toggling)")
+
+@plugin.route('/context')
+def toggle_context_player():
+    if xbmc.getCondVisibility("Skin.HasSetting(Contexting)") != True: plugin.notify(msg="Context player", title="Switched off", delay=5000, image=get_icon_path("metalliq"))
+    else: plugin.notify(msg="Context player", title="Switched on", delay=5000, image=get_icon_path("metalliq"))
+    xbmc.executebuiltin("Skin.ToggleSetting(Contexting)")
+
+@plugin.route('/toggle/acceleration')
+def toggle_hardware_acceleration():
+    if xbmc.getCondVisibility("System.Platform.Android") == 1:
+        if xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.useamcodec"}, "id":1}') == '{"id":1,"jsonrpc":"2.0","result":{"value":true}}': xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"videoplayer.useamcodec","value":false}, "id":1}')
+        elif xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.useamcodec"}, "id":1}') == '{"id":1,"jsonrpc":"2.0","result":{"value":false}}': xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"videoplayer.useamcodec","value":true}, "id":1}')
+        else: pass
+        if xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.usestagefright"}, "id":1}') == '{"id":1,"jsonrpc":"2.0","result":{"value":true}}': xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"videoplayer.usestagefright","value":false}, "id":1}')
+        elif xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.usestagefright"}, "id":1}') == '{"id":1,"jsonrpc":"2.0","result":{"value":false}}': xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"videoplayer.usestagefright","value":true}, "id":1}')
+        else: pass
+        if xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.usemediacodec"}, "id":1}') == '{"id":1,"jsonrpc":"2.0","result":{"value":true}}': xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"videoplayer.usemediacodec","value":false}, "id":1}')
+        elif xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.usemediacodec"}, "id":1}') == '{"id":1,"jsonrpc":"2.0","result":{"value":false}}': xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"videoplayer.usemediacodec","value":true}, "id":1}')
+        else: pass
+        if xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.usemediacodecsurface"}, "id":1}') == '{"id":1,"jsonrpc":"2.0","result":{"value":true}}': xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"videoplayer.usemediacodecsurface","value":false}, "id":1}')
+        elif xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.usemediacodecsurface"}, "id":1}') == '{"id":1,"jsonrpc":"2.0","result":{"value":false}}': xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"videoplayer.usemediacodecsurface","value":true}, "id":1}')
+        else: pass
+    if xbmc.getCondVisibility("System.Platform.Linux.RaspberryPi") == 1:
+        if xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.useomxplayer"}, "id":1}') == '{"id":1,"jsonrpc":"2.0","result":{"value":true}}': xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"videoplayer.useomxplayer","value":false}, "id":1}')
+        elif xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.useomxplayer"}, "id":1}') == '{"id":1,"jsonrpc":"2.0","result":{"value":false}}': xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"videoplayer.useomxplayer","value":true}, "id":1}')
+        else: pass
+        if xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.usemmal"}, "id":1}') == '{"id":1,"jsonrpc":"2.0","result":{"value":true}}': xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"videoplayer.usemmal","value":false}, "id":1}')
+        elif xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.usemmal"}, "id":1}') == '{"id":1,"jsonrpc":"2.0","result":{"value":false}}': xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"videoplayer.usemmal","value":true}, "id":1}')
+        else: pass
+    if xbmc.getCondVisibility("System.Platform.Windows") == 1:
+        response = xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.usedxva2"}, "id":1}')
+        if xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.usedxva2"}, "id":1}') == '{"id":1,"jsonrpc":"2.0","result":{"value":true}}': xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"videoplayer.usedxva2","value":false}, "id":1}')
+        elif xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"videoplayer.usedxva2"}, "id":1}') == '{"id":1,"jsonrpc":"2.0","result":{"value":false}}': xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"videoplayer.usedxva2","value":true}, "id":1}')
+        else: pass
+
+@plugin.route('/toggle/skin')
+def toggle_between_skins():
+    if xbmc.getCondVisibility("Skin.HasSetting(Contexting)") != True: contexting = False
+    else: contexting = True
+    if xbmc.getCondVisibility("Skin.HasSetting(Toggling)") != True: toggling = False
+    else: toggling = True
+    current_skin = str(xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue","params":{"setting":"lookandfeel.skin"}, "id":1}')).replace('{"id":1,"jsonrpc":"2.0","result":{"value":"','').replace('"}}','')
+    primary_skin = plugin.get_setting(SETTING_PRIMARY_SKIN, converter=str)
+    alternate_skin = plugin.get_setting(SETTING_ALTERNATE_SKIN, converter=str)
+    if primary_skin == "": plugin.set_setting(SETTING_PRIMARY_SKIN, current_skin)
+    if alternate_skin == "": 
+        if primary_skin != "skin.confluence": plugin.set_setting(SETTING_ALTERNATE_SKIN, "skin.confluence")
+        else: plugin.notify(msg="Alternate skin", title="Not set", delay=5000, image=get_icon_path("metalliq")), openSettings(addonid, 5.5)
+    if primary_skin != alternate_skin and primary_skin != "" and alternate_skin != "" and xbmc.getCondVisibility('System.HasAddon(%s)' % primary_skin) and xbmc.getCondVisibility('System.HasAddon(%s)' % alternate_skin):
+        if current_skin != primary_skin: 
+            xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"lookandfeel.skin","value":"%s"}, "id":1}' % primary_skin)
+            xbmc.executebuiltin('SetFocus(11)')
+            xbmc.executebuiltin('Action(Select)')
+        else: 
+            xbmc.executeJSONRPC('{"jsonrpc":"2.0", "method":"Settings.SetSettingValue","params":{"setting":"lookandfeel.skin","value":"%s"}, "id":1}' % alternate_skin)
+            xbmc.executebuiltin('SetFocus(11)')
+            xbmc.executebuiltin('Action(Select)')
+        if toggling == False: xbmc.executebuiltin('Skin.Reset(Toggling)')
+        else: xbmc.executebuiltin('Skin.SetBool(Toggling)')
+        if contexting == False: xbmc.executebuiltin('Skin.Reset(Contexting)')
+        else: xbmc.executebuiltin('Skin.SetBool(Contexting)')
+
+@plugin.route('/export')
+def export_library():
+    export_movies_library()
+    export_tv_library()
+
+@plugin.route('/export/movies')
+def export_movies_library():
+    folder_path = plugin.get_setting(SETTING_MOVIES_LIBRARY_FOLDER)
+    if not xbmcvfs.exists(folder_path): return plugin.notify(msg='Movies folder', title='Absent', delay=5000, image=get_icon_path("movies"))
+    ids = ""
+    movies = xbmcvfs.listdir(folder_path)[0]
+    if len(movies) < 1: return plugin.notify(msg='Movies folder', title='Empty', delay=5000, image=get_icon_path("movies"))
+    else : 
+        for movie in movies: ids = ids + str(movie) + '\n'
+    movies_backup_file_path = "special://profile/addon_data/plugin.video.metalliq/movies_to_add.bak"
+    if xbmcvfs.exists(movies_backup_file_path): os.remove(xbmc.translatePath(movies_backup_file_path))
+    if not xbmcvfs.exists(movies_backup_file_path):
+        batch_add_file = xbmcvfs.File(movies_backup_file_path, 'w')
+        batch_add_file.write(ids)
+        batch_add_file.close()
+    plugin.notify(msg="Movies", title="Backed up", delay=5000, image=get_icon_path("movies"))
+
+@plugin.route('/export/tv')
+def export_tv_library():
+    folder_path = plugin.get_setting(SETTING_TV_LIBRARY_FOLDER)
+    if not xbmcvfs.exists(folder_path): return plugin.notify(msg='TVShows folder', title='Absent', delay=5000, image=get_icon_path("tv"))
+    ids = ""
+    shows = xbmcvfs.listdir(folder_path)[0]
+    if len(shows) < 1: return plugin.notify(msg='TVShows folder', title='Empty', delay=5000, image=get_icon_path("tv"))
+    else : 
+        for show in shows: ids = ids + str(show) + '\n'
+    shows_backup_file_path = "special://profile/addon_data/plugin.video.metalliq/shows_to_add.bak"
+    if xbmcvfs.exists(shows_backup_file_path): os.remove(xbmc.translatePath(shows_backup_file_path))
+    if not xbmcvfs.exists(shows_backup_file_path):
+        batch_add_file = xbmcvfs.File(shows_backup_file_path, 'w')
+        batch_add_file.write(ids)
+        batch_add_file.close()
+    plugin.notify(msg="TVShows", title="Backed up", delay=5000, image=get_icon_path("tv"))
+
+@plugin.route('/play/<label>')
+def play_by_label(label):
+    types = [_("Movies"), _("TV shows")]
+    selection = dialogs.select(_("Choose season"), [item for item in types])
+    if selection == 0: xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/movies/play_by_name/{0}/en)".format(label))
+    else: xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/tv/play_by_name_only/{0}/en)".format(label))
+
 @plugin.route('/settings')
-def generalsettings():
+def settings_general():
     openSettings(addonid, 0.0)
 
 @plugin.route('/settings/movies')
-def moviesettings():
+def settings_movies():
     openSettings(addonid, 1.2)
 
 @plugin.route('/settings/tv')
-def tvsettings():
+def settings_tv():
     openSettings(addonid, 2.2)
 
 @plugin.route('/settings/music')
-def musicsettings():
+def settings_music():
     openSettings(addonid, 3.3)
 
 @plugin.route('/settings/live')
-def livesettings():
+def settings_live():
     openSettings(addonid, 4.2)
 
 @plugin.route('/settings/advanced/')
-def advancedsettings():
+def settings_advanced():
     openSettings(addonid, 5.0)
 
+@plugin.route('/settings/toggling/')
+def settings_toggling():
+    openSettings(addonid, 5.3)
+
 @plugin.route('/settings/appearance/')
-def appearancesettings():
+def settings_appearance():
     openSettings(addonid, 6.0)
 
 def openSettings(addonid, focus=None):
@@ -526,27 +657,16 @@ def openSettings(addonid, focus=None):
 def main():
     if '/movies' in sys.argv[0]:
         xbmcplugin.setContent(int(sys.argv[1]), 'movies')
-        if plugin.get_setting(SETTING_FORCE_VIEW, bool) == True:
-            plugin.set_view_mode(plugin.get_setting(SETTING_MOVIES_VIEW, int))
     elif '/tv' in sys.argv[0]:
         xbmcplugin.setContent(int(sys.argv[1]), 'tvshows')
-        if plugin.get_setting(SETTING_FORCE_VIEW, bool) == True:
-            plugin.set_view_mode(plugin.get_setting(SETTING_TVSHOWS_VIEW, int))
     elif '/music' in sys.argv[0]:
         xbmcplugin.setContent(int(sys.argv[1]), 'musicvideos')
-        if plugin.get_setting(SETTING_FORCE_VIEW, bool) == True:
-            plugin.set_view_mode(plugin.get_setting(SETTING_MUSIC_VIEW, int))
     elif '/live' in sys.argv[0]:
         xbmcplugin.setContent(int(sys.argv[1]), 'LiveTV')
-        if plugin.get_setting(SETTING_FORCE_VIEW, bool) == True:
-            plugin.set_view_mode(plugin.get_setting(SETTING_LIVE_VIEW, int))
     elif '/list' in sys.argv[0]:
         xbmcplugin.setContent(int(sys.argv[1]), 'playlists')
-        if plugin.get_setting(SETTING_FORCE_VIEW, bool) == True:
-            plugin.set_view_mode(plugin.get_setting(SETTING_LIST_VIEW, int))
     else:
-         if plugin.get_setting(SETTING_FORCE_VIEW, bool) == True:
-            plugin.set_view_mode(plugin.get_setting(SETTING_MAIN_VIEW, int))
+        pass
     plugin.run()
 
 if __name__ == '__main__':

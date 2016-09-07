@@ -27,7 +27,6 @@ def select(title, items):
 def multiselect(title, items):
     return xbmcgui.Dialog().multiselect(title, items)
 
-	
 def select_ext(title, populator, tasks_count):
     addonPath = xbmcaddon.Addon().getAddonInfo('path').decode('utf-8')
     dlg = SelectorDialog("DialogSelect.xml", addonPath, title = title, 

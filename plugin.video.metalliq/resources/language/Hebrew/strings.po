@@ -124,8 +124,8 @@ msgid "Genres"
 msgstr "סגנונות"
 
 msgctxt "#30602"
-msgid "Select stream..."
-msgstr "בחר מקור הזרמה..."
+msgid "Select default player"
+msgstr "בחר נגן ברירת מחדל"
 
 msgctxt "#30603"
 msgid "Show info"
@@ -200,8 +200,8 @@ msgid "Popular"
 msgstr "פופולרי"
 
 msgctxt "#30622"
-msgid "Select default player"
-msgstr "בחר נגן ברירת מחדל"
+msgid "Context player"
+msgstr "בחר מקור הזרמה..."
 
 msgctxt "#30623"
 msgid "Failed to update players"

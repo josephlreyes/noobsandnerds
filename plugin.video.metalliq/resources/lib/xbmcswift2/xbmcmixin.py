@@ -452,6 +452,22 @@ class XBMCMixin(object):
         _player.play(item.get_path(), item.as_xbmc_listitem())
         return [item]
 
+    def play_audio(self, item, player=None):
+        try:
+            # music is always type audio
+            item['info_type'] = 'audio'
+        except TypeError:
+            pass  # not a dict
+
+        item = self._listitemify(item)
+        item.set_played(True)
+        if player:
+            _player = xbmc.Player(player)
+        else:
+            _player = xbmc.Player()
+        _player.play(item.get_path(), item.as_xbmc_listitem())
+        return [item]
+
     def add_items(self, items):
         '''Adds ListItems to the XBMC interface. Each item in the
         provided list should either be instances of xbmcswift2.ListItem,

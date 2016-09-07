@@ -19,31 +19,6 @@ def caller_args():
     args, _, _, values = inspect.getargvalues(caller)
     return dict([(i, values[i]) for i in args])
 
-def search(search_func, term = None):
-    """ Search wrapper """
-    external = False
-    if plugin.id == xbmc.getInfoLabel('Container.PluginName'):
-        # Skip if search item isn't currently selected    
-        label = xbmc.getInfoLabel('ListItem.label')
-    else:
-        external = True
-
-    if term is None:
-        # Get search keyword
-        search_entered = plugin.keyboard(heading=_("search for"))
-        if not search_entered:
-            return
-
-    else:
-        search_entered = term
-    # Perform search
-    url = plugin.url_for(search_func, term=search_entered, page='1')
-    if external:
-        xbmc.executebuiltin('ActivateWindow(10025,"plugin://%s/",return)' % plugin.id)
-        xbmc.executebuiltin('Container.Update("%s")' % url)
-    else:
-        plugin.redirect(url)
-
 def get_icon_path(icon_name):
     if plugin.get_setting(SETTING_STYLE, converter=str) != "Custom": return os.path.join('https://raw.githubusercontent.com/OpenELEQ/Style/master/MetalliQ/', str(plugin.get_setting(SETTING_STYLE, converter=str).lower()) + "/" , icon_name+".png")
     else: return os.path.join(plugin.get_setting(SETTING_STYLE_CUSTOM_FOLDER, converter=str), icon_name+".png")

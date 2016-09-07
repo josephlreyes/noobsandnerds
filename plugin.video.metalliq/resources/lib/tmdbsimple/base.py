@@ -82,7 +82,10 @@ class TMDB(object):
             data=json.dumps(payload) if payload else payload,
             headers=self.headers)
 
-        response.raise_for_status()
+        try:
+            response.raise_for_status()
+        except:
+            pass
         response.encoding = 'utf-8'
         return response.json()
 

@@ -6,7 +6,7 @@ from meta.play.base import active_players
 from meta.play.players import ADDON_DEFAULT, ADDON_SELECTOR
 from meta.play.channelers import ADDON_STANDARD, ADDON_PICKER
 from meta.play.live import play_channel, play_channel_from_guide
-from meta.navigation.base import search, get_icon_path, get_genre_icon, get_background_path, get_genres, get_tv_genres, caller_name, caller_args
+from meta.navigation.base import get_icon_path, get_genre_icon, get_background_path, get_genres, get_tv_genres, caller_name, caller_args
 from meta.library.live import setup_library, add_channel_to_library
 from meta.utils.text import to_unicode, to_utf8
 from language import get_string as _
@@ -173,7 +173,8 @@ def browse_library_channels():
 @plugin.route('/live/search')
 def live_search():
     """ Activate channel search """
-    search(live_search_term)
+    term = plugin.keyboard(heading=_("search for"))
+    return live_search_term(term)
 
 @plugin.route('/live/search_term/<term>')
 def live_search_term(term):

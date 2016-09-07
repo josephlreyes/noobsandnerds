@@ -26,9 +26,8 @@ def update_library():
         return
     scan_library(type="video")
 
-def add_movie_to_library(library_folder, src, id, date):    
+def add_movie_to_library(library_folder, src, id, play_plugin=None):
     changed = False
-    
     # create movie folder
     movie_folder = os.path.join(library_folder, str(id)+'/')
     if not xbmcvfs.exists(movie_folder):
@@ -36,7 +35,13 @@ def add_movie_to_library(library_folder, src, id, date):
             xbmcvfs.mkdir(movie_folder)
         except:
             pass
-
+        # Create play with file
+        if play_plugin is not None:
+            player_filepath = os.path.join(movie_folder, 'player.info')
+            player_file = xbmcvfs.File(player_filepath, 'w')
+            content = "{0}".format(play_plugin)
+            player_file.write(content)
+            player_file.close()
     # create nfo file
     nfo_filepath = os.path.join(movie_folder, str(id)+".nfo")
     if not xbmcvfs.exists(nfo_filepath):
@@ -48,7 +53,6 @@ def add_movie_to_library(library_folder, src, id, date):
             content = "http://www.themoviedb.org/movie/%s" % str(id)
         nfo_file.write(content)
         nfo_file.close()
-
     # create strm file
     strm_filepath = os.path.join(movie_folder, str(id)+".strm")
     if not xbmcvfs.exists(strm_filepath):
@@ -57,11 +61,51 @@ def add_movie_to_library(library_folder, src, id, date):
         content = plugin.url_for("movies_play", src=src, id=id, mode='library')
         strm_file.write(content)
         strm_file.close()
-
-    xbmc.executebuiltin("RunScript(script.qlickplay,info=afteradd)")
+    if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): xbmc.executebuiltin("RunScript(script.qlickplay,info=afteradd)")
+    if xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): xbmc.executebuiltin("RunScript(script.extendedinfo,info=afteradd)")
 #    xbmc.executebuiltin("RunScript(script.artworkdownloader,mediatype=movie,dbid=%s)" % xbmc.getInfoLabel('ListItem.DBID'))
-    
     return changed
+
+def batch_add_movies_to_library(library_folder, id):
+    if id == None:
+        return
+    changed = False
+    movie_folder = os.path.join(library_folder, str(id)+'/')
+    if not xbmcvfs.exists(movie_folder):
+        try: xbmcvfs.mkdir(movie_folder)
+        except: pass
+    nfo_filepath = os.path.join(movie_folder, str(id)+".nfo")
+    if not xbmcvfs.exists(nfo_filepath):
+        changed = True
+        nfo_file = xbmcvfs.File(nfo_filepath, 'w')
+        content = "http://www.imdb.com/title/%s/" % str(id)
+        nfo_file.write(content)
+        nfo_file.close()
+    strm_filepath = os.path.join(movie_folder, str(id)+".strm")
+    src = "imdb"
+    if not xbmcvfs.exists(strm_filepath):
+        changed = True
+        strm_file = xbmcvfs.File(strm_filepath, 'w')
+        try:
+            content = plugin.url_for("movies_play", src=src, id=id, mode='library')
+            strm_file.write(content)
+            strm_file.close()
+        except:
+            pass
+    if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): xbmc.executebuiltin("RunScript(script.qlickplay,info=afteradd)")
+    if xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): xbmc.executebuiltin("RunScript(script.extendedinfo,info=afteradd)")
+    return changed
+
+def get_player_plugin_from_library(id):
+    # Specified by user
+    try:
+        library_folder = plugin.get_setting(SETTING_MOVIES_LIBRARY_FOLDER)
+        player_file = xbmcvfs.File(os.path.join(library_folder, str(id), "player.info"))
+        content = player_file.read()
+        player_file.close()
+        if content: return content
+    except: pass
+    return None
 
 def setup_library(library_folder):
     if library_folder[-1] != "/":
@@ -88,8 +132,6 @@ def setup_library(library_folder):
 def auto_movie_setup(library_folder):
     if library_folder[-1] != "/":
         library_folder += "/"
-    metalliq_playlist_folder = "special://profile/playlists/mixed/MetalliQ/"
-    if not xbmcvfs.exists(metalliq_playlist_folder): xbmcvfs.mkdir(metalliq_playlist_folder)
     playlist_folder = plugin.get_setting(SETTING_MOVIES_PLAYLIST_FOLDER, converter=str)
     if plugin.get_setting(SETTING_MOVIES_PLAYLIST_FOLDER, converter=str)[-1] != "/": playlist_folder += "/"
     # create folders
@@ -104,4 +146,3 @@ def auto_movie_setup(library_folder):
             return True
         except:
             False
-

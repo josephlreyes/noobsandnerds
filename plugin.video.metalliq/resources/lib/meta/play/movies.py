@@ -4,6 +4,7 @@ import urllib
 from meta import plugin, import_tmdb, LANG
 from meta.utils.text import to_unicode, parse_year, to_utf8
 from meta.utils.properties import set_property
+from meta.library.movies import get_player_plugin_from_library
 from meta.info import get_movie_metadata
 from meta.play.players import get_needed_langs, ADDON_SELECTOR
 from meta.play.channelers import get_needed_langs, ADDON_PICKER
@@ -11,7 +12,7 @@ from meta.play.base import get_trakt_ids, active_players, active_channelers, act
 from settings import SETTING_USE_SIMPLE_SELECTOR, SETTING_MOVIES_DEFAULT_PLAYER, SETTING_MOVIES_DEFAULT_PLAYER_FROM_LIBRARY, SETTING_MOVIES_DEFAULT_PLAYER_FROM_CONTEXT, SETTING_MOVIES_DEFAULT_CHANNELER
 from language import get_string as _
 
-def play_movie(tmdb_id, mode):  
+def play_movie(tmdb_id, mode):
     import_tmdb()
     # Get players to use
     if mode == 'select':
@@ -19,7 +20,9 @@ def play_movie(tmdb_id, mode):
     elif mode == 'context':
         play_plugin = plugin.get_setting(SETTING_MOVIES_DEFAULT_PLAYER_FROM_CONTEXT)
     elif mode == 'library':
-        play_plugin = plugin.get_setting(SETTING_MOVIES_DEFAULT_PLAYER_FROM_LIBRARY)
+        play_plugin = get_player_plugin_from_library(id)
+        if not play_plugin or play_plugin == "default":
+            play_plugin = plugin.get_setting(SETTING_MOVIES_DEFAULT_PLAYER_FROM_LIBRARY)
     elif mode == 'default':
         play_plugin = plugin.get_setting(SETTING_MOVIES_DEFAULT_PLAYER)
     else:
@@ -119,6 +122,9 @@ def get_movie_parameters(movie):
     for article in articles:
         if to_utf8(parameters['title']).startswith(article): parameters['sorttitle'] = to_utf8(parameters['title']).replace(article,'')
     parameters['shorttitle'] = parameters['title'][1:-1]
+    if "movie" in str(parameters['sorttitle']).lower(): parameters['sortesttitle'] = str(parameters['sorttitle']).lower().replace(' movie','')
+    elif "movi" in str(parameters['sorttitle']).lower(): parameters['sortesttitle'] = str(parameters['sorttitle']).lower().replace(' movi','')
+    else: parameters['sortesttitle'] = parameters['sorttitle']
     parameters['original_title'] = movie['original_title']
     parameters['name'] = u'%s (%s)' % (parameters['title'], parameters['year'])
     parameters['urlname'] = urllib.quote(to_utf8(parameters['name']))

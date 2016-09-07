@@ -55,7 +55,7 @@ def call_trakt(path, params={}, data=None, is_delete=False, with_auth=True, pagi
         results = send_query()
         if with_auth and results.status_code == 401 and dialogs.yesno(_("Authenticate Trakt"), _(
                 "You must authenticate with Trakt. Do you want to authenticate now?")) and trakt_authenticate():
-            response = paginated_query()
+            response = paginated_query(1)
             return response
         results.raise_for_status()
         results.encoding = 'utf-8'
@@ -242,7 +242,7 @@ def trakt_get_liked_lists(page = 1):
 @plugin.cached(TTL=CACHE_TTL, cache="trakt")
 def get_list(user, list_slug):
     path = "users/{0}/lists/{1}/items".format(user, list_slug)
-    return call_trakt(path, params={'extended':'full,images'})
+    return call_trakt(path, pagination=False, params={'extended':'full,images'})
 
 def add_list(name, privacy_id=None, description=None):
     data = {

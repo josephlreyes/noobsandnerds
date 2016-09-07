@@ -149,6 +149,7 @@ class Tvdb:
         # URLs
         config['base_url'] = "http://thetvdb.com"
         config['url_search'] = u"%(base_url)s/api/GetSeries.php?seriesname=%%s&language=%%s" % config
+        config['url_search_by_imdb'] = u"%(base_url)s/api/GetSeriesByRemoteID.php?imdbid=%%s&language=%%s" % config
         config['url_sid_full'] = u"%(base_url)s/api/%(apikey)s/series/%%s/all/%%s.zip" % config
         config['url_sid_base'] = u"%(base_url)s/api/%(apikey)s/series/%%s/%%s.xml" % config
         config['url_artwork_prefix'] = u"%(base_url)s/banners/%%s" % config
@@ -192,7 +193,14 @@ class Tvdb:
             allSeries.append(result)
         
         return allSeries
-    
+
+    def search_by_imdb(self, imdb_id, year=None):
+        language = "en"
+        result = self._loadUrl(self.config['url_search_by_imdb'] % (imdb_id,language))
+        pre_tvdb = str(result).split('<seriesid>')
+        tvdb = str(pre_tvdb[1]).split('</seriesid>')
+        return tvdb[0]
+
     def url_sid_full(self, sid, language):
         return self.config['url_sid_full'] % (sid, language)
 

@@ -396,7 +396,7 @@ msgid "Genres (TMDb)"
 msgstr ""
 
 msgctxt "#30602"
-msgid "Context player"
+msgid "Select default player"
 msgstr ""
 
 msgctxt "#30603"
@@ -468,7 +468,7 @@ msgid "Popular (TMDb)"
 msgstr ""
 
 msgctxt "#30622"
-msgid "Select default player"
+msgid "Context player"
 msgstr ""
 
 msgctxt "#30623"
@@ -664,7 +664,7 @@ msgid "My lists"
 msgstr ""
 
 msgctxt "#30818"
-msgid "Add TV shows to library using library player?"
+msgid "Add TV shows to library using preferred library player?"
 msgstr ""
 
 msgctxt "#30819"
@@ -725,4 +725,8 @@ msgstr ""
 
 msgctxt "#30833"
 msgid "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]"
+msgstr ""
+
+msgctxt "#30834"
+msgid "Add movies to library using preferred library player?"
 msgstr ""

@@ -120,6 +120,37 @@ def add_tvshow_to_library(library_folder, show, play_plugin = None):
     xbmc.executebuiltin("RunScript(script.qlickplay,info=afteradd)")
     return clean_needed
 
+def batch_add_tvshows_to_library(library_folder, show):
+    id = show['id']
+    showname = to_utf8(show['seriesname'])
+    playlist_folder = plugin.get_setting(SETTING_TV_PLAYLIST_FOLDER)
+    if not xbmcvfs.exists(playlist_folder):
+        try: xbmcvfs.mkdir(playlist_folder)
+        except: plugin.notify(msg=_('Creation of [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] Playlist Folder'), title=_('Failed'), delay=5000, image=get_icon_path("lists"))
+    playlist_file = os.path.join(playlist_folder, id+".xsp")
+    if not xbmcvfs.exists(playlist_file):
+        playlist_file = xbmcvfs.File(playlist_file, 'w')
+        content = '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><smartplaylist type="tvshows"><name>%s</name><match>all</match><rule field="path" operator="contains"><value>%s%s</value></rule><rule field="playcount" operator="is"><value>0</value></rule><order direction="ascending">numepisodes</order></smartplaylist>' % (showname, plugin.get_setting(SETTING_TV_LIBRARY_FOLDER).replace('special://profile',''), str(id))
+        playlist_file.write(content)
+        playlist_file.close()
+    show_folder = os.path.join(library_folder, str(id)+'/')
+    if not xbmcvfs.exists(show_folder):
+        try: xbmcvfs.mkdir(show_folder)
+        except: pass
+    player_filepath = os.path.join(show_folder, 'player.info')
+    player_file = xbmcvfs.File(player_filepath, 'w')
+    content = "default"
+    player_file.write(content)
+    player_file.close()
+    nfo_filepath = os.path.join(show_folder, 'tvshow.nfo')
+    if not xbmcvfs.exists(nfo_filepath):
+        nfo_file = xbmcvfs.File(nfo_filepath, 'w')
+        content = "http://thetvdb.com/index.php?tab=series&id=%s" % str(id)
+        nfo_file.write(content)
+        nfo_file.close()
+    clean_needed = True
+    return clean_needed
+
 def library_tv_remove_strm(show, folder, id, season, episode):
     enc_season = ('Season %s' % season).translate(None, '\/:*?"<>|').strip('.')
     enc_name = 'S%02dE%02d' % (season, episode)
@@ -215,8 +246,6 @@ def auto_tvshows_setup(library_folder):
             False
 
 def auto_tvshows_playlist(playlist_folder):
-    metalliq_playlist_folder = "special://profile/playlists/mixed/MetalliQ/"
-    if not xbmcvfs.exists(metalliq_playlist_folder): xbmcvfs.mkdir(metalliq_playlist_folder)
     if playlist_folder[-1] != "/":
         playlist_folder += "/"
     playlist_folder = plugin.get_setting(SETTING_TV_PLAYLIST_FOLDER, converter=str)

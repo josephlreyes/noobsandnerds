@@ -155,6 +155,7 @@ def play_episode_from_guide(id, season, episode, mode):
 def get_episode_parameters(show, season, episode):
     import_tmdb()
     if season in show and episode in show[season]:
+        season_obj = show[season]
         episode_obj = show[season][episode]
     else:
         return
@@ -201,9 +202,7 @@ def get_episode_parameters(show, season, episode):
         genre = []
     parameters['genre'] = " / ".join(genre)
     is_anime = False
-    if parameters['absolute_number'] and \
-     parameters['absolute_number'] != '0' and \
-     "animation" in parameters['genre'].lower():
+    if parameters['absolute_number'] and parameters['absolute_number'] != '0' and "animation" in parameters['genre'].lower():
         tmdb_results = tmdb.Find(show['id']).info(external_source="tvdb_id") or {}
         for tmdb_show in tmdb_results.get("tv_results", []):
             if "JP" in tmdb_show['origin_country']:

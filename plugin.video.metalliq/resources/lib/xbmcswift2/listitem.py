@@ -10,6 +10,14 @@
 '''
 from xbmcswift2 import xbmcgui
 
+def to_utf8(obj):
+    if isinstance(obj, unicode): obj = obj.encode('utf-8', 'ignore')
+    elif isinstance(obj, dict):
+        obj = copy.deepcopy(obj)
+        for key, val in obj.items(): obj[key] = to_utf8(val)
+    elif obj is not None and hasattr(obj, "__iter__"): obj = obj.__class__([to_utf8(x) for x in obj])
+    else: pass
+    return obj
 
 class ListItem(object):
     '''A wrapper for the xbmcgui.ListItem class. The class keeps track
@@ -43,10 +51,10 @@ class ListItem(object):
         self._played = False
 
     def __repr__(self):
-        return ("<ListItem '%s'>" % self.label).encode('utf-8')
+        return ("<ListItem '%s'>" % to_utf8(self.label))
 
     def __str__(self):
-        return ('%s (%s)' % (self.label, self.path)).encode('utf-8')
+        return ('%s (%s)' % (to_utf8(self.label), self.path))
 
     def get_context_menu_items(self):
         '''Returns the list of currently set context_menu items.'''

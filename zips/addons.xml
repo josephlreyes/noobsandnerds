@@ -295,7 +295,39 @@
   </extension>
 </addon>
 
+<<<<<<< Updated upstream
 <addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="1.1.5" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR], Midraal, forked from Meta-video">
+=======
+<<<<<<< HEAD
+<addon id="plugin.video.kodipopcorntime.repository" name="Markop159 Repository" version="0.0.0.1" provider-name="Markop159">
+	<extension point="xbmc.addon.repository" name="Markop159 Repository">
+		<info compressed="false">https://raw.githubusercontent.com/markop159/KODI-Popcorn-Time/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/markop159/KODI-Popcorn-Time/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/markop159/KODI-Popcorn-Time/master/Releases</datadir>
+	</extension>
+	<requires>
+		<import version="2.14.0" addon="xbmc.python"/>
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<website><![CDATA[https://github.com/markop159/KODI-Popcorn-Time]]></website>
+		<source><![CDATA[https://github.com/markop159/KODI-Popcorn-Time]]></source>
+		<language>English</language>
+		<licence><![CDATA[GNU GENERAL PUBLIC LOCENCE. Version 3, 29 June 2007]]></licence>
+		<summary>KODI Popcorn Time repository from Markop159</summary>
+		<description>Download, update and install KODI Popcorn Time repository from Markop159.</description>
+		<disclaimer>
+			The Software is provided "as is" without warranty of any kind, either express or implied, including without limitation any implied warranties of condition, uninterrupted use, merchantability, fitness for a particular purpose, or non-infringement.
+			Markop159 and anyone associated with these addons will not be held responsible for the use or misuse of this software if considered illegal in your country.  Use of this software is at your own risk.
+		</disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="1.1.0" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR], Midraal, forked from Meta-video">
+=======
+<addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="1.1.5" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR], Midraal, forked from Meta-video">
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 		<import addon="repository.q"/>
@@ -832,6 +864,19 @@
 		<disclaimer></disclaimer>
 		<platform>all</platform>
 		<broken>This repo has been pulled by the developer, their work can now be found in the official Kodi repo</broken>
+	</extension>
+</addon>
+
+<addon id="repository.alleidun" version="0.0.0.1" name="Alleidun's repository" provider-name="Alleidun">
+	<extension point="xbmc.addon.repository" name="Alleidun's repository">
+		<info compressed="false">https://offshoregit.com/Alleidun/addons.xml</info>
+		<checksum>https://offshoregit.com/Alleidun/addons.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/Alleidun/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Alleidun's repository</summary>
+		<description lang="en">Alleidun's repository</description>
+		<platform>all</platform>
 	</extension>
 </addon>
 
@@ -3042,6 +3087,21 @@ provider-name="MGendyS">
 	</extension>
 </addon>
 
+<addon id="repository.gujal" name="Gujal's Addon Repository" version="0.0.0.1" provider-name="Gujal">
+	<extension point="xbmc.addon.repository" name="Gujal's Addon Repository">
+
+    <info compressed="false">https://offshoregit.com/gujal/main/addons.xml</info>
+    <checksum>https://offshoregit.com/gujal/main/addons.xml.md5</checksum>
+    <datadir zip="true">https://offshoregit.com/gujal/main/zips</datadir>
+
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Addons for Kodi related to Entertainment from India</summary>
+		<description>Deccan Delight Addon Repository</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.hal9000" name="HAL9000 Add-on Repository" version="0.0.0.1" provider-name="HAL9000">
     <extension point="xbmc.addon.repository" name="HAL9000 Add-on Repository">
         <info compressed="false">https://raw.githubusercontent.com/xbmc-addon/repository.hal9000/master/addons.xml</info>
@@ -4381,6 +4441,26 @@ provider-name="MGendyS">
 	</extension>
 </addon>
 
+<addon id="repository.mathsgrinds" name="mathsgrinds' Kodi Add-on Repository" version="1.0" provider-name="MathsGrinds, ImReallyShiny">
+	<extension point="xbmc.addon.repository" name="mathsgrinds' Kodi Add-on Repository">
+		<info compressed="false">
+		https://offshoregit.com/mathsgrinds/mathsgrinds-repo/addons.xml
+		</info>
+		<checksum>https://offshoregit.com/mathsgrinds/mathsgrinds-repo/addons.xml.md5
+		</checksum>
+		<datadir zip="true">https://offshoregit.com/mathsgrinds/mathsgrinds-repo/
+		</datadir>
+		</extension>
+		<extension point="xbmc.addon.metadata">
+		<summary>mathsgrinds' Kodi Add-on Repository</summary>
+		<description>mathsgrinds' Kodi Add-on Repository. Please visit www.tvaddons.ag for assistance with this repository.
+		</description>
+		<platform>all</platform>
+		<forum>https://forums.tvaddons.ag/addon-releases/</forum>
+		<website>http://www.tvaddons.ag/</website>
+	</extension>
+</addon>
+
 <addon id="repository.MaxMustermann.xbmc" name="MaxMustermann's add-ons" version="0.0.0.1" provider-name="MaxMustermann">
 	<extension point="xbmc.addon.repository" name="MaxMustermann's add-on repository">
 		<info compressed="false">http://xbmc-development-with-passion.googlecode.com/svn/branches/repo/addons.xml</info>
@@ -4481,6 +4561,19 @@ provider-name="MGendyS">
                 <disclaimer></disclaimer>
                 <platform>all</platform>
         </extension>
+</addon>
+
+<addon id="repository.metalchris" name="MetalChris's Repository" version="2.0.4" provider-name="MetalChris">
+    <extension point="xbmc.addon.repository" name="Official MetalChris Repository">
+        <info compressed="false">http://raw.github.com/MetalChris/repository.metalchris/master/addons.xml</info>
+        <checksum>http://raw.github.com/MetalChris/repository.metalchris/master/addons.xml.md5</checksum>
+        <datadir zip="true">http://raw.github.com/MetalChris/repository.metalchris/master/zips</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+		<summary>MetalChris's Kodi addons</summary>
+		<description>MetalChris's Kodi addons</description>
+        <platform>all</platform>
+    </extension>
 </addon>
 
 <addon id="repository.metalkettle" name="MetalKettles Addon Repository" version="0.0.0.1" provider-name="MetalKettle">
@@ -5296,6 +5389,20 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<description>Contains repository and addon for ApaliMarathi.com</description>
 		<platform>all</platform>
 	</extension>
+</addon>
+
+<addon id="repository.persia" name="Persia Repo" version="0.0.0.1" provider-name="FTABoy">
+<extension point="xbmc.addon.repository" name="Persia repo">
+<info compressed="true">https://offshoregit.com/FTABoy/addons.xml</info>
+<checksum>https://offshoregit.com/FTABoy/addons.xml.md5</checksum>
+<datadir zip="true">https://offshoregit.com/FTABoy/</datadir>
+</extension>
+<extension point="xbmc.addon.metadata">
+<summary>The Official Persia repository</summary>
+<description>This repository contains addons created by FTABoy.</description>
+<disclaimer>The owners and submitters to this repository do not host or distribute any of the content displayed by these addons nor do they have any affiliation with the content providers.</disclaimer>
+<platform>all</platform>
+</extension>
 </addon>
 
 <addon	id="repository.pietervanh.addons"
@@ -6516,6 +6623,20 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	</extension>
 </addon>
 
+<addon id="repository.szmokkencs" name="Szmokkencs Repository" version="0.0.0.1" provider-name="Szmokkencs">
+	<extension point="xbmc.addon.repository" name="Szmokkencs Add-on Repository">
+		<info compressed="false">https://offshoregit.com/szmokkencs/addons.xml</info>
+		<checksum>https://offshoregit.com/szmokkencs/addons.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/szmokkencs/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary></summary>
+		<description>Szmokkencs Repository</description>
+		<disclaimer></disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.t0mm0" name="t0mm0's XBMC Addons" version="0.0.0.1" provider-name="t0mm0 [dev@onairsoftware.co.uk]">
 	<extension point="xbmc.addon.repository" name="t0mm0's XBMC Addon Repository">
 		<info compressed="false">http://github.com/t0mm0/t0mm0-xbmc-plugins/raw/master/addons.xml</info>
@@ -6743,6 +6864,19 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	</extension>
 </addon>
 
+<addon id="repository.thephasetv" name="[COLOR dodgerblue][B]T[/B][/COLOR][COLOR white][B]he[/B][/COLOR] [COLOR dodgerblue][B]P[/B][/COLOR][COLOR white][B]hase[/B][/COLOR] [COLOR dodgerblue][B]R[/B][/COLOR][COLOR white][B]epo[/B][/COLOR]" version="0.0.0.1" provider-name="Phase">
+	<extension point="xbmc.addon.repository" name="Simple Kodi">
+		<info compressed="false">http://phasecoder.netau.net/Plugins/addons.xml</info>
+		<checksum>http://phasecoder.netau.net/Plugins/addons.xml.md5</checksum>
+		<datadir zip="true">http://phasecoder.netau.net/Plugins/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Home Of Phase Tv.</summary>
+		<description>Please Download Both Files In Repo For best Performance From Phase Tv.</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.thevibe" name="TheVibe Team Repository" version="0.0.0.1" provider-name="TheVibe Team">
   <extension point="xbmc.addon.repository" name=".TheVibe Repository ">
     <info compressed="false">http://repo.the-vibe.co.il/Repo/xml</info>
@@ -6809,6 +6943,29 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	</extension>
 </addon>
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    <addon id="repository.thgiliwt" name="Thgiliwt Addon Repository" version="0.0.0.1" provider-name="Twilight0">
+        <extension point="xbmc.addon.repository" name="Thgiliwt Addon Repository">
+            <dir>
+                <info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+                <checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+                <datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+            </dir>
+            <info compressed="false">https://offshoregit.com/thgiliwt/_repo-thgiliwt/addons.xml</info>
+            <checksum>https://offshoregit.com/thgiliwt/_repo-thgiliwt/addons.xml.md5</checksum>
+            <datadir zip="true">https://offshoregit.com/thgiliwt/_repo-thgiliwt/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>Repository for AliveGR and other add-ons</summary>
+            <description></description>
+            <platform>all</platform>
+        </extension>
+    </addon>
+=======
+>>>>>>> Stashed changes
 <addon id="repository.The_Silencer" name="The_Silencer's KODI Addons" version="0.0.0.1" provider-name="The_Silencer">
 	<extension point="xbmc.addon.repository" name="The_Silencer's KODI Addons">
 		<info compressed="false">https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml</info>
@@ -6821,6 +6978,10 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<platform>all</platform>
 	</extension>
 </addon>
+<<<<<<< Updated upstream
+=======
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 
 <addon id="repository.thongld" name="ThongLD`s REPO" version="0.0.0.1" provider-name="ThongLD">
 	<extension point="xbmc.addon.repository" name="ThongLD`s Addon Repository">
@@ -8129,6 +8290,20 @@ Addons Included
     <description lang="et">Laadi alla ja paigalda Üllari poolt valmistatud lisasid</description>
     <platform>all</platform>
   </extension>
+</addon>
+
+<addon id="repository.yocoldrain" name="YoColdRain's Repository" version="0.0.0.1" provider-name="YoColdRain">
+	<extension point="xbmc.addon.repository" name="YoColdRain's Repository">
+		<info compressed="false">https://offshoregit.com/YoColdRain/addons.xml</info>
+		<checksum>https://offshoregit.com/YoColdRain/addons.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/YoColdRain/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>YoColdRain's Addon Repository</summary>
+		<description>Download and install YoColdRain's addon repository, includes Indian addons such as hotstar, erosnow, spuul etc.!</description>
+		<disclaimer></disclaimer>
+		<platform>all</platform>
+	</extension>
 </addon>
 
 <addon id="repository.ytplugin" name="Youtube Addon Repo" version="0.0.0.1" provider-name="Jeffrey Frasure">

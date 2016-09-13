@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.mathsgrinds" name="mathsgrinds' Kodi Add-on Repository" version="1.0" provider-name="MathsGrinds, ImReallyShiny">
+	<extension point="xbmc.addon.repository" name="mathsgrinds' Kodi Add-on Repository">
+		<info compressed="false">
+		https://offshoregit.com/mathsgrinds/mathsgrinds-repo/addons.xml
+		</info>
+		<checksum>https://offshoregit.com/mathsgrinds/mathsgrinds-repo/addons.xml.md5
+		</checksum>
+		<datadir zip="true">https://offshoregit.com/mathsgrinds/mathsgrinds-repo/
+		</datadir>
+		</extension>
+		<extension point="xbmc.addon.metadata">
+		<summary>mathsgrinds' Kodi Add-on Repository</summary>
+		<description>mathsgrinds' Kodi Add-on Repository. Please visit www.tvaddons.ag for assistance with this repository.
+		</description>
+		<platform>all</platform>
+		<forum>https://forums.tvaddons.ag/addon-releases/</forum>
+		<website>http://www.tvaddons.ag/</website>
+	</extension>
+</addon>

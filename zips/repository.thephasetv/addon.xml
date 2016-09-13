@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.thephasetv" name="[COLOR dodgerblue][B]T[/B][/COLOR][COLOR white][B]he[/B][/COLOR] [COLOR dodgerblue][B]P[/B][/COLOR][COLOR white][B]hase[/B][/COLOR] [COLOR dodgerblue][B]R[/B][/COLOR][COLOR white][B]epo[/B][/COLOR]" version="0.0.0.1" provider-name="Phase">
+	<extension point="xbmc.addon.repository" name="Simple Kodi">
+		<info compressed="false">http://phasecoder.netau.net/Plugins/addons.xml</info>
+		<checksum>http://phasecoder.netau.net/Plugins/addons.xml.md5</checksum>
+		<datadir zip="true">http://phasecoder.netau.net/Plugins/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Home Of Phase Tv.</summary>
+		<description>Please Download Both Files In Repo For best Performance From Phase Tv.</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+

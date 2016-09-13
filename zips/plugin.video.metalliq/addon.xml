@@ -2,8 +2,8 @@
 <addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="1.1.5" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR], Midraal, forked from Meta-video">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
-		<import addon="repository.q"/>
-		<import addon="script.module.requests"/>
+		<import addon="repository.q" version="0.0.0.1"/>
+		<import addon="script.module.requests" version="2.9.1"/>
 		<import addon="script.module.futures" version="2.2.0"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">

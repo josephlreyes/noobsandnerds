@@ -6,9 +6,11 @@
 			<checksum>http://raw.github.com/RayW1986/repository.rayw1986/master/addons.xml.md5</checksum>
 			<datadir zip="true">http://raw.github.com/RayW1986/repository.rayw1986/master/zips</datadir>
 		</dir>
-		<info compressed="false">https://offshoregit.com/rayw1986/rayw1986-repo/addons.xml</info>
-		<checksum>https://offshoregit.com/rayw1986/rayw1986-repo/addons.xml.md5</checksum>
-		<datadir zip="true">https://offshoregit.com/rayw1986/rayw1986-repo/zips</datadir>
+		<dir>
+			<info compressed="false">https://offshoregit.com/rayw1986/rayw1986-repo/addons.xml</info>
+			<checksum>https://offshoregit.com/rayw1986/rayw1986-repo/addons.xml.md5</checksum>
+			<datadir zip="true">https://offshoregit.com/rayw1986/rayw1986-repo/zips</datadir>
+		</dir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>RayW1986's Repository</summary>
@@ -16,4 +18,5 @@
 		<platform>all</platform>
 	</extension>
 </addon>
+
 

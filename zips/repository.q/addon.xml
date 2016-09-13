@@ -5,10 +5,15 @@
 		provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR]">
 	<extension point="xbmc.addon.repository"
 		name="[COLOR FF8ABEE2]Q[/COLOR]'s Add-on Repository">
-		<dir>
+		<dir minversion="14.0.0">
 			<info compressed="false">https://github.com/OpenELEQ/repository.q/raw/master/openeleq-addons.xml</info>
 			<checksum>https://github.com/OpenELEQ/repository.q/raw/master/openeleq-addons.xml.md5</checksum>
 			<datadir zip="true">https://raw.github.com/OpenELEQ/repository.q/master/zips/</datadir>
+		</dir>
+		<dir minversion="16.0.0">
+			<info compressed="false">https://github.com/OpenELEQ/repository.q.jarvis/raw/master/openeleq-addons.xml</info>
+			<checksum>https://github.com/OpenELEQ/repository.q.jarvis/raw/master/openeleq-addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.github.com/OpenELEQ/repository.q.jarvis/master/zips/</datadir>
 		</dir>
 	</extension>
 	<extension point="xbmc.addon.metadata">

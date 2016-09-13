@@ -295,10 +295,6 @@
   </extension>
 </addon>
 
-<<<<<<< Updated upstream
-<addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="1.1.5" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR], Midraal, forked from Meta-video">
-=======
-<<<<<<< HEAD
 <addon id="plugin.video.kodipopcorntime.repository" name="Markop159 Repository" version="0.0.0.1" provider-name="Markop159">
 	<extension point="xbmc.addon.repository" name="Markop159 Repository">
 		<info compressed="false">https://raw.githubusercontent.com/markop159/KODI-Popcorn-Time/master/addons.xml</info>
@@ -323,11 +319,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="1.1.0" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR], Midraal, forked from Meta-video">
-=======
 <addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="1.1.5" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR], Midraal, forked from Meta-video">
->>>>>>> origin/master
->>>>>>> Stashed changes
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 		<import addon="repository.q"/>
@@ -5632,10 +5624,15 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR]">
 	<extension point="xbmc.addon.repository"
 		name="[COLOR FF8ABEE2]Q[/COLOR]'s Add-on Repository">
-		<dir>
+		<dir minversion="14.0.0">
 			<info compressed="false">https://github.com/OpenELEQ/repository.q/raw/master/openeleq-addons.xml</info>
 			<checksum>https://github.com/OpenELEQ/repository.q/raw/master/openeleq-addons.xml.md5</checksum>
 			<datadir zip="true">https://raw.github.com/OpenELEQ/repository.q/master/zips/</datadir>
+		</dir>
+		<dir minversion="16.0.0">
+			<info compressed="false">https://github.com/OpenELEQ/repository.q.jarvis/raw/master/openeleq-addons.xml</info>
+			<checksum>https://github.com/OpenELEQ/repository.q.jarvis/raw/master/openeleq-addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.github.com/OpenELEQ/repository.q.jarvis/master/zips/</datadir>
 		</dir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
@@ -5782,9 +5779,11 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 			<checksum>http://raw.github.com/RayW1986/repository.rayw1986/master/addons.xml.md5</checksum>
 			<datadir zip="true">http://raw.github.com/RayW1986/repository.rayw1986/master/zips</datadir>
 		</dir>
-		<info compressed="false">https://offshoregit.com/rayw1986/rayw1986-repo/addons.xml</info>
-		<checksum>https://offshoregit.com/rayw1986/rayw1986-repo/addons.xml.md5</checksum>
-		<datadir zip="true">https://offshoregit.com/rayw1986/rayw1986-repo/zips</datadir>
+		<dir>
+			<info compressed="false">https://offshoregit.com/rayw1986/rayw1986-repo/addons.xml</info>
+			<checksum>https://offshoregit.com/rayw1986/rayw1986-repo/addons.xml.md5</checksum>
+			<datadir zip="true">https://offshoregit.com/rayw1986/rayw1986-repo/zips</datadir>
+		</dir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>RayW1986's Repository</summary>
@@ -6943,9 +6942,19 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	</extension>
 </addon>
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
+<addon id="repository.The_Silencer" name="The_Silencer's KODI Addons" version="0.0.0.1" provider-name="The_Silencer">
+	<extension point="xbmc.addon.repository" name="The_Silencer's KODI Addons">
+		<info compressed="false">https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml</info>
+		<checksum>https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/TheSilencer001/The_Silencer/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install The_Silencer's Addons</summary>
+		<description>Download and install addons from The_Silencer</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
     <addon id="repository.thgiliwt" name="Thgiliwt Addon Repository" version="0.0.0.1" provider-name="Twilight0">
         <extension point="xbmc.addon.repository" name="Thgiliwt Addon Repository">
             <dir>
@@ -6964,24 +6973,6 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
             <platform>all</platform>
         </extension>
     </addon>
-=======
->>>>>>> Stashed changes
-<addon id="repository.The_Silencer" name="The_Silencer's KODI Addons" version="0.0.0.1" provider-name="The_Silencer">
-	<extension point="xbmc.addon.repository" name="The_Silencer's KODI Addons">
-		<info compressed="false">https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml</info>
-		<checksum>https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/TheSilencer001/The_Silencer/master/zips</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Install The_Silencer's Addons</summary>
-		<description>Download and install addons from The_Silencer</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/master
->>>>>>> Stashed changes
 
 <addon id="repository.thongld" name="ThongLD`s REPO" version="0.0.0.1" provider-name="ThongLD">
 	<extension point="xbmc.addon.repository" name="ThongLD`s Addon Repository">

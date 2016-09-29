@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+  <addon id="repository.ivacy" name="Ivacy repo" version="0.0.0.1" provider-name="Ivacy.Ltd">
+    <extension point="xbmc.addon.repository" name="Ivacy.Ltd">
+    <info>http://bitbucket.org/KodiVPN/repository.ivacy.addons/raw/master/addons.xml</info>
+    <checksum>http://bitbucket.org/KodiVPN/repository.ivacy.addons/raw/master/addons.xml.md5</checksum>
+    <datadir zip="true">http://bitbucket.org/KodiVPN/repository.ivacy.addons/raw/master/</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+    <summary lang="en">My repo for Ivacy</summary>
+		<description lang="en">Description.</description>
+		<disclaimer lang="en">Disclaimer.</disclaimer>
+		<platform>all</platform>
+    </extension>
+  </addon>

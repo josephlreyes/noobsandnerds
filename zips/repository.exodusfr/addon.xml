@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.exodusfr" version="0.0.0.1" name="ExodusFR repository" provider-name="AddonMaster/Dev.Captain">
+	<extension point="xbmc.addon.repository" name="ExodusFR repository">
+		<dir>
+			<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+			<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+		</dir>
+		<info compressed="false">https://offshoregit.com/Addonmaster/exodusfr/addons.xml</info>
+		<checksum>https://offshoregit.com/Addonmaster/exodusfr/addons.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/Addonmaster/exodusfr/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">ExodusFR repository</summary>
+		<description lang="en">ExodusFR repository</description>
+		<platform>all</platform>
+	</extension>
+</addon>

@@ -224,6 +224,20 @@
 	</extension>
 </addon>
 
+<addon id="repository.macedoniaondemand.kodi-plugins" name="Macedonia On Demand Add-ons Repository" version="0.0.0.1" provider-name="Viktor Mladenovski">
+	<extension point="xbmc.addon.repository" name="Macedonia On Demand Add-on Repository">
+		<info compressed="false">https://raw.githubusercontent.com/mviktor/kodi-plugins/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/mviktor/kodi-plugins/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/mviktor/kodi-plugins/master/download/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install Add-ons from Macedonia On Demand Repository</summary>
+		<description>Add-ons for KODI/XBMC</description>
+		<disclaimer>by Viktor Mladenovski</disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="net.rieter.xot.repository"
         name="Retrospect (formerly XBMC Online TV) Add-ons"
         version="0.0.0.1"
@@ -2254,6 +2268,19 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 	</extension>
 </addon>
 
+<addon id="repository.eracknaphobia" name="eracknaphobia's Repo" version="0.0.0.1" provider-name="eracknaphobia">
+	<extension point="xbmc.addon.repository" name="eracknaphobia's Repo">
+		<info compressed="false">https://github.com/eracknaphobia/repo.eracknaphobia/raw/master/addons.xml</info>
+		<checksum>https://github.com/eracknaphobia/repo.eracknaphobia/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://github.com/eracknaphobia/repo.eracknaphobia/raw/master/addons/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>eracknaphobia's Repo</summary>
+		<description>eracknaphobia's Repo</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.eraser" name="XBMC Eraser's Addons" version="0.0.0.1" provider-name="eraser">
 	<extension point="xbmc.addon.repository" name="XBMC Eraser's Addons">
 		<info compressed="false">http://twitxbmc.googlecode.com/svn/addons/addons.xml</info>
@@ -2315,6 +2342,24 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">Exodus repository</summary>
 		<description lang="en">Exodus repository</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="repository.exodusfr" version="0.0.0.1" name="ExodusFR repository" provider-name="AddonMaster/Dev.Captain">
+	<extension point="xbmc.addon.repository" name="ExodusFR repository">
+		<dir>
+			<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+			<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+		</dir>
+		<info compressed="false">https://offshoregit.com/Addonmaster/exodusfr/addons.xml</info>
+		<checksum>https://offshoregit.com/Addonmaster/exodusfr/addons.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/Addonmaster/exodusfr/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">ExodusFR repository</summary>
+		<description lang="en">ExodusFR repository</description>
 		<platform>all</platform>
 	</extension>
 </addon>
@@ -2524,6 +2569,20 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 		<summary>gbzygil's Addon Repository</summary>
 		<description>Download and install gbzygil's addon repository, home of the olangal.com and rajtamil.com addons!</description>
 		<disclaimer></disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="repository.gbzygil-IndianMovies" name="gbzygil's XBMC Addons" version="0.0.0.1" provider-name="gbzygil">
+	<extension point="xbmc.addon.repository" name="gbzygil's XBMC Addon Repository">
+		<info compressed="false">https://raw.githubusercontent.com/gbzygil/gbzygil-xbmc-repo/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/gbzygil/gbzygil-xbmc-repo/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://github.com/gbzygil/gbzygil-xbmc-repo/raw/master/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>gbzygil's Addon Repository</summary>
+		<description>Download and install gbzygil's addon repository, home of the olangal.com and rajtamil.com addons!</description>
+		<disclaimer>The owners and submitters to this repository do not host or distribute any of the content displayed by these addons nor do they have any affiliation with the content providers.</disclaimer>
 		<platform>all</platform>
 	</extension>
 </addon>
@@ -3372,6 +3431,30 @@ provider-name="MGendyS">
     </extension>
 </addon>
 
+<addon id="repository.iamchief" name="IAMCHIEF Repository" version="0.0.0.1" provider-name="iamchief">
+ <extension point="xbmc.addon.repository" name="IAMCHIEF Repository">
+  <dir>
+   <info compressed="false">
+    https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml
+   </info>
+   <checksum>
+    https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5
+   </checksum>
+   <datadir zip="true">
+    https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/
+   </datadir>
+  </dir>
+  <info compressed="false">https://offshoregit.com/iamchief/iamchief-repo/addons.xml</info>
+  <checksum>https://offshoregit.com/iamchief/iamchief-repo/addons.xml.md5</checksum>
+  <datadir zip="true">https://offshoregit.com/iamchief/iamchief-repo/zips/</datadir>
+ </extension>
+ <extension point="xbmc.addon.metadata">
+  <summary>IAMCHIEF Repo for Kodi</summary>
+  <description>IAMCHIEF Repo for Kodi</description>
+  <platform>all</platform>
+ </extension>
+</addon>
+
 <addon id="repository.iamfreetofly-xbmc-repaddon" name="iamfreetofly-xbmc-repaddon Add-on Repository" version="0.0.0.1" provider-name="iamfreetofly-xbmc-repaddon">
 	<extension point="xbmc.addon.repository" name="iamfreetofly-xbmc-repaddon Add-on Repository">
 		<info compressed="false">http://iamfreetofly-xbmc-repaddon.googlecode.com/svn/trunk/addons.xml</info>
@@ -3527,6 +3610,20 @@ provider-name="MGendyS">
 		<platform>all</platform>
 	</extension>
 </addon>
+
+  <addon id="repository.ivacy" name="Ivacy repo" version="0.0.0.1" provider-name="Ivacy.Ltd">
+    <extension point="xbmc.addon.repository" name="Ivacy.Ltd">
+    <info>http://bitbucket.org/KodiVPN/repository.ivacy.addons/raw/master/addons.xml</info>
+    <checksum>http://bitbucket.org/KodiVPN/repository.ivacy.addons/raw/master/addons.xml.md5</checksum>
+    <datadir zip="true">http://bitbucket.org/KodiVPN/repository.ivacy.addons/raw/master/</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+    <summary lang="en">My repo for Ivacy</summary>
+		<description lang="en">Description.</description>
+		<disclaimer lang="en">Disclaimer.</disclaimer>
+		<platform>all</platform>
+    </extension>
+  </addon>
 
 <addon id="repository.iWillFolo" name="iWillFolo add-ons" version="0.0.0.1" provider-name="iWillFolo.com">
 	<extension point="xbmc.addon.repository" name="iWillFolo Add-ons repository">
@@ -3783,6 +3880,23 @@ provider-name="MGendyS">
 		<description>[COLOR red][B][I]KOBRA[/I][/B][/COLOR][COLOR grey] [B]REPOSITORY.[/B][/COLOR] The home of Kobra Builds Add-ons</description>
 		<platform>all</platform>
 	</extension>
+</addon>
+
+<addon id="repository.kodi-addons-chinese" name="Kodi Add-ons of Chinese" version="0.0.0.1" provider-name="Dainese">
+    <extension point="xbmc.addon.repository" name="Kodi Add-ons of Chinese">
+        <info compressed="true">https://github.com/daineseh/kodi-addon-chinese/raw/master/addons.xml</info>
+        <checksum>https://github.com/daineseh/kodi-addon-chinese/raw/master/addons.xml.md5</checksum>
+        <datadir zip="true">https://github.com/daineseh/kodi-addon-chinese/raw/master/repo/</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Dainese Add-ons Repository</summary>
+        <summary lang="zh">Chinese Add-ons Repository</summary>
+        <description>test</description>
+        <description lang="zh">test</description>
+        <disclaimer>test</disclaimer>
+        <disclaimer lang="zh">test</disclaimer>
+        <platform>all</platform>
+    </extension>
 </addon>
 
 <addon id="repository.kodi-czsk"
@@ -5816,6 +5930,19 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
     </extension>
 </addon>
 
+<addon id="repository.renegades" name="Renegades Repo" version="0.0.0.1" provider-name="Anthony, podgod">
+	<extension point="xbmc.addon.repository" name="Renegades Addon Repository">
+		<info compressed="false">http://offshoregit.com/Renegades/repo/addons.xml</info>
+		<checksum>http://offshoregit.com/Renegades/repo/addons.xml.md5</checksum>
+		<datadir zip="true">http://offshoregit.com/Renegades/repo/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install Addons From Renegades</summary>
+		<description>Download and install addons from Renegades!</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.RenegadesTV" name="RenegadesTV Add-on repository" version="0.0.0.1" provider-name="RenegadesTV">
 	<extension point="xbmc.addon.repository" name="RenegadesTV Add-on repository">
 		<dir>
@@ -6353,6 +6480,22 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	</extension>
 </addon>
 
+<addon id="repository.shiny" name="Shiny's Repo" version="0.0.0.1" provider-name="ImReallyShiny">
+	<extension point="xbmc.addon.repository" name="Shiny's Repo">
+		<info compressed="false">https://offshoregit.com/Shiny/data.xml</info>
+		<checksum>https://offshoregit.com/Shiny/data.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/Shiny/data/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Shiny's Repo</summary>
+		<description>Install all my Addon's with ease! Keep installed to automatically update installed Add-Ons!</description>
+		<platform>all</platform>
+		<license>GPLv3</license>
+		<website>https://imreallyshiny.github.io/Kodi-Repo</website>
+		<source>http://github.com/ImReallyShiny/Kodi-Repo</source>
+	</extension>
+</addon>
+
 <addon id="repository.sickbeard.xbmc-plugins" name="Sickbeard XBMC Add-on Repository" version="0.0.0.1" provider-name="Zach Moore">
 	<extension point="xbmc.addon.repository" name="Sickbeard XBMC Add-on Repository">
 		<info compressed="false">http://sickbeard-xbmc.googlecode.com/svn/trunk/addons.xml</info>
@@ -6786,6 +6929,19 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	</extension>
 </addon>
 
+<addon id="repository.The_Silencer" name="The_Silencer's KODI Addons" version="0.0.0.1" provider-name="The_Silencer">
+	<extension point="xbmc.addon.repository" name="The_Silencer's KODI Addons">
+		<info compressed="false">https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml</info>
+		<checksum>https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/TheSilencer001/The_Silencer/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install The_Silencer's Addons</summary>
+		<description>Download and install addons from The_Silencer</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.thegizmo" name="[COLOR FF006233]The Gizmo[/COLOR] Repo" version="0.0.0.1" provider-name="Travis Slattery">
 	<extension point="xbmc.addon.repository" name="The Gizmo Repo">
        <info>http://the-gizmo.svn.beanstalkapp.com/the-gizmo/trunk/addons.xml</info>
@@ -6932,19 +7088,6 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<description>Download and install [COLOR red]XXX Adult[/COLOR] addons from TheYid.... All 720p/1080p adult movies  [COLOR red][B][I]Real-Debrid or Alldebird PREMIUM NEEDED FOR ALL ADDONS[/B][/I][/COLOR]...For OFFICIAL Support Visit XBMCHUB.COM</description>
 		<platform>all</platform>
 		<broken>This repository is now dead, the developer has pulled the code from bitbucket</broken>
-	</extension>
-</addon>
-
-<addon id="repository.The_Silencer" name="The_Silencer's KODI Addons" version="0.0.0.1" provider-name="The_Silencer">
-	<extension point="xbmc.addon.repository" name="The_Silencer's KODI Addons">
-		<info compressed="false">https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml</info>
-		<checksum>https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/TheSilencer001/The_Silencer/master/zips</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Install The_Silencer's Addons</summary>
-		<description>Download and install addons from The_Silencer</description>
-		<platform>all</platform>
 	</extension>
 </addon>
 
@@ -8432,6 +8575,34 @@ Addons Included
     <source></source>
     <email></email>
   </extension>
+</addon>
+
+<addon id="SealLiveActs.repository" name="Seal Live Acts" version="0.0.0.1" provider-name="SealMusic">
+	<extension point="xbmc.addon.repository" name="SMusic Add-on Repository">
+		<info compressed="false">http://raw.github.com/SealMusic/SealLiveActs/master/addons.xml</info>
+		<checksum>http://raw.github.com/SealMusic/SealLiveActs/master/addons.xml.md5</checksum>
+		<datadir zip="true">http://raw.github.com/SealMusic/SealLiveActs/master/repo/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>SMusic Addon</summary>
+		<description>Addon Description</description>
+		<disclaimer></disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="supermilton.repository" name="Super Milton Add-on Repository" version="0.0.0.1" provider-name="Milton Guedes">
+	<extension point="xbmc.addon.repository" name="Super Milton Add-on Repository">
+		<info compressed="false">http://raw.github.com/listamilton/supermilton.repository/supermilton.repository/addons.xml</info>
+		<checksum>http://raw.github.com/listamilton/supermilton.repository/supermilton.repository/addons.xml.md5</checksum>
+		<datadir zip="true">http://raw.github.com/listamilton/supermilton.repository/supermilton.repository/repo/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Super Milton Add-on Repository</summary>
+		<description>Repositorio de Addons do Milton Guedes</description>
+		<disclaimer></disclaimer>
+		<platform>all</platform>
+	</extension>
 </addon>
 
 <addon id="Tugafree.repositorio" name="Tugafree Repositorio" version="0.0.0.1" provider-name="Tugafree">

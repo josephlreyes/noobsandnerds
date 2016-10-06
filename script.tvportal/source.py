@@ -106,7 +106,8 @@ def CleanFilename(text):
     return text.upper().replace('&AMP;','&amp;')
 #########################################################################################
 class Program(object):
-    def __init__(self, channel, title, startDate, endDate, description, subTitle, imageLarge = None, imageSmall = None, notificationScheduled = None):
+    def __init__(self, channel, title, startDate, endDate, description, subTitle, imageLarge = None, imageSmall = None,
+                 notificationScheduled = None, season=None, episode=None, is_movie = None, language = "en"):
 
         self.channel   = channel
         self.title     = title
@@ -117,11 +118,17 @@ class Program(object):
         self.imageLarge  = imageLarge
         self.imageSmall  = imageSmall
         self.notificationScheduled = notificationScheduled
+        self.season = season
+        self.episode = episode
+        self.is_movie = is_movie
+        self.language = language
         
 
     def __repr__(self):
-        return 'Program(channel=%s, title=%s, startDate=%s, endDate=%s, description=%s, subTitle=%s, imageLarge=%s, imageSmall=%s)' % \
-            (self.channel, self.title, self.startDate, self.endDate, self.description, self.subTitle, self.imageLarge, self.imageSmall)
+        return 'Program(channel=%s, title=%s, startDate=%s, endDate=%s, description=%s, subTitle=%s, imageLarge=%s, ' \
+               'imageSmall=%s, episode=%s, season=%s, is_movie=%s))' % \
+            (self.channel, self.title, self.startDate, self.endDate, self.description, self.subTitle, self.imageLarge,
+             self.imageSmall, self.season, self.episode, self.is_movie)
 
 
 class SourceException(Exception):
@@ -906,7 +913,8 @@ class Database(object):
             c.execute('SELECT * FROM programs WHERE channel IN ' + strCh  + ' AND source=? AND start_date <= ? AND end_date >= ?', [self.source.KEY, now, now])
             row = c.fetchone()
             if row:
-                program = Program(channel, row['title'], row['start_date'], row['end_date'], row['description'], row['subTitle'], row['image_large'], row['image_small'])
+                program = Program(channel, row['title'], row['start_date'], row['end_date'], row['description'], row['subTitle'], row['image_large'], row['image_small'],
+                                  None,row['season'],row['episode'],row['is_movie'],row['language'])
         except:
             pass
         c.close()
@@ -930,7 +938,8 @@ class Database(object):
         c.execute('SELECT * FROM programs WHERE channel IN ' + strCh + ' AND source=? AND start_date >= ? ORDER BY start_date ASC LIMIT 1', [self.source.KEY, program.endDate])
         row = c.fetchone()
         if row:
-            nextProgram = Program(program.channel, row['title'], row['start_date'], row['end_date'], row['description'], row['subTitle'], row['image_large'], row['image_small'])
+            nextProgram = Program(program.channel, row['title'], row['start_date'], row['end_date'], row['description'], row['subTitle'], row['image_large'], row['image_small'],
+                                  None, row['season'], row['episode'], row['is_movie'], row['language'])
         c.close()
 
         return nextProgram
@@ -952,7 +961,8 @@ class Database(object):
         c.execute('SELECT * FROM programs WHERE channel IN ' + strCh + ' AND source=? AND end_date <= ? ORDER BY start_date DESC LIMIT 1', [self.source.KEY, program.startDate])
         row = c.fetchone()
         if row:
-            previousProgram = Program(program.channel, row['title'], row['start_date'], row['end_date'], row['description'], row['subTitle'], row['image_large'], row['image_small'])
+            previousProgram = Program(program.channel, row['title'], row['start_date'], row['end_date'], row['description'], row['subTitle'], row['image_large'], row['image_small'],
+                                      None, row['season'], row['episode'], row['is_movie'], row['language'])
         c.close()
 
         return previousProgram
@@ -982,12 +992,13 @@ class Database(object):
         c = self.connP.cursor()
         strCh = '(\'' + '\',\''.join(channelMap.keys()) + '\')'
 
-        c.execute('SELECT channel, title, start_date, end_date, description, subTitle, image_large, image_small FROM programs WHERE channel IN ' + strCh + ' AND end_date > ? AND start_date < ? AND source = ?', (startTime, endTime, self.source.KEY))
+        c.execute('SELECT channel, title, start_date, end_date, description, subTitle, image_large, image_small, season, episode, is_movie, language FROM programs WHERE channel IN ' + strCh + ' AND end_date > ? AND start_date < ? AND source = ?', (startTime, endTime, self.source.KEY))
 
         for row in c:           
             channel = self._locateChannel(row['channel'].encode('utf-8'), channels)
             for ch in channel:
-                program = Program(ch, row["title"], row["start_date"], row["end_date"], row["description"], row["subTitle"], row['image_large'], row['image_small'])
+                program = Program(ch, row["title"], row["start_date"], row["end_date"], row["description"], row["subTitle"], row['image_large'], row['image_small'],
+                                  None, row['season'], row['episode'], row['is_movie'], row['language'])
                 #program.notificationScheduled = self._isNotificationRequiredForProgram(program)
                 programList.append(program)  
       
@@ -1089,6 +1100,11 @@ class Database(object):
                 c.execute('CREATE TABLE programs(channel TEXT, title TEXT, start_date TIMESTAMP, end_date TIMESTAMP, description TEXT, image_large TEXT, image_small TEXT, source TEXT, subTitle TEXT)')
 
                 c.execute('create TABLE xmls(id INTEGER, size INTEGER)')
+            if version < [1,4,1]:
+                # Recreate tables with seasons, episodes and is_movie
+                c.execute('UPDATE version SET major=1, minor=4, patch=1')
+                c.execute('DROP TABLE programs')
+                c.execute('CREATE TABLE programs(channel TEXT, title TEXT, start_date TIMESTAMP, end_date TIMESTAMP, description TEXT, image_large TEXT, image_small TEXT, source TEXT, subTitle TEXT, season TEXT, episode TEXT, is_movie TEXT, language TEXT)')
 
             self.connP.commit()
             c.close()
@@ -1324,8 +1340,38 @@ def parseXMLTV(context, f, size, progress_callback, offset=0, categories=None):
                 mergeTitle = elem.findtext("sub-title")
                 if not description:
                     description = subTitle
+
+                season = None
+                episode = None
+                is_movie = None
+                language = elem.find("title").get("lang")
+                episode_num = elem.findtext("episode-num")
+                categories = elem.findall("category")
+                for category in categories:
+                    if "movie" in category.text.lower() or channel.lower().find("sky movies") != -1 \
+                            or "film" in category.text.lower():
+                        is_movie = "Movie"
+
+                if episode_num is not None:
+                    episode_num = unicode.encode(unicode(episode_num), 'ascii', 'ignore')
+                    if str.find(episode_num, ".") != -1:
+                        splitted = str.split(episode_num, ".")
+                        if splitted[0] != "":
+                            season = int(splitted[0]) + 1
+                            is_movie = None  # fix for misclassification
+                            if str.find(splitted[1], "/") != -1:
+                                episode = int(splitted[1].split("/")[0]) + 1
+                            elif splitted[1] != "":
+                                episode = int(splitted[1]) + 1
+
+                    elif str.find(episode_num.lower(), "season") != -1 and episode_num != "Season ,Episode ":
+                        pattern = re.compile(r"Season\s(\d+).*?Episode\s+(\d+).*", re.I | re.U)
+                        season = int(re.sub(pattern, r"\1", episode_num))
+                        episode = int(re.sub(pattern, r"\2", episode_num))
                     
-                result = Program(channel, title, parseXMLTVDate(elem.get('start'), offset), parseXMLTVDate(elem.get('stop'), offset), description, elem.findtext("sub-title"))
+                result = Program(channel, title, parseXMLTVDate(elem.get('start'), offset),
+                                 parseXMLTVDate(elem.get('stop'), offset), description, elem.findtext("sub-title"),
+                                 season=season, episode=episode, is_movie=is_movie, language=language)
 
             elif elem.tag == "channel":
                 id     = elem.get("id")

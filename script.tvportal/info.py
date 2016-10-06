@@ -19,41 +19,40 @@
 #
 
 import datetime
-import time
-import sqlite3
 import os
+import sqlite3
+import time
 
 import dixie
-from channel import Channel
 from source import Program
 
 PROGRAM_DB = 'program.db'
-DB_KEY     = 'dixie.' + dixie.GetKey()
+DB_KEY = 'dixie.' + dixie.GetKey()
 
 
 class InfoService(object):
     def __init__(self):
-        #initialise database connection
+        # initialise database connection
         sqlite3.register_adapter(datetime.datetime, self.adapt_datetime)
-        sqlite3.register_converter('timestamp',     self.convert_datetime)
+        sqlite3.register_converter('timestamp', self.convert_datetime)
 
         path = os.path.join(dixie.PROFILE, PROGRAM_DB)
-        self.conn = sqlite3.connect(path, timeout = 10, detect_types=sqlite3.PARSE_DECLTYPES, check_same_thread=False)
+        self.conn = sqlite3.connect(path, timeout=10, detect_types=sqlite3.PARSE_DECLTYPES, check_same_thread=False)
         self.conn.row_factory = sqlite3.Row
-
 
     def adapt_datetime(self, ts):
         # http://docs.python.org/2/library/sqlite3.html#registering-an-adapter-callable
         return time.mktime(ts.timetuple())
 
-
     def convert_datetime(self, ts):
-        try:   return datetime.datetime.fromtimestamp(float(ts))
-        #except ValueError: return None
-        except: return None
-    
-    def getCurrentProgram(self, channel):   
-        try:    
+        try:
+            return datetime.datetime.fromtimestamp(float(ts))
+        # except ValueError: return None
+        except:
+            return None
+
+    def getCurrentProgram(self, channel):
+        try:
             channelMap = {}
             channelMap[channel.id] = channel
 
@@ -63,17 +62,19 @@ class InfoService(object):
 
             now = datetime.datetime.now()
             c = self.conn.cursor()
-            c.execute('SELECT * FROM programs WHERE channel IN ' + strCh  + ' AND source=? AND start_date <= ? AND end_date >= ?', [DB_KEY, now, now])
+            c.execute(
+                'SELECT * FROM programs WHERE channel IN ' + strCh + ' AND source=? AND start_date <= ? AND end_date >= ?',
+                [DB_KEY, now, now])
             row = c.fetchone()
             if row:
-                program = Program(channel, row['title'], row['start_date'], row['end_date'], row['description'], row['subTitle'], row['image_large'], row['image_small'])
+                program = Program(channel, row['title'], row['start_date'], row['end_date'], row['description'],
+                                  row['subTitle'], row['image_large'], row['image_small'])
             c.close()
 
             return program
 
         except:
             return None
-
 
     def getNextProgram(self, program):
         try:
@@ -82,20 +83,22 @@ class InfoService(object):
             channelMap[program.channel.id] = channel
 
             strCh = '(\'' + '\',\''.join(channelMap.keys()) + '\')'
-  
+
             nextProgram = None
             c = self.conn.cursor()
-            c.execute('SELECT * FROM programs WHERE channel IN ' + strCh + ' AND source=? AND start_date >= ? ORDER BY start_date ASC LIMIT 1', [DB_KEY, program.endDate])
+            c.execute(
+                'SELECT * FROM programs WHERE channel IN ' + strCh + ' AND source=? AND start_date >= ? ORDER BY start_date ASC LIMIT 1',
+                [DB_KEY, program.endDate])
             row = c.fetchone()
             if row:
-                nextProgram = Program(program.channel, row['title'], row['start_date'], row['end_date'], row['description'], row['subTitle'], row['image_large'], row['image_small'])
+                nextProgram = Program(program.channel, row['title'], row['start_date'], row['end_date'],
+                                      row['description'], row['subTitle'], row['image_large'], row['image_small'])
             c.close()
 
             return nextProgram
 
         except:
             return None
-
 
     def getPreviousProgram(self, program):
         try:
@@ -107,10 +110,13 @@ class InfoService(object):
 
             previousProgram = None
             c = self.conn.cursor()
-            c.execute('SELECT * FROM programs WHERE channel IN ' + strCh + ' AND source=? AND end_date <= ? ORDER BY start_date DESC LIMIT 1', [DB_KEY, program.startDate])
+            c.execute(
+                'SELECT * FROM programs WHERE channel IN ' + strCh + ' AND source=? AND end_date <= ? ORDER BY start_date DESC LIMIT 1',
+                [DB_KEY, program.startDate])
             row = c.fetchone()
             if row:
-                previousProgram = Program(program.channel, row['title'], row['start_date'], row['end_date'], row['description'], row['subTitle'], row['image_large'], row['image_small'])
+                previousProgram = Program(program.channel, row['title'], row['start_date'], row['end_date'],
+                                          row['description'], row['subTitle'], row['image_large'], row['image_small'])
             c.close()
 
             return previousProgram

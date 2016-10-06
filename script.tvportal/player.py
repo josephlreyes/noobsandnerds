@@ -170,7 +170,7 @@ def play(url, windowed, name=None):
 
     dixie.SetSetting('streamURL', url)
  
-    if 'tv/play_by_name_only/' in url or 'movies/play_by_name' in url:
+    if 'tv/play_by_name_only_guide/' in url or 'movies/play_by_name_guide' in url or 'tv/play_by_name_guide/' in url:
         dixie.removeKepmap()
         xbmc.executebuiltin('XBMC.ActivateWindow(10025,%s)' % url)
 #        while not xbmc.Player().isPlaying():
@@ -396,7 +396,7 @@ def metalliq_play(args):
         addonname       = addonid.getAddonInfo('name')
         updateicon      = os.path.join(ADDONS, plugin, 'icon.png')
         xbmc.executebuiltin("XBMC.Notification(Please Wait...,Searching for  [COLOR=dodgerblue]"+channel+"[/COLOR] ,5000,"+updateicon+")")
-        xbmc.executebuiltin('RunPlugin(plugin://plugin.video.metalliq/live/%s/None/en/%s)' % (channel, playertype))
+        xbmc.executebuiltin('RunPlugin(plugin://plugin.video.metalliq/live_guide/%s/None/en/%s)' % (channel, playertype))
         Check_Playback(channel, repository, plugin, playertype, channel_orig, itemname)
 
 # If not check if the relevant repo is installed
@@ -435,22 +435,30 @@ def metalliq_play(args):
             xbmc.sleep(500)
 
 # Update enabled metalliq players
-        xbmc.executebuiltin('RunPlugin(plugin://plugin.video.metalliq/settings/players/tvportal)')
+        xbmc.executebuiltin('RunPlugin(plugin://plugin.video.metalliq/settings/channelers)')
 #---------------------------------------------------------------------------------------------------
 # Check if playback works
 def Check_Playback(channel, repository, plugin, playertype, channel_orig, itemname):
-    stop       = 0
-    while not stop:
+    counter = 0
+    stop    = 0
+    while not stop and counter < 21:
         okwindow = xbmc.getCondVisibility('Window.IsActive(okdialog)')
         if okwindow:
+            xbmc.log('##### OK WINDOW IS ACTIVE')
             while okwindow:
                 dixie.log('### OK DIALOG PRESENT')
+                xbmc.sleep(500)
                 okwindow = xbmc.getCondVisibility('Window.IsActive(okdialog)')
             stop = 1
         player   = xbmc.getCondVisibility('Player.Playing')
         if player:
+            xbmc.log('### PLAYER IS PLAYING')
             stop = 2
-    if stop == 1:
+        xbmc.sleep(1000)
+        counter += 1
+        xbmc.log('#### COUNTER = %s' % counter)
+    if stop == 1 or counter == 20:
+        xbmc.executebuiltin('Dialog.Close(busydialog)')
         if dialog.yesno('Edit Search Term?','Would you like to edit the channel name? It may be this add-on has a slightly different spelling of [COLOR=dodgerblue]%s[/COLOR]' % channel):
             Edit_Search(channel, repository, plugin, playertype, channel_orig, itemname)
         else:

@@ -1120,3 +1120,35 @@ msgstr ""
 msgctxt "#30973"
 msgid "Enable All MetalliQ Players"
 msgstr ""
+
+msgctxt "#30974"
+msgid "CATCH-UP OR LIVE?"
+msgstr ""
+
+msgctxt "#30975"
+msgid "Watch this channel LIVE"
+msgstr ""
+
+msgctxt "#30976"
+msgid "Watch with no adverts"
+msgstr ""
+
+msgctxt "#30977"
+msgid "Watch previous episodes"
+msgstr ""
+
+msgctxt "#30978"
+msgid "MOVIE OR TV SHOW?"
+msgstr ""
+
+msgctxt "#30979"
+msgid "Is this a movie or a tv show?"
+msgstr ""
+
+msgctxt "#30980"
+msgid "MOVIE"
+msgstr ""
+
+msgctxt "#30981"
+msgid "TV SHOW"
+msgstr ""

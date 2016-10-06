@@ -82,12 +82,23 @@ countryarray =  [['AF','Afghanistan'],['AL','Albania'],['DZ','Algeria'],['AO','A
 ##########################################################################################
 # Check if the online file date has changed
 def Check_Date(url):
-    req = urllib2.Request(url)
-    req.add_header('User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-    conn = urllib2.urlopen(req)
-    last_modified = conn.info().getdate('last-modified')
-    last_modified = time.strftime('%Y%m%d%H%M%S', last_modified)
-    dixie.log("Last modified: "+last_modified)
+    if not 'github' in url:
+        req = urllib2.Request(url)
+        req.add_header('User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        conn = urllib2.urlopen(req)
+        last_modified = conn.info().getdate('last-modified')
+        last_modified = time.strftime('%Y%m%d%H%M%S', last_modified)
+        dixie.log("Last modified: "+last_modified)
+
+    else:
+        url = url.replace('raw.githubusercontent', 'github').replace('master/','blob/master/')
+        content = Open_URL(url).replace('\r','').replace('\n','').replace('\t','')
+        update_match = re.compile('<relative-time datetime="(.+?)"').findall(content)
+        try:
+            last_modified = update_match[0]
+        except:
+            last_modified = '0'
+
     return last_modified
 ##########################################################################################
 # Clean up the database and remove stale listings
@@ -145,13 +156,21 @@ def CleanDBname(text):
     dixie.log('Converted: %s'%text.replace('&AMP;','&'))
     return text.replace('&AMP;','&')
 #########################################################################################
+# Convert the selected country into the relevant code
+def Convert_ISO(mycountry):
+    for iso in countryarray:
+        if mycountry == iso[1]:
+            mycountry = iso[0]
+            break
+    return mycountry
+#########################################################################################
 # Create the main database
 def Create_DB():
     if not os.path.exists(dbpath):
         DB_Open()
-        versionvalues = [1,4,0]
+        versionvalues = [1,4,1]
         try:
-            cur.execute('create table programs(channel TEXT, title TEXT, start_date TIMESTAMP, end_date TIMESTAMP, description TEXT, image_large TEXT, image_small TEXT, source TEXT, subTitle TEXT);')
+            cur.execute('CREATE TABLE programs(channel TEXT, title TEXT, start_date TIMESTAMP, end_date TIMESTAMP, description TEXT, image_large TEXT, image_small TEXT, source TEXT, subTitle TEXT, season TEXT, episode TEXT, is_movie TEXT, language TEXT)')
             con.commit()
             cur.execute('create table updates(id INTEGER, source TEXT, date TEXT, programs_updated TIMESTAMP, PRIMARY KEY(id));')
             con.commit()
@@ -262,10 +281,11 @@ def Create_CSV(channels,channelcount,listingcount,programmes,xsource,offset,xnum
     xbmc.executebuiltin("XBMC.Notification("+ADDON.getLocalizedString(30818)+"[COLOR=dodgerblue]"+str(listingcount)+"[/COLOR],"+ADDON.getLocalizedString(30812)+",10000,"+updateicon+")")
     writetofile = open(csvfile,'w+')
     dp.create('Converting XML','','Please wait...','')
-    writetofile.write('channel,title,start_date,end_date,description,image_large,image_small,source,subTitle')
+    writetofile.write('channel,title,start_date,end_date,description,image_large,image_small,source,subTitle,season,'
+                      'episode,is_movie,language')
     for programme in programmes:
         try:
-            channel    = re.compile('channel="(.+?)">').findall(programme)[0]
+            channel    = re.compile('channel="(.+?)"').findall(programme)[0]
             if channel in str(idarray):
 #                channel = channel.encode('ascii', 'ignore').replace(' ','_')
                 starttime  = re.compile('start="(.+?)"').findall(programme)[0]
@@ -289,11 +309,43 @@ def Create_CSV(channels,channelcount,listingcount,programmes,xsource,offset,xnum
                 except:
                     icon = 'special://home/addons/'+AddonID+'/resources/dummy.png'
 
-# Convert the channel id to real channel name
+                season = "None"
+                episode = "None"
+                is_movie = "None"
+                language = re.compile('title.*lang="(.*).*">.+?<\/title>').findall(programme)[0]
+                episode_nums = re.compile('<episode-num.*>(.+?)<\/episode-num>').findall(programme)
+                program_categories = re.compile('<category.*>(.+?)<\/category>').findall(programme)
+                for category in program_categories:
+                    if "movie" in category.lower() or channel.lower().find("sky movies") != -1 \
+                            or "film" in category.lower():
+                        is_movie = "Movie"
+                        break
+
+                for episode_num in episode_nums:
+                    episode_num = episode_num.encode('ascii', 'ignore')
+                    if str.find(episode_num, ".") != -1:
+                        splitted = str.split(episode_num, ".")
+                        if splitted[0] != "":
+                            season = str(int(splitted[0]) + 1)
+                            is_movie = "None"  # fix for misclassification
+                            if str.find(splitted[1], "/") != -1:
+                                episode = str(int(splitted[1].split("/")[0]) + 1)
+                            elif splitted[1] != "":
+                                episode = str(int(splitted[1]) + 1)
+                        break
+
+                    elif str.find(episode_num.lower(), "season") != -1 and episode_num != "Season ,Episode ":
+                        pattern = re.compile(r"Season\s(\d+).*?Episode\s+(\d+).*", re.I | re.U)
+                        season = re.sub(pattern, r"\1", episode_num)
+                        episode = re.sub(pattern, r"\2", episode_num)
+                        break
+
+                # Convert the channel id to real channel name
                 for matching in tempchans:
                     if matching[0] == channel:
                         cleanchan = CleanDBname(matching[1])
-                        writetofile.write('\n"'+str(cleanchan)+'","'+str(title)+'",'+str(starttime2)+','+str(endtime2)+',"'+str(desc)+'",,'+str(icon)+',dixie.ALL CHANNELS,'+subtitle+',')
+                        writetofile.write('\n"'+str(cleanchan)+'","'+str(title)+'",'+str(starttime2)+','+str(endtime2)+',"'+str(desc)+'",,'+str(icon)+',dixie.ALL CHANNELS,'+subtitle+',"'+
+                                          season+'","'+episode+'","'+is_movie+'","'+language+'",')
 
                 listcount += 1
                 if listcount == int(listingcount/100):
@@ -404,14 +456,17 @@ def Grab_URL():
 def Grab_XML_Settings(xnumber):
     isurl      = 0
     addxmltodb = 1
-    xmltype    = ADDON.getSetting('xmlpath%s.type' % xnumber)
-    offset     = ADDON.getSetting('offset%s' % xnumber)
-    countryxml = ADDON.getSetting('country%s' % xnumber)
-    dixie.log('#### %s' % countryxml)
-    xmlpath    = 'None'
+    xmlpath    =  'None'
+    xmltype    =  ADDON.getSetting('xmlpath%s.type' % xnumber)
+    offset     =  ADDON.getSetting('offset%s' % xnumber)
+    countryxml =  ADDON.getSetting('country%s' % xnumber)
     login      =  ADDON.getSetting('login')
     username   =  ADDON.getSetting('username')
     password   =  ADDON.getSetting('password')
+    
+    if xnumber < 11:
+        countryxml =  Convert_ISO(countryxml)
+        xbmc.log('Country ISO: %s' % countryxml)
 
     if countryxml != 'None' and int(xnumber) > 10 and login == 'true' and username != '' and password != '':
         try:
@@ -510,10 +565,12 @@ def Grab_XML_Tree(xpath):
 def Import_CSV(mode):
     with open(csvfile,'rb') as fin:
         dr = csv.DictReader(fin) # comma is default delimiter
-        to_db = [(i['channel'], i['title'],i['start_date'], i['end_date'], i['description'],i['image_large'], i['image_small'], i['source'], i['subTitle']) for i in dr]
+        to_db = [(i['channel'], i['title'],i['start_date'], i['end_date'], i['description'],i['image_large'], i['image_small'], i['source'], i['subTitle'],
+                  i['season'], i['episode'], i['is_movie'], i['language']) for i in dr]
 
     DB_Open()
-    cur.executemany("INSERT INTO programs (channel,title,start_date,end_date,description,image_large,image_small,source,subTitle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", to_db)
+    cur.executemany("INSERT INTO programs (channel,title,start_date,end_date,description,image_large,image_small,source,subTitle,"
+                    "season, episode, is_movie, language) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", to_db)
     con.commit()
     cur.execute("DELETE FROM programs WHERE RowID NOT IN (SELECT MIN(RowID) FROM programs GROUP BY channel,start_date,end_date);")
     con.commit()
@@ -657,6 +714,17 @@ def Wipe_XML_Sizes():
     except:
         pass
 ############### SCRIPT STARTS HERE ###############
+inprogress = os.path.join(ADDON_DATA,AddonID,'xml_scan_in_progress')
+try:
+    os.makedirs(inprogress)
+except:
+    pass
+# Allow update to take place if set off from settings menu even if music/video is playing
+try:
+    xbmc.log('###### TRTV MODE: '+sys.argv[1])
+except:
+    sys.argv[1] = 'normal'
+    xbmc.log('### TRTV MODE IS NORMAL')
 
 # Allow update to take place if set off from settings menu even if music/video is playing
 dixie.log('Arg: '+sys.argv[1])
@@ -706,3 +774,8 @@ else:
 if sys.argv[1]=='full':
     dixie.log('### END CHECK ###')
     dixie.log('Listings updates and database clean is complete.')
+
+try:
+    shutil.rmtree(inprogress)
+except:
+    pass

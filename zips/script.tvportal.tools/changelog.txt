@@ -1,3 +1,10 @@
+v.1.4:
+- Cleaned up the artwork renamer code, works much better now.
+- Added new option for creating ini files (thanks to primaeval for the addon).
+- Tidied up the dialogs so they make a little more sense now.
+- Added new icon.
+- Added dependency for primaeval repo (addon ini creator).
+
 v.1.2:
 - Added renamer file creation, this allows you to scan in an xml file and it will ask what
 country these listings are for. A rename file will then be created that you can use when pulling

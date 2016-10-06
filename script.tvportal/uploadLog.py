@@ -1,202 +1,211 @@
-import json
+########################################
+#Kodi Logfile Uploader
+#  Original Code by Team Kodi
+#    By Surfacingx and Whufclee
+#
+#  Modified to Support Kodi Forks
+#  Added Email Logfile Url Support
+########################################
+
 import os
 import re
-import urllib
+import socket
+from urllib import urlencode
+from urllib import FancyURLopener
 import urllib2
-from xbmc import getCondVisibility as condition, translatePath as translate, log as xbmc_log
-import xbmcaddon
+import urlparse
+import urllib
+import json
+import xbmc
 import xbmcgui
+import xbmcaddon
+import xbmcvfs
 
-addon = xbmcaddon.Addon(id='script.tvportal')
-ADDON_TITLE = addon.getAddonInfo('name')
-ADDON_VERSION = addon.getAddonInfo('version')
+ADDON            = xbmcaddon.Addon(id='script.tvportal')
+ADDONID          = ADDON.getAddonInfo('id')
+ADDONNAME        = ADDON.getAddonInfo('name')
+ADDONVERSION     = ADDON.getAddonInfo('version')
+DIALOG           = xbmcgui.Dialog()
+LOG              = xbmc.translatePath('special://logpath/')
+URL              = 'https://paste.ubuntu.com/'
+REPLACES         = (('//.+?:.+?@', '//USER:PASSWORD@'),('<user>.+?</user>', '<user>USER</user>'),('<pass>.+?</pass>', '<pass>PASSWORD</pass>'),)
 
-DEBUG = False
+socket.setdefaulttimeout(5)
 
-STRINGS = {
-    'do_upload': 30000,
-    'upload_id': 30001,
-    'upload_url': 30002,
-    'no_email_set': 30003,
-    'email_sent': 30004
-}
-BASE_URL = 'http://xbmclogs.com'
-UPLOAD_LINK = BASE_URL + '/%s'
-UPLOAD_URL = BASE_URL + '/api/json/create'
-EMAIL_URL = BASE_URL + '/xbmc-addon.php'
+def log(text):
+	xbmc.log("[Upload Log] %s" % text)
 
-REPLACES = (
-    ('//.+?:.+?@', '//USER:PASSWORD@'),
-    ('<user>.+?</user>', '<user>USER</user>'),
-    ('<pass>.+?</pass>', '<pass>PASSWORD</pass>'),
-)
+def Grab_Log(old=False):
+	finalfile   = 0
+	logfilepath = os.listdir(LOG)
+	logsfound   = []
+	
+	for item in logfilepath:
+		if old == True and item.endswith('.old.log'): logsfound.append(os.path.join(LOG, item))
+		elif old == False and item.endswith('.log') and not item.endswith('.old.log'): logsfound.append(os.path.join(LOG, item))
+		
+	if len(logsfound) > 0:
+		logsfound.sort(key=lambda f: os.path.getmtime(f))
+		return logsfound[-1]
+	else: 
+		return False
 
+# Custom urlopener to set user-agent
+class pasteURLopener(FancyURLopener):
+	version = '%s: %s' % (ADDONID, ADDONVERSION)
 
-# # Open Settings on first run
-# if not addon.getSetting('already_shown') == 'true':
-#     addon.openSettings()
-#     addon.setSetting('already_shown', 'true')
+class Main:
+	def __init__(self):
+		self.getSettings()
+		files = self.getFiles()
+		for item in files:
+			filetype = item[0]
+			if filetype == 'log':
+				log = Grab_Log().replace(LOG, "")
+				name = log if log != False else "kodi.log"
+				error = "Error posting the %s file" % name
+			elif filetype == 'oldlog':
+				log = Grab_Log(True).replace(LOG, "")
+				name = log if log != False else "kodi.old.log"
+				error = "Error posting the %s file" % name
+			elif filetype == 'crashlog':
+				name = "crash log"
+				error = "Error posting the crashlog file"
+			succes, data = self.readLog(item[1])
+			if succes:
+				content = self.cleanLog(data)
+				succes, result = self.postLog(content, name)
+				if succes:
+					msg = "Post this url for your [COLOR dodgerblue]%s[/COLOR]:[CR][COLOR dodgerblue]%s[/COLOR]" % (name, result)
+					if len(self.email) > 5: 
+						em_result, em_msg = self.email_Log(self.email, result, name)
+						if em_result == 'message':
+							msg += "[CR]%s" % em_msg
+						else:
+							msg += "[CR]Email ERROR: %s" % em_msg
+					self.showResult(msg)
+				else:
+					self.showResult('%s[CR]%s' % (error, result))
+			else:
+				self.showResult('%s[CR]%s' % (error, result))
 
+	def getSettings(self):
+		self.oldlog   = ADDON.getSetting('skip_oldlog')
+		self.crashlog = ADDON.getSetting('crashlog') == 'true'
+		self.email    = ADDON.getSetting('email')
 
-class LogUploader(object):
+	def getFiles(self):
+		logfiles = []
+		log = Grab_Log()
+		old = Grab_Log(True)
+		if log != False:
+			if os.path.exists(log): logfiles.append(['log', log])
+			else: self.showResult("No log file found")
+		else: self.showResult("No log file found")
+		if self.oldlog == 'false':
+			if old != False:
+				if os.path.exists(old): logfiles.append(['oldlog', old])
+				else: self.showResult("No old log file found")
+			else: self.showResult("No old log file found")
+		if self.crashlog:
+			crashlog_path = ''
+			items = []
+			if xbmc.getCondVisibility('system.platform.osx'):
+				crashlog_path = os.path.join(os.path.expanduser('~'), 'Library/Logs/DiagnosticReports/')
+				filematch = 'Kodi'
+			elif xbmc.getCondVisibility('system.platform.ios'):
+				crashlog_path = '/var/mobile/Library/Logs/CrashReporter/'
+				filematch = 'Kodi'
+			elif xbmc.getCondVisibility('system.platform.linux'):
+				crashlog_path = os.path.expanduser('~') # not 100% accurate (crashlogs can be created in the dir kodi was started from as well)
+				filematch = 'kodi_crashlog'
+			elif xbmc.getCondVisibility('system.platform.windows'):
+				log("Windows crashlogs are not supported, please disable this option in the addon settings")
+				#self.showResult("Windows crashlogs are not supported, please disable this option in the addon settings")
+			elif xbmc.getCondVisibility('system.platform.android'):
+				log("Android crashlogs are not supported, please disable this option in the addon settings")
+				#self.showResult("Android crashlogs are not supported, please disable this option in the addon settings")
+			if crashlog_path and os.path.isdir(crashlog_path):
+				dirs, files = xbmcvfs.listdir(crashlog_path)
+				for item in files:
+					if filematch in item and os.path.isfile(os.path.join(crashlog_path, item)):
+						items.append(os.path.join(crashlog_path, item))
+						items.sort(key=lambda f: os.path.getmtime(f))
+						lastcrash = items[-1]
+						logfiles.append(['crashlog', lastcrash])
+			if len(items) == 0:
+				log("No crashlog file found")
+		return logfiles
 
-    def __init__(self):
-        self.__log('started')
-        self.get_settings()
-        found_logs = self.__get_logs()
-        uploaded_logs = []
-        for logfile in found_logs:
-            if self.ask_upload(logfile['title']):
-                paste_id = self.upload_file(logfile['path'])
-                if paste_id:
-                    uploaded_logs.append({
-                        'paste_id': paste_id,
-                        'title': logfile['title']
-                    })
-                    self.report_msg(paste_id)
-        if uploaded_logs and self.email_address:
-            self.report_mail(self.email_address, uploaded_logs)
-            pass
+	def readLog(self, path):
+		try:
+			lf = xbmcvfs.File(path)
+			content = lf.read()
+			lf.close()
+			if content:
+				return True, content
+			else:
+				log('file is empty')
+				return False, "File is Empty"
+		except:
+			log('unable to read file')
+			return False, "Unable to Read File"
 
-    def get_settings(self):
-        self.email_address = addon.getSetting('email')
-        self.__log('settings: len(email)=%d' % len(self.email_address))
-        self.skip_oldlog = addon.getSetting('skip_oldlog') == 'true'
-        self.__log('settings: skip_oldlog=%s' % self.skip_oldlog)
+	def cleanLog(self, content):
+		for pattern, repl in REPLACES:
+			content = re.sub(pattern, repl, content)
+			return content
 
-    def upload_file(self, filepath):
-        self.__log('reading log...')
-        file_content = open(filepath, 'r').read()
-        for pattern, repl in REPLACES:
-            file_content = re.sub(pattern, repl, file_content)
-        self.__log('starting upload "%s"...' % filepath)
-        post_dict = {
-            'data': file_content,
-            'project': 'www',
-            'language': 'text',
-            'expire': 1209600,
-        }
-        post_data = json.dumps(post_dict)
-        headers = {
-            'User-Agent': '%s-%s' % (ADDON_TITLE, ADDON_VERSION),
-            'Content-Type': 'application/json',
-        }
-        req = urllib2.Request(UPLOAD_URL, post_data, headers)
-        response = urllib2.urlopen(req).read()
-        self.__log('upload done.')
-        try:
-            response_data = json.loads(response)
-        except:
-            response_data = None
-        if response_data and response_data.get('result', {}).get('id'):
-            paste_id = response_data['result']['id']
-            self.__log('paste_id=%s' % paste_id)
-            return paste_id
-        else:
-            self.__log('upload failed with response: %s' % repr(response))
+	def postLog(self, data, name):
+		params = {}
+		params['poster'] = 'kodi'
+		params['content'] = data
+		params['syntax'] = 'text'
+		params = urlencode(params)
 
-    def ask_upload(self, logfile):
-        Dialog = xbmcgui.Dialog()
-        msg1 = 'Do you want to upload "%s"?' % logfile
-        if self.email_address:
-            msg2 = 'Email will be sent to: %s' % self.email_address
-        else:
-            msg2 = 'No email will be sent (No email is configured)'
-        return Dialog.yesno(ADDON_TITLE, msg1, '', msg2)
+		url_opener = pasteURLopener()
 
-    def report_msg(self, paste_id):
-        url = UPLOAD_LINK % paste_id
-        Dialog = xbmcgui.Dialog()
-        msg1 = 'Uploaded with ID: [B]%s[/B]' % paste_id
-        msg2 = 'URL: [B]%s[/B]' % url
-        return Dialog.ok(ADDON_TITLE, msg1, '', msg2)
+		try:
+			page = url_opener.open(URL, params)
+		except:
+			e = 'failed to connect to the server'
+			log(e)
+			return False, e
 
-    def report_mail(self, mail_address, uploaded_logs):
-        if not mail_address:
-            raise Exception('No Email set!')
-        post_dict = {'email': mail_address}
-        for logfile in uploaded_logs:
-            if logfile['title'] == 'kodi.log':
-                post_dict['xbmclog_id'] = logfile['paste_id']
-            elif logfile['title'] == 'kodi.old.log':
-                post_dict['oldlog_id'] = logfile['paste_id']
-            elif logfile['title'] == 'crash.log':
-                post_dict['crashlog_id'] = logfile['paste_id']
-        post_data = urllib.urlencode(post_dict)
-        if DEBUG:
-            print post_data
-        req = urllib2.Request(EMAIL_URL, post_data)
-        response = urllib2.urlopen(req).read()
-        if DEBUG:
-            print response
+		try:
+			page_url = page.url.strip()
+			log("URL for %s: %s" % (name, page_url))
+			return True, page_url
+		except:
+			e = 'unable to retrieve the paste url'
+			log(e)
+			return False, e
+			
+	def email_Log(self, email, results, file):
+		URL = 'http://aftermathwizard.net/mail_logs.php'
+		data = {'email': email, 'results': results, 'file': file, 'wizard': "Community Portal"}
+		params = urlencode(data)
+		url_opener = pasteURLopener()
+		try:
+			result     = url_opener.open(URL, params)
+			returninfo = result.read()
+			log(str(returninfo))
+		except:
+			e = 'failed to connect to the server'
+			log(e)
+			return False, e
+		try:
+			js_data = json.loads(returninfo)
+			if 'type' in js_data:
+				return js_data['type'], str(js_data['text'])
+			else: return str(js_data)
+		except Exception as e:
+			log("ERROR: "+ str(e))
+		return "Error Sending Email."
 
-    def __get_logs(self):
-        log_path = translate('special://logpath')
-        crashlog_path = None
-        crashfile_match = None
-        if condition('system.platform.osx') or condition('system.platform.ios'):
-            crashlog_path = os.path.join(
-                os.path.expanduser('~'),
-                'Library/Logs/CrashReporter'
-            )
-            crashfile_match = 'XBMC'
-        elif condition('system.platform.windows'):
-            crashlog_path = log_path
-            crashfile_match = '.dmp'
-        elif condition('system.platform.linux'):
-            crashlog_path = os.path.expanduser('~')
-            crashfile_match = 'xbmc_crashlog'
-        # get fullpath for kodi.log and kodi.old.log
-        log = os.path.join(log_path, 'kodi.log')
-        log_old = os.path.join(log_path, 'kodi.old.log')
-        # check for XBMC crashlogs
-        log_crash = None
-        if crashlog_path and os.path.isdir(crashlog_path) and crashfile_match:
-            crashlog_files = [s for s in os.listdir(crashlog_path)
-                              if os.path.isfile(os.path.join(crashlog_path, s))
-                              and crashfile_match in s]
-            if crashlog_files:
-                # we have crashlogs, get fullpath from the last one by time
-                crashlog_files = self.__sort_files_by_date(crashlog_path,
-                                                           crashlog_files)
-                log_crash = os.path.join(crashlog_path, crashlog_files[-1])
-        found_logs = []
-        if os.path.isfile(log):
-            found_logs.append({
-                'title': 'kodi.log',
-                'path': log
-            })
-        if not self.skip_oldlog and os.path.isfile(log_old):
-            found_logs.append({
-                'title': 'kodi.old.log',
-                'path': log_old
-            })
-        if log_crash and os.path.isfile(log_crash):
-            found_logs.append({
-                'title': 'crash.log',
-                'path': log_crash
-            })
-        return found_logs
+	def showResult(self, message):
+		log("%s: %s" % (ADDONNAME, message))
+		confirm = DIALOG.ok(ADDONNAME, message)
 
-    def __sort_files_by_date(self, path, files):
-        files.sort(key=lambda f: os.path.getmtime(os.path.join(path, f)))
-        return files
-
-    def __log(self, msg):
-        xbmc_log(u'%s: %s' % (ADDON_TITLE, msg))
-
-
-def _(string_id):
-    if string_id in STRINGS:
-        return addon.getLocalizedString(STRINGS[string_id])
-    else:
-        xbmc_log('String is missing: %s' % string_id)
-        return string_id
-
-
-if __name__ == '__main__':
-    xbmc.executebuiltin('Dialog.Show(busydialog)')
-    Uploader = LogUploader()
-    xbmc.executebuiltin('Dialog.Close(busydialog)')
-    import dixie
-    dixie.openSettings(focus='3.1')
+if ( __name__ == '__main__' ):
+	Main()

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.tvportal.tools" name="TV Portal Tools" version="1.3" provider-name="whufclee (modded from original work by spoyser, DixieDean)">
+<addon id="script.tvportal.tools" name="TVP Tools" version="1.4" provider-name="whufclee (modded from spoysers original)">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.requests" version="2.3.0"/>
+    <import addon="repository.primaeval" version="0.0.0.1"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>executable</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Tools for use with TV Portal</summary>
-    <description lang="en">Tools for use with the noobsandnerds addon TV Portal</description>
+    <summary lang="en">TV Portal useful tools</summary>
+    <description lang="en">TV Portal supplemental tools. Thanks to the OTTV team for the original OTTV Tools this code was originally based on.</description>
     <platform>all</platform>
     <language>en</language>
     <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <forum>www.noobsandnerds.com/support</forum>
-    <website>>www.noobsandnerds.com</website>
     <source></source>
     <email></email>
   </extension>

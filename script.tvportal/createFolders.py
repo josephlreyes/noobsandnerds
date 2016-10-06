@@ -35,6 +35,7 @@ ADDON          =  xbmcaddon.Addon(id=AddonID)
 ADDON_DATA     =  xbmc.translatePath('special://profile/addon_data')
 SF_CHANNELS    =  ADDON.getSetting('SF_CHANNELS')
 SF_METALLIQ    =  ADDON.getSetting('SF_METALLIQ')
+UPDATE_FOLDERS =  ADDON.getSetting('update_folders')
 PROVIDER_PATH  =  os.path.join(ADDON_DATA, 'plugin.video.metalliq', 'players')
 OTT_CHANNELS   =  os.path.join(dixie.GetChannelFolder(), 'channels')
 dialog         =  xbmcgui.Dialog()
@@ -104,9 +105,11 @@ def Find_In_Lines(content, keyword, splitchar):
                 fail       = 1
     return name
 #--------------------------------------------------------------------------------------------------
-if sys.argv[1] == 'silent':
-    silent = 1
-else:
+silent = 0
+try:
+    if sys.argv[1] == 'silent':
+        silent = 1
+except:
     silent = 0
 
 xbmc.log('##### SILENT = %s' % sys.argv[1])
@@ -125,17 +128,16 @@ else:
         except Exception, e:
             dixie.log('Failed to run script: %s' % str(e))
             
-        for file in files:
-            if not os.path.exists(os.path.join(SF_CHANNELS,file)):
-                try:
-                    dixie.log(os.path.join(SF_CHANNELS,file))
-                    os.makedirs(os.path.join(SF_CHANNELS,file))
-                except:
-                    dixie.log('### Failed to create folder for: %s' % str(file))
+        if UPDATE_FOLDERS == 'true':
+            for file in files:
+                if not os.path.exists(os.path.join(SF_CHANNELS,file)):
+                    try:
+                        dixie.log(os.path.join(SF_CHANNELS,file))
+                        os.makedirs(os.path.join(SF_CHANNELS,file))
+                    except:
+                        dixie.log('### Failed to create folder for: %s' % str(file))
 
         if SF_METALLIQ == 'true':
-            if not os.path.exists(os.path.join(SF_CHANNELS, '-metalliq', file)):
-                os.makedirs(os.path.join(SF_CHANNELS, '-metalliq'))
             try:
                 for file in files:
                     if not os.path.exists(os.path.join(SF_CHANNELS, '-metalliq', file)):

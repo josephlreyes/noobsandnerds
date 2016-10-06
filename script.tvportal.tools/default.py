@@ -29,6 +29,7 @@ import os
 import re
 import requests
 import time
+import shutil
 
 import utils
 import sfile
@@ -98,6 +99,7 @@ _GETLOGOS      = 2300
 _CATEGORIES    = 2400
 _CREATERENAME  = 2500
 _RENAMEART     = 2600
+_CREATEINI     = 2700
 countryarray =  [['','None'],['AF','Afghanistan'],['AL','Albania'],['DZ','Algeria'],['AO','Angola'],['AR','Argentina'],['AM','Armenia'],['AU','Australia'],
                 ['AT','Austria'],['AZ','Azerbaijan'],['BS','Bahamas'],['BY','Belarus'],['BE','Belgium'],['BO','Bolivia'],['BA','Bosnia'],['BR','Brazil'],
                 ['BG','Bulgaria'],['KM','Cambodia'],['CM','Cameroon'],['CA','Canada'],['CL','Chile'],['CN','China'],['CO','Colombia'],['CR','Costa Rica'],
@@ -178,11 +180,10 @@ if ALPHASORT:
     END_WEIGHT   = -1
 
 def categories():
+    addDirectory('', 'Create ini files', '', _CREATEINI, '', '', '', '')
     addDirectory('folder', 'Edit channels', '', _EDITCHANNELS, '', '', '', '')
     addDirectory('', 'Rename Artwork', '', _RENAMEART, '', '', '', '')
-    addDirectory('', 'Create a XML rename file (Advanced)', '', _CREATERENAME, '', '', '', '')
-# CREATE A NEW FUNCTION THAT LOOPS THROUGH ART FOLDER RENAMING TO MATCH ITEMS FOUND IN DB
-# IF MULTIPLE MATCHES FOUND SHOW ICON IMAGE AND DIALOG SELECT TO CHOOSE WHICH NAME TO USE
+    addDirectory('', 'XML creation - create rename file', '', _CREATERENAME, '', '', '', '')
 ##########################################################################################
 def CleanFilename(text):
     text = text.replace('*', '_star')
@@ -206,8 +207,9 @@ def DB_Open():
 # Clean up the icons and try to match against existing
 def rename_art():
     goodset    = []
-    noset      = []
-    nocountry  = []
+    origart    = []
+    cleanart   = []
+    mychannels = []
     badset     = ['None (Skip)']
     path = dialog.browse(3, 'Please locate the folder containing your new icons', 'files', '', False, False, HOME)
 # Grab the existing channel names
@@ -221,137 +223,61 @@ def rename_art():
         name = name.replace('__PLUS1','').replace('_PLUS1','')
         if name.endswith(')') and name[-4] == '(':
             name = name[:-5]
-        if not name in nocountry:
-            nocountry.append(name+'.PNG')
+        if not name in mychannels:
+            mychannels.append(name.upper()+'.PNG')
 
 # Grab artwork and convert to uppercase and clean up basic strings
     for name in os.listdir(path):
-        newname = CleanFilename(name)
-        xbmc.log(newname)
-        if newname.endswith('.PNG') and not 'PLUS1' in newname:
-            if newname in nocountry:
-                for item in nocountry:
+        if not name.startswith('.') and not os.path.isdir(os.path.join(path,name)): 
+            newname = CleanFilename(name)
+            origart.append(name)
+            cleanart.append(newname.upper())
+            xbmc.log(newname)
 
+    xbmc.log('#### Orig ART: %s' % origart)
+    xbmc.log('#### Clean ART: %s' % cleanart)
+    for name in mychannels:
+        success = 0
+        counter = 0
+        while success == 0 and counter <= len(cleanart)-1:
+            xbmc.log('## cleanart = %s' % cleanart[counter])
+            if name == cleanart[counter]:
 # If we find a match then attempt to move it to the good set
-                    if newname == item:
-                        try:
-                            xbmc.log('1. renaming %s' %newname)
-                            os.rename(os.path.join(path,name),os.path.join(path,'GOOD SET',newname.replace('.PNG','.png')))
-                            goodset.append(item)
-                            nocountry.remove(item)
+#                try:
+                    xbmc.log('1. renaming %s' %name)
+                    src = os.path.join(path,origart[counter])
+                    xbmc.log('### source: %s' % src)
+                    dst = os.path.join(path,'GOOD SET',name.replace('.PNG','.png'))
+                    xbmc.log('### dest: %s' % dst)
+                    shutil.copyfile(src, dst)
+                    xbmc.log('SUCCESSFULLY MOVED')
+                    success = 1
 
 # If a match is already in the good set we move to duplicates folder
-                        except:
-                            try:
-                                xbmc.log('2. renaming %s' %newname)
-                                os.rename(os.path.join(path,name),os.path.join(path,'DUPLICATES SET',newname.replace('.PNG','.png')))
-                                try:
-                                    xbmc.log('3. removing %s' %newname)
-                                    nocountry.remove(item)
-                                except:
-                                    pass
-# If there is already a match in the duplicates folder add an incremental number to the end of the filename (before png extension)
-                            except:
-                                pass
-
-# FOLLOWING NOT WORKING - FAILING ON THE RENAME AND LOCKING UP SYSTEM IN A COUNTER LOOP
-#                                counter = 2
-#                                success = 0
-#                                while success == 0:
-#                                    try:
-#                                        xbmc.log('4. renaming %s - counter: %s' % (newname,str(counter)))
-#                                        duppath = os.path.join(path,'DUPLICATES SET',newname.replace('.PNG','_'+str(counter)+'.png'))
-#                                        renpath = os.path.join(path,name)
-#                                        xbmc.log(duppath)
-#                                        xbmc.log(renpath)
-#                                        os.rename(renpath,duppath)
-#                                        xbmc.log('successfully renamed')
-#                                        try:
-#                                            xbmc.log('5. removing %s' %item)
-#                                            nocountry.remove(item)
-#                                        except:
-#                                            pass
-#                                        success = 1
-#                                    except:
-#                                        counter +=1
+#                except:
+#                    xbmc.log('### Failed to copy: %s' % src)
+#                    quit = 1
+            counter += 1
 
 # If a match hasn't been found we search for items in our channels list that are unmatched. Grab first 3 chars of artwork and see if that exists in any channel names
-            else:
-                xbmc.log('parsing: %s'%newname)
-                for item in nocountry:
-                    if newname[:3] in item:
-                        xbmc.log('adding %s to badset' % item)
-                        badset.append(item)
-                if len(badset)>1:
-                    choice = dialog.select('Channel: %s'%newname,badset)
+        if not success:
+            xbmc.log('parsing: %s'%name)
+            for item in origart:
+                if name[:3] in item.upper():
+                    xbmc.log('adding %s to badset' % item)
+                    badset.append(item)
+            if len(badset)>1:
+                choice = dialog.select('Channel: %s'%name.replace('.PNG',''),badset)
 
-    # If user chooses to skip then we just move the artwork to the unmatched folder
-                    if choice == 0:
-                        try:
-                            xbmc.log('6. renaming %s' %newname)
-                            os.rename(os.path.join(path,name),os.path.join(path,'UNMATCHED SET',newname.replace('.PNG','.png')))
-                        except:
-                            counter = 2
-                            success = 0
-                            while success == 0:
-                                try:
-                                    xbmc.log('7. renaming %s - counter: %s' % (newname,str(counter)))
-                                    os.rename(os.path.join(path,name),os.path.join(path,'UNMATCHED SET',newname.replace('.PNG','_'+str(counter)+'.png')))
-                                    success = 1
-                                except:
-                                    counter +=1
-
-    # If the user finds a suitable match then we rename it and move to the good folder
-                    else:
-                        finalname = badset[choice]
-                        try:
-                            xbmc.log('8. renaming %s' %newname)
-                            os.rename(os.path.join(path,name),os.path.join(path,'GOOD SET',finalname.replace('.PNG','.png')))
-                            goodset.append(item)
-                            nocountry.remove(finalname)
-
+# If user chooses to skip then we just move the artwork to the unmatched folder
+                if choice:
+                    try:
+                        xbmc.log('8. renaming %s to %s' % (badset[choice],name.replace('.PNG', '.png')))
+                        shutil.copyfile(os.path.join(path,badset[choice]),os.path.join(path,'GOOD SET',name.replace('.PNG','.png')))
 
 # If the user finds a suitable match but one already exists in the good set we move to duplicates folder
-                        except:
-                            try:
-                                xbmc.log('9. renaming %s' %newname)
-                                os.rename(os.path.join(path,name),os.path.join(path,'DUPLICATES SET',finalname.replace('.PNG','.png')))
-                                try:
-                                    xbmc.log('10. renaming %s' %newname)
-                                    nocountry.remove(item)
-                                except:
-                                    pass
-                            except:
-                                counter = 2
-                                success = 0
-                                while success == 0:
-                                    try:
-                                        xbmc.log('11. renaming %s - counter: %s' % (newname,str(counter)))
-                                        os.rename(os.path.join(path,name),os.path.join(path,'DUPLICATES SET',finalname.replace('.PNG','_'+str(counter)+'.png')))
-                                        try:
-                                            xbmc.log('12. removing %s' %newname)
-                                            nocountry.remove(item)
-                                        except:
-                                            pass
-                                        success = 1
-                                    except:
-                                        counter +=1
-
-# If no matches have been found at all we move to the unmatched folder
-                else:
-                    try:
-                        xbmc.log('13. renaming %s' %newname)
-                        os.rename(os.path.join(path,name),os.path.join(path,'UNMATCHED SET',newname.replace('.PNG','.png')))
                     except:
-                        counter = 2
-                        success = 0
-                        while success == 0:
-                            try:
-                                xbmc.log('14. renaming %s - counter: %s' % (newname,str(counter)))
-                                os.rename(os.path.join(path,name),os.path.join(path,'UNMATCHED SET',newname.replace('.PNG','_'+str(counter)+'.png')))
-                                success = 1
-                            except:
-                                counter +=1
+                        xbmc.log('Failed to move')
             badset = ['None (Skip)']
 ##########################################################################################
 # Add a directory, can either be a folder type or standalone using the first param as "folder" for folder
@@ -1183,12 +1109,17 @@ if mode == _EDITCHANNELS:
 
 
 if mode == _CREATERENAME:
-    choice = dialog.yesno('Rename XML File','This will create a file used for cleaning up channel names when creating XML files with mc2xml or zap2xml. Full details can be found on the forum at [COLOR=dodgerblue]noosandnerds.com[/COLOR].','Would you like to continue?')
-    if choice:
-        renamer.rename()
+    dialog.ok('XML RENAMER FILE','This will create a file used for cleaning up channel names when creating your own XML files with mc2xml or zap2xml.','Please navigate to an XML file that you recently generated with one of these apps.')
+    renamer.rename()
+
+
+if mode == _CREATEINI:
+    dialog.ok('CREATE INI FILE','We will now load up the excellent Addons Ini Creator from [COLOR=dodgerblue]primaeval[/COLOR]. Using the subscribe option mark up the sections of add-ons you want scanned into your ini file. Once you\'re happy with your list choose the CREATE option.')
+    xbmc.executebuiltin('ActivateWindow(10025,"plugin://plugin.video.addons.ini.creator",return)')
 
 
 if mode == _RENAMEART:
+    dialog.ok('RENAME ART','Please navigate to the folder containing your artwork which requires renaming. The system will then loop through all the channel names and try to match up channel art with actual channel names.')
     rename_art()
 
 

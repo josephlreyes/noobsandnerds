@@ -1,0 +1,22 @@
+<settings>
+<!-- main user settings -->
+	<category label="30715">
+		<setting label="30716" type="lsep" />
+		<setting label="30717" type="bool" id="metadata" default="true" />
+		<setting label="30718" type="lsep" />
+		<setting label="30719" type="action" action="RunPlugin(plugin://plugin.video.bob/?action=clearCache)" />
+		<setting label="30723" type="lsep" />
+		<setting label="30724" type="action" action="RunPlugin(plugin://plugin.video.bob/credits)" />
+<!-- future features for playlisters -->
+		<setting id="login"					type="bool"		visible="false"		default="false" />
+ 		<setting id="forum"					type="text"		visible="false"		default="Unofficial Kodi Support" />
+		<setting id="username"				type="text"		visible="false"		default="" />
+		<setting id="password"				type="text"		visible="false"		default=""		option="hidden"/>
+		<setting id="tstchk_liveresolver"	type="bool"		visible="false"		default="true" />
+		<setting id="tstchk_F4mProxy"		type="bool"		visible="false"		default="true" />
+		<setting id="testver"				type="bool"		visible="false"		default="false" label="30900"/>
+		<setting id="DEBUG"					type="bool"		visible="false"		default="false" />
+        <setting id="testsettings"			type="action"	visible="false"		action="XBMC.RunScript(special://home/addons/plugin.video.bob/login.py,settings,plugin.video.bob)"		option="close"	label="30933"/>
+	</category>
+</settings>
+

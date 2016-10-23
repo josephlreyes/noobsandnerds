@@ -1218,8 +1218,6 @@ class Resolver:
             except:
                 pass
 
-            xbmc.log("url: " + url)
-
             resolved = sources().direct_resolve(url)
 
             if not resolved == False: direct = False
@@ -1241,8 +1239,6 @@ class Resolver:
             except:
                 pass
             pass
-
-        xbmc.log("url2: " + url)
 
         try:
             if '.google.com' not in url:
@@ -1290,11 +1286,7 @@ class Resolver:
         except:
             pass
 
-        try:
-            if url.startswith("plugin://program.plexus"):
-                direct = True
-        except:
-            pass
+        direct = True
 
         if direct is True:
             return url
@@ -1383,9 +1375,10 @@ class Player(xbmc.Player):
             self.seekTime(float(self.offset))
 
     def onPlayBackStopped(self):
+        xbmc.PlayList(xbmc.PLAYLIST_VIDEO).clear()
         if self.getbookmark is True:
             Bookmarks().reset(self.currentTime, self.totalTime, self.name, self.year)
-        xbmc.PlayList(xbmc.PLAYLIST_VIDEO).clear()
+
 
     def onPlayBackEnded(self):
         self.onPlayBackStopped()

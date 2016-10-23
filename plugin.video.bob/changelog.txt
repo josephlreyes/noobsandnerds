@@ -2,6 +2,9 @@ Visit WWW.NOOBSANDNERDS.COM for your all Kodi needs.
 No fighting, no censorship, no agenda.
 We just concentrate on exciting new features.
 
+v.1.2.1
+fixed direct links bug
+
 v.1.2.0
 - fixed problem when opening in a kodi profile
 - added more scrapers

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="Scrapers 1">
+		<setting label="afdah" type="lsep"/>
+		<setting id="afdah_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="dizigold" type="lsep"/>
+		<setting id="dizigold_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="genvideo" type="lsep"/>
+		<setting id="genvideo_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="M4U" type="lsep"/>
+		<setting id="M4U_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="moviefree" type="lsep"/>
+		<setting id="moviefree_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="moviego" type="lsep"/>
+		<setting id="moviego_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="onemovies" type="lsep"/>
+		<setting id="onemovies_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="primewire" type="lsep"/>
+		<setting id="primewire_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="pubfilm" type="lsep"/>
+		<setting id="pubfilm_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="sezonlukdizi" type="lsep"/>
+		<setting id="sezonlukdizi_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="xmovies" type="lsep"/>
+		<setting id="xmovies_enabled" type="bool" label="Enabled" default="true"/>
+	</category>
+</settings>

@@ -18,8 +18,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-
-import time,hashlib
+import time
 
 try:
     from sqlite3 import dbapi2 as database
@@ -39,7 +38,9 @@ def fetch(items, lang):
 
     for i in range(0, len(items)):
         try:
-            dbcur.execute("SELECT * FROM meta WHERE (imdb = '%s' and lang = '%s' and not imdb = '0') or (tmdb = '%s' and lang = '%s' and not tmdb = '0') or (tvdb = '%s' and lang = '%s' and not tvdb = '0')" % (items[i]['imdb'], lang, items[i]['tmdb'], lang, items[i]['tvdb'], lang))
+            dbcur.execute(
+                "SELECT * FROM meta WHERE (imdb = '%s' and lang = '%s' and not imdb = '0') or (tmdb = '%s' and lang = '%s' and not tmdb = '0') or (tvdb = '%s' and lang = '%s' and not tvdb = '0')" % (
+                items[i]['imdb'], lang, items[i]['tmdb'], lang, items[i]['tvdb'], lang))
             match = dbcur.fetchone()
 
             t1 = int(match[5])
@@ -47,13 +48,15 @@ def fetch(items, lang):
             if update == True: raise Exception()
 
             item = eval(match[4].encode('utf-8'))
-            item = dict((k,v) for k, v in item.iteritems() if not v == '0')
+            item = dict((k, v) for k, v in item.iteritems() if not v == '0')
 
             if items[i]['fanart'] == '0':
-                try: items[i].update({'fanart': item['fanart']})
-                except: pass
+                try:
+                    items[i].update({'fanart': item['fanart']})
+                except:
+                    pass
 
-            item = dict((k,v) for k, v in item.iteritems() if not k == 'fanart')
+            item = dict((k, v) for k, v in item.iteritems() if not k == 'fanart')
             items[i].update(item)
 
             items[i].update({'metacache': True})
@@ -68,14 +71,20 @@ def insert(meta):
         control.makeFile(control.dataPath)
         dbcon = database.connect(control.metacacheFile)
         dbcur = dbcon.cursor()
-        dbcur.execute("CREATE TABLE IF NOT EXISTS meta (""imdb TEXT, ""tmdb TEXT, ""tvdb TEXT, ""lang TEXT, ""item TEXT, ""time TEXT, ""UNIQUE(imdb, tmdb, tvdb, lang)"");")
+        dbcur.execute(
+            "CREATE TABLE IF NOT EXISTS meta (""imdb TEXT, ""tmdb TEXT, ""tvdb TEXT, ""lang TEXT, ""item TEXT, ""time TEXT, ""UNIQUE(imdb, tmdb, tvdb, lang)"");")
         t = int(time.time())
         for m in meta:
             try:
                 i = repr(m['item'])
-                try: dbcur.execute("DELETE * FROM meta WHERE (imdb = '%s' and lang = '%s' and not imdb = '0') or (tmdb = '%s' and lang = '%s' and not tmdb = '0') or (tvdb = '%s' and lang = '%s' and not tvdb = '0')" % (m['imdb'], m['lang'], m['tmdb'], m['lang'], m['tvdb'], m['lang']))
-                except: pass
-                dbcur.execute("INSERT INTO meta Values (?, ?, ?, ?, ?, ?)", (m['imdb'], m['tmdb'], m['tvdb'], m['lang'], i, t))
+                try:
+                    dbcur.execute(
+                        "DELETE * FROM meta WHERE (imdb = '%s' and lang = '%s' and not imdb = '0') or (tmdb = '%s' and lang = '%s' and not tmdb = '0') or (tvdb = '%s' and lang = '%s' and not tvdb = '0')" % (
+                        m['imdb'], m['lang'], m['tmdb'], m['lang'], m['tvdb'], m['lang']))
+                except:
+                    pass
+                dbcur.execute("INSERT INTO meta Values (?, ?, ?, ?, ?, ?)",
+                              (m['imdb'], m['tmdb'], m['tvdb'], m['lang'], i, t))
             except:
                 pass
 
@@ -83,3 +92,78 @@ def insert(meta):
     except:
         return
 
+
+def fetch_episode(items, lang):
+    try:
+        t2 = int(time.time())
+        dbcon = database.connect(control.metacacheFile)
+        dbcur = dbcon.cursor()
+    except:
+        return items
+
+    for i in range(0, len(items)):
+        try:
+            dbcur.execute(
+                "SELECT * FROM episode_meta WHERE "
+                "(imdb = '%s' and lang = '%s' and season = '%s' and episode = '%s' and not imdb = '0') or "
+                "(tmdb = '%s' and lang = '%s' and season = '%s' and episode = '%s' and not tmdb = '0') or "
+                "(tvdb = '%s' and lang = '%s' and season = '%s' and episode = '%s' and not tvdb = '0')" % (
+                    items[i]['imdb'], lang, items[i]['season'], items[i]['episode'],
+                    items[i]['tmdb'], lang, items[i]['season'], items[i]['episode'],
+                    items[i]['tvdb'], lang, items[i]['season'], items[i]['episode']))
+            match = dbcur.fetchone()
+
+            t1 = int(match[7])
+            update = (abs(t2 - t1) / 3600) >= 720
+            if update == True: raise Exception()
+
+            item = eval(match[6].encode('utf-8'))
+            item = dict((k, v) for k, v in item.iteritems() if not v == '0')
+
+            if items[i]['fanart'] == '0':
+                try:
+                    items[i].update({'fanart': item['fanart']})
+                except:
+                    pass
+
+            item = dict((k, v) for k, v in item.iteritems() if not k == 'fanart')
+            items[i].update(item)
+
+            items[i].update({'episode_metacache': True})
+        except:
+            pass
+
+    return items
+
+def insert_episode(meta):
+    try:
+        control.makeFile(control.dataPath)
+        dbcon = database.connect(control.metacacheFile)
+        dbcur = dbcon.cursor()
+        dbcur.execute(
+            "CREATE TABLE IF NOT EXISTS episode_meta (""imdb TEXT, ""tmdb TEXT, ""tvdb TEXT, ""season TEXT"
+            ", ""episode TEXT, ""lang TEXT, ""item TEXT, ""time TEXT"
+            ", ""UNIQUE(imdb, tmdb, tvdb, season, episode, lang)"");")
+        t = int(time.time())
+        for m in meta:
+            try:
+                i = repr(m['item'])
+                try:
+                    dbcur.execute(
+                        "DELETE * FROM episode_meta WHERE "
+                        "(imdb = '%s' and season = '%s' and episode = '%s' and lang = '%s' and not imdb = '0') or "
+                        "(tmdb = '%s' and season = '%s' and episode = '%s' and lang = '%s' and not tmdb = '0') or "
+                        "(tvdb = '%s' and season = '%s' and episode = '%s' and lang = '%s' and not tvdb = '0')" % (
+                        m['imdb'], m['season'], m['episode'], m['lang'],
+                        m['tmdb'], m['season'], m['episode'], m['lang'],
+                        m['tvdb'], m['season'], m['episode'], m['lang']))
+                except:
+                    pass
+                dbcur.execute("INSERT INTO episode_meta Values (?, ?, ?, ?, ?, ?, ?, ?)",
+                              (m['imdb'], m['tmdb'], m['tvdb'], m['season'], m['episode'], m['lang'], i, t))
+            except:
+                pass
+
+        dbcon.commit()
+    except:
+        return

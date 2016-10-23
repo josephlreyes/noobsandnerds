@@ -308,15 +308,18 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.bob" name="Bob" version="1.0.0" provider-name="Team Bob">
+<addon id="plugin.video.bob" name="Bob" version="1.2.0" provider-name="Team Bob">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="plugin.video.youtube" version="5.2.1" optional="true"/>
 		<import addon="script.module.pyxbmct" version="1.1.4" />
-		<import addon="script.module.urlresolver" version="2.10.0"/>
+		<import addon="script.mrknow.urlresolver" version="2.10.0" optional="true"/>
+		<import addon="script.module.liveresolver" version="0.1.24" optional="true"/>
 		<import addon="script.module.beautifulsoup" version="3.2.1"/>
 		<import addon="script.module.requests"/>
+		<import addon="script.module.nanscrapers"/>
 		<import addon="script.module.addon.common" version="2.0.0"/>
+		<import addon="script.video.F4mProxy" version="2.6.3" optional="true"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="default.py">
 		<provides>video audio</provides>
@@ -328,8 +331,8 @@
 		<forum>http://noobsandnerds.com/support</forum>
 		<website>www.noobsandnerds.com</website>
 		<news></news>
-		<ref>1ad691c7b9550400bba955a1fc2497ce</ref>
-		<video_guide></video_guide>
+		<ref>35c3c72734f09f1136e9493e9d91c57f</ref>
+		<video_guide>y0w8zIH4lOY</video_guide>
 		<video_preview>WdKIzajiBBI</video_preview>
 	</extension>
 </addon>
@@ -5225,8 +5228,13 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
 	</extension>
 </addon>
 
-<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="1.3" provider-name="noobsandnerds">
+<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="1.4" provider-name="noobsandnerds">
 	<extension point="xbmc.addon.repository" name="noobsandnerds Repository">
+		<dir>
+			<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+			<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+		</dir>
 		<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml.md5</checksum>
 		<datadir zip="true">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/</datadir>
@@ -6987,19 +6995,6 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	</extension>
 </addon>
 
-<addon id="repository.The_Silencer" name="The_Silencer's KODI Addons" version="0.0.0.1" provider-name="The_Silencer">
-	<extension point="xbmc.addon.repository" name="The_Silencer's KODI Addons">
-		<info compressed="false">https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml</info>
-		<checksum>https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/TheSilencer001/The_Silencer/master/zips</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Install The_Silencer's Addons</summary>
-		<description>Download and install addons from The_Silencer</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
 <addon id="repository.thegizmo" name="[COLOR FF006233]The Gizmo[/COLOR] Repo" version="0.0.0.1" provider-name="Travis Slattery">
 	<extension point="xbmc.addon.repository" name="The Gizmo Repo">
        <info>http://the-gizmo.svn.beanstalkapp.com/the-gizmo/trunk/addons.xml</info>
@@ -7146,6 +7141,19 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<description>Download and install [COLOR red]XXX Adult[/COLOR] addons from TheYid.... All 720p/1080p adult movies  [COLOR red][B][I]Real-Debrid or Alldebird PREMIUM NEEDED FOR ALL ADDONS[/B][/I][/COLOR]...For OFFICIAL Support Visit XBMCHUB.COM</description>
 		<platform>all</platform>
 		<broken>This repository is now dead, the developer has pulled the code from bitbucket</broken>
+	</extension>
+</addon>
+
+<addon id="repository.The_Silencer" name="The_Silencer's KODI Addons" version="0.0.0.1" provider-name="The_Silencer">
+	<extension point="xbmc.addon.repository" name="The_Silencer's KODI Addons">
+		<info compressed="false">https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml</info>
+		<checksum>https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/TheSilencer001/The_Silencer/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install The_Silencer's Addons</summary>
+		<description>Download and install addons from The_Silencer</description>
+		<platform>all</platform>
 	</extension>
 </addon>
 
@@ -8576,6 +8584,24 @@ Addons Included
                 <checksum>https://raw.githubusercontent.com/ruuk/repository/master/alpha/addons.xml.md5</checksum>
                 <datadir zip="true">https://raw.githubusercontent.com/ruuk/repository/master/alpha/</datadir>
         </extension>
+</addon>
+
+<addon id="script.module.nanscrapers" name="NaN Scrapers" version="0.5.0" provider-name="Team NaN">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.beautifulsoup" version="3.2.1"/>
+        <import addon="script.module.futures" version="2.2.0"/>
+        <import addon="script.module.requests"/>
+    </requires>
+    <extension point="xbmc.python.module" library="lib"/>
+    <extension point="xbmc.python.pluginsource" library="lib/default.py"/>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi.</summary>
+        <description lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi, simplifying addon development of video plugins requiring multi video hosts.
+        </description>
+        <license>GPL v3</license>
+    </extension>
 </addon>
 
 <addon id="script.tvportal" name="TV Portal" version="2.0.7" provider-name="whufclee, DixieDean, Spoyser">

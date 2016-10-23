@@ -1,2 +1,19 @@
+Visit WWW.NOOBSANDNERDS.COM for your all Kodi needs.
+No fighting, no censorship, no agenda.
+We just concentrate on exciting new features.
+
+v.1.2.0
+- fixed problem when opening in a kodi profile
+- added more scrapers
+- added new random quote dialogs
+- added ability to install repos/addons on startup
+- added WIP section for devs/playlisters
+
+v1.1.0
+- new scrapers
+- fix plot for episodes
+- fix queue issue
+- new link names
+
 v1.0.0
 First public release

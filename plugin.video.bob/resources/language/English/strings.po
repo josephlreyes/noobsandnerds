@@ -14,6 +14,22 @@ msgstr ""
 "Language: en\n"
 
 
+msgctxt "#30401"
+msgid "[COLOR teal]Are You Sure?[/COLOR]"
+msgstr ""
+
+msgctxt "#30402"
+msgid "[COLOR teal]Process Complete[/COLOR]"
+msgstr ""
+
+msgctxt "#30491"
+msgid "This View is Now Default"
+msgstr ""
+
+msgctxt "#30500"
+msgid "[I]Next Page[/I]"
+msgstr ""
+
 msgctxt "#30701"
 msgid "[COLOR blue]Settings[/COLOR]"
 msgstr ""
@@ -134,6 +150,34 @@ msgctxt "#30732"
 msgid "Opening image"
 msgstr ""
 
+msgctxt "#30733"
+msgid "Scraper Settings"
+msgstr ""
+
+msgctxt "#30734"
+msgid "Open Scraper Settings"
+msgstr ""
+
+msgctxt "#30735"
+msgid "Filtering Options"
+msgstr ""
+
+msgctxt "#30736"
+msgid "Allow openload links"
+msgstr ""
+
+msgctxt "#30737"
+msgid "Allow thevideo.me links"
+msgstr ""
+
+msgctxt "#30739"
+msgid "Try searching for alternate spelling if present (slower)"
+msgstr ""
+
+msgctxt "#30740"
+msgid "Third Party"
+msgstr ""
+
 msgctxt "#30751"
 msgid "Scoreboard"
 msgstr ""
@@ -158,32 +202,44 @@ msgctxt "#30756"
 msgid "Pick A Bandwidth"
 msgstr ""
 
-msgctxt "#30401"
-msgid "[COLOR teal]Are You Sure?[/COLOR]"
+msgctxt "#30757"
+msgid "Offer to install required 3rd party repositories"
 msgstr ""
 
-msgctxt "#30402"
-msgid "[COLOR teal]Process Complete[/COLOR]"
+msgctxt "#30758"
+msgid "Enable debugging mode"
 msgstr ""
 
-msgctxt "#30491"
-msgid "This View is Now Default"
+msgctxt "#30760"
+msgid "Message options"
 msgstr ""
 
-msgctxt "#30500"
-msgid "[I]Next Page[/I]"
+msgctxt "#30761"
+msgid "Enable possibly offensive messages"
 msgstr ""
 
-msgctxt "#32501"
-msgid "Start From Beginning"
+msgctxt "#30762"
+msgid "Parts of this addon may rely on certain[CR]third party addons."
 msgstr ""
 
-msgctxt "#32502"
-msgid "Resume from %s"
+msgctxt "#30763"
+msgid "[CR]"
 msgstr ""
 
-msgctxt "#32503"
-msgid "Resume"
+msgctxt "#30764"
+msgid "You can choose whether or not to install[CR]the relevant repos."
+msgstr ""
+
+msgctxt "#30765"
+msgid "We recommend installing the relevant repos[CR]to ensure your addons auto-update."
+msgstr ""
+
+msgctxt "#30766"
+msgid "Offer to install required 3rd party addons"
+msgstr ""
+
+msgctxt "#30770"
+msgid "Dev Mode"
 msgstr ""
 
 msgctxt "#30807"
@@ -242,6 +298,22 @@ msgctxt "#30836"
 msgid "You have enabled the login feature but not entered any details. Please add your login details or disable the option."
 msgstr ""
 
+msgctxt "#30843"
+msgid "Login (For Playlisters Only)"
+msgstr ""
+
+msgctxt "#30844"
+msgid "Forum to use for login"
+msgstr ""
+
+msgctxt "#30845"
+msgid "Username"
+msgstr ""
+
+msgctxt "#30846"
+msgid "Password"
+msgstr ""
+
 msgctxt "#30897"
 msgid "[COLOR=gold]----------------------------------------------------[/COLOR]"
 msgstr ""
@@ -278,6 +350,10 @@ msgctxt "#30907"
 msgid "[COLOR=gold]Click to upload log[/COLOR]"
 msgstr ""
 
+msgctxt "#30933"
+msgid "-- Open Test Settings"
+msgstr ""
+
 msgctxt "#30962"
 msgid "You need to enable the login option to use the test version. This feature is only available to members who have donated towards the noobsandnerds development fund. You can disable this option to continue using the standard version."
 msgstr ""
@@ -296,4 +372,68 @@ msgstr ""
 
 msgctxt "#30966"
 msgid "Sorry there was an error trying to retrieve the latest test version, the developer may be working on pushing a new update."
+msgstr ""
+
+msgctxt "#30967"
+msgid "REPOSITORY REQUIRED"
+msgstr ""
+
+msgctxt "#30968"
+msgid "One of the addons required are hosted on a third party repository. If you don\'t have this installed you may miss out on important updates from the developer. Do you want to install:"
+msgstr ""
+
+msgctxt "#30969"
+msgid "INSTALLING REPOSITORY"
+msgstr ""
+
+msgctxt "#30970"
+msgid "Please wait..."
+msgstr ""
+
+msgctxt "#30971"
+msgid "CHECKING UPDATES"
+msgstr ""
+
+msgctxt "#30972"
+msgid "Just checking for any updates on the repo."
+msgstr ""
+
+msgctxt "#30973"
+msgid "UNABLE TO INSTALL REPO"
+msgstr ""
+
+msgctxt "#30974"
+msgid "Sorry there was an error trying to install this repository, please let the team at noobsandnerds.com know so they can update the Add-on Portal. Thank you."
+msgstr ""
+
+msgctxt "#30975"
+msgid "UPDATE AVAILABLE"
+msgstr ""
+
+msgctxt "#30976"
+msgid "The noobsandnerds Add-on Portal is showing a newer version of [COLOR=gold]%s[/COLOR] is available. Would you like to update to version: [COLOR=dodgerblue]%s[/COLOR]"
+msgstr ""
+
+msgctxt "#30977"
+msgid "ADDON REQUIRED"
+msgstr ""
+
+msgctxt "#30978"
+msgid "The following third party add-on is required, if you don\'t have this installed you may find certain features fail work. Do you want to install:"
+msgstr ""
+
+msgctxt "#30979"
+msgid "INSTALLING UPDATES"
+msgstr ""
+
+msgctxt "#32501"
+msgid "Start From Beginning"
+msgstr ""
+
+msgctxt "#32502"
+msgid "Resume from %s"
+msgstr ""
+
+msgctxt "#32503"
+msgid "Resume"
 msgstr ""

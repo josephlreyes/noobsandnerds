@@ -16,7 +16,9 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import random
 
+import __builtin__
 import base64
 import hashlib
 import json
@@ -24,8 +26,8 @@ import os
 import re
 import sys
 import urllib
-
 import urlparse
+
 import xbmc
 
 try:
@@ -39,6 +41,16 @@ from resources.lib.modules import control
 from resources.lib.modules import client
 from resources.lib.modules import workers
 from resources.lib.modules import views
+
+
+def replace_url(url):
+    if 'norestrictions.noobsandnerds.com' in url and not 'norestrictions.club/norestrictions.club' in url:
+        url = url.replace('norestrictions.noobsandnerds.com', __builtin__.BOB_BASE_DOMAIN)
+    elif 'www.norestrictions.club' in url and not 'norestrictions.club/norestrictions.club' in url:
+        url = url.replace('www.norestrictions.club', __builtin__.BOB_BASE_DOMAIN)
+    elif 'norestrictions.club' in url and not 'norestrictions.club/norestrictions.club' in url:
+        url = url.replace('norestrictions.club', __builtin__.BOB_BASE_DOMAIN)
+    return url
 
 
 class Indexer:
@@ -55,7 +67,7 @@ class Indexer:
             pass
 
     def root(self):
-        self.get("http://norestrictions.club/main/main.xml")
+        self.get(replace_url("http://www.norestrictions.club/main/main.xml"))
 
     def getx(self, url):
         self.get('', url)
@@ -104,7 +116,7 @@ class Indexer:
 
     def add_search(self, url=None):
         try:
-            link = 'http://norestrictions.club/main/search.xml'
+            link = replace_url('http://www.norestrictions.club/main/search.xml')
 
             if url is None or url == '':
                 keyboard = control.keyboard('', control.lang(30702).encode('utf-8'))
@@ -165,7 +177,7 @@ class Indexer:
         try:
             original_url = url
             if result is None:
-                result = cache.get(client.request, 0, url)
+                result = cache.get(client.request, 0.1, url)
 
             if result.strip().startswith('#EXTM3U') and '#EXTINF' in result:
                 result = re.compile('#EXTINF:.+?\,(.+?)\n(.+?)\n', re.MULTILINE | re.DOTALL).findall(result)
@@ -186,8 +198,9 @@ class Indexer:
             info = result.split('<item>')[0].split('<dir>')[0]
 
             vip = self.bob_get_tag_content(info, 'poster', '0')
-            image = self.bob_get_tag_content(info, 'thumbnail', '0')
-            fanart = self.bob_get_tag_content(info, 'fanart', '0')
+            image = replace_url(self.bob_get_tag_content(info, 'thumbnail', '0'))
+
+            fanart = replace_url(self.bob_get_tag_content(info, 'fanart', '0'))
 
             items = re.compile(
                 '((?:<item>.+?</item>|<dir>.+?</dir>|<plugin>.+?</plugin>|<info>.+?</info>|'
@@ -290,7 +303,7 @@ class Indexer:
         return self.list
 
     def get_all_episodes(self, url):
-        result = cache.get(client.request, 0, url)
+        result = cache.get(client.request, 0.1, url)
 
         if result.strip().startswith('#EXTM3U') and '#EXTINF' in result:
             result = re.compile('#EXTINF:.+?\,(.+?)\n(.+?)\n', re.MULTILINE | re.DOTALL).findall(result)
@@ -319,7 +332,7 @@ class Indexer:
             url = self.bob_get_tag_content(item, 'link', '0')
 
             if url is not '0':
-                list.extend(self.bob_list(url))
+                list.extend(self.bob_list(replace_url(url)))
         self.list = list
         self.worker()
         self.add_directory(self.list)
@@ -341,6 +354,7 @@ class Indexer:
 
         self.imdb_info_link = 'http://www.omdbapi.com/?i=%s&plot=full&r=json'
         self.tvmaze_info_link = 'http://api.tvmaze.com/lookup/shows?thetvdb=%s'
+        self.tvmaze_episode_info_link = 'http://api.tvmaze.com/shows/%s/episodebynumber?season=%s&number=%s'
         self.lang = 'en'
 
         self.meta = []
@@ -348,7 +362,9 @@ class Indexer:
 
         for i in range(0, total):
             self.list[i].update({'metacache': False})
+            self.list[i].update({'episode_metacache': False})
         self.list = metacache.fetch(self.list, self.lang)
+        self.list = metacache.fetch_episode(self.list, self.lang)
 
         for r in range(0, total, 50):
             threads = []
@@ -508,10 +524,14 @@ class Indexer:
 
     def tv_info(self, i):
         try:
-            if self.list[i]['metacache'] is True:
+            if not self.list[i]['content'] in ['tvshows', 'seasons', 'episodes']:
                 raise Exception()
 
-            if not self.list[i]['content'] in ['tvshows', 'seasons', 'episodes']:
+            if self.list[i]['metacache'] is True and self.list[i]['content'] != 'episodes':
+                raise Exception()
+
+            if self.list[i]['episode_metacache'] is True or (
+                            int(self.list[i]['episode']) == 0 and int(self.list[i]['season']) != 0):
                 raise Exception()
 
             tvdb = self.list[i]['tvdb']
@@ -526,7 +546,7 @@ class Indexer:
                 return self.meta.append(
                     {'imdb': '0', 'tmdb': '0', 'tvdb': tvdb, 'lang': self.lang, 'item': {'code': '0'}})
 
-            item = json.loads(item[1])
+            item = json.loads(item)
 
             tvshowtitle = item['name']
             tvshowtitle = tvshowtitle.encode('utf-8')
@@ -589,6 +609,26 @@ class Indexer:
             if not plot == '0':
                 self.list[i].update({'plot': plot})
 
+            if self.list[i]['content'] == 'episodes':
+                url = self.tvmaze_episode_info_link % (item['id'], self.list[i]['season'], self.list[i]['episode'])
+
+                item = client.request(url, output='response', error=True, timeout='10')
+                item = json.loads(item)
+                episode_plot = item["summary"]
+                if episode_plot == '' or episode_plot is None:
+                    episode_plot = '0'
+                else:
+                    episode_plot = re.sub('\n|<.+?>|</.+?>|.+?#\d*:', '', episode_plot)
+                episode_plot = episode_plot.encode('utf-8')
+                if not episode_plot == '0':
+                    self.list[i].update({'plot': episode_plot})
+                    metacache.insert_episode([
+                        {'imdb': imdb, 'tmdb': '0', 'tvdb': tvdb, 'lang': self.lang, 'season': self.list[i]['season'],
+                         'episode': self.list[i]['episode'],
+                         'item': {'tvshowtitle': tvshowtitle, 'year': year, 'code': imdb, 'imdb': imdb,
+                                  'tvdb': tvdb, 'studio': studio, 'genre': genre, 'duration': duration,
+                                  'rating': rating, 'plot': episode_plot}}])
+
             self.meta.append({'imdb': imdb, 'tmdb': '0', 'tvdb': tvdb, 'lang': self.lang,
                               'item': {'tvshowtitle': tvshowtitle, 'year': year, 'code': imdb, 'imdb': imdb,
                                        'tvdb': tvdb, 'studio': studio, 'genre': genre, 'duration': duration,
@@ -596,8 +636,7 @@ class Indexer:
         except:
             pass
 
-    @staticmethod
-    def add_directory(items, mode=True, parent_url=None):
+    def add_directory(self, items, mode=True, parent_url=None):
         if items is None or len(items) == 0:
             return
 
@@ -634,7 +673,8 @@ class Indexer:
 
                 url = '%s?action=%s' % (system_addon, i['action'])
                 try:
-                    url += '&url=%s' % urllib.quote_plus(i['url'])
+                    url += '&url=%s' % urllib.quote_plus(
+                        replace_url(i['url']))
                 except:
                     pass
                 try:
@@ -751,7 +791,7 @@ class Indexer:
                 elif addon_fanart is not None:
                     item.setProperty('Fanart_Image', addon_fanart)
 
-                item.setInfo(type='Video', infoLabels=meta)
+                item.setInfo(type='video', infoLabels=meta)
                 item.addContextMenuItems(cm)
                 control.addItem(handle=int(sys.argv[1]), url=url, listitem=item, isFolder=folder)
             except:
@@ -793,25 +833,99 @@ class Resolver:
             pass
 
     @staticmethod
-    def get(url, name=None, link = None):
+    def get(url, name=None, link=None):
         try:
             if name is None:
                 name = control.infoLabel('listitem.label')
             items = re.compile('<sublink>(.+?)</sublink>').findall(url)
             if len(items) == 0:
                 items = [url]
-            items = [('Link %s' % (int(items.index(i)) + 1), i) for i in items]
+            new_items = []
+
+            messages = [
+                {'HD': 'If Available',
+                 'SD': 'Most Likely Works'
+                 },
+                {'HD': 'Bob\'s Ya Uncle',
+                 'SD': 'Bob\'s NOT Ya Cousin'
+                 },
+                {'HD': 'Checking Top Sites',
+                 'SD': 'Sitting In Cinema Recording'
+                 },
+                {'HD': 'This quality is being looked for by top men, who? Top....Men!',
+                 'SD': 'This quality is sold on the corner by a shady guy'
+                 },
+                {'HD': 'Google Fiber',
+                 'SD': 'Waiting For Dialup Connection'
+                 },
+                {'HD': 'Great! Worth the wait',
+                 'SD': 'Good Enough. I just want to watch'
+                 },
+                {'HD': 'BluRay Quality',
+                 'SD': 'VHS Quality'
+                 },
+                {'HD': 'Tsingtao ',
+                 'SD': 'Budweiser'
+                 },
+                {'HD': 'I must see this film in the highest quality',
+                 'SD': 'Flick probably sucks so lets just get it over'
+                 },
+                {'HD': 'Looks like a Maserati',
+                 'SD': ' Looks like a Ford Focus'
+                 },
+                 {'HD': 'Supermodel Quality',
+                 'SD': ' Looks like Grandma Thelma'
+                 },
+                {'HD': 'ARB',
+                 'SD': 'ARD'
+                 },
+            ]
+
+            if control.setting('enable_offensive')  == 'true':
+                messages.extend([
+                    {'HD': 'Kicks Ass!!',
+                     'SD': 'Gets ass kicked repeatedly'
+                    },
+                    {'HD': 'Fucking Rocks!!',
+                     'SD': 'Fucking Sucks!!'
+                    },
+                    {'HD': 'Big Bodacious Breasts',
+                    'SD': 'Saggy Milk Teets',
+                    }
+                    ])
+
+            message = random.choice(messages)
+
+            for item in items:
+                if "searchsd" in item:
+                    label = 'SD'
+                    if message['SD'] != '':
+                        label += ' (%s)' % message['SD']
+                    new_item = (label, item)
+                elif "search" in item:
+                    label = 'HD'
+                    if message['HD'] != '':
+                        label += ' (%s)' % message['HD']
+                    new_item = (label, item)
+                else:
+                    new_item = ('Link %s' % (int(items.index(item)) + 1), item)
+                new_items.append(new_item)
+            items = new_items
 
             if len(items) == 1:
                 url = items[0][1]
+                return url
             elif link is not None:
-                url = items[link][1]
+                for index, item in enumerate(items):
+                    if item[0].startswith(link):
+                        url = items[index][1]
+                        return url
+
+            select = control.selectDialog([i[0] for i in items], name)
+            if select == -1:
+                return False
             else:
-                select = control.selectDialog([i[0] for i in items], name)
-                if select == -1:
-                    return False
-                else:
-                    url = items[select][1]
+                url = items[select][1]
 
             return url
         except:
@@ -863,14 +977,20 @@ class Resolver:
             except:
                 swf = None
 
-            from F4mProxy import f4mProxyHelper
+            try:
+                from F4mProxy import f4mProxyHelper
+            except:
+                control.dialog.ok("Dependency missing", "please install F4MProxy to use this feature")
+                raise Exception()
+
             return f4mProxyHelper().playF4mLink(url, name, proxy, proxy_use_chunks, maxbitrate, simple_downloader,
                                                 auth_string, streamtype, False, swf)
         except:
             pass
 
     @staticmethod
-    def process(url, direct=True, name = ''):
+    def process(url, direct=True, name=''):
+        from resources.lib.sources import sources
         try:
             if not any(i in url for i in ['.jpg', '.png', '.gif']):
                 raise Exception()
@@ -928,11 +1048,90 @@ class Resolver:
         except:
             pass
 
+        messages = ['',
+                    'Bob\'s just nipping to blockbusters won\'t be but a sec',
+                    'Bob fell asleep during this flick',
+                    'Bob\'s movie collection has no limits',
+                    'Searching the Internet for your selection',
+                    'Bob has seen your taste in movies and is very disappointed ',
+                    'Bob thinks he\'s got that DVD laying around here',
+                    'Bob says you\'re a movie geek just like him',
+                    'Bob says get off of twitter and enjoy his addon',
+                    'Bob is a wanted man in 125 countries',
+                    'Bob said your taste in films is top notch',
+                    'When Bob chooses a movie, servers shake in fear',
+                    'They fear Bob. Don\'t listen to haters',
+                    'Bob said he works so hard for YOU, the end user',
+                    'Bob does this cause he loves it, not for greed',
+                    'That\'s not Bobs butt crack, it\'s his remote holder',
+                    'Bob...I Am Your Father!!',
+                    'I\'m going to make Bob an offer he can\'t refuse.',
+                    'Here\'s looking at you, Bob',
+                    'Go ahead, make Bob\'s day.',
+                    'May the Bob be with you',
+                    'You talking to Bob??',
+                    'I love the smell of Bob in the morning',
+                    'Bob, phone home',
+                    'Made it Bob! Top of the World!',
+                    'Bob, James Bob',
+                    'There\'s no place like Bob',
+                    'You had me at "Bob"',
+                    "YOU CAN\'T HANDLE THE BOB",
+                    'Round up all the usual Bobs',
+                    'I\'ll have what Bob\'s having',
+                    'You\'re gonna need a bigger Bob',
+                    'Bob\'ll be back',
+                    'If you build it. Bob will come',
+                    'We\'ll always have Bob',
+                    'Bob, we have a problem',
+                    'Say "hello" to my little Bob',
+                    'Bob, you\'re trying to seduce me. Aren\'t you?',
+                    'Elementary, my dear Bob',
+                    'Get your stinking paws off me, you damned dirty Bob',
+                    'Here\'s Bob!',
+                    'Hasta la vista, Bob.',
+                    'Soylent Green is Bob!',
+                    'Open the pod bay doors, BOB.',
+                    'Yo, Bob!',
+                    'Oh, no, it wasn\'t the airplanes. It was Beauty killed the Bob.',
+                    'A Bob. Shaken, not stirred.',
+                    'Who\'s on Bob.',
+                    'I feel the need - the need for Bob!',
+                    'Nobody puts Bob in a corner.',
+                    'I\'ll get you, my pretty, and your little Bob, too!',
+                    'I\'m Bob of the world!',
+                    ]
+
+        if control.setting('enable_offensive') == 'true':
+            messages.extend([
+                'Fuck Shit Wank -- Costa',
+                'Frankly my dear, I don\'t give a Bob'
+            ])
+
+
+        message = control.lang(30731).encode('utf-8') + '\n' + random.choice(messages)
+
         try:
             preset = re.findall('<preset>(.+?)</preset>', url)[0]
 
+            if preset == "search":
+                messages.extend([
+                    'Bob is popping in Blu Ray Disc'
+                ])
+            elif preset == "searchsd":
+                messages.extend([
+                    'Bob rummaging through his vhs collection',
+                ])
+
+            message = control.lang(30731).encode('utf-8') + '\n' + random.choice(messages)
+
             title, year, imdb = re.findall('<title>(.+?)</title>', url)[0], re.findall('<year>(.+?)</year>', url)[0], \
                                 re.findall('<imdb>(.+?)</imdb>', url)[0]
+            scraper_title = None
+            try:
+                scraper_title = re.findall('<scrapertitle>(.+?)</scrapertitle>', url)[0]
+            except:
+                pass
 
             try:
                 tvdb, tvshowtitle, premiered, season, episode = re.findall('<tvdb>(.+?)</tvdb>', url)[0], \
@@ -945,20 +1144,13 @@ class Resolver:
 
             direct = False
 
-            preset_dictionary = ['primewire_mv_tv', 'watchfree_mv_tv', 'movie4k_mv', 'movie25_mv', 'watchseries_tv',
-                                 'pftv_tv',
-                                 'afdah_mv', 'dayt_mv', 'dizibox_tv', 'dizigold_tv', 'genvideo_mv', 'mfree_mv',
-                                 'miradetodo_mv', 'movieshd_mv_tv', 'onemovies_mv_tv', 'onlinedizi_tv',
-                                 'pelispedia_mv_tv',
-                                 'pubfilm_mv_tv', 'putlocker_mv_tv', 'rainierland_mv', 'sezonlukdizi_tv',
-                                 'tunemovie_mv',
-                                 'xmovies_mv']
-
-            if preset == 'searchsd':
-                preset_dictionary = ['primewire_mv_tv', 'watchfree_mv_tv', 'movie4k_mv', 'movie25_mv',
-                                     'watchseries_tv', 'pftv_tv']
-
-            from resources.lib.sources import sources
+            # preset_dictionary = ['primewire', 'watchfree', 'movie4k', 'movie25', 'watchseries', 'pftv', 'afdah', 'dayt',
+            #                      'dizibox', 'dizigold', 'genvideo', 'mfree', 'miradetodo', 'movieshd', 'onemovies',
+            #                      'onlinedizi', 'pelispedia', 'pubfilm', 'putlocker', 'rainierland', 'sezonlukdizi',
+            #                      'tunemovie', 'xmovies']
+            #
+            # if preset == 'searchsd':
+            #     preset_dictionary = ['primewire', 'watchfree', 'movie4k', 'movie25', 'watchseries', 'pftv']
 
             dialog = None
             dialog = control.progressDialog
@@ -966,26 +1158,49 @@ class Resolver:
             dialog.update(0)
 
             try:
-                dialog.update(0, control.lang(30726).encode('utf-8') + ' ' + name, control.lang(30731).encode('utf-8'))
+                dialog.update(0, control.lang(30726).encode('utf-8') + ' ' + name, message)
             except:
                 pass
 
-            u = sources().getSources(title, year, imdb, tvdb, season, episode, tvshowtitle, premiered,
-                                     presetDict=preset_dictionary, progress=False, timeout=20)
+            if premiered:
+                premiered = int(premiered[0:4])
 
-            try:
-                dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name, control.lang(30731).encode('utf-8'))
-            except:
-                pass
+            if scraper_title:
+                u = sources().getSources(scraper_title, int(year), imdb, tvdb, season, episode, tvshowtitle, premiered,
+                                         progress=False, timeout=20, preset=preset, dialog=dialog)
 
-            u = sources().sourcesDirect(u, progress=False)
-
-            if u is not None:
                 try:
-                    dialog.close()
+                    dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)
                 except:
                     pass
-                return u
+
+                if u is not None:
+                    try:
+                        dialog.close()
+                        return u
+                    except:
+                        pass
+
+            if scraper_title is None or control.setting('search_alternate') == 'true':
+
+                u = sources().getSources(title, year, imdb, tvdb, season, episode, tvshowtitle, premiered,
+                                         progress=False, timeout=20, preset=preset, dialog= dialog)
+
+                try:
+                    dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)
+                except:
+                    pass
+
+                if u is not None:
+                    try:
+                        dialog.close()
+                        return u
+                    except:
+                        pass
+            if dialog.iscanceled():
+                dialog.close()
+
+
         except:
             try:
                 dialog.close()
@@ -993,38 +1208,41 @@ class Resolver:
                 pass
 
         try:
-            from resources.lib.sources import sources
-
-            u = sources().getURISource(url)
-
-            if u is not False:
-                direct = False
-            if u is None or u is False or u == []:
-                raise Exception()
-
             dialog = None
             dialog = control.progressDialog
-            dialog.create(control.addonInfo('name'), control.lang(30726).encode('utf-8'))
+            dialog.create(control.addonInfo('name'), message)
             dialog.update(0)
 
             try:
-                dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name, control.lang(30731).encode('utf-8'))
+                dialog.update(0, control.lang(30726).encode('utf-8') + ' ' + name)
             except:
                 pass
 
-            u = sources().sourcesDirect(u, progress=False)
+            xbmc.log("url: " + url)
 
-            if u is not None:
-                try:
-                    dialog.close()
-                except:
-                    pass
-                return u
+            resolved = sources().direct_resolve(url)
+
+            if not resolved == False: direct = False
+            if resolved == None or resolved == False: raise Exception()
+
+            try:
+                dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)
+            except:
+                pass
+
+            try:
+                dialog.close()
+            except:
+                pass
+            return resolved
         except:
             try:
                 dialog.close()
             except:
                 pass
+            pass
+
+        xbmc.log("url2: " + url)
 
         try:
             if '.google.com' not in url:
@@ -1045,22 +1263,6 @@ class Resolver:
             pass
 
         try:
-            import urlresolver
-
-            hmf = urlresolver.HostedMediaFile(url=url, include_disabled=True, include_universal=False)
-
-            if hmf.valid_url() is False:
-                raise Exception()
-
-            direct = False
-            u = hmf.resolve()
-
-            if u is not False:
-                return u
-        except:
-            pass
-
-        try:
             try:
                 headers = dict(urlparse.parse_qsl(url.rsplit('|', 1)[1]))
             except:
@@ -1071,7 +1273,11 @@ class Resolver:
             if 'Content-Type' in result and 'html' not in result['Content-Type']:
                 raise Exception()
 
-            import liveresolver
+            try:
+                import liveresolver
+            except:
+                control.dialog.ok("Dependency missing", "please install liveresolver to use this feature")
+                raise Exception()
 
             if liveresolver.isValid(url) is False:
                 raise Exception()
@@ -1081,6 +1287,12 @@ class Resolver:
 
             if u is not None:
                 return u
+        except:
+            pass
+
+        try:
+            if url.startswith("plugin://program.plexus"):
+                direct = True
         except:
             pass
 
@@ -1176,8 +1388,7 @@ class Player(xbmc.Player):
         xbmc.PlayList(xbmc.PLAYLIST_VIDEO).clear()
 
     def onPlayBackEnded(self):
-        if self.getbookmark is True:
-            Bookmarks().reset(self.currentTime, self.totalTime, self.name, self.year)
+        self.onPlayBackStopped()
 
 
 class Bookmarks:

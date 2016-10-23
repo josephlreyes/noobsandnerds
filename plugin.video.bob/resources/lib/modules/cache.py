@@ -28,6 +28,8 @@ except:
 
 from resources.lib.modules import control
 
+import nanscrapers
+
 
 def get(function, timeout, *args, **table):
     try:
@@ -138,6 +140,8 @@ def clear(table=None):
                 dbcon.commit()
             except:
                 pass
+
+        nanscrapers.clear_cache()
 
         control.infoDialog(control.lang(30402).encode('utf-8'))
     except:

@@ -9,6 +9,8 @@
 		<setting id="genvideo_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="M4U" type="lsep"/>
 		<setting id="M4U_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="miradetodo" type="lsep"/>
+		<setting id="miradetodo_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="moviefree" type="lsep"/>
 		<setting id="moviefree_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="moviego" type="lsep"/>
@@ -21,6 +23,8 @@
 		<setting id="pubfilm_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="sezonlukdizi" type="lsep"/>
 		<setting id="sezonlukdizi_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="watchfree" type="lsep"/>
+		<setting id="watchfree_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="xmovies" type="lsep"/>
 		<setting id="xmovies_enabled" type="bool" label="Enabled" default="true"/>
 	</category>

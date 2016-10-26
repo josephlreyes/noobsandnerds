@@ -121,7 +121,6 @@ class Mfree(Scraper):
                             if "m4u" in link_source:
                                 try:
                                     req = requests.head(link_source, headers=headers)
-                                    xbmc.log("headers: " + repr(req.headers))
                                     if not req.headers['Content-Type'].startswith('video'):
                                         continue
                                     if req.headers['Location'] != "":

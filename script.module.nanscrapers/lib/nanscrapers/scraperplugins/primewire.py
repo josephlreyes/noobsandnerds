@@ -7,6 +7,7 @@ from BeautifulSoup import BeautifulSoup
 from nanscrapers import proxy
 from nanscrapers.common import clean_title, replaceHTMLCodes
 from nanscrapers.scraper import Scraper
+import xbmc
 
 
 class Primewire(Scraper):
@@ -144,6 +145,8 @@ class Primewire(Scraper):
                 link = urlparse.parse_qs(urlparse.urlparse(link).query)['url'][
                     0]  # replace link with ?url= part if present
                 link = base64.b64decode(link)  # decode base 64
+                if link.startswith("//"):
+                    link = "http:" + link
                 link = replaceHTMLCodes(link)
                 link = link.encode('utf-8')
 

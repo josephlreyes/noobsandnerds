@@ -16,18 +16,17 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import random
-
-import __builtin__
 import base64
 import hashlib
 import json
 import os
+import random
 import re
 import sys
 import urllib
-import urlparse
 
+import __builtin__
+import urlparse
 import xbmc
 
 try:
@@ -175,6 +174,14 @@ class Indexer:
 
     def bob_list(self, url, result=None):
         try:
+            try:
+                if not "sport_acesoplisting" == url:
+                    raise Exception()
+                from resources.lib.sources import sports
+                return self.getx(sports.get_acesoplisting())
+            except:
+                pass
+
             original_url = url
             if result is None:
                 result = cache.get(client.request, 0.1, url)
@@ -873,7 +880,7 @@ class Resolver:
                 {'HD': 'Looks like a Maserati',
                  'SD': ' Looks like a Ford Focus'
                  },
-                 {'HD': 'Supermodel Quality',
+                {'HD': 'Supermodel Quality',
                  'SD': ' Looks like Grandma Thelma'
                  },
                 {'HD': 'ARB',
@@ -881,20 +888,26 @@ class Resolver:
                  },
             ]
 
-            if control.setting('enable_offensive')  == 'true':
+            if control.setting('enable_offensive') == 'true':
                 messages.extend([
                     {'HD': 'Kicks Ass!!',
                      'SD': 'Gets ass kicked repeatedly'
-                    },
+                     },
                     {'HD': 'Fucking Rocks!!',
                      'SD': 'Fucking Sucks!!'
-                    },
+                     },
                     {'HD': 'Big Bodacious Breasts',
-                    'SD': 'Saggy Milk Teets',
-                    }
-                    ])
+                     'SD': 'Saggy Milk Teets',
+                     }
+                ])
 
             message = random.choice(messages)
+
+            if control.setting('disable_messages') == 'true':
+                message = {
+                    'HD': 'If Available',
+                    'SD': ''
+                }
 
             for item in items:
                 if "searchsd" in item:
@@ -1108,8 +1121,10 @@ class Resolver:
                 'Frankly my dear, I don\'t give a Bob'
             ])
 
-
         message = control.lang(30731).encode('utf-8') + '\n' + random.choice(messages)
+
+        if control.setting('disable_messages') == 'true':
+            message = control.lang(30731).encode('utf-8')
 
         try:
             preset = re.findall('<preset>(.+?)</preset>', url)[0]
@@ -1124,6 +1139,9 @@ class Resolver:
                 ])
 
             message = control.lang(30731).encode('utf-8') + '\n' + random.choice(messages)
+
+            if control.setting('disable_messages') == 'true':
+                message = control.lang(30731).encode('utf-8')
 
             title, year, imdb = re.findall('<title>(.+?)</title>', url)[0], re.findall('<year>(.+?)</year>', url)[0], \
                                 re.findall('<imdb>(.+?)</imdb>', url)[0]
@@ -1184,7 +1202,7 @@ class Resolver:
             if scraper_title is None or control.setting('search_alternate') == 'true':
 
                 u = sources().getSources(title, year, imdb, tvdb, season, episode, tvshowtitle, premiered,
-                                         progress=False, timeout=20, preset=preset, dialog= dialog)
+                                         progress=False, timeout=20, preset=preset, dialog=dialog)
 
                 try:
                     dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)
@@ -1286,7 +1304,8 @@ class Resolver:
         except:
             pass
 
-        direct = True
+        if url.startswith("plugin://") or sources().check_playable(url):
+            direct = True
 
         if direct is True:
             return url
@@ -1378,7 +1397,6 @@ class Player(xbmc.Player):
         xbmc.PlayList(xbmc.PLAYLIST_VIDEO).clear()
         if self.getbookmark is True:
             Bookmarks().reset(self.currentTime, self.totalTime, self.name, self.year)
-
 
     def onPlayBackEnded(self):
         self.onPlayBackStopped()

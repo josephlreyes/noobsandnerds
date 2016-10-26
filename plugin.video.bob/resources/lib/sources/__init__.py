@@ -34,6 +34,8 @@ try:
 except:
     from pysqlite2 import dbapi2 as database
 
+import xbmc
+
 
 class sources:
     @staticmethod
@@ -56,6 +58,7 @@ class sources:
 
         sd_links = []
         non_direct = []
+        sd_non_direct = []
         for scraper_links in links_scraper():
             if scraper_links is not None:
                 random.shuffle(scraper_links)
@@ -92,13 +95,14 @@ class sources:
 
                     else:
                         try:
-                            import urlresolver
-                            resolved_url = urlresolver.resolve(scraper_link['url'])
-                            if resolved_url and sources().check_playable(resolved_url) is not None:
-                                url = resolved_url
-                                return url
+                            if scraper_link['direct']:
+                                import urlresolver
+                                resolved_url = urlresolver.resolve(scraper_link['url'])
+                                if resolved_url and sources().check_playable(resolved_url) is not None:
+                                    url = resolved_url
+                                    return url
                             else:
-                                continue
+                                non_direct.append(scraper_link)
                         except:
                             if scraper_link['direct']:
                                 url = scraper_link['url']
@@ -107,7 +111,7 @@ class sources:
                             else:
                                 non_direct.append(scraper_link)
 
-        for link in sd_links:
+        for scraper_link in sd_links:
 
             if dialog is not None and dialog.iscanceled():
                 return
@@ -117,15 +121,21 @@ class sources:
 
             else:
                 try:
-                    import urlresolver
-                    resolved_url = urlresolver.resolve(scraper_link['url'])
-                    if resolved_url and sources().check_playable(resolved_url) is not None:
-                       return resolved_url
+                    if scraper_link['direct']:
+                        import urlresolver
+                        resolved_url = urlresolver.resolve(scraper_link['url'])
+                        if resolved_url and sources().check_playable(resolved_url) is not None:
+                            url = resolved_url
+                            return url
                     else:
-                        continue
+                        non_direct.append(scraper_link)
                 except:
-                    if sources().check_playable(link['url']) is not None:
-                        return link['url']
+                    if scraper_link['direct']:
+                        url = scraper_link['url']
+                        if sources().check_playable(url) is not None:
+                            return url
+                    else:
+                        non_direct.append(scraper_link)
 
         try:
             import urlresolver
@@ -134,15 +144,51 @@ class sources:
                               "please install script.mrknow.urlresolver to resolve non-direct links")
             return
 
-        for link in non_direct:
+        for scraper_link in non_direct:
+            if dialog is not None and dialog.iscanceled():
+                return
+
+            if (not control.setting('allow_openload') == 'true' and 'openload' in scraper_link['url']) or (
+                        not control.setting('allow_the_video_me') == 'true' and 'thevideo.me' in scraper_link[
+                        'url']):
+                continue
+            if preset.lower() == 'searchsd':
+                try:
+                    quality = int(scraper_link['quality'])
+                    if quality > 576:
+                        continue
+                except:
+                    if scraper_link['quality'] not in ["SD", "CAM", "SCR"]:
+                        continue
+            elif preset.lower() == 'search':
+                try:
+                    quality = int(scraper_link['quality'])
+                    if quality <= 576:
+                        sd_non_direct.append(scraper_link)
+                        continue
+                except:
+                    if scraper_link['quality'] in ["SD", "CAM", "SCR"]:
+                        sd_non_direct.append(scraper_link)
+                        continue
+
+            try:
+                resolved_url = urlresolver.resolve(scraper_link['url'])
+            except:
+                continue
+            if resolved_url and (resolved_url.startswith("plugin;//") or sources().check_playable(resolved_url) is not None):
+                url = resolved_url
+                return url
+
+        for scraper_link in sd_non_direct:
             if dialog is not None and dialog.iscanceled():
                 return
 
             try:
-                resolved_url = urlresolver.resolve(link['url'])
+                resolved_url = urlresolver.resolve(scraper_link['url'])
             except:
                 continue
-            if resolved_url and sources().check_playable(resolved_url) is not None:
+            if resolved_url and (
+                resolved_url.startswith("plugin;//") or sources().check_playable(resolved_url) is not None):
                 url = resolved_url
                 return url
 

@@ -2,6 +2,12 @@ Visit WWW.NOOBSANDNERDS.COM for your all Kodi needs.
 No fighting, no censorship, no agenda.
 We just concentrate on exciting new features.
 
+v1.2.2
+automate some of the sport listings
+fix non-direct link bug
+add toggle to turn off all messages
+fix queue season and queue tv show
+
 v.1.2.1
 fixed direct links bug
 

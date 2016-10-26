@@ -149,7 +149,7 @@ elif action == 'ScraperSettings':
     control.openSettings(id='script.module.nanscrapers')
 elif action == 'queueItem':
     from resources.lib.modules import control
-    from resources.lib.indexers.bob import Resolver, Indexer
+    from resources.lib.indexers.bob import Resolver, Indexer, replace_url
 
     item_urls = []
     selected_link = None
@@ -160,13 +160,14 @@ elif action == 'queueItem':
             selected_link = "HD"
         else:
             selected_link = "SD"
-        list = Indexer().bob_list(url)
+        list = Indexer().bob_list(replace_url(url))
         try:
             for item in list:
                 if item['url'].endswith(".xml"):  # queueing tv show so need to get sublists
-                    list = Indexer().bob_list(item['url'])
+                    list = Indexer().bob_list(replace_url(item['url']))
                     for item in list:
-                        item_urls.append({'url': item['url'], 'name': item['name'], 'image': item['poster']})
+                        if not item['url'].endswith(".xml"):
+                            item_urls.append({'url': item['url'], 'name': item['name'], 'image': item['poster']})
                 else:
                     item_urls.append({'url': item['url'], 'name': item['name'], 'image': item['poster']})
         except:

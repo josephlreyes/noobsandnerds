@@ -238,6 +238,10 @@ msgctxt "#30766"
 msgid "Offer to install required 3rd party addons"
 msgstr ""
 
+msgctxt "#30767"
+msgid "Disable all loading messages"
+msgstr ""
+
 msgctxt "#30770"
 msgid "Dev Mode"
 msgstr ""

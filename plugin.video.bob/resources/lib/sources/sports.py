@@ -1,9 +1,9 @@
-import requests
-from BeautifulSoup import BeautifulSoup
-from resources.lib.indexers import bob
 import time
+
+from BeautifulSoup import BeautifulSoup
+
 from resources.lib.modules import proxy
-import xbmc
+
 
 def get_acesoplisting():
     xml = "<fanart>https://www.dropbox.com/s/x3zg9ovot6vipjh/smoke_men-wallpaper-1920x1080.jpg?raw=true</fanart>\n\n\n" \
@@ -25,9 +25,7 @@ def get_acesoplisting():
 
     try:
         html = proxy.get("http://www.acesoplisting.in/", "acestream://")
-        #html = requests.get("http://www.acesoplisting.in/")
         scraped_html = BeautifulSoup(html)
-        xbmc.log("testing: " + repr(html) )
         table = scraped_html.findAll("table", attrs={'class': 'listing'})[-1]
 
         rows = table.findAll("tr")
@@ -110,10 +108,6 @@ def get_acesoplisting():
                                "\t<thumbnail>%s</thumbnail>\n" \
                                "</item>\n" % (sport, match, event_time, href, thumbnail)
 
-        xbmc.log("xml: " + str(xml))
-
         return xml
     except:
         pass
-
-

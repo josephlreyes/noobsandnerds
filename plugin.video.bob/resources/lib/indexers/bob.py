@@ -16,6 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import __builtin__
 import base64
 import hashlib
 import json
@@ -24,9 +25,8 @@ import random
 import re
 import sys
 import urllib
-
-import __builtin__
 import urlparse
+
 import xbmc
 
 try:
@@ -178,7 +178,8 @@ class Indexer:
                 if not "sport_acesoplisting" == url:
                     raise Exception()
                 from resources.lib.sources import sports
-                return self.getx(sports.get_acesoplisting())
+                xml = sports.get_acesoplisting()
+                return self.getx(xml)
             except:
                 pass
 
@@ -190,15 +191,16 @@ class Indexer:
                 result = re.compile('#EXTINF:.+?\,(.+?)\n(.+?)\n', re.MULTILINE | re.DOTALL).findall(result)
                 result = ['<item><title>%s</title><link>%s</link></item>' % (i[0], i[1]) for i in result]
                 result = ''.join(result)
-
             try:
                 r = base64.b64decode(result)
             except:
                 r = ''
             if '</link>' in r:
                 result = r
-
-            result = str(result)
+            try:
+                result = str(result)
+            except:
+                result= result.encode("utf-8")
 
             result = self.account_filter(result)
 
@@ -252,12 +254,14 @@ class Indexer:
                     action = 'play'
                 elif item.startswith('<plugin>'):
                     action = 'plugin'
+                elif item.startswith('<xdir>'):
+                    action = 'xdirectory'
                 elif item.startswith('<info>') or url == '0':
                     action = '0'
                 else:
                     action = 'directory'
 
-                if action in ['directory', 'plugin']:
+                if action in ['directory', 'xdirectory', 'plugin']:
                     folder = True
                 elif not regex == '':
                     folder = True
@@ -371,7 +375,7 @@ class Indexer:
             self.list[i].update({'metacache': False})
             self.list[i].update({'episode_metacache': False})
         self.list = metacache.fetch(self.list, self.lang)
-        self.list = metacache.fetch_episode(self.list, self.lang)
+        self.list = metacache.fetch_episodes(self.list, self.lang)
 
         for r in range(0, total, 50):
             threads = []
@@ -643,6 +647,7 @@ class Indexer:
         except:
             pass
 
+
     def add_directory(self, items, mode=True, parent_url=None):
         if items is None or len(items) == 0:
             return
@@ -798,7 +803,17 @@ class Indexer:
                 elif addon_fanart is not None:
                     item.setProperty('Fanart_Image', addon_fanart)
 
-                item.setInfo(type='video', infoLabels=meta)
+                if content != "songs":
+                    item.setInfo(type='video', infoLabels=meta)
+                else:
+                    try:
+                        item_url = i['url']
+                        song_title = re.compile('<song_title>(.+?)</song_title>').findall(item_url)[0]
+                        song_artist = re.compile('<song_artist>(.+?)</song_artist>').findall(item_url)[0]
+                        item.setInfo(type='music', infoLabels={'title': song_title, 'artist': song_artist})
+                    except:
+                        item.setInfo(type='video', infoLabels=meta)
+
                 item.addContextMenuItems(cm)
                 control.addItem(handle=int(sys.argv[1]), url=url, listitem=item, isFolder=folder)
             except:
@@ -1113,6 +1128,7 @@ class Resolver:
                     'Nobody puts Bob in a corner.',
                     'I\'ll get you, my pretty, and your little Bob, too!',
                     'I\'m Bob of the world!',
+                    'Shan of Bob',
                     ]
 
         if control.setting('enable_offensive') == 'true':
@@ -1128,102 +1144,169 @@ class Resolver:
 
         try:
             preset = re.findall('<preset>(.+?)</preset>', url)[0]
+            content = re.findall('<content>(.+?)</content>', url)[0]
 
-            if preset == "search":
-                messages.extend([
-                    'Bob is popping in Blu Ray Disc'
-                ])
-            elif preset == "searchsd":
-                messages.extend([
-                    'Bob rummaging through his vhs collection',
-                ])
-
-            message = control.lang(30731).encode('utf-8') + '\n' + random.choice(messages)
-
-            if control.setting('disable_messages') == 'true':
-                message = control.lang(30731).encode('utf-8')
-
-            title, year, imdb = re.findall('<title>(.+?)</title>', url)[0], re.findall('<year>(.+?)</year>', url)[0], \
-                                re.findall('<imdb>(.+?)</imdb>', url)[0]
-            scraper_title = None
-            try:
-                scraper_title = re.findall('<scrapertitle>(.+?)</scrapertitle>', url)[0]
-            except:
-                pass
-
-            try:
-                tvdb, tvshowtitle, premiered, season, episode = re.findall('<tvdb>(.+?)</tvdb>', url)[0], \
-                                                                re.findall('<tvshowtitle>(.+?)</tvshowtitle>', url)[0], \
-                                                                re.findall('<premiered>(.+?)</premiered>', url)[0], \
-                                                                re.findall('<season>(.+?)</season>', url)[0], \
-                                                                re.findall('<episode>(.+?)</episode>', url)[0]
-            except:
-                tvdb = tvshowtitle = premiered = season = episode = None
-
-            direct = False
-
-            # preset_dictionary = ['primewire', 'watchfree', 'movie4k', 'movie25', 'watchseries', 'pftv', 'afdah', 'dayt',
-            #                      'dizibox', 'dizigold', 'genvideo', 'mfree', 'miradetodo', 'movieshd', 'onemovies',
-            #                      'onlinedizi', 'pelispedia', 'pubfilm', 'putlocker', 'rainierland', 'sezonlukdizi',
-            #                      'tunemovie', 'xmovies']
-            #
-            # if preset == 'searchsd':
-            #     preset_dictionary = ['primewire', 'watchfree', 'movie4k', 'movie25', 'watchseries', 'pftv']
-
-            dialog = None
-            dialog = control.progressDialog
-            dialog.create(control.addonInfo('name'), control.lang(30726).encode('utf-8'))
-            dialog.update(0)
-
-            try:
-                dialog.update(0, control.lang(30726).encode('utf-8') + ' ' + name, message)
-            except:
-                pass
-
-            if premiered:
-                premiered = int(premiered[0:4])
-
-            if scraper_title:
-                u = sources().getSources(scraper_title, int(year), imdb, tvdb, season, episode, tvshowtitle, premiered,
-                                         progress=False, timeout=20, preset=preset, dialog=dialog)
-
+            if content == "movie" or content == "episode":
                 try:
-                    dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)
-                except:
-                    pass
 
-                if u is not None:
+                    if preset == "search":
+                        messages.extend([
+                            'Bob is popping in Blu Ray Disc'
+                        ])
+                    elif preset == "searchsd":
+                        messages.extend([
+                            'Bob rummaging through his vhs collection',
+                        ])
+
+                    message = control.lang(30731).encode('utf-8') + '\n' + random.choice(messages)
+
+                    if control.setting('disable_messages') == 'true':
+                        message = control.lang(30731).encode('utf-8')
+
+                    title, year, imdb = re.findall('<title>(.+?)</title>', url)[0], \
+                                        re.findall('<year>(.+?)</year>', url)[0], \
+                                        re.findall('<imdb>(.+?)</imdb>', url)[0]
+                    scraper_title = None
                     try:
-                        dialog.close()
-                        return u
+                        scraper_title = re.findall('<scrapertitle>(.+?)</scrapertitle>', url)[0]
                     except:
                         pass
 
-            if scraper_title is None or control.setting('search_alternate') == 'true':
-
-                u = sources().getSources(title, year, imdb, tvdb, season, episode, tvshowtitle, premiered,
-                                         progress=False, timeout=20, preset=preset, dialog=dialog)
-
-                try:
-                    dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)
-                except:
-                    pass
-
-                if u is not None:
                     try:
-                        dialog.close()
-                        return u
+                        tvdb, tvshowtitle, premiered, season, episode = re.findall('<tvdb>(.+?)</tvdb>', url)[0], \
+                                                                        re.findall('<tvshowtitle>(.+?)</tvshowtitle>',
+                                                                                   url)[0], \
+                                                                        re.findall('<premiered>(.+?)</premiered>', url)[
+                                                                            0], \
+                                                                        re.findall('<season>(.+?)</season>', url)[0], \
+                                                                        re.findall('<episode>(.+?)</episode>', url)[0]
+                    except:
+                        tvdb = tvshowtitle = premiered = season = episode = None
+
+                    direct = False
+
+                    # preset_dictionary = ['primewire', 'watchfree', 'movie4k', 'movie25', 'watchseries', 'pftv', 'afdah', 'dayt',
+                    #                      'dizibox', 'dizigold', 'genvideo', 'mfree', 'miradetodo', 'movieshd', 'onemovies',
+                    #                      'onlinedizi', 'pelispedia', 'pubfilm', 'putlocker', 'rainierland', 'sezonlukdizi',
+                    #                      'tunemovie', 'xmovies']
+                    #
+                    # if preset == 'searchsd':
+                    #     preset_dictionary = ['primewire', 'watchfree', 'movie4k', 'movie25', 'watchseries', 'pftv']
+
+                    dialog = None
+                    dialog = control.progressDialog
+                    dialog.create(control.addonInfo('name'), control.lang(30726).encode('utf-8'))
+                    dialog.update(0)
+
+                    try:
+                        dialog.update(0, control.lang(30726).encode('utf-8') + ' ' + name, message)
                     except:
                         pass
-            if dialog.iscanceled():
-                dialog.close()
 
+                    if premiered:
+                        premiered = int(premiered[0:4])
+
+                    if scraper_title:
+                        u = sources().getSources(scraper_title, int(year), imdb, tvdb, season, episode, tvshowtitle,
+                                                 premiered,
+                                                 progress=False, timeout=20, preset=preset, dialog=dialog)
+
+                        try:
+                            dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)
+                        except:
+                            pass
+
+                        if u is not None:
+                            try:
+                                dialog.close()
+                                return u
+                            except:
+                                pass
+
+                    if scraper_title is None or control.setting('search_alternate') == 'true':
+
+                        u = sources().getSources(title, year, imdb, tvdb, season, episode, tvshowtitle, premiered,
+                                                 progress=False, timeout=20, preset=preset, dialog=dialog)
+
+                        try:
+                            dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)
+                        except:
+                            pass
+
+                        if u is not None:
+                            try:
+                                dialog.close()
+                                return u
+                            except:
+                                pass
+                    if dialog.iscanceled():
+                        dialog.close()
+
+                except:
+                    try:
+                        dialog.close()
+                    except:
+                        pass
+            elif content == "song":
+                try:
+                    if control.setting('disable_messages') == 'true':
+                        message = control.lang(30731).encode('utf-8')
+
+                    title = re.findall('<song_title>(.+?)</song_title>', url)[0]
+                    artist = re.findall('<song_artist>(.+?)</song_artist>', url)[0]
+                    scraper_title = None
+                    try:
+                        scraper_title = re.findall('<scrapertitle>(.+?)</scrapertitle>', url)[0]
+                    except:
+                        pass
+
+                    direct = False
+                    dialog = None
+                    dialog = control.progressDialog
+                    dialog.create(control.addonInfo('name'), control.lang(30726).encode('utf-8'))
+                    dialog.update(0)
+
+                    try:
+                        dialog.update(0, control.lang(30726).encode('utf-8') + ' ' + name, message)
+                    except:
+                        pass
+
+                    if scraper_title:
+                        u = sources().getMusicSources(scraper_title, artist, progress=False, timeout=20, preset=preset,
+                                                      dialog=dialog)
+
+                        try:
+                            dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)
+                        except:
+                            pass
+
+                        if u is not None:
+                            try:
+                                dialog.close()
+                                return u
+                            except:
+                                pass
+
+                    if scraper_title is None or control.setting('search_alternate') == 'true':
+                        u = sources().getMusicSources(title, artist, progress=False, timeout=20, preset=preset,
+                                                      dialog=dialog)
+
+                        try:
+                            dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)
+                        except:
+                            pass
+
+                        if u is not None:
+                            try:
+                                dialog.close()
+                                return u
+                            except:
+                                pass
+                except:
+                    pass
 
         except:
-            try:
-                dialog.close()
-            except:
-                pass
+            pass
 
         try:
             dialog = None
@@ -1359,7 +1442,15 @@ class Player(xbmc.Player):
                 item.setArt({'icon': icon})
             except:
                 pass
-            item.setInfo(type='Video', infoLabels=meta)
+            if content == "songs":
+                try:
+                    meta['artist'] = control.infoLabel('listitem.artist')
+                    item.setInfo(type='Music', infoLabels={'title': meta['title'], 'artist': meta['artist']})
+                except:
+                    item.setInfo(type='Video', infoLabels=meta)
+
+            else:
+                item.setInfo(type='Video', infoLabels=meta)
 
             if 'plugin' in control.infoLabel('Container.PluginName'):
                 if self.isPlaying():

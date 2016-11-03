@@ -1,7 +1,7 @@
 import re
-import urllib2
 import urlparse
 
+import requests
 from BeautifulSoup import BeautifulSoup
 from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes, odnoklassniki, vk
 from nanscrapers.scraper import Scraper
@@ -32,13 +32,11 @@ class Dizigold(Scraper):
             headers['Referer'] = referer
             headers['User-Agent'] = random_agent()
 
-            request = urllib2.Request(referer, headers=headers)
-            html = urllib2.urlopen(request, timeout=30).read()
+            html = requests.get(referer, headers=headers, timeout=30).content
 
             player_id = re.compile('var\s*view_id\s*=\s*"(\d*)"').findall(html)[0]
             player_url = self.player_link % player_id
-            player_request = urllib2.Request(player_url, headers=headers)
-            player_html = urllib2.urlopen(player_request, timeout=30).read()
+            player_html = requests.get(player_url, headers=headers, timeout=30).content
             player_html_parsed = BeautifulSoup(player_html)
 
             try:
@@ -72,7 +70,8 @@ class Dizigold(Scraper):
                 links = re.compile('"?file"?\s*:\s*"([^"]+)"\s*,\s*"?label"?\s*:\s*"(\d+)p?"').findall(player_html)
 
                 for link in links: sources.append(
-                    {'source': 'google video', 'quality': link[1], 'scraper': self.name, 'url': link[0], 'direct': True})
+                    {'source': 'google video', 'quality': link[1], 'scraper': self.name, 'url': link[0],
+                     'direct': True})
 
             except:
                 pass

@@ -34,3 +34,6 @@ class Scraper:
 
     def scrape_episode(self,title, year, season, episode, imdb, tvdb):
         pass
+
+    def scrape_music(self, title, artist):
+        pass

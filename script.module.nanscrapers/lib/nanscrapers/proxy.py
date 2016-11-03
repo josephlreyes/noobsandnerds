@@ -3,11 +3,10 @@ import urllib
 import urllib2
 import urlparse
 
-import xbmc
 from nanscrapers.common import random_agent
 
 
-def get(url, check, headers=None, data = None):
+def get(url, check, headers=None, data=None):
     if headers is None:
         headers = {
             'User-Agent': random_agent(),
@@ -41,7 +40,8 @@ def get(url, check, headers=None, data = None):
 
     return
 
-def get_raw(url, headers=None, data = None):
+
+def get_raw(url, headers=None, data=None):
     if headers is None:
         headers = {
             'User-Agent': random_agent(),
@@ -55,7 +55,6 @@ def get_raw(url, headers=None, data = None):
         return response
     except:
         pass
-
 
 
 def get_proxy_url():

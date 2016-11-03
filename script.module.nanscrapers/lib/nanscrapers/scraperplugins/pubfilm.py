@@ -1,14 +1,13 @@
+import StringIO
+import gzip
 import re
-import urllib
-import urllib2
 import urlparse
-import xbmc
 
+import requests
 from BeautifulSoup import BeautifulSoup
 from nanscrapers.common import random_agent, replaceHTMLCodes
 from nanscrapers.scraper import Scraper
-import StringIO
-import gzip
+
 
 class Pubfilm(Scraper):
     domains = ['pubfilmno1.com', 'pubfilm.com', 'pidtv.com']
@@ -27,21 +26,18 @@ class Pubfilm(Scraper):
             search_url = urlparse.urljoin(self.base_link, self.moviesearch_hd_link % (title, year))
             html = None
             try:
-                request = urllib2.Request(search_url, headers=headers)
-                html = BeautifulSoup(urllib2.urlopen(request, timeout=30))
+                html = BeautifulSoup(requests.get(search_url, headers=headers, timeout=30).content)
             except:
                 pass
 
             if html == None:
                 search_url = urlparse.urljoin(self.base_link, self.moviesearch_sd_link % (title, year))
 
-                request = urllib2.Request(search_url, headers=headers)
-                html = BeautifulSoup(urllib2.urlopen(request, timeout=30))
+                html = BeautifulSoup(requests.get(search_url, headers=headers, timeout=30).content)
 
             if html == None:
                 raise Exception()
 
-            #url = re.findall('(?://.+?|)(/.+)', search_url)[0]
             return self.sources(search_url)
         except:
             pass
@@ -54,13 +50,12 @@ class Pubfilm(Scraper):
                 headers = {'X-Requested-With': 'XMLHttpRequest',
                            'User-Agent': random_agent()}
 
-                post = urllib.urlencode({'aspp': tvshowtitle, 'action': 'ajaxsearchpro_search',
-                                         'options': 'qtranslate_lang=0&set_exactonly=checked&set_intitle=None&customset[]=post',
-                                         'asid': '4', 'asp_inst_id': '4_1'})
+                post = {'aspp': tvshowtitle, 'action': 'ajaxsearchpro_search',
+                        'options': 'qtranslate_lang=0&set_exactonly=checked&set_intitle=None&customset[]=post',
+                        'asid': '4', 'asp_inst_id': '4_1'}
 
                 url = urlparse.urljoin(self.base_link, self.tvsearch_link)
-                request = urllib2.Request(url, data= post, headers=headers)
-                html = BeautifulSoup(urllib2.urlopen(request, timeout=30))
+                html = BeautifulSoup(requests.post(url, data=post, headers=headers, timeout=30).content)
                 links = html.findAll('a', attrs={'class': 'asp_res_url'})
                 show_url = None
                 for link in links:
@@ -77,7 +72,6 @@ class Pubfilm(Scraper):
         except:
             pass
         return []
-
 
     def sources(self, url):
         sources = []
@@ -96,9 +90,7 @@ class Pubfilm(Scraper):
                 pass
 
             headers = {'User-Agent': random_agent()}
-            request = urllib2.Request(url, headers=headers)
-
-            html = urllib2.urlopen(request).read()
+            html = requests.get(url, headers=headers, timeout=30).content
 
             try:
                 compressedstream = StringIO.StringIO(html)
@@ -120,13 +112,15 @@ class Pubfilm(Scraper):
 
                 referer = url
                 headers = {'User-Agent': random_agent(), 'Referer': referer}
-                request = urllib2.Request(href, headers=headers)
-                html = urllib2.urlopen(request).read()
+                html = requests.get(href, headers=headers, timeout=30).content
 
-                source = re.findall('movie_sources\s*:\s*\[(.+?)\]', html)[0]
+                source = re.findall('sources\s*:\s*\[(.+?)\]', html)[0]
                 files = re.findall('"file"\s*:\s*"(.+?)".+?"label"\s*:\s*"(.+?)"', source)
-
-                quality_url_pairs = [{'url': file[0], 'quality': file[1][:-1]} for file in files]
+                if files:
+                    quality_url_pairs = [{'url': file[0], 'quality': file[1][:-1]} for file in files]
+                else:
+                    files = re.findall('"file"\s*:\s*"(.+?)".+?}', source)
+                    quality_url_pairs = [{'url': file, 'quality': "SD"} for file in files]
 
                 for pair in quality_url_pairs:
                     sources.append(

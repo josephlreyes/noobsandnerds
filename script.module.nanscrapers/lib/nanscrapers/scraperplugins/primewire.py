@@ -7,7 +7,6 @@ from BeautifulSoup import BeautifulSoup
 from nanscrapers import proxy
 from nanscrapers.common import clean_title, replaceHTMLCodes
 from nanscrapers.scraper import Scraper
-import xbmc
 
 
 class Primewire(Scraper):
@@ -59,43 +58,46 @@ class Primewire(Scraper):
             title = 'watch' + clean_title(title)
 
             for index_item in index_items:
-                links = index_item.findAll('a')
-                for link in links:
-                    href = link['href']
-                    link_title = link['title']
-                    try:
-                        href = urlparse.parse_qs(urlparse.urlparse(href).query)['u'][0]
-                    except:
-                        pass
-                    try:
-                        href = urlparse.parse_qs(urlparse.urlparse(href).query)['q'][0]
-                    except:
-                        pass
+                try:
+                    links = index_item.findAll('a')
+                    for link in links:
+                        href = link['href']
+                        link_title = link['title']
+                        try:
+                            href = urlparse.parse_qs(urlparse.urlparse(href).query)['u'][0]
+                        except:
+                            pass
+                        try:
+                            href = urlparse.parse_qs(urlparse.urlparse(href).query)['q'][0]
+                        except:
+                            pass
 
-                    if title == clean_title(link_title):  # href is the show page relative url
-                        show_url = urlparse.urljoin(self.base_link, href)
-                        html = BeautifulSoup(proxy.get(show_url, 'tv_episode_item'))
+                        if title == clean_title(link_title):  # href is the show page relative url
+                            show_url = urlparse.urljoin(self.base_link, href)
+                            html = BeautifulSoup(proxy.get(show_url, 'tv_episode_item'))
 
-                        seasons = html.findAll('div', attrs={'class': 'show_season'})
-                        for scraped_season in seasons:
-                            if scraped_season['data-id'] == season:
-                                tv_episode_items = scraped_season.findAll('div', attrs={'class': 'tv_episode_item'})
-                                for tv_episode_item in tv_episode_items:
-                                    links = tv_episode_item.findAll('a')
-                                    for link in links:
-                                        if link.contents[0].strip() == "E%s" % episode:
-                                            episode_href = link['href']
-                                            try:
-                                                episode_href = \
-                                                    urlparse.parse_qs(urlparse.urlparse(episode_href).query)['u'][0]
-                                            except:
-                                                pass
-                                            try:
-                                                episode_href = \
-                                                    urlparse.parse_qs(urlparse.urlparse(episode_href).query)['q'][0]
-                                            except:
-                                                pass
-                                            return self.sources(episode_href)
+                            seasons = html.findAll('div', attrs={'class': 'show_season'})
+                            for scraped_season in seasons:
+                                if scraped_season['data-id'] == season:
+                                    tv_episode_items = scraped_season.findAll('div', attrs={'class': 'tv_episode_item'})
+                                    for tv_episode_item in tv_episode_items:
+                                        links = tv_episode_item.findAll('a')
+                                        for link in links:
+                                            if link.contents[0].strip() == "E%s" % episode:
+                                                episode_href = link['href']
+                                                try:
+                                                    episode_href = \
+                                                        urlparse.parse_qs(urlparse.urlparse(episode_href).query)['u'][0]
+                                                except:
+                                                    pass
+                                                try:
+                                                    episode_href = \
+                                                        urlparse.parse_qs(urlparse.urlparse(episode_href).query)['q'][0]
+                                                except:
+                                                    pass
+                                                return self.sources(episode_href)
+                except:
+                    continue
         except:
             pass
         return []

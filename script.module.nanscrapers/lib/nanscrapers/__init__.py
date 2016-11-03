@@ -13,6 +13,9 @@ def scrape_movie(title, year, imdb, host=None, include_disabled=False, timeout=3
 def scrape_episode(title, year, season, episode, imdb, tvdb, host=None, include_disabled=False, timeout=30):
     return HostedLink(title, year, imdb, tvdb, host, include_disabled, timeout).scrape_episode(season, episode)
 
+def scrape_song(title, artist, host=None, include_disabled=False, timeout=30):
+    return HostedLink(title, None, None, None, host, include_disabled, timeout).scrape_song(title, artist)
+
 
 def relevant_scrapers(names_list=None, include_disabled=False):
     if names_list is None:
@@ -50,6 +53,7 @@ def clear_cache():
 
     try:
         dbcur.execute("DROP TABLE IF EXISTS rel_src")
+        dbcur.execute("DROP TABLE IF EXISTS rel_music_src")
         dbcur.execute("VACUUM")
         dbcon.commit()
     except:

@@ -1,9 +1,7 @@
 import re
-import urllib2
 import urlparse
-import requests
-import xbmc
 
+import requests
 from BeautifulSoup import BeautifulSoup
 from nanscrapers.common import clean_title, random_agent
 from nanscrapers.scraper import Scraper
@@ -25,9 +23,8 @@ class Mfree(Scraper):
             q = (title.translate(None, '\/:*?"\'<>|!,')).replace(' ', '-').replace('--', '-').lower()
             query = urlparse.urljoin(self.base_link, self.movie_search_link % q)
             cleaned_title = clean_title(title)
-            request = urllib2.Request(query, headers=headers)
-            html = urllib2.urlopen(request, timeout=30).read()
-            containers = re.compile('<a class="top-item" href="(.*?)"><cite>(.*?)</cite></a>').findall(html)
+            html = requests.get(query, headers=headers, timeout=30).content
+            containers = re.compile('<a class="top-item".*href="(.*?)"><cite>(.*?)</cite></a>').findall(html)
             for href, title in containers:
                 parsed = re.findall('(.+?) \((\d{4})', title)
                 parsed_title = parsed[0][0]
@@ -35,8 +32,7 @@ class Mfree(Scraper):
                 if cleaned_title == clean_title(parsed_title) and year == parsed_years:
                     try:
                         headers = {'User-Agent': random_agent()}
-                        request = urllib2.Request(href, headers=headers)
-                        html = urllib2.urlopen(request, timeout=30).read()
+                        html = requests.get(href, headers=headers, timeout=30).content
                         parsed_html = BeautifulSoup(html)
                         quality_title = parsed_html.findAll("h3", attrs={'title': re.compile("Quality of ")})[0]
                         quality = quality_title.findAll('span')[0].text
@@ -56,8 +52,7 @@ class Mfree(Scraper):
         q = (title.translate(None, '\/:*?"\'<>|!,')).replace(' ', '-').replace('--', '-').lower()
         query = urlparse.urljoin(self.base_link, self.tv_search_link % q)
         cleaned_title = clean_title(title)
-        request = urllib2.Request(query, headers=headers)
-        html = BeautifulSoup(urllib2.urlopen(request))
+        html = BeautifulSoup(requests.get(query, headers=headers, timeout=30).content)
 
         links = html.findAll('a', attrs={'class': 'top-h1'})
         show_url = None
@@ -69,8 +64,7 @@ class Mfree(Scraper):
                 break
 
         if show_url:
-            request = urllib2.Request(show_url, headers=headers)
-            html = BeautifulSoup(urllib2.urlopen(request))
+            html = BeautifulSoup(requests.get(show_url, headers=headers, timeout=30).content)
             link_container = html.findAll("div", attrs={'class': 'bottom'})[-1]
             episode_links = link_container.findAll("a")
             episode_format1 = "S%02dE%02d" % (int(season), int(episode))
@@ -88,15 +82,13 @@ class Mfree(Scraper):
             headers = {'User-Agent': random_agent(),
                        'X-Requested-With': 'XMLHttpRequest',
                        'Referer': url}
-            request = urllib2.Request(url, headers=headers)
-            html = BeautifulSoup(urllib2.urlopen(request, timeout=30).read())
+            html = BeautifulSoup(requests.get(url, headers=headers, timeout=30).content)
             servers = html.findAll("span", attrs={'class': re.compile(".*?btn-eps.*?")})
             for server in servers:
                 try:
                     server_url = '/demo.php?v=%s' % server["link"]
                     server_url = urlparse.urljoin(self.base_link, server_url)
-                    request = urllib2.Request(server_url, headers=headers)
-                    server_html = urllib2.urlopen(request, timeout=30).read()
+                    server_html = requests.get(server_url, headers=headers, timeout=30).content
                     links = []
                     try:
                         links.extend(re.findall(r'sources: \[ \{file: "(.*?)"', server_html, re.I | re.DOTALL))
@@ -117,27 +109,24 @@ class Mfree(Scraper):
                             if not link_source.startswith('http'): link_source = urlparse.urljoin(self.base_link,
                                                                                                   link_source)
 
-
                             if "m4u" in link_source:
                                 try:
                                     req = requests.head(link_source, headers=headers)
-                                    if not req.headers['Content-Type'].startswith('video'):
-                                        continue
                                     if req.headers['Location'] != "":
                                         link_source = req.headers['Location']
                                 except:
                                     pass
 
-
-
                             if 'google' in link_source:
                                 quality = googletag(link_source)[0]['quality']
                                 sources.append(
-                                    {'source': 'google video', 'quality': quality, 'scraper': self.name, 'url': link_source,
+                                    {'source': 'google video', 'quality': quality, 'scraper': self.name,
+                                     'url': link_source,
                                      'direct': True})
                             elif 'openload.co' in link_source:
                                 sources.append(
-                                    {'source': 'openload.co', 'quality': quality, 'scraper': self.name, 'url': link_source,
+                                    {'source': 'openload.co', 'quality': quality, 'scraper': self.name,
+                                     'url': link_source,
                                      'direct': False})
                             else:
                                 sources.append(
@@ -150,6 +139,7 @@ class Mfree(Scraper):
         except:
             pass
         return sources
+
 
 def googletag(url):
     quality = re.compile('itag=(\d*)').findall(url)

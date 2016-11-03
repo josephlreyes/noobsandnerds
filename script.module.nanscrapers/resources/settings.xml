@@ -9,14 +9,12 @@
 		<setting id="genvideo_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="M4U" type="lsep"/>
 		<setting id="M4U_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="miradetodo" type="lsep"/>
-		<setting id="miradetodo_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="moviefree" type="lsep"/>
-		<setting id="moviefree_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="moviego" type="lsep"/>
 		<setting id="moviego_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="onemovies" type="lsep"/>
 		<setting id="onemovies_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="Onemusic" type="lsep"/>
+		<setting id="Onemusic_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="primewire" type="lsep"/>
 		<setting id="primewire_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="pubfilm" type="lsep"/>

@@ -1,24 +1,23 @@
 import base64
 import hashlib
-import json
 import random
 import re
 import string
 import urllib
-import urllib2
 import urlparse
 
+import requests
 from BeautifulSoup import BeautifulSoup
 from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes
 from nanscrapers.scraper import Scraper
 
 
 class Onemovies(Scraper):
-    domains = ['123movies.ru']
+    domains = ['123movies.gs']
     name = "onemovies"
 
     def __init__(self):
-        self.base_link = 'http://123movies.ru'
+        self.base_link = 'http://123movies.gs'
         self.search_link = '/movie/search/%s'
         self.info_link = '/ajax/movie_load_info/%s'
         self.server_link = '/ajax/get_episodes/%s'
@@ -34,8 +33,7 @@ class Onemovies(Scraper):
             query = urlparse.urljoin(self.base_link, query)
             cleaned_title = clean_title(title)
             # print("ONEMOVIES", query)
-            request = urllib2.Request(query, headers=headers)
-            html = BeautifulSoup(urllib2.urlopen(request, timeout=30))
+            html = BeautifulSoup(requests.get(query, headers=headers, timeout=30).content)
             containers = html.findAll('div', attrs={'class': 'ml-item'})
             for result in containers:
                 links = result.findAll('a')
@@ -46,8 +44,7 @@ class Onemovies(Scraper):
                     info = str(link['data-url'])
                     # print("ONEMOVIES", link_title, href, info)
                     if clean_title(link_title) == cleaned_title:
-                        request = urllib2.Request(info, headers=headers)
-                        html = urllib2.urlopen(request).read()
+                        html = requests.get(info, headers=headers).content
                         pattern = '<div class="jt-info">%s</div>' % year
                         match = re.findall(pattern, html)
                         if match:
@@ -69,8 +66,7 @@ class Onemovies(Scraper):
             cleaned_title = clean_title(title)
             checkseason = cleaned_title + "season" + season
             # print("ONEMOVIES", query,checkseason)
-            request = urllib2.Request(query, headers=headers)
-            html = BeautifulSoup(urllib2.urlopen(request, timeout=30))
+            html = BeautifulSoup(requests.get(query, headers=headers, timeout=30).content)
             containers = html.findAll('div', attrs={'class': 'ml-item'})
             for result in containers:
                 links = result.findAll('a')
@@ -99,8 +95,7 @@ class Onemovies(Scraper):
             referer = url
             headers = {'User-Agent': random_agent()}
             url = url.replace('/watching.html', '')
-            request = urllib2.Request(url, headers=headers)
-            html = urllib2.urlopen(request).read()
+            html = requests.get(url, headers=headers).content
             # print ("ONEMOVIES Source", html)
             try:
                 url, episode = re.findall('(.+?)\?episode=(\d*)$', url)[0]
@@ -122,8 +117,7 @@ class Onemovies(Scraper):
                 headers['User-Agent'] = random_agent()
                 u = urlparse.urljoin(self.base_link, self.server_link % vid_id)
                 # print("SERVERS", u)
-                r = urllib2.Request(u, headers=headers)
-                r = BeautifulSoup(urllib2.urlopen(r))
+                r = BeautifulSoup(requests.get(u, headers=headers).content)
                 # print("SERVERS", r)
                 containers = r.findAll('div', attrs={'class': 'les-content'})
                 for result in containers:
@@ -166,10 +160,7 @@ class Onemovies(Scraper):
                                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36',
                                    'X-Requested-With': 'XMLHttpRequest'}
                         # print ("playurl ONEMOVIES", headers)
-
-                        requestserver = urllib2.Request(serverurl, headers=headers)
-
-                        result = urllib2.urlopen(requestserver).read()
+                        result = requests.get(serverurl, headers=headers).content
                         # print ("RESULT ONEMOVIES", result)
                         result = result.replace('\\', '')
                         # print ("ONEMOVIES Result", result)

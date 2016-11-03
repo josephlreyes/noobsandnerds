@@ -1,3 +1,7 @@
+v0.5.2
+fixed scrapers
+added onemusic
+
 v0.5.1
 added watchfree scraper
 small change to primewire scraper

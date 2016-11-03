@@ -1,8 +1,8 @@
 import re
 import urllib
-import urllib2
 import urlparse
 
+import requests
 from BeautifulSoup import BeautifulSoup
 from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes
 from nanscrapers.scraper import Scraper
@@ -22,8 +22,7 @@ class Afdah(Scraper):
             query = self.search_link % (urllib.quote_plus(title))
             query = urlparse.urljoin(self.base_link, query)
             cleaned_title = clean_title(title)
-            request = urllib2.Request(query, headers=headers)
-            html = BeautifulSoup(urllib2.urlopen(request, timeout=30))
+            html = BeautifulSoup(requests.get(query, headers=headers, timeout=30).content)
             containers = html.findAll('div', attrs={'class': 'cell_container'})
             for container in containers:
                 links = container.findAll('a')
@@ -40,8 +39,6 @@ class Afdah(Scraper):
             pass
         return []
 
-
-
     def sources(self, url):
         sources = []
         try:
@@ -54,12 +51,11 @@ class Afdah(Scraper):
             headers['User-Agent'] = random_agent()
 
             post = urlparse.parse_qs(urlparse.urlparse(referer).query).values()[0][0]
-            post = urllib.urlencode({'v': post})
+            post = {'v': post}
 
             url = urlparse.urljoin(self.base_link, '/video_info/iframe')
 
-            request = urllib2.Request(url, data=post, headers=headers)
-            html = urllib2.urlopen(request).read()
+            html = requests.post(url, data=post, headers=headers).content
 
             quality_url_pairs = re.findall('"(\d+)"\s*:\s*"([^"]+)', html)
 

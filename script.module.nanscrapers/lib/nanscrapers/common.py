@@ -2,10 +2,8 @@ import HTMLParser
 import json
 import random
 import re
-import urllib
 import urllib2
 import urlparse
-import xbmc
 
 
 def clean_title(title):

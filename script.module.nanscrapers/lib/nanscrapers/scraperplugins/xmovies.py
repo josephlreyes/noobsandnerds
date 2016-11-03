@@ -1,9 +1,9 @@
 import json
 import re
 import urllib
-import urllib2
 import urlparse
 
+import requests
 from BeautifulSoup import BeautifulSoup
 from nanscrapers import proxy
 from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes
@@ -25,8 +25,7 @@ class Xmovies(Scraper):
             query = query % urllib.quote_plus(title)
             # print ("XMOVIES query", query)
             cleaned_title = clean_title(title)
-            request = urllib2.Request(query, headers=headers)
-            html = BeautifulSoup(urllib2.urlopen(request, timeout=30))
+            html = BeautifulSoup(requests.get(query, headers=headers, timeout=30).content)
             containers = html.findAll('div', attrs={'class': 'item_movie'})
             # print ("XMOVIES r1", containers)
             for container in containers:
@@ -58,20 +57,17 @@ class Xmovies(Scraper):
             referer_url = url.replace('watching.html', '') + 'watching.html'
 
             headers = {'User-Agent': random_agent}
-            request = urllib2.Request(absolute_url, headers=headers)
-            post = urllib2.urlopen(request, timeout=30).read()
+            post = requests.get(absolute_url, headers=headers, timeout=30).content
 
             post = re.findall('movie=(\d+)', post)[0]
-            post = urllib.urlencode({'id': post, 'episode_id': '0', 'link_id': '0', 'from': 'v3'})
+            post = {'id': post, 'episode_id': '0', 'link_id': '0', 'from': 'v3'}
 
             headers = {'X-Requested-With': 'XMLHttpRequest', 'Accept-Formating': 'application/json, text/javascript',
                        'Server': 'cloudflare-nginx'}
             headers['Referer'] = referer_url
             headers['User-Agent'] = random_agent()
             load_episode_url = urlparse.urljoin(self.base_link, '/ajax/movie/load_episodes')
-            request = urllib2.Request(load_episode_url, data=post, headers=headers)
-
-            html = BeautifulSoup(urllib2.urlopen(request))
+            html = BeautifulSoup(requests.post(load_episode_url, data=post, headers=headers).content)
 
             pattern = re.compile("load_player\(\s*'([^']+)'\s*,\s*'?(\d+)\s*'?")
             links = html.findAll('a', attrs={'onclick': pattern})
@@ -80,9 +76,8 @@ class Xmovies(Scraper):
                 info = re.findall(pattern, link['onclick'])[0]  # (id, quality) quality can be 0
                 try:
                     play = urlparse.urljoin(self.base_link, '/ajax/movie/load_player_v2')
-                    post = urllib.urlencode({'id': info[0], 'quality': info[1]})
-                    request_play = urllib2.Request(play, data=post, headers=headers)
-                    player_url = urllib2.urlopen(request_play).read()
+                    post = {'id': info[0], 'quality': info[1]}
+                    player_url = requests.post(play, data=post, headers=headers).content
 
                     json_url = json.loads(player_url)['link']
 
@@ -106,7 +101,7 @@ class Xmovies(Scraper):
 
                     else:
                         sources.append(
-                            {'source': 'google video', 'quality': googletag(unproxied_video_url )[0]['quality'],
+                            {'source': 'google video', 'quality': googletag(unproxied_video_url)[0]['quality'],
                              'scraper': self.name, 'url': unproxied_video_url, 'direct': True})
                 except:
                     continue

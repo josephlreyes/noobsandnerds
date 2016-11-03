@@ -66,6 +66,15 @@ class HostedLink:
         else:
             return False
 
+    def scrape_song(self, title, artist, maximum_age=60):
+        scrape_f = lambda p: self.get_muscic_url(p, title, artist, self.cache_location, maximum_age)
+        if len(self.__scrapers) > 0:
+            pool_size = 10
+            populator = lambda: execute(scrape_f, self.__scrapers, Event(), pool_size, self.timeout)
+            return populator
+        else:
+            return False
+
     @staticmethod
     def get_url(scraper, title, year, season, episode, imdb, tvdb, type, cache_location, maximum_age):
         try:
@@ -104,7 +113,50 @@ class HostedLink:
                     "DELETE FROM rel_src WHERE scraper = '%s' AND title = '%s' AND year = '%s' AND season = '%s' AND episode = '%s'" % (
                         scraper.name, title.upper(), year, season, episode))
                 dbcur.execute("INSERT INTO rel_src Values (?, ?, ?, ?, ?, ?, ?, ?)", (
-                    scraper.name, title.upper(), year, season, episode, imdb, json.dumps(sources), datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
+                    scraper.name, title.upper(), year, season, episode, imdb, json.dumps(sources),
+                    datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
+                dbcon.commit()
+
+            return sources
+        except:
+            pass
+
+    @staticmethod
+    def get_muscic_url(scraper, title, artist, cache_location, maximum_age):
+        try:
+            dbcon = database.connect(cache_location)
+            dbcur = dbcon.cursor()
+            dbcur.execute(
+                "CREATE TABLE IF NOT EXISTS rel_music_src (""scraper TEXT, ""title Text, ""artist TEXT, ""urls TEXT, ""added TEXT, ""UNIQUE(scraper, title, artist)"");")
+        except:
+            pass
+
+        try:
+            sources = []
+            dbcur.execute(
+                "SELECT * FROM rel_music_src WHERE scraper = '%s' AND title = '%s' AND artist = '%s'" % (
+                    scraper.name, title.upper(), artist.upper()))
+            match = dbcur.fetchone()
+            t1 = int(re.sub('[^0-9]', '', str(match[4])))
+            t2 = int(datetime.datetime.now().strftime("%Y%m%d%H%M"))
+            update = abs(t2 - t1) > maximum_age
+            if update == False:
+                sources = json.loads(match[3])
+                return sources
+        except:
+            pass
+
+        try:
+            sources = scraper.scrape_music(title, artist)
+            if sources == None:
+                sources = []
+            else:
+                dbcur.execute(
+                    "DELETE FROM rel_music_src WHERE scraper = '%s' AND title = '%s' AND artist = '%s'" % (
+                        scraper.name, title.upper(), artist.upper))
+                dbcur.execute("INSERT INTO rel_music_src Values (?, ?, ?, ?, ?)", (
+                    scraper.name, title.upper(), artist.upper(), json.dumps(sources),
+                    datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
                 dbcon.commit()
 
             return sources

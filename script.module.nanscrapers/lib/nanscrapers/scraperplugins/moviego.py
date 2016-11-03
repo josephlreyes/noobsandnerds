@@ -1,11 +1,11 @@
-import json
 import re
 import urllib
-import urllib2
 import urlparse
 
+import requests
 from BeautifulSoup import BeautifulSoup
 from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes
+from nanscrapers.jsunpack import unpack
 from nanscrapers.scraper import Scraper
 
 
@@ -25,8 +25,7 @@ class Moviego(Scraper):
             searchquery = self.search_link % (urllib.quote_plus(title), year)
             query = urlparse.urljoin(self.base_link, searchquery)
             cleaned_title = clean_title(title)
-            request = urllib2.Request(query, headers=headers)
-            html = urllib2.urlopen(request, timeout=30).read()
+            html = requests.get(query, headers=headers).content
             html = BeautifulSoup(html)
 
             containers = html.findAll('div', attrs={'class': 'short_content'})
@@ -37,7 +36,6 @@ class Moviego(Scraper):
                 if year in str(title):
                     title = normalize(str(title))
                     if title == cleaned_title:
-                        # print("MOVIEGO MOVIES PASSED", href)
                         return self.sources(replaceHTMLCodes(href))
 
         except:
@@ -45,62 +43,89 @@ class Moviego(Scraper):
 
     def sources(self, url):
         sources = []
+        alt_links = []
+        play_links = []
         try:
 
             if url == None: return sources
             headers = {'User-Agent': random_agent()}
-            request = urllib2.Request(url, headers=headers)
-            link = urllib2.urlopen(request, timeout=30).read()
-            url = re.findall('file:\s+"(.*?)",', link)[0]
-            film_id = re.findall("\/(\d+)-", link)[0]
-            film_quality = re.findall('<div class="poster-qulabel">(.*?)</div>', link)[0]
-            # print ("MOVIEGO Sources", url,film_id,film_quality)
-            if film_id:
-                try:
-                    film_id = film_id.encode('utf-8')
-                    try:
-                        film_quality = film_quality.encode('utf-8')
-                    except:
-                        pass
-                    # print ("MOVIEGO RESULTS", film_id,film_quality)
-                    ep_query = self.ep_url % film_id
-                    query = urlparse.urljoin(self.base_link, ep_query)
-                    # print("MOVIEGO MOVIES query",query)
-                    request_query = urllib2.Request(query, headers=headers)
-                    linkquery = urllib2.urlopen(request_query, timeout=30).read()
-                    # print ("MOVIEGO 3r", linkquery)
-                    results = json.loads(linkquery)
-                    url = results['file']
-                    # print ("MOVIEGO 3r", url)
-                    if "1080" in film_quality:
-                        quality = "1080"
-                    elif "720" in film_quality:
-                        quality = "720"
-                    else:
-                        quality = "480"
-                    url = url.encode('utf-8')
-                    sources.append({'source': 'google video', 'quality': quality, 'scraper': self.name, 'url': url,
-                                    'direct': True})
-                except:
-                    pass
-            if url:
-                try:
-                    film_quality = film_quality.encode('utf-8')
-                except:
-                    pass
+            mainpage = requests.get(url, headers=headers)
+            html = BeautifulSoup(requests.get(url, headers=headers).content)
+            try:
+                film_quality = re.findall('<div class="poster-qulabel">(.*?)</div>', mainpage)[0]
+                print ("MOVIEGO film_quality", film_quality)
                 if "1080" in film_quality:
                     quality = "1080"
                 elif "720" in film_quality:
                     quality = "720"
                 else:
-                    quality = "480"
+                    quality = "SD"
+                url = re.findall('file:\s+"([^"]+)"', mainpage)[0]
                 url = url.encode('utf-8')
-                sources.append(
-                    {'source': 'google video', 'quality': quality, 'scraper': self.name, 'url': url, 'direct': True})
-
+                sources.append({'source': 'CDN', 'quality': quality, 'scraper': self.name, 'url': url, 'direct': True})
+            except:
+                pass
+            iframe = html.findAll("iframe")[0]
+            original_frame = iframe['src']
+            iframe_html = BeautifulSoup(requests.get(iframe["src"], headers=headers).content)
+            scripts = iframe_html.findAll("script")
+            unpacked_script = ""
+            for script in scripts:
+                try:
+                    unpacked_script += unpack(script.text)
+                except:
+                    pass
+            try:
+                alternative_links = re.findall('Alternative (\d+)<', unpacked_script)
+                for alts in alternative_links: alt_links.append(alts)
+            except:
+                pass
+            # print ("MOVIEGO ALTS", alt_links)
+            links = re.findall('<source src="(.*?)"', unpacked_script)
+            if links:
+                for link_url in links:
+                    if "google" in link_url:
+                        link_url = link_url.replace(' ', '')
+                        play_links.append(link_url)
 
         except:
             pass
+        try:
+            for ids in alt_links:
+                headers = {'User-Agent': random_agent()}
+                alt_frames = original_frame + "?source=a" + ids
+                alt_iframe_html = BeautifulSoup(requests.get(alt_frames, headers=headers).content)
+                alt_scripts = alt_iframe_html.findAll("script")
+                unpacked_script = ""
+                for script in alt_scripts:
+                    try:
+                        unpacked_script += unpack(script.text)
+                    except:
+                        pass
+                links = re.findall('<source src="(.*?)"', unpacked_script)
+                if links:
+                    for link_url in links:
+                        if "google" in link_url:
+                            link_url = link_url.replace(' ', '')
+                            play_links.append(link_url)
+
+        except:
+            pass
+        ############# DUPLICATES CHECK ################
+        try:
+            dupes = []
+            for url in play_links:
+                if not url in dupes:
+                    dupes.append(url)
+                    print ("MOVIEGO PLAY url", url)
+                    quality = googletag(url)[0]['quality']
+                    url = url.encode('utf-8')
+                    sources.append({'source': 'google video', 'quality': quality, 'scraper': self.name, 'url': url,
+                                    'direct': True})
+
+        except:
+            pass
+
         return sources
 
 
@@ -111,3 +136,25 @@ def normalize(title):
     title = title.replace('&quot;', '\"').replace('&amp;', '&')
     title = re.sub('\n|([<].+?[>])|([[].+?[]])|([(].+?[)])|\s(vs|v[.])\s|(:|;|-|"|,|\'|\_|\.|\?)|\s', '', title).lower()
     return title
+
+
+def googletag(url):
+    quality = re.compile('itag=(\d*)').findall(url)
+    quality += re.compile('=m(\d*)$').findall(url)
+    try:
+        quality = quality[0]
+    except:
+        return []
+
+    if quality in ['37', '137', '299', '96', '248', '303', '46']:
+        return [{'quality': '1080', 'url': url}]
+    elif quality in ['22', '84', '136', '298', '120', '95', '247', '302', '45', '102']:
+        return [{'quality': '720', 'url': url}]
+    elif quality in ['35', '44', '135', '244', '94']:
+        return [{'quality': '480', 'url': url}]
+    elif quality in ['18', '34', '43', '82', '100', '101', '134', '243', '93']:
+        return [{'quality': '480', 'url': url}]
+    elif quality in ['5', '6', '36', '83', '133', '242', '92', '132']:
+        return [{'quality': '480', 'url': url}]
+    else:
+        return []

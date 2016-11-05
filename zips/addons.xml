@@ -308,13 +308,13 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.bob" name="Bob" version="1.2.3" provider-name="Team Bob">
+<addon id="plugin.video.bob" name="Bob" version="1.2.4" provider-name="Team Bob">
 	<requires>
-		<import addon="xbmc.python" version="2.1.0" />
+		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="plugin.video.youtube" version="5.2.1" />
 		<import addon="script.module.pyxbmct" version="1.1.4" />
-		<import addon="script.mrknow.urlresolver" version="2016.10.29.2" />
-		<import addon="script.module.liveresolver" version="0.1.48" />
+		<import addon="script.mrknow.urlresolver" version="2016.10.30.2" />
+		<import addon="script.module.liveresolver" version="0.1.47" />
 		<import addon="script.module.beautifulsoup" version="3.2.1"/>
 		<import addon="script.module.requests" version="2.9.1" />
 		<import addon="script.module.nanscrapers" verion="0.5.1" />
@@ -326,7 +326,7 @@
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">Bob</summary>
-		<description lang="en">Bob - Unrestricted.  I Am Not A Dev...I Am Bob</description>
+		<description lang="en">Bob - Unrestricted. I Am Not A Dev... I Am Bob</description>
 		<platform>all</platform>
 		<forum>http://noobsandnerds.com/support</forum>
 		<website>www.noobsandnerds.com</website>
@@ -432,25 +432,22 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.nantuts"
-	name="NaN Tutorials"
-	version="0.0.1"
-	provider-name="noobsandnerds, coldkeys">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.addon.common" version="2.0.0"/>
-    <import addon="plugin.video.youtube" version="5.0.0"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-    <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">NoobsandNerds</summary>
-    <description lang="en">Kodi Tutorials, Hardware Tutorials, Kodi Live Chats.</description>
-    <platform>all</platform>
-    <forum>n/a</forum>
-    <website>n/a</website>
-  </extension>
+<addon id="plugin.video.nantuts" name="NaN Tutorials" version="0.0.1" provider-name="noobsandnerds, coldkeys">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0"/>
+		<import addon="script.module.addon.common" version="2.0.0"/>
+		<import addon="plugin.video.youtube" version="5.0.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">NoobsandNerds</summary>
+		<description lang="en">Kodi Tutorials, Hardware Tutorials, Kodi Live Chats.</description>
+		<platform>all</platform>
+		<forum>n/a</forum>
+		<website>n/a</website>
+	</extension>
 </addon>
 
 <addon id="plugin.video.revvedup"
@@ -487,6 +484,35 @@
     <description lang="en">This will install the latest versions of SportsDevil and clean any old data that may be stopping the addon from opening certain pages. As SportsDevil has no official repository different people have taken it upon themselves to upload newer versions of the addon to their repo's. Due to this there is always a chance an update may break a previously working version so this addon stores a backup of your existing SportsDevil so you can always revert back if needed.</description>
     <platform>all</platform>
   </extension>
+</addon>
+
+<addon id="plugin.video.zen" version="1.4.0" name=" Zen" provider-name="Zen">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0" />
+		<import addon="repository.schismtvaddons" />
+		<import addon="script.zen.artwork" />
+		<import addon="script.module.urlresolver" version="3.0.0"/>
+		<import addon="script.module.metahandler" version="1.0.0" />
+		<import addon="script.module.requests" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="zen.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Zen Movies/TV Shows</summary>
+		<description lang="en">Watch Movies and TV Shows in High Definition and surround sound. Free providers might not work --- TO AUTHORIZE DEBRID LINKS USE THE URL RESOLVER Menu under TOOLS , AND ENABLE DEBRID SOURCES IN THE Providers SETTINGS --- </description>
+		<disclaimer lang="en">The Author does not host or share any content, nor is affiliated with the content providers.</disclaimer>
+		<platform>all</platform>
+		<website>http://schism-tv.net</website>
+		<news>Add TMDB Custom List and Custom Api - Update FDL - Update Moviego - Onemovies</news>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+			<screenshot>resources/screenshots/01.jpg</screenshot>
+			<screenshot>resources/screenshots/02.jpg</screenshot>
+			<screenshot>resources/screenshots/03.jpg</screenshot>
+        </assets>
+	</extension>
 </addon>
 
 <addon id="repo.bg.plugins" name="Bg Add-ons" version="0.0.0.1" provider-name="kodi.dev.one@gmail.com">
@@ -5228,23 +5254,16 @@ zip="true">https://github.com/proteusplum/mflow-xbmc-plugin-repo/raw/master/down
 	</extension>
 </addon>
 
-<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="1.5" provider-name="noobsandnerds">
+<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="1.6" provider-name="noobsandnerds">
 	<extension point="xbmc.addon.repository" name="noobsandnerds Repository">
 		<dir>
 			<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
 			<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
 			<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
 		</dir>
-		<dir>
-			<info compressed="false">http://kodi.filmkodi.com/addons.xml</info>
-			<checksum>http://kodi.filmkodi.com/addons.xml.md5</checksum>
-			<datadir zip="true">http://kodi.filmkodi.com/</datadir>
-		</dir>
-		<dir>
-			<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/</datadir>
-		</dir>
+		<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Home of The Community Portal</summary>
@@ -6251,9 +6270,9 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 
 <addon id="repository.schismtvaddons" name="SchisM TV Addons Repository" version="0.0.0.1" provider-name="SchisM">
     <extension point="xbmc.addon.repository" name="SchisM TV Addons Repository">
-        <info compressed="false">http://schism-tv.net/addons/addons.xml</info>
-        <checksum>http://schism-tv.net/addons/addons.xml.md5</checksum>
-        <datadir zip="true">http://schism-tv.net/addons/zips/</datadir>
+        <info compressed="false">http://kodiflix.srve.io/repo/addons.xml</info>
+        <checksum>http://kodiflix.srve.io/repo/addons.xml.md5</checksum>
+        <datadir zip="true">http://kodiflix.srve.io/repo/zips/</datadir>
     </extension>
     <extension point="xbmc.addon.metadata">
         <summary>SchisM TV official repo</summary>
@@ -8593,6 +8612,21 @@ Addons Included
         </extension>
 </addon>
 
+<addon id="script.module.liveresolver" name="LiveResolver" version="0.1.47" provider-name="natko1412">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0" />
+		<import addon="script.module.beautifulsoup" version="3.2.1" />
+		<import addon="script.module.requests" />
+		<import addon="script.module.addon.common" version="2.0.0" />
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en">Resolve common live video host URL's to be playable in XBMC/Kodi + find links embedded in sites.</summary>
+		<description lang="en"></description>
+	</extension>
+</addon>
+
 <addon id="script.module.nanscrapers" name="NaN Scrapers" version="0.5.3" provider-name="Team NaN">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
@@ -8611,7 +8645,21 @@ Addons Included
     </extension>
 </addon>
 
-<addon id="script.tvportal" name="TV Portal" version="2.0.7" provider-name="whufclee, DixieDean, Spoyser">
+<addon id="script.mrknow.urlresolver" name="Mrknow URLResolver" version="2016.10.30.2" provider-name="mrknow" >
+	<requires>
+		<import addon="xbmc.python" version="2.1.0" />
+		<import addon="repository.filmkodi.com" />
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.python.pluginsource" library="lib/default.py" />
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en">This addon is almost exact copy Urlresolver from Tknorris repository https://github.com/tknorris/script.module.urlresolver. Resolve common video host URL's to be playable in XBMC/Kodi. Website http://filmkodi.com . Our suport forum https://github.com/mrknow/filmkodi/issues. </summary>
+		<description lang="en">This addon is almost exact copy Urlresolver from Tknorris repository https://github.com/tknorris/script.module.urlresolver Resolve common video host URL's to be playable in XBMC/Kodi, simplify addon development of video plugins requiring multi video hosts.</description>
+	</extension>
+</addon>
+
+<addon id="script.tvportal" name="TV Portal" version="2.0.8" provider-name="whufclee, DixieDean, Spoyser">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.3.0"/>
@@ -8665,6 +8713,20 @@ Addons Included
     <source></source>
     <email></email>
   </extension>
+</addon>
+
+<addon id="script.zen.artwork" version="1.2.0" name="Zen Artwork" provider-name="Zen">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0"/>
+	</requires>
+	<extension point="xbmc.python.script" library="default.py">
+		<provides>executable</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Themes for the Zen Addon</summary>
+		<description></description>
+		<platform>all</platform>
+	</extension>
 </addon>
 
 <addon id="SealLiveActs.repository" name="Seal Live Acts" version="0.0.0.1" provider-name="SealMusic">

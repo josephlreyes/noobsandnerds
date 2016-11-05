@@ -19,13 +19,13 @@
 	</category>
 
 <!-- Third party install options -->
-	<category label="30740">
+<!--	<category label="30740">
 		<setting id="installaddons"			label="30766" 	type="bool"		default="false"		visible="true"/>
 		<setting label="30762"	type="lsep" />
 		<setting label="30763"	type="lsep" />
 		<setting id="installrepos"			label="30757" 	type="bool"		default="false"		visible="eq(-3,true)"/>
 		<setting label="30765"	type="lsep"	visible="eq(-4,true)"/>
-	</category>
+	</category>-->
 
 <!-- login - future features for playlisters -->
 	<category label="30770">
@@ -36,6 +36,6 @@
 <!-- debugging and developer options -->
 		<setting id="DEBUG"		label="30758" 	type="bool"		default="false"		visible="true" />
 		<setting id="testver"	label="30900"	type="bool"		default="false"		visible="false"/>
-        <setting id="testsettings"	label="30933"	type="action"	action="XBMC.RunScript(special://home/addons/plugin.video.bob/login.py,settings,plugin.video.bob)"	option="close"	visible="false"/>
+        <setting id="testsettings"	label="30933"	type="action"	action="RunScript(special://home/addons/plugin.video.bob/login.py,settings,plugin.video.bob)"	option="close"	visible="false"/>
 	</category>
 </settings>

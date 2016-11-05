@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.nantuts"
-	name="NaN Tutorials"
-	version="0.0.1"
-	provider-name="noobsandnerds, coldkeys">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.addon.common" version="2.0.0"/>
-    <import addon="plugin.video.youtube" version="5.0.0"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-    <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">NoobsandNerds</summary>
-    <description lang="en">Kodi Tutorials, Hardware Tutorials, Kodi Live Chats.</description>
-    <platform>all</platform>
-    <forum>n/a</forum>
-    <website>n/a</website>
-  </extension>
+<addon id="plugin.video.nantuts" name="NaN Tutorials" version="0.0.1" provider-name="noobsandnerds, coldkeys">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0"/>
+		<import addon="script.module.addon.common" version="2.0.0"/>
+		<import addon="plugin.video.youtube" version="5.0.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">NoobsandNerds</summary>
+		<description lang="en">Kodi Tutorials, Hardware Tutorials, Kodi Live Chats.</description>
+		<platform>all</platform>
+		<forum>n/a</forum>
+		<website>n/a</website>
+	</extension>
 </addon>

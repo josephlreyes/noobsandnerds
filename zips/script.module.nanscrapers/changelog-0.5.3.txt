@@ -1,0 +1,13 @@
+v0.5.3
+fixed error in title handling
+
+v0.5.2
+fixed scrapers
+added onemusic
+
+v0.5.1
+added watchfree scraper
+small change to primewire scraper
+
+v0.5.0
+beta release, here be dragons

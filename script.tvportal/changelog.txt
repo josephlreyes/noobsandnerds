@@ -2,6 +2,9 @@ www.noobsandnerds.com
 The home of ORIGINAL & EXCITING kodi add-on development
 Don't be misled into using alternative methods for installing content, the only add-on you need is COMMUNITY PORTAL!
 
+v.2.0.8:
+- Added -13 and +13 to offset options
+
 v.2.0.7:
 - Fixed iplookup in the login option, wasn't opening on certain ISPs
 

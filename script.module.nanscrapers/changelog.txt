@@ -1,3 +1,6 @@
+v0.5.3
+fixed error in title handling
+
 v0.5.2
 fixed scrapers
 added onemusic

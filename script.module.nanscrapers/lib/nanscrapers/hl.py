@@ -3,6 +3,7 @@ import json
 import os
 import re
 from threading import Event
+from nanscrapers.common import clean_title
 
 try:
     from sqlite3 import dbapi2 as database
@@ -89,7 +90,7 @@ class HostedLink:
             sources = []
             dbcur.execute(
                 "SELECT * FROM rel_src WHERE scraper = '%s' AND title = '%s' AND year = '%s' AND season = '%s' AND episode = '%s'" % (
-                    scraper.name, title.upper(), year, season, episode))
+                    scraper.name, clean_title(title).upper(), year, season, episode))
             match = dbcur.fetchone()
             t1 = int(re.sub('[^0-9]', '', str(match[7])))
             t2 = int(datetime.datetime.now().strftime("%Y%m%d%H%M"))
@@ -111,9 +112,9 @@ class HostedLink:
             else:
                 dbcur.execute(
                     "DELETE FROM rel_src WHERE scraper = '%s' AND title = '%s' AND year = '%s' AND season = '%s' AND episode = '%s'" % (
-                        scraper.name, title.upper(), year, season, episode))
+                        scraper.name, clean_title(title).upper(), year, season, episode))
                 dbcur.execute("INSERT INTO rel_src Values (?, ?, ?, ?, ?, ?, ?, ?)", (
-                    scraper.name, title.upper(), year, season, episode, imdb, json.dumps(sources),
+                    scraper.name, clean_title(title).upper(), year, season, episode, imdb, json.dumps(sources),
                     datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
                 dbcon.commit()
 

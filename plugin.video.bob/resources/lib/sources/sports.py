@@ -1,5 +1,6 @@
 import time
 
+import xbmc
 from BeautifulSoup import BeautifulSoup
 
 from resources.lib.modules import proxy
@@ -24,7 +25,7 @@ def get_acesoplisting():
           "</item>\n"
 
     try:
-        html = proxy.get("http://www.acesoplisting.in/", "acestream://")
+        html = proxy.get2("http://www.acesoplisting.in/", 'class="listing"')
         scraped_html = BeautifulSoup(html)
         table = scraped_html.findAll("table", attrs={'class': 'listing'})[-1]
 
@@ -32,7 +33,7 @@ def get_acesoplisting():
         date = None
         is_today = False
         day_xml = ""
-
+        found_links = False
         for row in rows:
             cells = row.findAll("td")
             if len(cells) < 5:
@@ -91,6 +92,9 @@ def get_acesoplisting():
                     thumbnail = ""
 
                 links = cells[4].findAll("a")
+
+                if len(links) != 0:
+                    found_links = True
                 for link in links:
                     href = link["href"]
                     if "acestream://" in href:
@@ -107,7 +111,29 @@ def get_acesoplisting():
                                "\t<link>plugin://program.plexus/?url=%s&mode=2&name=TASPORTS</link>\n" \
                                "\t<thumbnail>%s</thumbnail>\n" \
                                "</item>\n" % (sport, match, event_time, href, thumbnail)
-
+        if not found_links:
+            xml = "<fanart>https://www.dropbox.com/s/x3zg9ovot6vipjh/smoke_men-wallpaper-1920x1080.jpg?raw=true</fanart>\n\n\n" \
+                  "<item>\n" \
+                  "\t<title>[COLORred]Will require Plexus addon to watch Acestream links.[/COLOR]</title>\n" \
+                  "\t<link> </link>\n" \
+                  "\t<thumbnail> </thumbnail>\n" \
+                  "</item>\n\n" \
+                  "<item>\n" \
+                  "\t<title>[COLORred]Download in Community Portal.[/COLOR]</title>\n" \
+                  "\t<link> </link>\n" \
+                  "\t<thumbnail> </thumbnail>\n" \
+                  "</item>\n\n" \
+                  "<item>\n" \
+                  "\t<title>[COLORpurple]############## [COLORcyan]Live Sporting Events[COLORpurple] ##############[/COLOR]</title>\n" \
+                  "\t<link> </link>\n" \
+                  "\t<thumbnail> </thumbnail>\n" \
+                  "</item>\n" \
+                  "\n" \
+                   "<item>\n" \
+                   "\t<title>Currently No Games Available</title>\n" \
+                   "\t<link></link>\n" \
+                   "\t<thumbnail></thumbnail>\n" \
+                   "</item>\n"
         return xml
     except:
         pass

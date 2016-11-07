@@ -71,7 +71,7 @@ def get():
     ])
 
 
-def get(url, check, headers=None, data=None):
+def get2(url, check, headers=None, data=None):
     if headers is None:
         headers = {
             'User-Agent': client.randomagent(),

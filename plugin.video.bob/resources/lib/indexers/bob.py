@@ -673,6 +673,12 @@ class Indexer:
             mode = 'seasons'
         elif 'episodes' in mode:
             mode = 'episodes'
+        elif 'albums' in mode:
+            mode = 'albums'
+        elif 'artists' in mode:
+            mode = 'artists'
+        elif 'boxsets' in mode:
+            mode = 'boxsets'
         else:
             mode = None
 
@@ -761,6 +767,21 @@ class Indexer:
                                'RunPlugin(%s?action=addView&content=seasons)' % system_addon))
                     if parent_url:
                         cm.append(('Queue Season',
+                                   'RunPlugin(%s?action=queueItem&url=%s)' % (
+                                       system_addon, urllib.quote_plus(i['url']))))
+                elif mode == 'albums':
+                    if parent_url:
+                        cm.append(('Queue Album',
+                                   'RunPlugin(%s?action=queueItem&url=%s)' % (
+                                       system_addon, urllib.quote_plus(i['url']))))
+                elif mode == 'artists':
+                    if parent_url:
+                        cm.append(('Queue Artist',
+                                   'RunPlugin(%s?action=queueItem&url=%s)' % (
+                                       system_addon, urllib.quote_plus(i['url']))))
+                elif mode == 'boxsets':
+                    if parent_url:
+                        cm.append(('Queue Boxset',
                                    'RunPlugin(%s?action=queueItem&url=%s)' % (
                                        system_addon, urllib.quote_plus(i['url']))))
                 elif mode == 'episodes':

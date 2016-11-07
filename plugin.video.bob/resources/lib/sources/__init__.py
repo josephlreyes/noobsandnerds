@@ -20,9 +20,10 @@
 
 import random
 import urllib
-import urlparse
 
 import nanscrapers
+import urlparse
+import xbmc
 
 from resources.lib.modules import cleantitle
 from resources.lib.modules import client
@@ -37,7 +38,7 @@ except:
 class sources:
     @staticmethod
     def getSources(title, year, imdb, tvdb, season, episode, tvshowtitle, premiered, timeout=30,
-                   progress=True, preset="search", dialog = None):
+                   progress=True, preset="search", dialog=None):
 
         year = str(year)
 
@@ -98,6 +99,9 @@ class sources:
                                 if resolved_url and sources().check_playable(resolved_url) is not None:
                                     url = resolved_url
                                     return url
+                                else:
+                                    if sources().check_playable(scraper_link['url']):
+                                        return scraper_link['url']
                             else:
                                 non_direct.append(scraper_link)
                         except:
@@ -124,6 +128,9 @@ class sources:
                         if resolved_url and sources().check_playable(resolved_url) is not None:
                             url = resolved_url
                             return url
+                        else:
+                            if sources().check_playable(scraper_link['url']):
+                                return scraper_link['url']
                     else:
                         non_direct.append(scraper_link)
                 except:
@@ -172,7 +179,8 @@ class sources:
                 resolved_url = urlresolver9.resolve(scraper_link['url'])
             except:
                 continue
-            if resolved_url and (resolved_url.startswith("plugin;//") or sources().check_playable(resolved_url) is not None):
+            if resolved_url and (
+                resolved_url.startswith("plugin;//") or sources().check_playable(resolved_url) is not None):
                 url = resolved_url
                 return url
 
@@ -185,12 +193,12 @@ class sources:
             except:
                 continue
             if resolved_url and (
-                resolved_url.startswith("plugin;//") or sources().check_playable(resolved_url) is not None):
+                        resolved_url.startswith("plugin;//") or sources().check_playable(resolved_url) is not None):
                 url = resolved_url
                 return url
 
     @staticmethod
-    def getMusicSources(title, artist, timeout=30, progress=True, preset="search", dialog = None):
+    def getMusicSources(title, artist, timeout=30, progress=True, preset="search", dialog=None):
         title = cleantitle.normalize(title)
         links_scraper = nanscrapers.scrape_song(title, artist, timeout=timeout)
 
@@ -257,7 +265,8 @@ class sources:
                     except:
                         continue
                     if resolved_url and (
-                        resolved_url.startswith("plugin;//") or sources().check_playable(resolved_url) is not None):
+                                resolved_url.startswith("plugin;//") or sources().check_playable(
+                                resolved_url) is not None):
                         url = resolved_url
                         return url
 
@@ -288,7 +297,6 @@ class sources:
                 return resolved_url
         except:
             return False
-
 
     @staticmethod
     def check_playable(url):

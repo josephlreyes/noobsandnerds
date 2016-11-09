@@ -29,7 +29,7 @@ from resources.lib.modules import directstream
 class source:
     def __init__(self):
         self.domains = ['xmovies8.tv']
-        self.base_link = 'http://xmovies8.tv'
+        self.base_link = 'http://xmovies8.ru'
         self.search_link = '/movies/search?s=%s'
 
 
@@ -85,7 +85,7 @@ class source:
 			episodecheck = 'episode ' + episode
 			# print ('XMOVIES TV r1',season, episode, episodecheck)
 
-			query = 'http://xmovies8.tv/movies/search?s=%s+%s' % (urllib.quote_plus(title),seasoncheck)
+			query = 'http://xmovies8.ru/movies/search?s=%s+%s' % (urllib.quote_plus(title),seasoncheck)
 			# print ('XMOVIES TV r1',query)
 			slink = client.request(query)
 			r = client.parseDOM(slink, 'div', attrs = {'class': 'col-lg.+?'})
@@ -128,7 +128,7 @@ class source:
             if url == None: return sources
             print ('XMOVIES TV URLS', url)
             r = url
-
+            referer = url
             for i in range(5):
                 post = client.request(r)
                 if not post == None: break
@@ -141,7 +141,7 @@ class source:
             'Accept-Formating': 'application/json, text/javascript',
             'X-Requested-With': 'XMLHttpRequest',
             'Server': 'cloudflare-nginx',
-            'Referer': r}
+            'Referer':referer}
 
             url = urlparse.urljoin(self.base_link, '/ajax/movie/load_episodes')
 
@@ -158,9 +158,10 @@ class source:
 
             for p in r:
                 try:
+                    				
                     play = urlparse.urljoin(self.base_link, '/ajax/movie/load_player_v2')
 
-                    post = urllib.urlencode({'id': p[0], 'quality': p[1]})
+                    post = urllib.urlencode({'id': p[0], 'quality': p[1], '_': int(time.time() * 1000)})
 
                     for i in range(5):
                         url = client.request(play, post=post, headers=headers)

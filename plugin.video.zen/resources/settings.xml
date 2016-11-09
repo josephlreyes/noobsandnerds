@@ -31,8 +31,7 @@
 		<setting id="provider.fdl" type="bool" label="Fdl" default="true" />
 		<setting id="provider.moviegee" type="bool" label="Moviegee" default="true" />
 		<setting id="provider.watchover" type="bool" label="Watchover" default="true" />
-		<setting id="provider.mvzone" type="bool" label="Mvzone" default="true" />
-		<setting id="provider.moviefree" type="bool" label="Moviefree" default="true" />
+		<setting id="provider.moviexk" type="bool" label="Moviexk" default="true" />
 		<setting id="provider.pubfilm" type="bool" label="Pubfilm" default="true" />
 		<setting id="provider.movies14" type="bool" label="Movies14" default="true" />
 		<setting id="provider.genvideo" type="bool" label="Genvideo" default="true" />

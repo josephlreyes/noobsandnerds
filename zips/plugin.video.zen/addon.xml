@@ -2,6 +2,7 @@
 <addon id="plugin.video.zen" version="1.4.3" name=" Zen" provider-name="Zen">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
+		<import addon="repository.schismtvaddons" />
 		<import addon="script.zen.artwork" />
 		<import addon="script.module.urlresolver" version="3.0.0"/>
 		<import addon="script.module.metahandler" version="1.0.0" />

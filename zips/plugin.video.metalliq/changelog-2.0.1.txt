@@ -1,4 +1,4 @@
-v2.0.[COLOR ff0084ff]1[/COLOR
+v2.0.[COLOR ff0084ff]1[/COLOR]
 - Added setting to in/exclude artwork for Trakt lists
 - Corrected differing variables
 - Fixed tv genres

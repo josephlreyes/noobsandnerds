@@ -15,7 +15,7 @@ class Sezonluldizi(Scraper):
     def __init__(self):
         self.base_link = 'http://sezonlukdizi.com'
 
-    def scrape_episode(self, title, year, season, episode, imdb, tvdb):
+    def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb):
         url_title = title.lower().replace(' ', '-').replace('.', '-')
         episode_url = '/%s/%01d-sezon-%01d-bolum.html' % (url_title, int(season), int(episode))
         return self.sources(replaceHTMLCodes(episode_url))

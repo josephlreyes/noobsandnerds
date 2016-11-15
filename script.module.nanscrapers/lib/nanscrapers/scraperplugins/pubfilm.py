@@ -43,7 +43,7 @@ class Pubfilm(Scraper):
             pass
         return []
 
-    def scrape_episode(self, title, year, season, episode, imdb, tvdb):
+    def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb):
         try:
             for try_year in [str(year), str(int(year) - 1)]:
                 tvshowtitle = '%s %s: Season %s' % (title, try_year, season)

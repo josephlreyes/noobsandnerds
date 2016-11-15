@@ -268,11 +268,11 @@ class Indexer:
                 else:
                     folder = False
 
-                image2 = self.bob_get_tag_content(item, 'thumbnail', image)
+                image2 = replace_url(self.bob_get_tag_content(item, 'thumbnail', image))
                 if not str(image2).lower().startswith('http'):
                     image2 = '0'
 
-                fanart2 = self.bob_get_tag_content(item, 'fanart', fanart)
+                fanart2 = replace_url(self.bob_get_tag_content(item, 'fanart', fanart))
                 if not str(fanart2).lower().startswith('http'):
                     fanart2 = '0'
 
@@ -292,6 +292,8 @@ class Indexer:
                 season = self.bob_get_tag_content(meta, 'season', '0')
                 episode = self.bob_get_tag_content(meta, 'episode', '0')
 
+                summary = self.bob_get_tag_content(meta, 'summary', '')
+
                 if season is not '0' and episode is '0' and added_all_episodes is False:
                     self.list.append(
                         {'name': "All Episodes", 'vip': vip,
@@ -300,14 +302,14 @@ class Indexer:
                          'folder': folder, 'poster': image2,
                          'banner': '0', 'fanart': fanart2, 'content': content, 'imdb': imdb, 'tvdb': tvdb, 'tmdb': '0',
                          'title': title, 'originaltitle': title, 'tvshowtitle': tvshowtitle, 'year': year,
-                         'premiered': premiered, 'season': season, 'episode': episode})
+                         'premiered': premiered, 'season': season, 'episode': episode, 'summary': summary})
                     added_all_episodes = True
 
                 self.list.append(
                     {'name': name, 'vip': vip, 'url': url, 'action': action, 'folder': folder, 'poster': image2,
                      'banner': '0', 'fanart': fanart2, 'content': content, 'imdb': imdb, 'tvdb': tvdb, 'tmdb': '0',
                      'title': title, 'originaltitle': title, 'tvshowtitle': tvshowtitle, 'year': year,
-                     'premiered': premiered, 'season': season, 'episode': episode})
+                     'premiered': premiered, 'season': season, 'episode': episode, 'summary': summary})
             except:
                 pass
 
@@ -517,7 +519,9 @@ class Indexer:
             if not cast == '0':
                 self.list[i].update({'cast': cast})
 
-            plot = item['Plot']
+            plot = self.list[i]['summary']
+            if plot == '':
+                plot = item['Plot']
             if plot is None or plot == '' or plot == 'N/A':
                 plot = '0'
             plot = client.replaceHTMLCodes(plot)
@@ -612,7 +616,9 @@ class Indexer:
             if not rating == '0':
                 self.list[i].update({'rating': rating})
 
-            plot = item['summary']
+            plot = self.list[i]['summary']
+            if plot == '':
+                plot = item['summary']
             if plot == '' or plot is None:
                 plot = '0'
             plot = re.sub('\n|<.+?>|</.+?>|.+?#\d*:', '', plot)
@@ -1097,77 +1103,80 @@ class Resolver:
         except:
             pass
 
-        messages = ['',
-                    'Bob\'s just nipping to blockbusters won\'t be but a sec',
-                    'Bob fell asleep during this flick',
-                    'Bob\'s movie collection has no limits',
-                    'Searching the Internet for your selection',
-                    'Bob has seen your taste in movies and is very disappointed ',
-                    'Bob thinks he\'s got that DVD laying around here',
-                    'Bob says you\'re a movie geek just like him',
-                    'Bob says get off of twitter and enjoy his addon',
-                    'Bob is a wanted man in 125 countries',
-                    'Bob said your taste in films is top notch',
-                    'When Bob chooses a movie, servers shake in fear',
-                    'They fear Bob. Don\'t listen to haters',
-                    'Bob said he works so hard for YOU, the end user',
-                    'Bob does this cause he loves it, not for greed',
-                    'That\'s not Bobs butt crack, it\'s his remote holder',
-                    'Bob...I Am Your Father!!',
-                    'I\'m going to make Bob an offer he can\'t refuse.',
-                    'Here\'s looking at you, Bob',
-                    'Go ahead, make Bob\'s day.',
-                    'May the Bob be with you',
-                    'You talking to Bob??',
-                    'I love the smell of Bob in the morning',
-                    'Bob, phone home',
-                    'Made it Bob! Top of the World!',
-                    'Bob, James Bob',
-                    'There\'s no place like Bob',
-                    'You had me at "Bob"',
-                    "YOU CAN\'T HANDLE THE BOB",
-                    'Round up all the usual Bobs',
-                    'I\'ll have what Bob\'s having',
-                    'You\'re gonna need a bigger Bob',
-                    'Bob\'ll be back',
-                    'If you build it. Bob will come',
-                    'We\'ll always have Bob',
-                    'Bob, we have a problem',
-                    'Say "hello" to my little Bob',
-                    'Bob, you\'re trying to seduce me. Aren\'t you?',
-                    'Elementary, my dear Bob',
-                    'Get your stinking paws off me, you damned dirty Bob',
-                    'Here\'s Bob!',
-                    'Hasta la vista, Bob.',
-                    'Soylent Green is Bob!',
-                    'Open the pod bay doors, BOB.',
-                    'Yo, Bob!',
-                    'Oh, no, it wasn\'t the airplanes. It was Beauty killed the Bob.',
-                    'A Bob. Shaken, not stirred.',
-                    'Who\'s on Bob.',
-                    'I feel the need - the need for Bob!',
-                    'Nobody puts Bob in a corner.',
-                    'I\'ll get you, my pretty, and your little Bob, too!',
-                    'I\'m Bob of the world!',
-                    'Shan of Bob',
-                    ]
-
-        if control.setting('enable_offensive') == 'true':
-            messages.extend([
-                'Fuck Shit Wank -- Costa',
-                'Frankly my dear, I don\'t give a Bob'
-            ])
-
-        message = control.lang(30731).encode('utf-8') + '\n' + random.choice(messages)
-
-        if control.setting('disable_messages') == 'true':
-            message = control.lang(30731).encode('utf-8')
+        message = control.lang(30731).encode('utf-8')
 
         try:
             preset = re.findall('<preset>(.+?)</preset>', url)[0]
             content = re.findall('<content>(.+?)</content>', url)[0]
 
             if content == "movie" or content == "episode":
+                messages = ['',
+                            'Bob\'s just nipping to blockbusters won\'t be but a sec',
+                            'Bob fell asleep during this flick',
+                            'Bob\'s movie collection has no limits',
+                            'Searching the Internet for your selection',
+                            'Bob has seen your taste in movies and is very disappointed ',
+                            'Bob thinks he\'s got that DVD laying around here',
+                            'Bob says you\'re a movie geek just like him',
+                            'Bob says get off of twitter and enjoy his addon',
+                            'Bob is a wanted man in 125 countries',
+                            'Bob said your taste in films is top notch',
+                            'When Bob chooses a movie, servers shake in fear',
+                            'They fear Bob. Don\'t listen to haters',
+                            'Bob said he works so hard for YOU, the end user',
+                            'Bob does this cause he loves it, not for greed',
+                            'That\'s not Bobs butt crack, it\'s his remote holder',
+                            'Bob...I Am Your Father!!',
+                            'I\'m going to make Bob an offer he can\'t refuse.',
+                            'Here\'s looking at you, Bob',
+                            'Go ahead, make Bob\'s day.',
+                            'May the Bob be with you',
+                            'You talking to Bob??',
+                            'I love the smell of Bob in the morning',
+                            'Bob, phone home',
+                            'Made it Bob! Top of the World!',
+                            'Bob, James Bob',
+                            'There\'s no place like Bob',
+                            'You had me at "Bob"',
+                            "YOU CAN\'T HANDLE THE BOB",
+                            'Round up all the usual Bobs',
+                            'I\'ll have what Bob\'s having',
+                            'You\'re gonna need a bigger Bob',
+                            'Bob\'ll be back',
+                            'If you build it. Bob will come',
+                            'We\'ll always have Bob',
+                            'Bob, we have a problem',
+                            'Say "hello" to my little Bob',
+                            'Bob, you\'re trying to seduce me. Aren\'t you?',
+                            'Elementary, my dear Bob',
+                            'Get your stinking paws off me, you damned dirty Bob',
+                            'Here\'s Bob!',
+                            'Hasta la vista, Bob.',
+                            'Soylent Green is Bob!',
+                            'Open the pod bay doors, BOB.',
+                            'Yo, Bob!',
+                            'Oh, no, it wasn\'t the airplanes. It was Beauty killed the Bob.',
+                            'A Bob. Shaken, not stirred.',
+                            'Who\'s on Bob.',
+                            'I feel the need - the need for Bob!',
+                            'Nobody puts Bob in a corner.',
+                            'I\'ll get you, my pretty, and your little Bob, too!',
+                            'I\'m Bob of the world!',
+                            'Shan of Bob',
+                            ]
+
+                if control.setting('enable_offensive') == 'true':
+                    messages.extend([
+                        'Fuck Shit Wank -- Costa',
+                        'Frankly my dear, I don\'t give a Bob',
+                        'Beast Build Detected, Installing dangerous pyo file'
+                    ])
+
+                message = control.lang(30731).encode('utf-8') + '\n' + random.choice(messages)
+
+                if control.setting('disable_messages') == 'true':
+                    message = control.lang(30731).encode('utf-8')
+
                 try:
 
                     if preset == "search":
@@ -1269,6 +1278,46 @@ class Resolver:
                     except:
                         pass
             elif content == "song":
+                messages = ['',
+                            'Bob was a roddy for led zep',
+                            'I kissed a bob, and i liked it',
+                            'Bob was the one that handed ozzy a real bat',
+                            'Bob is the real reason the Beatles broke up',
+                            'Bob is a Battlefield',
+                            'Great Bobs of Fire',
+                            'Burning Ring of Bob',
+                            'Fly...High...Free Bob yeah!',
+                            'It\'s a long way to the Bob if you wanna Rock and Roll',
+                            'Another Brick in the Bob',
+                            'The Bob\'s so bright, I gotta wear shades.',
+                            'Stairway to Bob',
+                            'Never Gonna Give Bob up',
+                            'Like a Rolling Bob',
+                            'Fade to Bob',
+                            'Viva la Bob',
+                            'Bye, Bye Miss American Bob',
+                            'Bring me to Bob',
+                            'Jailhouse Bob',
+                            'While Bob\'s Guitar Gently Weeps',
+                            'Don\'t Take Your Guns to Bob',
+                            'Welcome to the Bob of Rock and Roll',
+                            '21st Century Schizoid Bob',
+                            'Stray Cat Bob',
+                            'Lust for Bob',
+                            'Bob Gave Me a Taco',
+                            'Dames, Booze, Chains And Bobs',
+                            'Take This Bob And Shove It',
+                            ]
+
+                if control.setting('enable_offensive') == 'true':
+                    messages.extend([
+                        'Fuck Shit Wank -- Costa',
+                    ])
+
+                message = control.lang(30731).encode('utf-8') + '\n' + random.choice(messages)
+
+                if control.setting('disable_messages') == 'true':
+                    message = control.lang(30731).encode('utf-8')
                 try:
                     if control.setting('disable_messages') == 'true':
                         message = control.lang(30731).encode('utf-8')

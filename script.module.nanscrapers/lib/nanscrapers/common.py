@@ -178,3 +178,24 @@ def odnoklassniki(url):
 
     except:
         return
+
+def googletag(url):
+    quality = re.compile('itag=(\d*)').findall(url)
+    quality += re.compile('=m(\d*)$').findall(url)
+    try:
+        quality = quality[0]
+    except:
+        return []
+
+    if quality in ['37', '137', '299', '96', '248', '303', '46']:
+        return [{'quality': '1080', 'url': url}]
+    elif quality in ['22', '84', '136', '298', '120', '95', '247', '302', '45', '102']:
+        return [{'quality': '720', 'url': url}]
+    elif quality in ['35', '44', '135', '244', '94']:
+        return [{'quality': '480', 'url': url}]
+    elif quality in ['18', '34', '43', '82', '100', '101', '134', '243', '93']:
+        return [{'quality': '480', 'url': url}]
+    elif quality in ['5', '6', '36', '83', '133', '242', '92', '132']:
+        return [{'quality': '480', 'url': url}]
+    else:
+        return []

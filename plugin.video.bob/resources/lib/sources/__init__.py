@@ -49,7 +49,7 @@ class sources:
             links_scraper = nanscrapers.scrape_movie(title, year, imdb, timeout=timeout)
         elif content == 'episode':
             tvshowtitle = cleantitle.normalize(tvshowtitle)
-            links_scraper = nanscrapers.scrape_episode(tvshowtitle, premiered, season, episode, imdb, tvdb,
+            links_scraper = nanscrapers.scrape_episode(tvshowtitle, year, premiered, season, episode, imdb, tvdb,
                                                        timeout=timeout)
         else:
             return

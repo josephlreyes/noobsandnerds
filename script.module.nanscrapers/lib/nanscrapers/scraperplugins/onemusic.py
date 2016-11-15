@@ -23,7 +23,7 @@ class Onemusic(Scraper):
         try:
             # print("ONEMUSIC")
             headers = {'User-Agent': random_agent()}
-            query = self.search_link % (urllib.quote_plus(title))
+            query = self.search_link % (urllib.quote_plus(title.replace("'", "")))
             query = urlparse.urljoin(self.base_link, query)
             # print("ONEMUSIC", query)
             artist_name = clean_title(artist)

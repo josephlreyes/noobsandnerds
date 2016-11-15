@@ -47,7 +47,7 @@ class Mfree(Scraper):
             pass
         return []
 
-    def scrape_episode(self, title, year, season, episode, imdb, tvdb):
+    def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb):
         headers = {'User-Agent': random_agent()}
         q = (title.translate(None, '\/:*?"\'<>|!,')).replace(' ', '-').replace('--', '-').lower()
         query = urlparse.urljoin(self.base_link, self.tv_search_link % q)

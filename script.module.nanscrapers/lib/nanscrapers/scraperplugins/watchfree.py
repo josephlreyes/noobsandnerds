@@ -58,7 +58,7 @@ class Watchfree(Scraper):
             pass
         return []
 
-    def scrape_episode(self, title, year, season, episode, imdb, tvdb):
+    def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb):
         try:
             query = urlparse.urljoin(self.base_link,
                                      self.tvsearch_link % urllib.quote_plus(title.replace('\'', '').rsplit(':', 1)[0]))

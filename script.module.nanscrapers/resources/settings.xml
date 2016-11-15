@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-	<category label="Scrapers 1">
+	 <category label = General>		<setting id="cache_enabled" type="bool" label="Enable Caching" default="true"/>	</category>	<category label="Scrapers 1">
 		<setting label="afdah" type="lsep"/>
 		<setting id="afdah_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="animetoon" type="lsep"/>
+		<setting id="animetoon_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="dizigold" type="lsep"/>
 		<setting id="dizigold_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="genvideo" type="lsep"/>
@@ -11,18 +13,30 @@
 		<setting id="M4U_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="moviego" type="lsep"/>
 		<setting id="moviego_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="moviexk" type="lsep"/>
+		<setting id="moviexk_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="onemovies" type="lsep"/>
 		<setting id="onemovies_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="Onemusic" type="lsep"/>
 		<setting id="Onemusic_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="pelispedia" type="lsep"/>
+		<setting id="pelispedia_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="primewire" type="lsep"/>
 		<setting id="primewire_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="pubfilm" type="lsep"/>
 		<setting id="pubfilm_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="sezonlukdizi" type="lsep"/>
 		<setting id="sezonlukdizi_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="watch5s" type="lsep"/>
+		<setting id="watch5s_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="watchcartoon" type="lsep"/>
+		<setting id="watchcartoon_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="watchepisodes" type="lsep"/>
+		<setting id="watchepisodes_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="watchfree" type="lsep"/>
 		<setting id="watchfree_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="watchseries" type="lsep"/>
+		<setting id="watchseries_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="xmovies" type="lsep"/>
 		<setting id="xmovies_enabled" type="bool" label="Enabled" default="true"/>
 	</category>

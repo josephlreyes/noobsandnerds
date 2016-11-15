@@ -32,7 +32,7 @@ class Scraper:
     def scrape_movie(self, title, year, imdb):
         pass
 
-    def scrape_episode(self,title, year, season, episode, imdb, tvdb):
+    def scrape_episode(self,title, show_year, year, season, episode, imdb, tvdb):
         pass
 
     def scrape_music(self, title, artist):

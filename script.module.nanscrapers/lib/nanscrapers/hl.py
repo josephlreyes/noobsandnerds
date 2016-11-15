@@ -3,6 +3,7 @@ import json
 import os
 import re
 from threading import Event
+
 from nanscrapers.common import clean_title
 
 try:
@@ -11,6 +12,7 @@ except:
     from pysqlite2 import dbapi2 as database
 
 import nanscrapers
+import dialogs
 import xbmc
 import xbmcaddon
 import xbmcvfs
@@ -48,75 +50,133 @@ class HostedLink:
         return scrapers
 
     def scrape_movie(self, maximum_age=60):
-        scrape_f = lambda p: self.get_url(p, self.title, self.year, '', '', self.imdb, self.tvdb, "movie",
+        scrape_f = lambda p: self.get_url(p, self.title, '', self.year, '', '', self.imdb, self.tvdb, "movie",
                                           self.cache_location, maximum_age)
         if len(self.__scrapers) > 0:
             pool_size = 10
-            populator = lambda: execute(scrape_f, self.__scrapers, Event(), pool_size, self.timeout)
+            stop_flag = Event()
+            populator = lambda: execute(scrape_f, self.__scrapers, stop_flag, pool_size, self.timeout)
             return populator
         else:
             return False
 
-    def scrape_episode(self, season, episode, maximum_age=60):
-        scrape_f = lambda p: self.get_url(p, self.title, self.year, season, episode, self.imdb, self.tvdb, "episode",
+    def scrape_movie_with_dialog(self, maximum_age=60):
+        scrape_f = lambda p: self.to_dialog_tuple(
+            self.get_url(p, self.title, '', self.year, '', '', self.imdb, self.tvdb, "movie",
+                         self.cache_location, maximum_age))
+        if len(self.__scrapers) > 0:
+            pool_size = 10
+            stop_flag = Event()
+            populator = lambda: execute(scrape_f, self.__scrapers, stop_flag, pool_size, self.timeout)
+            if populator:
+                selected = dialogs.select_ext("Select Link", populator, len(self.__scrapers))
+                stop_flag.set()
+                return selected
+            return False
+
+    def scrape_episode(self, show_year, season, episode, maximum_age=60):
+        scrape_f = lambda p: self.get_url(p, self.title, show_year, self.year, season, episode, self.imdb, self.tvdb,
+                                          "episode",
                                           self.cache_location, maximum_age)
         if len(self.__scrapers) > 0:
             pool_size = 10
-            populator = lambda: execute(scrape_f, self.__scrapers, Event(), pool_size, self.timeout)
+            stop_flag = Event()
+            populator = lambda: execute(scrape_f, self.__scrapers, stop_flag, pool_size, self.timeout)
             return populator
         else:
+            return False
+
+    def scrape_episode_with_dialog(self, show_year, season, episode, maximum_age=60):
+        scrape_f = lambda p: self.to_dialog_tuple(
+            self.get_url(p, self.title, show_year, self.year, season, episode, self.imdb, self.tvdb, "episode",
+                         self.cache_location, maximum_age))
+        if len(self.__scrapers) > 0:
+            pool_size = 10
+            stop_flag = Event()
+            populator = lambda: execute(scrape_f, self.__scrapers, stop_flag, pool_size, self.timeout)
+            if populator:
+                selected = dialogs.select_ext("Select Link", populator, len(self.__scrapers))
+                stop_flag.set()
+                return selected
             return False
 
     def scrape_song(self, title, artist, maximum_age=60):
         scrape_f = lambda p: self.get_muscic_url(p, title, artist, self.cache_location, maximum_age)
         if len(self.__scrapers) > 0:
             pool_size = 10
-            populator = lambda: execute(scrape_f, self.__scrapers, Event(), pool_size, self.timeout)
+            stop_flag = Event()
+            populator = lambda: execute(scrape_f, self.__scrapers, stop_flag, pool_size, self.timeout)
             return populator
         else:
             return False
 
+    def scrape_song_with_dialog(self, title, artist, maximum_age=60):
+        scrape_f = lambda p: self.to_dialog_tuple(
+            self.get_muscic_url(p, title, artist, self.cache_location, maximum_age))
+        if len(self.__scrapers) > 0:
+            pool_size = 10
+            stop_flag = Event()
+            populator = lambda: execute(scrape_f, self.__scrapers, stop_flag, pool_size, self.timeout)
+            if populator:
+                selected = dialogs.select_ext("Select Link", populator, len(self.__scrapers))
+                stop_flag.set()
+                return selected
+            return False
+
     @staticmethod
-    def get_url(scraper, title, year, season, episode, imdb, tvdb, type, cache_location, maximum_age):
+    def get_url(scraper, title, show_year, year, season, episode, imdb, tvdb, type, cache_location, maximum_age):
+        cache_enabled = xbmcaddon.Addon('script.module.nanscrapers').getSetting("cache_enabled") == 'true'
         try:
             dbcon = database.connect(cache_location)
             dbcur = dbcon.cursor()
+            try:
+                dbcur.execute("SELECT * FROM version")
+                match = dbcur.fetchone()
+            except:
+                nanscrapers.clear_cache()
+                dbcur.execute("CREATE TABLE version (""version TEXT)")
+                dbcur.execute("INSERT INTO version Values ('0.5.4')")
+                dbcon.commit()
+
             dbcur.execute(
-                "CREATE TABLE IF NOT EXISTS rel_src (""scraper TEXT, ""title Text, year TEXT, ""season TEXT, ""episode TEXT, ""imdb_id TEXT, ""urls TEXT, ""added TEXT, ""UNIQUE(scraper, title, year, season, episode)"");")
+                "CREATE TABLE IF NOT EXISTS rel_src (""scraper TEXT, ""title Text, show_year TEXT, year TEXT, ""season TEXT, ""episode TEXT, ""imdb_id TEXT, ""urls TEXT, ""added TEXT, ""UNIQUE(scraper, title, year, season, episode)"");")
         except:
             pass
 
-        try:
-            sources = []
-            dbcur.execute(
-                "SELECT * FROM rel_src WHERE scraper = '%s' AND title = '%s' AND year = '%s' AND season = '%s' AND episode = '%s'" % (
-                    scraper.name, clean_title(title).upper(), year, season, episode))
-            match = dbcur.fetchone()
-            t1 = int(re.sub('[^0-9]', '', str(match[7])))
-            t2 = int(datetime.datetime.now().strftime("%Y%m%d%H%M"))
-            update = abs(t2 - t1) > maximum_age
-            if update == False:
-                sources = json.loads(match[6])
-                return sources
-        except:
-            pass
+        if cache_enabled:
+            try:
+                sources = []
+                dbcur.execute(
+                    "SELECT * FROM rel_src WHERE scraper = '%s' AND title = '%s' AND show_year= '%s' AND year = '%s' AND season = '%s' AND episode = '%s'" % (
+                        scraper.name, clean_title(title).upper(), show_year, year, season, episode))
+                match = dbcur.fetchone()
+                t1 = int(re.sub('[^0-9]', '', str(match[8])))
+                t2 = int(datetime.datetime.now().strftime("%Y%m%d%H%M"))
+                update = abs(t2 - t1) > maximum_age
+                if update == False:
+                    sources = json.loads(match[7])
+                    return sources
+            except:
+                pass
 
         try:
             sources = []
             if type == "movie":
                 sources = scraper.scrape_movie(title, year, imdb)
             elif type == "episode":
-                sources = scraper.scrape_episode(title, year, season, episode, imdb, tvdb)
+                sources = scraper.scrape_episode(title, show_year, year, season, episode, imdb, tvdb)
             if sources == None:
                 sources = []
             else:
-                dbcur.execute(
-                    "DELETE FROM rel_src WHERE scraper = '%s' AND title = '%s' AND year = '%s' AND season = '%s' AND episode = '%s'" % (
-                        scraper.name, clean_title(title).upper(), year, season, episode))
-                dbcur.execute("INSERT INTO rel_src Values (?, ?, ?, ?, ?, ?, ?, ?)", (
-                    scraper.name, clean_title(title).upper(), year, season, episode, imdb, json.dumps(sources),
-                    datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
-                dbcon.commit()
+                if cache_enabled:
+                    dbcur.execute(
+                        "DELETE FROM rel_src WHERE scraper = '%s' AND title = '%s' AND show_year= '%s' AND year = '%s' AND season = '%s' AND episode = '%s'" % (
+                            scraper.name, clean_title(title).upper(), show_year, year, season, episode))
+                    dbcur.execute("INSERT INTO rel_src Values (?, ?, ?, ?, ?, ?, ?, ?, ?)", (
+                        scraper.name, clean_title(title).upper(), show_year, year, season, episode, imdb,
+                        json.dumps(sources),
+                        datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
+                    dbcon.commit()
 
             return sources
         except:
@@ -127,6 +187,16 @@ class HostedLink:
         try:
             dbcon = database.connect(cache_location)
             dbcur = dbcon.cursor()
+
+            try:
+                dbcur.execute("SELECT * FROM version")
+                match = dbcur.fetchone()
+            except:
+                nanscrapers.clear_cache()
+                dbcur.execute("CREATE TABLE version (""version TEXT)")
+                dbcur.execute("INSERT INTO version Values ('0.5.4')")
+                dbcon.commit()
+
             dbcur.execute(
                 "CREATE TABLE IF NOT EXISTS rel_music_src (""scraper TEXT, ""title Text, ""artist TEXT, ""urls TEXT, ""added TEXT, ""UNIQUE(scraper, title, artist)"");")
         except:
@@ -136,7 +206,7 @@ class HostedLink:
             sources = []
             dbcur.execute(
                 "SELECT * FROM rel_music_src WHERE scraper = '%s' AND title = '%s' AND artist = '%s'" % (
-                    scraper.name, title.upper(), artist.upper()))
+                    scraper.name, clean_title(title).upper(), artist.upper()))
             match = dbcur.fetchone()
             t1 = int(re.sub('[^0-9]', '', str(match[4])))
             t2 = int(datetime.datetime.now().strftime("%Y%m%d%H%M"))
@@ -154,12 +224,25 @@ class HostedLink:
             else:
                 dbcur.execute(
                     "DELETE FROM rel_music_src WHERE scraper = '%s' AND title = '%s' AND artist = '%s'" % (
-                        scraper.name, title.upper(), artist.upper))
+                        scraper.name, clean_title(title).upper(), artist.upper))
                 dbcur.execute("INSERT INTO rel_music_src Values (?, ?, ?, ?, ?)", (
-                    scraper.name, title.upper(), artist.upper(), json.dumps(sources),
+                    scraper.name, clean_title(title).upper(), artist.upper(), json.dumps(sources),
                     datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
                 dbcon.commit()
 
             return sources
         except:
             pass
+
+    def to_dialog_tuple(self, scraper_array):
+        results_array = []
+        if scraper_array:
+            for link in scraper_array:
+                quality = ""
+                try:
+                    quality = str(int(link['quality'])) + "p"
+                except:
+                    quality = link['quality']
+                label = link["source"] + " - " + link["scraper"] + " (" + quality + ")"
+                results_array.append((label, [link]))
+            return results_array

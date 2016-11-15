@@ -51,7 +51,7 @@ class Primewire(Scraper):
             pass
         return []
 
-    def scrape_episode(self, title, year, season, episode, imdb, tvdb):
+    def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb):
         try:
             html = BeautifulSoup(self.get_html(title, self.tvsearch_link))
             index_items = html.findAll('div', attrs={'class': re.compile('index_item.+?')})

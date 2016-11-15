@@ -29,7 +29,7 @@ class Onemovies(Scraper):
             # print("ONEMOVIES")
             headers = {'User-Agent': random_agent()}
             # print("ONEMOVIES", headers)
-            query = self.search_link % (urllib.quote_plus(title))
+            query = self.search_link % (urllib.quote_plus(title.replace("'", " ")))
             query = urlparse.urljoin(self.base_link, query)
             cleaned_title = clean_title(title)
             # print("ONEMOVIES", query)
@@ -57,7 +57,7 @@ class Onemovies(Scraper):
             pass
         return []
 
-    def scrape_episode(self, title, year, season, episode, imdb, tvdb):
+    def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb):
         try:
             headers = {'User-Agent': random_agent()}
             query = "%s+season+%s" % (urllib.quote_plus(title), season)

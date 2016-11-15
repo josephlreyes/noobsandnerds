@@ -1,3 +1,8 @@
+v 0.5.4
+added scrapers (thanks origin for some of them)
+added with dialog functions
+changed episode scrape function signature
+
 v0.5.3
 fixed error in title handling
 

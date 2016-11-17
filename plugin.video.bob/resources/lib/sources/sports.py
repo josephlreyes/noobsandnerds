@@ -1,5 +1,6 @@
 import time
 
+import requests
 import xbmc
 from BeautifulSoup import BeautifulSoup
 
@@ -129,11 +130,50 @@ def get_acesoplisting():
                   "\t<thumbnail> </thumbnail>\n" \
                   "</item>\n" \
                   "\n" \
-                   "<item>\n" \
-                   "\t<title>Currently No Games Available</title>\n" \
-                   "\t<link></link>\n" \
-                   "\t<thumbnail></thumbnail>\n" \
-                   "</item>\n"
+                  "<item>\n" \
+                  "\t<title>Currently No Games Available</title>\n" \
+                  "\t<link></link>\n" \
+                  "\t<thumbnail></thumbnail>\n" \
+                  "</item>\n"
         return xml
     except:
         pass
+
+
+def get_hockey_recaps():
+    xml = "<fanart>http://www.shauntmax30.com/data/out/29/1189697-100-hdq-nhl-wallpapers.png</fanart>\n\n\n" \
+          "<item>\n" \
+          "\t<title>[COLORpurple]############## [COLORcyan]NHL Condenced Games[COLORpurple] ##############[/COLOR]</title>\n" \
+          "\t<link></link>\n" \
+          "\t<thumbnail></thumbnail>\n" \
+          "</item>\n\n"
+
+    recaps_json = requests.get(
+        "http://search-api.svc.nhl.com/svc/search/v2/nhl_global_en/tag/content/gameRecap?page=1&sort=new&type=video&hl=false&expand=image.cuts.640x360,image.cuts.1136x640").json()
+    for doc in recaps_json['docs']:
+        referer = "{0}?tag=content&tagValue=gameRecap".format(doc['url'])
+        asset_id = doc['asset_id']
+        title = doc['blurb']
+        image = doc['image']['cuts']['640x360']['src']
+        try:
+            url = "http://nhl.bamcontent.com/nhl/id/v1/{0}/details/web-v1.json".format(asset_id)
+            video_json = requests.get(url, headers={'Referer': referer}).json()
+        except:
+            continue
+        max_width = 0
+        selected_url = ""
+        for video_info in video_json['playbacks']:
+            width = video_info['width']
+            height = video_info['height']
+            if width and width != 'null' and height and height != 'null':
+                if width >= max_width:
+                    max_width = width
+                    selected_url = video_info["url"]
+        print selected_url
+        xml += "<item>\n" \
+               "\t<title>{0}</title>\n" \
+               "\t<link>{1}</link>\n" \
+               "\t<thumbnail>{2}</thumbnail>\n" \
+               "</item>\n".format(title, selected_url, image)
+
+    return xml

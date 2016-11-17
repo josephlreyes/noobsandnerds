@@ -16,7 +16,6 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import __builtin__
 import base64
 import hashlib
 import json
@@ -25,8 +24,9 @@ import random
 import re
 import sys
 import urllib
-import urlparse
 
+import __builtin__
+import urlparse
 import xbmc
 
 try:
@@ -183,6 +183,37 @@ class Indexer:
             except:
                 pass
 
+            try:
+                if not "sport_hockeyrecaps" == url:
+                    raise Exception()
+                from resources.lib.sources import sports
+                xml = sports.get_hockey_recaps()
+                return self.getx(xml)
+            except:
+                pass
+
+            try:
+                if not url.startswith("message("):
+                    raise Exception()
+                message = url.replace("message(", "")[:-1]
+                control.dialog.ok("Message", message)
+                return
+            except:
+                pass
+
+            try:
+                if not url.startswith("bobfile://"):
+                    raise Exception()
+                import xbmcvfs
+                file_name = urllib.unquote(url[10:])
+                file = xbmcvfs.File(os.path.join(control.dataPath, file_name))
+                xml = file.read()
+                file.close()
+                return self.getx(xml)
+            except:
+                pass
+
+
             original_url = url
             if result is None:
                 result = cache.get(client.request, 0.1, url)
@@ -200,7 +231,7 @@ class Indexer:
             try:
                 result = str(result)
             except:
-                result= result.encode("utf-8")
+                result = result.encode("utf-8")
 
             result = self.account_filter(result)
 
@@ -340,13 +371,14 @@ class Indexer:
             '<name>[^<]+</name><link>[^<]+</link><thumbnail>[^<]+</thumbnail><date>[^<]+</date>))',
             re.MULTILINE | re.DOTALL).findall(result)
 
-        list = []
+        result_list = []
         for item in items:
             url = self.bob_get_tag_content(item, 'link', '0')
 
             if url is not '0':
-                list.extend(self.bob_list(replace_url(url)))
-        self.list = list
+                result_list.extend(self.bob_list(replace_url(url)))
+            self.list = []
+        self.list = result_list
         self.worker()
         self.add_directory(self.list)
         return self.list
@@ -652,7 +684,6 @@ class Indexer:
                                        'rating': rating, 'plot': plot}})
         except:
             pass
-
 
     def add_directory(self, items, mode=True, parent_url=None):
         if items is None or len(items) == 0:
@@ -1108,6 +1139,11 @@ class Resolver:
         try:
             preset = re.findall('<preset>(.+?)</preset>', url)[0]
             content = re.findall('<content>(.+?)</content>', url)[0]
+            try:
+                exclude_scrapers = re.findall('<exclude_scrapers>(.+?)</exclude_scrapers>', url)[0]
+                exclude_scrapers = exclude_scrapers.split(";")
+            except:
+                exclude_scrapers = []
 
             if content == "movie" or content == "episode":
                 messages = ['',
@@ -1238,8 +1274,8 @@ class Resolver:
 
                     if scraper_title:
                         u = sources().getSources(scraper_title, int(year), imdb, tvdb, season, episode, tvshowtitle,
-                                                 premiered,
-                                                 progress=False, timeout=20, preset=preset, dialog=dialog)
+                                                 premiered, progress=False, timeout=20, preset=preset, dialog=dialog,
+                                                 exclude=exclude_scrapers)
 
                         try:
                             dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)
@@ -1256,7 +1292,8 @@ class Resolver:
                     if scraper_title is None or control.setting('search_alternate') == 'true':
 
                         u = sources().getSources(title, year, imdb, tvdb, season, episode, tvshowtitle, premiered,
-                                                 progress=False, timeout=20, preset=preset, dialog=dialog)
+                                                 progress=False, timeout=20, preset=preset, dialog=dialog,
+                                                 exclude=exclude_scrapers)
 
                         try:
                             dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)
@@ -1343,7 +1380,7 @@ class Resolver:
 
                     if scraper_title:
                         u = sources().getMusicSources(scraper_title, artist, progress=False, timeout=20, preset=preset,
-                                                      dialog=dialog)
+                                                      dialog=dialog, exclude=exclude_scrapers)
 
                         try:
                             dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)
@@ -1359,7 +1396,7 @@ class Resolver:
 
                     if scraper_title is None or control.setting('search_alternate') == 'true':
                         u = sources().getMusicSources(title, artist, progress=False, timeout=20, preset=preset,
-                                                      dialog=dialog)
+                                                      dialog=dialog, exclude=exclude_scrapers)
 
                         try:
                             dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)

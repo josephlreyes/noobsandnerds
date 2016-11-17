@@ -7,35 +7,37 @@ from scraper import Scraper
 from scraperplugins import *
 
 
-def scrape_movie(title, year, imdb, host=None, include_disabled=False, timeout=30):
-    return HostedLink(title, year, imdb, None, host, include_disabled, timeout).scrape_movie()
+def scrape_movie(title, year, imdb, host=None, include_disabled=False, timeout=30, exclude=None):
+    return HostedLink(title, year, imdb, None, host, include_disabled, timeout, exclude).scrape_movie()
 
 
-def scrape_movie_with_dialog(title, year, imdb, host=None, include_disabled=False, timeout=30):
-    return HostedLink(title, year, imdb, None, host, include_disabled, timeout).scrape_movie_with_dialog()
+def scrape_movie_with_dialog(title, year, imdb, host=None, include_disabled=False, timeout=30, exclude=None):
+    return HostedLink(title, year, imdb, None, host, include_disabled, timeout, exclude).scrape_movie_with_dialog()
 
 
-def scrape_episode(title, show_year, year, season, episode, imdb, tvdb, host=None, include_disabled=False, timeout=30):
-    return HostedLink(title, year, imdb, tvdb, host, include_disabled, timeout).scrape_episode(show_year, season,
+def scrape_episode(title, show_year, year, season, episode, imdb, tvdb, host=None, include_disabled=False, timeout=30, exclude=None):
+    return HostedLink(title, year, imdb, tvdb, host, include_disabled, timeout, exclude).scrape_episode(show_year, season,
                                                                                                episode)
 
 
 def scrape_episode_with_dialog(title, show_year, year, season, episode, imdb, tvdb, host=None, include_disabled=False,
-                               timeout=30):
-    return HostedLink(title, year, imdb, tvdb, host, include_disabled, timeout).scrape_episode_with_dialog(show_year,
+                               timeout=30, exclude=None):
+    return HostedLink(title, year, imdb, tvdb, host, include_disabled, timeout, exclude).scrape_episode_with_dialog(show_year,
                                                                                                            season,
                                                                                                            episode)
 
 
-def scrape_song(title, artist, host=None, include_disabled=False, timeout=30):
-    return HostedLink(title, None, None, None, host, include_disabled, timeout).scrape_song(title, artist)
+def scrape_song(title, artist, host=None, include_disabled=False, timeout=30, exclude=None):
+    return HostedLink(title, None, None, None, host, include_disabled, timeout, exclude).scrape_song(title, artist)
 
 
-def scrape_song_with_dialog(title, artist, host=None, include_disabled=False, timeout=30):
-    return HostedLink(title, None, None, None, host, include_disabled, timeout).scrape_song_with_dialog(title, artist)
+def scrape_song_with_dialog(title, artist, host=None, include_disabled=False, timeout=30, exclude=None):
+    return HostedLink(title, None, None, None, host, include_disabled, timeout, exclude).scrape_song_with_dialog(title, artist)
 
 
-def relevant_scrapers(names_list=None, include_disabled=False):
+def relevant_scrapers(names_list=None, include_disabled=False, exclude=None):
+    if exclude is None:
+        exclude = []
     if names_list is None:
         names_list = ["ALL"]
     if type(names_list) is not list:
@@ -52,7 +54,8 @@ def relevant_scrapers(names_list=None, include_disabled=False):
         if include_disabled or scraper._is_enabled():
             if names_list == ["ALL"] or (
                     any(name in scraper.name.lower() for name in names_list)):
-                relevant.append(scraper)
+                if not any(name.lower() == scraper.name.lower() for name in exclude):
+                    relevant.append(scraper)
     return relevant
 
 

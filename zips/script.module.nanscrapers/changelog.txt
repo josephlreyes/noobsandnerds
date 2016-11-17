@@ -1,3 +1,7 @@
+v0.5.5
+updated cartoon scrapers
+added ability to exlude scrapers
+
 v 0.5.4
 added scrapers (thanks origin for some of them)
 added with dialog functions

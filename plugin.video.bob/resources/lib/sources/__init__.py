@@ -38,7 +38,7 @@ except:
 class sources:
     @staticmethod
     def getSources(title, year, imdb, tvdb, season, episode, tvshowtitle, premiered, timeout=30,
-                   progress=True, preset="search", dialog=None):
+                   progress=True, preset="search", dialog=None, exclude = None):
 
         year = str(year)
 
@@ -46,11 +46,11 @@ class sources:
 
         if content == 'movie':
             title = cleantitle.normalize(title)
-            links_scraper = nanscrapers.scrape_movie(title, year, imdb, timeout=timeout)
+            links_scraper = nanscrapers.scrape_movie(title, year, imdb, timeout=timeout, exclude=exclude)
         elif content == 'episode':
             tvshowtitle = cleantitle.normalize(tvshowtitle)
             links_scraper = nanscrapers.scrape_episode(tvshowtitle, year, premiered, season, episode, imdb, tvdb,
-                                                       timeout=timeout)
+                                                       timeout=timeout, exclude=exclude)
         else:
             return
 
@@ -198,9 +198,9 @@ class sources:
                 return url
 
     @staticmethod
-    def getMusicSources(title, artist, timeout=30, progress=True, preset="search", dialog=None):
+    def getMusicSources(title, artist, timeout=30, progress=True, preset="search", dialog=None, exclude= None):
         title = cleantitle.normalize(title)
-        links_scraper = nanscrapers.scrape_song(title, artist, timeout=timeout)
+        links_scraper = nanscrapers.scrape_song(title, artist, timeout=timeout, exclude=exclude)
 
         sd_links = []
         non_direct = []

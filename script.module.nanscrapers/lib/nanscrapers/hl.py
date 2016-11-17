@@ -24,22 +24,22 @@ scraper_cache = {}
 
 
 class HostedLink:
-    def __init__(self, title, year, imdb=None, tvdb=None, host=None, include_disabled=False, timeout=30):
+    def __init__(self, title, year, imdb=None, tvdb=None, host=None, include_disabled=False, timeout=30, exclude=None):
         self.title = title
         self.year = year
         self.imdb = imdb
         self.tvdb = tvdb
         self.host = host
         self.timeout = timeout
-        self.__scrapers = self.__get_scrapers(include_disabled)
+        self.__scrapers = self.__get_scrapers(include_disabled, exclude)
         random.shuffle(self.__scrapers)
         xbmcvfs.mkdir(xbmc.translatePath(xbmcaddon.Addon("script.module.nanscrapers").getAddonInfo('profile')))
         self.cache_location = os.path.join(
             xbmc.translatePath(xbmcaddon.Addon("script.module.nanscrapers").getAddonInfo('profile')).decode('utf-8'),
             'url_cache.db')
 
-    def __get_scrapers(self, include_disabled):
-        klasses = nanscrapers.relevant_scrapers(self.host, include_disabled)
+    def __get_scrapers(self, include_disabled, exclude):
+        klasses = nanscrapers.relevant_scrapers(self.host, include_disabled, exclude=exclude)
         scrapers = []
         for klass in klasses:
             if klass in scraper_cache:
@@ -184,6 +184,7 @@ class HostedLink:
 
     @staticmethod
     def get_muscic_url(scraper, title, artist, cache_location, maximum_age):
+        cache_enabled = xbmcaddon.Addon('script.module.nanscrapers').getSetting("cache_enabled") == 'true'
         try:
             dbcon = database.connect(cache_location)
             dbcur = dbcon.cursor()
@@ -202,33 +203,35 @@ class HostedLink:
         except:
             pass
 
-        try:
-            sources = []
-            dbcur.execute(
-                "SELECT * FROM rel_music_src WHERE scraper = '%s' AND title = '%s' AND artist = '%s'" % (
-                    scraper.name, clean_title(title).upper(), artist.upper()))
-            match = dbcur.fetchone()
-            t1 = int(re.sub('[^0-9]', '', str(match[4])))
-            t2 = int(datetime.datetime.now().strftime("%Y%m%d%H%M"))
-            update = abs(t2 - t1) > maximum_age
-            if update == False:
-                sources = json.loads(match[3])
-                return sources
-        except:
-            pass
+        if cache_enabled:
+            try:
+                sources = []
+                dbcur.execute(
+                    "SELECT * FROM rel_music_src WHERE scraper = '%s' AND title = '%s' AND artist = '%s'" % (
+                        scraper.name, clean_title(title).upper(), artist.upper()))
+                match = dbcur.fetchone()
+                t1 = int(re.sub('[^0-9]', '', str(match[4])))
+                t2 = int(datetime.datetime.now().strftime("%Y%m%d%H%M"))
+                update = abs(t2 - t1) > maximum_age
+                if update == False:
+                    sources = json.loads(match[3])
+                    return sources
+            except:
+                pass
 
         try:
             sources = scraper.scrape_music(title, artist)
             if sources == None:
                 sources = []
             else:
-                dbcur.execute(
-                    "DELETE FROM rel_music_src WHERE scraper = '%s' AND title = '%s' AND artist = '%s'" % (
-                        scraper.name, clean_title(title).upper(), artist.upper))
-                dbcur.execute("INSERT INTO rel_music_src Values (?, ?, ?, ?, ?)", (
-                    scraper.name, clean_title(title).upper(), artist.upper(), json.dumps(sources),
-                    datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
-                dbcon.commit()
+                if cache_enabled:
+                    dbcur.execute(
+                        "DELETE FROM rel_music_src WHERE scraper = '%s' AND title = '%s' AND artist = '%s'" % (
+                            scraper.name, clean_title(title).upper(), artist.upper))
+                    dbcur.execute("INSERT INTO rel_music_src Values (?, ?, ?, ?, ?)", (
+                        scraper.name, clean_title(title).upper(), artist.upper(), json.dumps(sources),
+                        datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
+                    dbcon.commit()
 
             return sources
         except:

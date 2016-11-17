@@ -18,7 +18,7 @@ class Watchcartoons(Scraper):
             html = requests.get(self.base_link_cartoons).text
             match = re.compile('<a href="(.+?)" title=".+?">(.+?)</a>').findall(html)
             for url, name in match:
-                if title.replace(' ', '').replace('amp;', '').replace('\'').lower() == name.replace(' ', '').replace('amp;','').replace('\'','').lower():
+                if title.replace(' ', '').replace('amp;', '').replace('\'','').lower() == name.replace(' ', '').replace('amp;','').replace('\'','').lower():
                     html2 = requests.get(url).text
                     match2 = re.compile(
                         '<li><a href="(.+?)" rel="bookmark" title=".+?" class="sonra">(.+?)</a>').findall(html2)
@@ -45,6 +45,7 @@ class Watchcartoons(Scraper):
                 clean_title = title.replace(' ', '').replace('amp;', '').replace('&#8217;','\'').replace('\'','').lower()
                 clean_name = name.replace('&#8217;','\'').replace(' ', '').replace('amp;','').replace('\'','').lower()
                 if clean_title in clean_name:
+                    new_url = 'https://www.watchcartoononline.io/'+title.replace(' ','-')
                     self.check_for_play(url,title,'',year,'','')
             return self.sources
 

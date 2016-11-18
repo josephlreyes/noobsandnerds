@@ -1,7 +1,6 @@
 import time
 
 import requests
-import xbmc
 from BeautifulSoup import BeautifulSoup
 
 from resources.lib.modules import proxy
@@ -26,19 +25,19 @@ def get_acesoplisting():
           "</item>\n"
 
     try:
-        html = proxy.get2("http://www.acesoplisting.in/", 'class="listing"')
+        html = proxy.get2("http://www.acesoplisting.in/", 'class="table-responsive"')
         scraped_html = BeautifulSoup(html)
-        table = scraped_html.findAll("table", attrs={'class': 'listing'})[-1]
-
+        table = scraped_html.findAll("table", attrs={'class': 'table table-striped table-bordered table-condensed'})[-1]
         rows = table.findAll("tr")
         date = None
         is_today = False
         day_xml = ""
         found_links = False
         for row in rows:
+            headers = row.findAll("th")
             cells = row.findAll("td")
-            if len(cells) < 5:
-                date = cells[0].text.strip()
+            if len(headers) > 0:
+                date = headers[0].text.strip()
                 today_number = time.gmtime().tm_mday
                 if str(today_number) in date:
                     is_today = True
@@ -140,20 +139,32 @@ def get_acesoplisting():
         pass
 
 
-def get_hockey_recaps():
+def get_hockey_recaps(page):
     xml = "<fanart>http://www.shauntmax30.com/data/out/29/1189697-100-hdq-nhl-wallpapers.png</fanart>\n\n\n" \
           "<item>\n" \
-          "\t<title>[COLORpurple]############## [COLORcyan]NHL Condenced Games[COLORpurple] ##############[/COLOR]</title>\n" \
+          "\t<title>[COLORpurple]############## [COLORcyan]NHL Condensed Games[COLORpurple] ##############[/COLOR]</title>\n" \
           "\t<link></link>\n" \
           "\t<thumbnail></thumbnail>\n" \
           "</item>\n\n"
 
     recaps_json = requests.get(
-        "http://search-api.svc.nhl.com/svc/search/v2/nhl_global_en/tag/content/gameRecap?page=1&sort=new&type=video&hl=false&expand=image.cuts.640x360,image.cuts.1136x640").json()
+        "http://search-api.svc.nhl.com/svc/search/v2/nhl_global_en/tag/content/gameRecap?page={0}&sort=new&type=video&hl=false&expand=image.cuts.640x360,image.cuts.1136x640".format(
+            page)).json()
     for doc in recaps_json['docs']:
         referer = "{0}?tag=content&tagValue=gameRecap".format(doc['url'])
         asset_id = doc['asset_id']
-        title = doc['blurb']
+        title = doc['title'].replace('Recap: ', '')
+        game_date = None
+        tags = doc["tags"]
+        for tag in tags:
+            if "type" in tag and tag["type"].lower() == "calendarEventId".lower() and "displayName" in tag:
+                title = tag["displayName"]
+            if "type" in tag and tag["type"].lower() == "gameId".lower() and "displayName" in tag:
+                game_date_tag = tag["displayName"].split("-")
+                if len(game_date_tag) > 1:
+                    game_date = game_date_tag[1]
+        if game_date:
+            title = "{0} ({1})".format(title, game_date)
         image = doc['image']['cuts']['640x360']['src']
         try:
             url = "http://nhl.bamcontent.com/nhl/id/v1/{0}/details/web-v1.json".format(asset_id)
@@ -175,5 +186,11 @@ def get_hockey_recaps():
                "\t<link>{1}</link>\n" \
                "\t<thumbnail>{2}</thumbnail>\n" \
                "</item>\n".format(title, selected_url, image)
+
+    xml += "<dir>\n" \
+           "\t<title>Next Page >></title>\n" \
+           "\t<link>sport_hockeyrecaps{0}</link>\n" \
+           "\t<thumbnail></thumbnail>\n" \
+           "</dir>\n".format(int(page) + 1)
 
     return xml

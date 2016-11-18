@@ -139,7 +139,7 @@ class Indexer:
 
             links = client.request(link)
             links = re.findall('<link>(.+?)</link>', links)
-            links = [i for i in links if str(i).startswith('http')]
+            links = [replace_url(i) for i in links if str(i).startswith('http')]
 
             self.list = []
             threads = []
@@ -153,7 +153,7 @@ class Indexer:
             for i in self.list:
                 try:
                     name = ''
-                    if not i['vip'] in ['Phoenix TV']:
+                    if not i['vip'].lower() in ['BOB'.lower()]:
                         name += '[B]%s[/B] | ' % i['vip'].upper()
                     name += i['name']
                     i.update({'name': name})
@@ -184,10 +184,14 @@ class Indexer:
                 pass
 
             try:
-                if not "sport_hockeyrecaps" == url:
+                if not url.startswith("sport_hockeyrecaps"):
                     raise Exception()
                 from resources.lib.sources import sports
-                xml = sports.get_hockey_recaps()
+                page = url.strip()[18:]
+                if page == "":
+                    page = "1"
+                xbmc.log("page: " + page)
+                xml = sports.get_hockey_recaps(page)
                 return self.getx(xml)
             except:
                 pass

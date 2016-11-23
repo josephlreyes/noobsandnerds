@@ -1,8 +1,12 @@
+v0.5.6
+added sort function to with_dialog functions
+updated proxy-site list
+
 v0.5.5
 updated cartoon scrapers
 added ability to exlude scrapers
 
-v 0.5.4
+v0.5.4
 added scrapers (thanks origin for some of them)
 added with dialog functions
 changed episode scrape function signature

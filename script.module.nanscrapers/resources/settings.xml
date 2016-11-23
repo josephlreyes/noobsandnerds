@@ -15,8 +15,6 @@
 		<setting id="moviego_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="moviexk" type="lsep"/>
 		<setting id="moviexk_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="musicmp3" type="lsep"/>
-		<setting id="musicmp3_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="onemovies" type="lsep"/>
 		<setting id="onemovies_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="Onemusic" type="lsep"/>

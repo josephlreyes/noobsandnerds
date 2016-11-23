@@ -2,6 +2,11 @@ Visit WWW.NOOBSANDNERDS.COM for your all Kodi needs.
 No fighting, no censorship, no agenda.
 We just concentrate on exciting new features.
 
+v 1.3.0
+added my bob
+added watched marks for episodes and movies
+fixed scrapertitle for tvshows
+
 v1.2.8
 - fixed acestream scraper
 - improved hockey recap scraper

@@ -206,7 +206,52 @@ elif action == 'playQueue':
         control.infoDialog("Queue is empty".encode('utf-8'))
 elif action == 'clearQueue':
     from resources.lib.modules import control
-
     xbmc.PlayList(xbmc.PLAYLIST_VIDEO).clear()
     control.infoDialog("Queue cleared".encode('utf-8'))
     xbmc.executebuiltin('Container.Refresh')
+elif action == "addToFavorites":
+    from resources.lib.modules import favs
+    fav_type = params['type']
+    fav_link = params['link']
+    fav_poster = params['poster']
+    fav_fanart = params['fanart']
+    result = favs.add_favorite(name, fav_type, fav_link, fav_poster, fav_fanart)
+elif action == "removeFromFavorites":
+    from resources.lib.modules import favs
+    fav_type = params['type']
+    fav_link = params['link']
+    result = favs.remove_favorite(name, fav_type, fav_link)
+    xbmc.executebuiltin("Container.Refresh")
+elif action == "MoveFavorite":
+    from resources.lib.modules import favs
+    fav_type = params['type']
+    fav_link = params['link']
+    result = favs.move_favorite(name, fav_type, fav_link)
+    xbmc.executebuiltin("Container.Refresh")
+elif action == "getfavorites":
+    xbmc.log("url: " + url)
+    from resources.lib.modules import favs
+    favs.get_favorites_menu(url)
+elif action.startswith("getfavorites_"):
+    type = action.replace("getfavorites_", "")
+    from resources.lib.modules import favs
+    favs.get_favorites(type, url)
+elif action == "markwatched":
+    from resources.lib.modules import metacache
+    from resources.lib.modules import control
+    imdb = params["imdb"]
+    tmdb = params["tmdb"]
+    tvdb = params["tvdb"]
+    season = params["season"]
+    episode = params["episode"]
+    mark_unwatched = params["unwatched"]
+    content = params["content"]
+    if mark_unwatched == "False":
+        mark_unwatched = False
+    else:
+        mark_unwatched = True
+    if content == "episode":
+        metacache.episodes_set_watched(imdb, tmdb, tvdb, season, episode, mark_unwatched)
+    elif content == "movie":
+        metacache.movies_set_watched(imdb, tmdb, tvdb, mark_unwatched)
+    control.refresh()

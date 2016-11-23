@@ -5,10 +5,10 @@ import xbmcaddon
 import xbmcgui
 
 
-def select_ext(title, populator, tasks_count):
+def select_ext(title, populator, tasks_count, sort_function = None):
     addonPath = xbmcaddon.Addon().getAddonInfo('path').decode('utf-8')
     dlg = SelectorDialog("DialogSelect.xml", addonPath, title=title,
-                         populator=populator, steps=tasks_count)
+                         populator=populator, steps=tasks_count, sort_function=sort_function)
 
     with ExtendedDialogHacks():
         dlg.doModal()
@@ -93,6 +93,7 @@ class SelectorDialog(xbmcgui.WindowXMLDialog):
         self.title = kwargs['title']
         self.populator = kwargs['populator']
         self.steps = kwargs['steps']
+        self.sort_function = kwargs['sort_function']
 
         self.items = []
         self.selection = None
@@ -224,6 +225,9 @@ class SelectorDialog(xbmcgui.WindowXMLDialog):
 
                 # Add new item
                 self.items.extend(result)
+                if self.sort_function:
+                    xbmc.log("items: " + repr(self.items))
+                    self.items = sorted(self.items, key = self.sort_function)
                 #self.items.sort()
 
                 # Retrived new selection-index

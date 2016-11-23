@@ -38,7 +38,7 @@ except:
 class sources:
     @staticmethod
     def getSources(title, year, imdb, tvdb, season, episode, tvshowtitle, premiered, timeout=30,
-                   progress=True, preset="search", dialog=None, exclude = None):
+                   progress=True, preset="search", dialog=None, exclude = None, scraper_title=False):
 
         year = str(year)
 
@@ -48,6 +48,8 @@ class sources:
             title = cleantitle.normalize(title)
             links_scraper = nanscrapers.scrape_movie(title, year, imdb, timeout=timeout, exclude=exclude)
         elif content == 'episode':
+            if scraper_title:
+                tvshowtitle = title
             tvshowtitle = cleantitle.normalize(tvshowtitle)
             links_scraper = nanscrapers.scrape_episode(tvshowtitle, year, premiered, season, episode, imdb, tvdb,
                                                        timeout=timeout, exclude=exclude)

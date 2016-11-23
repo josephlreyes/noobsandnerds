@@ -14,11 +14,11 @@ class Animetoon(Scraper):
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb):
         try:
             if season == '1':
-                url = self.base_link + title.replace(' ', '-') + '-episode-' + episode
+                url = self.base_link + title.replace(' ', '-').replace('!', '') + '-episode-' + episode
             elif season == '01':
-                url = self.base_link + title.replace(' ', '-') + '-episode-' + episode                
+                url = self.base_link + title.replace(' ', '-').replace('!', '') + '-episode-' + episode
             else:
-                url = self.base_link + title.replace(' ','-')+'-season-'+season+'-episode-'+episode
+                url = self.base_link + title.replace(' ','-').replace('!', '') +'-season-'+season+'-episode-'+episode
             html=requests.get(url).text
             match = re.compile('"playlist">.+?</span></div><div><iframe src="(.+?)"').findall(html)
             for url2 in match:

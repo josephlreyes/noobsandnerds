@@ -1,7 +1,7 @@
-import xbmc
-import xbmcaddon
 import os
 
+import xbmc
+import xbmcaddon
 from hl import HostedLink
 from scraper import Scraper
 from scraperplugins import *
@@ -11,28 +11,36 @@ def scrape_movie(title, year, imdb, host=None, include_disabled=False, timeout=3
     return HostedLink(title, year, imdb, None, host, include_disabled, timeout, exclude).scrape_movie()
 
 
-def scrape_movie_with_dialog(title, year, imdb, host=None, include_disabled=False, timeout=30, exclude=None):
-    return HostedLink(title, year, imdb, None, host, include_disabled, timeout, exclude).scrape_movie_with_dialog()
+def scrape_movie_with_dialog(title, year, imdb, host=None, include_disabled=False, timeout=30, exclude=None,
+                             sort_function=None):
+    return HostedLink(title, year, imdb, None, host, include_disabled, timeout, exclude).scrape_movie_with_dialog(
+        sort_function=sort_function)
 
 
-def scrape_episode(title, show_year, year, season, episode, imdb, tvdb, host=None, include_disabled=False, timeout=30, exclude=None):
-    return HostedLink(title, year, imdb, tvdb, host, include_disabled, timeout, exclude).scrape_episode(show_year, season,
-                                                                                               episode)
+def scrape_episode(title, show_year, year, season, episode, imdb, tvdb, host=None, include_disabled=False, timeout=30,
+                   exclude=None):
+    return HostedLink(title, year, imdb, tvdb, host, include_disabled, timeout, exclude).scrape_episode(show_year,
+                                                                                                        season,
+                                                                                                        episode)
 
 
 def scrape_episode_with_dialog(title, show_year, year, season, episode, imdb, tvdb, host=None, include_disabled=False,
-                               timeout=30, exclude=None):
-    return HostedLink(title, year, imdb, tvdb, host, include_disabled, timeout, exclude).scrape_episode_with_dialog(show_year,
-                                                                                                           season,
-                                                                                                           episode)
+                               timeout=30, exclude=None, sort_function=None):
+    return HostedLink(title, year, imdb, tvdb, host, include_disabled, timeout, exclude).scrape_episode_with_dialog(
+        show_year,
+        season,
+        episode, sort_function=sort_function)
 
 
 def scrape_song(title, artist, host=None, include_disabled=False, timeout=30, exclude=None):
     return HostedLink(title, None, None, None, host, include_disabled, timeout, exclude).scrape_song(title, artist)
 
 
-def scrape_song_with_dialog(title, artist, host=None, include_disabled=False, timeout=30, exclude=None):
-    return HostedLink(title, None, None, None, host, include_disabled, timeout, exclude).scrape_song_with_dialog(title, artist)
+def scrape_song_with_dialog(title, artist, host=None, include_disabled=False, timeout=30, exclude=None,
+                            sort_function=None):
+    return HostedLink(title, None, None, None, host, include_disabled, timeout, exclude).scrape_song_with_dialog(title,
+                                                                                                                 artist,
+                                                                                                                 sort_function=sort_function)
 
 
 def relevant_scrapers(names_list=None, include_disabled=False, exclude=None):

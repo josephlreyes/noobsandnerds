@@ -16,6 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import __builtin__
 import base64
 import hashlib
 import json
@@ -24,9 +25,8 @@ import random
 import re
 import sys
 import urllib
-
-import __builtin__
 import urlparse
+
 import xbmc
 
 try:
@@ -66,7 +66,33 @@ class Indexer:
             pass
 
     def root(self):
-        self.get(replace_url("http://www.norestrictions.club/main/main.xml"))
+        url = replace_url("http://www.norestrictions.club/main/main.xml")
+        try:
+            self.list = self.bob_list(url)
+            from resources.lib.modules import favs
+            you = "My"
+            try:
+                HOME = xbmc.translatePath('special://home')
+                if xbmc.getInfoLabel('System.ProfileName') != "Master user":
+                    you = xbmc.getInfoLabel('System.ProfileName').title() + "'s"
+                elif xbmc.getCondVisibility('System.Platform.Windows') == True or xbmc.getCondVisibility(
+                        'System.Platform.OSX') == True:
+                    if "Users\\" in HOME:
+                        proyou = str(HOME).split("Users\\")
+                        preyou = str(proyou[1]).split("\\")
+                        you = preyou[0].title() + "'s"
+                    else:
+                        you = "My"
+            except:
+                pass
+            name ='%s Bob' % you
+            self.list.insert(0, {'name': name, 'url': url, 'action': 'getfavorites', 'folder': True,
+                                 'poster': "http://norestrictions.club/norestrictions.club/main/icons/my_bob.jpg"})
+            self.worker()
+            self.add_directory(self.list, parent_url=url)
+            return self.list
+        except:
+            pass
 
     def getx(self, url):
         self.get('', url)
@@ -190,7 +216,6 @@ class Indexer:
                 page = url.strip()[18:]
                 if page == "":
                     page = "1"
-                xbmc.log("page: " + page)
                 xml = sports.get_hockey_recaps(page)
                 return self.getx(xml)
             except:
@@ -216,7 +241,6 @@ class Indexer:
                 return self.getx(xml)
             except:
                 pass
-
 
             original_url = url
             if result is None:
@@ -569,7 +593,7 @@ class Indexer:
                               'item': {'title': title, 'year': year, 'code': imdb, 'imdb': imdb, 'premiered': premiered,
                                        'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes,
                                        'mpaa': mpaa, 'director': director, 'writer': writer, 'cast': cast,
-                                       'plot': plot}})
+                                       'plot': plot, 'playcount': '0'}})
         except:
             pass
 
@@ -680,18 +704,35 @@ class Indexer:
                          'episode': self.list[i]['episode'],
                          'item': {'tvshowtitle': tvshowtitle, 'year': year, 'code': imdb, 'imdb': imdb,
                                   'tvdb': tvdb, 'studio': studio, 'genre': genre, 'duration': duration,
-                                  'rating': rating, 'plot': episode_plot}}])
+                                  'rating': rating, 'plot': episode_plot, 'playcount': '0'}}])
 
             self.meta.append({'imdb': imdb, 'tmdb': '0', 'tvdb': tvdb, 'lang': self.lang,
                               'item': {'tvshowtitle': tvshowtitle, 'year': year, 'code': imdb, 'imdb': imdb,
                                        'tvdb': tvdb, 'studio': studio, 'genre': genre, 'duration': duration,
-                                       'rating': rating, 'plot': plot}})
+                                       'rating': rating, 'plot': plot, 'playcount': '0'}})
         except:
             pass
 
     def add_directory(self, items, mode=True, parent_url=None):
         if items is None or len(items) == 0:
             return
+
+        you = "My"
+        try:
+            HOME = xbmc.translatePath('special://home')
+            if xbmc.getInfoLabel('System.ProfileName') != "Master user":
+                you = xbmc.getInfoLabel('System.ProfileName').title() + "'s"
+            elif xbmc.getCondVisibility('System.Platform.Windows') == True or xbmc.getCondVisibility(
+                    'System.Platform.OSX') == True:
+                if "Users\\" in HOME:
+                    proyou = str(HOME).split("Users\\")
+                    preyou = str(proyou[1]).split("\\")
+                    you = preyou[0].title() + "'s"
+                else:
+                    you = "My"
+        except:
+            pass
+        fave_name = '%s Bob' % you
 
         system_addon = sys.argv[0]
         addon_poster = addon_banner = control.addonInfo('icon')
@@ -706,6 +747,8 @@ class Indexer:
             mode = [i['content'] for i in items if 'content' in i]
         else:
             mode = []
+        for item in mode:
+            item.replace("-favs", "")
         if 'movies' in mode:
             mode = 'movies'
         elif 'tvshows' in mode:
@@ -796,9 +839,16 @@ class Indexer:
                     cm.append(
                         (control.lang(30711).encode('utf-8'),
                          'RunPlugin(%s?action=addView&content=movies)' % system_addon))
+                    cm.append(('Add to %s' % fave_name,
+                               'RunPlugin(%s?action=addToFavorites&name=%s&type=movie&link=%s&poster=%s&fanart=%s)' % (
+                                   system_addon, name, i['url'], poster, fanart)))
                 elif mode == 'tvshows':
                     cm.append((control.lang(30712).encode('utf-8'),
                                'RunPlugin(%s?action=addView&content=tvshows)' % system_addon))
+                    cm.append(
+                        ('Add to %s' % fave_name,
+                         'RunPlugin(%s?action=addToFavorites&name=%s&type=tv show&link=%s&poster=%s&fanart=%s)' % (
+                             system_addon, name, i['url'], poster, fanart)))
                     if parent_url:
                         cm.append(('Queue TV Show',
                                    'RunPlugin(%s?action=queueItem&url=%s)' % (
@@ -851,6 +901,30 @@ class Indexer:
                     cm.append(('Clear Queue',
                                'RunPlugin(%s?action=clearQueue)' % (
                                    system_addon)))
+
+                if "content" in i and 'favs' in i['content']:
+                    fav_type = i["content"].replace("-favs", "")
+                    cm.append(('Remove From %s' % fave_name,
+                               'RunPlugin(%s?action=removeFromFavorites&name=%s&type=%s&link=%s)' % (
+                                   system_addon, name, fav_type, i['url'])))
+                    cm.append(('Move Favorite',
+                               'RunPlugin(%s?action=MoveFavorite&name=%s&type=%s&link=%s)' % (
+                                   system_addon, name, fav_type, i['url'])))
+
+                if content in ["movies", "episodes"]:
+                    imdb = Indexer.bob_get_tag_content(i["url"], 'imdb', '0')
+                    tmdb = Indexer.bob_get_tag_content(i["url"], 'tmdb', '0')
+                    tvdb = Indexer.bob_get_tag_content(i["url"], 'tvdb', '0')
+                    season = Indexer.bob_get_tag_content(i["url"], 'season', '0')
+                    episode = Indexer.bob_get_tag_content(i["url"], 'episode', '0')
+                    if not "playcount" in i or i["playcount"] == '0':
+                        cm.append(('Mark As Watched',
+                                   'RunPlugin(%s?action=markwatched&imdb=%s&tmdb=%s&tvdb=%s&season=%s&episode=%s&unwatched=%s&content=%s)' % (
+                                       system_addon, imdb, tmdb, tvdb, season, episode, True, content[:-1])))
+                    else:
+                        cm.append(('Mark As Unwatched',
+                                   'RunPlugin(%s?action=markwatched&imdb=%s&tmdb=%s&tvdb=%s&season=%s&episode=%s&unwatched=%s&content=%s)' % (
+                                       system_addon, imdb, tmdb, tvdb, season, episode, False, content[:-1])))
 
                 item = control.item(label=name, iconImage=poster, thumbnailImage=poster)
 
@@ -1279,7 +1353,7 @@ class Resolver:
                     if scraper_title:
                         u = sources().getSources(scraper_title, int(year), imdb, tvdb, season, episode, tvshowtitle,
                                                  premiered, progress=False, timeout=20, preset=preset, dialog=dialog,
-                                                 exclude=exclude_scrapers)
+                                                 exclude=exclude_scrapers, scraper_title=True)
 
                         try:
                             dialog.update(50, control.lang(30726).encode('utf-8') + ' ' + name)
@@ -1512,6 +1586,7 @@ class Player(xbmc.Player):
 
     def play(self, url, content=None):
         try:
+            self.original_url = url
             url = Resolver().get(url)
             if url is False:
                 return
@@ -1539,6 +1614,7 @@ class Player(xbmc.Player):
 
             self.name = meta['title']
             self.year = meta['year'] if 'year' in meta else '0'
+            self.meta = meta
 
             self.getbookmark = True if (content == 'movies' or content == 'episodes') else False
 
@@ -1602,6 +1678,18 @@ class Player(xbmc.Player):
 
     def onPlayBackEnded(self):
         self.onPlayBackStopped()
+        self.meta.update({'playcount': '1'})
+        imdb = Indexer.bob_get_tag_content(self.original_url, 'imdb', '0')
+        tmdb = Indexer.bob_get_tag_content(self.original_url, 'tmdb', '0')
+        tvdb = Indexer.bob_get_tag_content(self.original_url, 'tvdb', '0')
+        season = Indexer.bob_get_tag_content(self.original_url, 'season', '0')
+        episode = Indexer.bob_get_tag_content(self.original_url, 'episode', '0')
+        content = Indexer.bob_get_tag_content(self.original_url, 'content', '0')
+        if content == "episode":
+            metacache.episodes_set_watched(imdb, tmdb, tvdb, season, episode)
+        elif content == "movie":
+            metacache.movies_set_watched(imdb, tmdb, tvdb)
+        control.refresh()
 
 
 class Bookmarks:

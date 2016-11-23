@@ -60,7 +60,7 @@ class HostedLink:
         else:
             return False
 
-    def scrape_movie_with_dialog(self, maximum_age=60):
+    def scrape_movie_with_dialog(self, maximum_age=60, sort_function=None):
         scrape_f = lambda p: self.to_dialog_tuple(
             self.get_url(p, self.title, '', self.year, '', '', self.imdb, self.tvdb, "movie",
                          self.cache_location, maximum_age))
@@ -69,7 +69,7 @@ class HostedLink:
             stop_flag = Event()
             populator = lambda: execute(scrape_f, self.__scrapers, stop_flag, pool_size, self.timeout)
             if populator:
-                selected = dialogs.select_ext("Select Link", populator, len(self.__scrapers))
+                selected = dialogs.select_ext("Select Link", populator, len(self.__scrapers), sort_function)
                 stop_flag.set()
                 return selected
             return False
@@ -86,7 +86,7 @@ class HostedLink:
         else:
             return False
 
-    def scrape_episode_with_dialog(self, show_year, season, episode, maximum_age=60):
+    def scrape_episode_with_dialog(self, show_year, season, episode, maximum_age=60, sort_function=None):
         scrape_f = lambda p: self.to_dialog_tuple(
             self.get_url(p, self.title, show_year, self.year, season, episode, self.imdb, self.tvdb, "episode",
                          self.cache_location, maximum_age))
@@ -95,7 +95,7 @@ class HostedLink:
             stop_flag = Event()
             populator = lambda: execute(scrape_f, self.__scrapers, stop_flag, pool_size, self.timeout)
             if populator:
-                selected = dialogs.select_ext("Select Link", populator, len(self.__scrapers))
+                selected = dialogs.select_ext("Select Link", populator, len(self.__scrapers), sort_function)
                 stop_flag.set()
                 return selected
             return False
@@ -110,7 +110,7 @@ class HostedLink:
         else:
             return False
 
-    def scrape_song_with_dialog(self, title, artist, maximum_age=60):
+    def scrape_song_with_dialog(self, title, artist, maximum_age=60, sort_function=None):
         scrape_f = lambda p: self.to_dialog_tuple(
             self.get_muscic_url(p, title, artist, self.cache_location, maximum_age))
         if len(self.__scrapers) > 0:
@@ -118,7 +118,7 @@ class HostedLink:
             stop_flag = Event()
             populator = lambda: execute(scrape_f, self.__scrapers, stop_flag, pool_size, self.timeout)
             if populator:
-                selected = dialogs.select_ext("Select Link", populator, len(self.__scrapers))
+                selected = dialogs.select_ext("Select Link", populator, len(self.__scrapers), sort_function)
                 stop_flag.set()
                 return selected
             return False

@@ -2220,6 +2220,24 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 	</extension>
 </addon>
 
+<addon id="repository.echo" name="[COLOR lime]ECHO[/COLOR] [COLOR white]Repository[/COLOR]" version="0.0.0.1" provider-name="ECHO">
+	<extension point="xbmc.addon.repository" name="ECHO Repository">
+	<dir>
+		<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+		<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+	</dir>
+		<info compressed="false">https://raw.githubusercontent.com/echocoderkodi/repository.echo/master/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/echocoderkodi/repository.echo/master/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/echocoderkodi/repository.echo/master/zips/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Echo Repository</summary>
+		<description>The official Echo repositroy.</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.eldorado" name="Eldorado's XBMC Addons" version="0.0.0.1" provider-name="eldorado">
 	<extension point="xbmc.addon.repository" name="Eldorado's XBMC Addon Repository">
 		<info compressed="false">http://raw.github.com/Eldorados/eldorado-xbmc-addons/master/addons.xml</info>
@@ -7022,6 +7040,19 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	</extension>
 </addon>
 
+<addon id="repository.The_Silencer" name="The_Silencer's KODI Addons" version="0.0.0.1" provider-name="The_Silencer">
+	<extension point="xbmc.addon.repository" name="The_Silencer's KODI Addons">
+		<info compressed="false">https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml</info>
+		<checksum>https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/TheSilencer001/The_Silencer/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install The_Silencer's Addons</summary>
+		<description>Download and install addons from The_Silencer</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.thegizmo" name="[COLOR FF006233]The Gizmo[/COLOR] Repo" version="0.0.0.1" provider-name="Travis Slattery">
 	<extension point="xbmc.addon.repository" name="The Gizmo Repo">
        <info>http://the-gizmo.svn.beanstalkapp.com/the-gizmo/trunk/addons.xml</info>
@@ -7168,19 +7199,6 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<description>Download and install [COLOR red]XXX Adult[/COLOR] addons from TheYid.... All 720p/1080p adult movies  [COLOR red][B][I]Real-Debrid or Alldebird PREMIUM NEEDED FOR ALL ADDONS[/B][/I][/COLOR]...For OFFICIAL Support Visit XBMCHUB.COM</description>
 		<platform>all</platform>
 		<broken>This repository is now dead, the developer has pulled the code from bitbucket</broken>
-	</extension>
-</addon>
-
-<addon id="repository.The_Silencer" name="The_Silencer's KODI Addons" version="0.0.0.1" provider-name="The_Silencer">
-	<extension point="xbmc.addon.repository" name="The_Silencer's KODI Addons">
-		<info compressed="false">https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml</info>
-		<checksum>https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/TheSilencer001/The_Silencer/master/zips</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Install The_Silencer's Addons</summary>
-		<description>Download and install addons from The_Silencer</description>
-		<platform>all</platform>
 	</extension>
 </addon>
 
@@ -8476,6 +8494,24 @@ Addons Included
 		<platform>all</platform>
                 <forum>http://www.adultxbmc.com</forum>
                 <website>http://www.adultxbmc.com</website>
+	</extension>
+</addon>
+
+<addon id="repository.xxxecho" name="XXX ECHO Repository" version="0.0.0.1" provider-name="ECHO">
+	<extension point="xbmc.addon.repository" name="XXX ECHO Repository">
+	<dir>
+		<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+		<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+	</dir>
+		<info compressed="false">https://raw.githubusercontent.com/echocoderkodi/repository.xxxecho/master/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/echocoderkodi/repository.xxxecho/master/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/echocoderkodi/repository.xxxecho/master/zips/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>XXX Echo Repository</summary>
+		<description>The official XXX Echo repositroy.</description>
+		<platform>all</platform>
 	</extension>
 </addon>
 

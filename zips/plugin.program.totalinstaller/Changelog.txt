@@ -1,3 +1,17 @@
+Visit noobsandnerds.com for all your Kodi needs
+
+v.3.2.4:
+- Addon install method now has Krypton compatibility
+- Removed the REGISTER menu item.
+- Fixed the issue with recommended addon install getting stuck if repo not already installed.
+- Fixed the issue with re-installing addons, now wipes correctly and reinstalls
+- Fixed the BUILD backup option where it was failing.
+- The ADDON backup addon install method now needs to be enabled in settings if you want it. READ NOTES BELOW!!!
+
+--- WARNING: The ADDON backup install method can potentially install bad modules not designed for your version of Kodi and it can also fail to install certain dependencies which are required for the addon(s) to run correctly. You should only enable this option if you're an advanced user and understand the risks - using this method could cause BIG problems with your install you've been warned!
+
+
+
 v.3.2.0:
 - Redirected tutorials to nantuts addon
 - Fixed build backup option

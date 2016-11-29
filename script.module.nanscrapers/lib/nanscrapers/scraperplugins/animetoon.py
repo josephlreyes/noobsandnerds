@@ -48,7 +48,7 @@ class Animetoon(Scraper):
             html3 = requests.get(url).text
             match3 = re.compile('"playlist">.+?</span></div><div><iframe src="(.+?)"').findall(html3)
             for url2 in match3:
-                get_sources(url2)
+                self.get_sources(url2)
             block = re.compile('<span class="playlist">(.+?)"Report Video">',re.DOTALL).findall(html3)
             for item in block:
                 Next = re.compile('<iframe src="(.+?)"').findall(str(item))

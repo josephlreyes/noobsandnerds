@@ -82,7 +82,8 @@ class Moviexk(Scraper):
                             print("MOVIEXK r6", ep_url, ep_title)
                             clean_ep_title = clean_title(ep_title)
                             if "s%02de%02d" % (season_id, ep_id) in clean_ep_title or "s%02d%02d" % (
-                                    season_id, ep_id) in clean_ep_title:
+                                    season_id, ep_id) in clean_ep_title or "s%02d%d" % (
+                                    season_id, ep_id) in clean_ep_title or "epse%d%d" % (season_id, ep_id) in clean_ep_title :
                                 return self.sources(replaceHTMLCodes(ep_url))
         except:
             pass

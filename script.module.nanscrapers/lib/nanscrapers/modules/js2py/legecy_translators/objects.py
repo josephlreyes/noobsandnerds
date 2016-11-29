@@ -73,7 +73,7 @@ def is_object(n, last):
 def is_array(last):
     #it can be prop getter
     last = last.strip()
-    if any(endswith_keyword(last, e) for e in {'return', 'new', 'void', 'throw', 'typeof', 'in',  'instanceof'}):
+    if any(endswith_keyword(last, e) for e in ['return', 'new', 'void', 'throw', 'typeof', 'in',  'instanceof']):
         return True
     markers = {')', ']'}
     return not last or  not (last[-1] in markers or last[-1] in IDENTIFIER_PART)

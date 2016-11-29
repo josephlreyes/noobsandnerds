@@ -202,7 +202,7 @@ def is_generic_descriptor(desc):
 ##############################################################################
 
 class PyJs(object):
-    PRIMITIVES =  {'String', 'Number', 'Boolean', 'Undefined', 'Null'}
+    PRIMITIVES =  ['String', 'Number', 'Boolean', 'Undefined', 'Null']
     TYPE = 'Object'
     Class = None
     extensible = True
@@ -530,7 +530,7 @@ class PyJs(object):
 
     def cok(self):
         """Check object coercible"""
-        if self.Class in {'Undefined', 'Null'}:
+        if self.Class in ['Undefined', 'Null']:
             raise MakeError('TypeError', 'undefined or null can\'t be converted to object')
 
     def to_int(self):
@@ -1092,7 +1092,7 @@ class JsObjectWrapper(object):
     def __repr__(self):
         if self._obj.is_primitive() or self._obj.is_callable():
             return repr(self._obj)
-        elif self._obj.Class in {'Array', 'Arguments'}:
+        elif self._obj.Class in ['Array', 'Arguments']:
             return repr(self.to_list())
         return repr(self.to_dict())
 
@@ -1824,7 +1824,7 @@ def string_constructor():
 String.create = string_constructor
 
 # RegExp
-REG_EXP_FLAGS = {'g', 'i', 'm'}
+REG_EXP_FLAGS = ['g', 'i', 'm']
 @Js
 def RegExp(pattern, flags):
     if pattern.Class=='RegExp':

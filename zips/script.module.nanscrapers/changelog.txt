@@ -1,3 +1,10 @@
+v0.5.7
+- fixed scrapers
+- added cloudflare module
+- added more scrapers (thanks origin)
+- fixed other small bugs
+
+
 v0.5.6
 added sort function to with_dialog functions
 updated proxy-site list

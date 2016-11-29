@@ -226,7 +226,6 @@ class SelectorDialog(xbmcgui.WindowXMLDialog):
                 # Add new item
                 self.items.extend(result)
                 if self.sort_function:
-                    xbmc.log("items: " + repr(self.items))
                     self.items = sorted(self.items, key = self.sort_function)
                 #self.items.sort()
 

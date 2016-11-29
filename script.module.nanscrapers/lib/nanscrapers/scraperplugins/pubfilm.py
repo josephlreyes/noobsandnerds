@@ -2,12 +2,11 @@ import StringIO
 import gzip
 import re
 import urlparse
-
-import requests
 from BeautifulSoup import BeautifulSoup
 from nanscrapers.common import random_agent, replaceHTMLCodes
 from nanscrapers.scraper import Scraper
-
+import xbmc
+from nanscrapers.modules import cfscrape
 
 class Pubfilm(Scraper):
     domains = ['pubfilmno1.com', 'pubfilm.com', 'pidtv.com']
@@ -18,6 +17,7 @@ class Pubfilm(Scraper):
         self.moviesearch_hd_link = '/%s-%s-full-hd-pubfilm-free.html'
         self.moviesearch_sd_link = '/%s-%s-pubfilm-free.html'
         self.tvsearch_link = '/wp-admin/admin-ajax.php'
+        self.scraper = cfscrape.create_scraper()
 
     def scrape_movie(self, title, year, imdb):
         try:
@@ -26,18 +26,19 @@ class Pubfilm(Scraper):
             search_url = urlparse.urljoin(self.base_link, self.moviesearch_hd_link % (title, year))
             html = None
             try:
-                html = BeautifulSoup(requests.get(search_url, headers=headers, timeout=30).content)
+                prehtml = self.scraper.get(search_url, headers=headers, timeout=30)
+                if html.status_code != 404:
+                    html = BeautifulSoup(prehtml.content)
             except:
                 pass
 
             if html == None:
                 search_url = urlparse.urljoin(self.base_link, self.moviesearch_sd_link % (title, year))
 
-                html = BeautifulSoup(requests.get(search_url, headers=headers, timeout=30).content)
+                html = BeautifulSoup(self.scraper.get(search_url, headers=headers, timeout=30).content)
 
             if html == None:
                 raise Exception()
-
             return self.sources(search_url)
         except:
             pass
@@ -55,7 +56,7 @@ class Pubfilm(Scraper):
                         'asid': '4', 'asp_inst_id': '4_1'}
 
                 url = urlparse.urljoin(self.base_link, self.tvsearch_link)
-                html = BeautifulSoup(requests.post(url, data=post, headers=headers, timeout=30).content)
+                html = BeautifulSoup(self.scraper.post(url, data=post, headers=headers, timeout=30).content)
                 links = html.findAll('a', attrs={'class': 'asp_res_url'})
                 show_url = None
                 for link in links:
@@ -90,7 +91,7 @@ class Pubfilm(Scraper):
                 pass
 
             headers = {'User-Agent': random_agent()}
-            html = requests.get(url, headers=headers, timeout=30).content
+            html = self.scraper.get(url, headers=headers, timeout=30).content
 
             try:
                 compressedstream = StringIO.StringIO(html)
@@ -102,6 +103,8 @@ class Pubfilm(Scraper):
             links = html.findAll('a', attrs={'target': 'EZWebPlayer'})
             for link in links:
                 href = replaceHTMLCodes(link['href'])
+                if not "get.php" in href:
+                    continue
 
                 if video_type == 'episode':
                     link_episode_number = re.compile('(\d+)').findall(link.string)
@@ -112,8 +115,7 @@ class Pubfilm(Scraper):
 
                 referer = url
                 headers = {'User-Agent': random_agent(), 'Referer': referer}
-                html = requests.get(href, headers=headers, timeout=30).content
-
+                html = self.scraper.get(href, headers=headers, timeout=30).content
                 source = re.findall('sources\s*:\s*\[(.+?)\]', html)[0]
                 files = re.findall('"file"\s*:\s*"(.+?)".+?"label"\s*:\s*"(.+?)"', source)
                 if files:

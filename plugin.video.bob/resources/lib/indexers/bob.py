@@ -28,6 +28,7 @@ import urllib
 import urlparse
 
 import xbmc
+import xbmcplugin
 
 try:
     from sqlite3 import dbapi2 as database
@@ -74,15 +75,20 @@ class Indexer:
             try:
                 HOME = xbmc.translatePath('special://home')
                 if xbmc.getInfoLabel('System.ProfileName') != "Master user":
-                    you = xbmc.getInfoLabel('System.ProfileName').title() + "'s"
+                    you = xbmc.getInfoLabel('System.ProfileName')
                 elif xbmc.getCondVisibility('System.Platform.Windows') == True or xbmc.getCondVisibility(
                         'System.Platform.OSX') == True:
                     if "Users\\" in HOME:
                         proyou = str(HOME).split("Users\\")
                         preyou = str(proyou[1]).split("\\")
-                        you = preyou[0].title() + "'s"
+                        you = preyou[0]
                     else:
                         you = "My"
+                if "[COLOR" in you:
+                    name = re.findall("\[COLOR=.+?\](.+?)\[/COLOR\]", you)[0]
+                    you = re.sub("(\[COLOR=.+?\])(.+?)(\[/COLOR\])", '\\1{0}\\3'.format(name.capitalize() + "'s"), you)
+                elif you != "My":
+                    you = you.capitalize() + "'s"
             except:
                 pass
             name ='%s Bob' % you
@@ -721,15 +727,20 @@ class Indexer:
         try:
             HOME = xbmc.translatePath('special://home')
             if xbmc.getInfoLabel('System.ProfileName') != "Master user":
-                you = xbmc.getInfoLabel('System.ProfileName').title() + "'s"
+                you = xbmc.getInfoLabel('System.ProfileName')
             elif xbmc.getCondVisibility('System.Platform.Windows') == True or xbmc.getCondVisibility(
                     'System.Platform.OSX') == True:
                 if "Users\\" in HOME:
                     proyou = str(HOME).split("Users\\")
                     preyou = str(proyou[1]).split("\\")
-                    you = preyou[0].title() + "'s"
+                    you = preyou[0]
                 else:
                     you = "My"
+            if "[COLOR" in you:
+                name = re.findall("\[COLOR=.+?\](.+?)\[/COLOR\]", you)[0]
+                you = re.sub("(\[COLOR=.+?\])(.+?)(\[/COLOR\])", '\\1{0}\\3'.format(name.capitalize() + "'s"), you)
+            elif you != "My":
+                you = you.capitalize() + "'s"
         except:
             pass
         fave_name = '%s Bob' % you
@@ -861,20 +872,17 @@ class Indexer:
                                    'RunPlugin(%s?action=queueItem&url=%s)' % (
                                        system_addon, urllib.quote_plus(i['url']))))
                 elif mode == 'albums':
-                    if parent_url:
-                        cm.append(('Queue Album',
-                                   'RunPlugin(%s?action=queueItem&url=%s)' % (
-                                       system_addon, urllib.quote_plus(i['url']))))
+                    cm.append(('Queue Album',
+                               'RunPlugin(%s?action=queueItem&url=%s)' % (
+                                   system_addon, urllib.quote_plus(i['url']))))
                 elif mode == 'artists':
-                    if parent_url:
-                        cm.append(('Queue Artist',
-                                   'RunPlugin(%s?action=queueItem&url=%s)' % (
-                                       system_addon, urllib.quote_plus(i['url']))))
+                    cm.append(('Queue Artist',
+                               'RunPlugin(%s?action=queueItem&url=%s)' % (
+                                   system_addon, urllib.quote_plus(i['url']))))
                 elif mode == 'boxsets':
-                    if parent_url:
-                        cm.append(('Queue Boxset',
-                                   'RunPlugin(%s?action=queueItem&url=%s)' % (
-                                       system_addon, urllib.quote_plus(i['url']))))
+                    cm.append(('Queue Boxset',
+                               'RunPlugin(%s?action=queueItem&url=%s)' % (
+                                   system_addon, urllib.quote_plus(i['url']))))
                 elif mode == 'episodes':
                     cm.append((control.lang(30714).encode('utf-8'),
                                'RunPlugin(%s?action=addView&content=episodes)' % system_addon))
@@ -957,6 +965,13 @@ class Indexer:
 
         if mode is not None:
             control.content(int(sys.argv[1]), mode)
+        control.addSort(int(sys.argv[1]), xbmcplugin.SORT_METHOD_UNSORTED)
+        control.addSort(int(sys.argv[1]), xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
+        control.addSort(int(sys.argv[1]), xbmcplugin.SORT_METHOD_VIDEO_YEAR)
+        control.addSort(int(sys.argv[1]), xbmcplugin.SORT_METHOD_GENRE)
+        if mode == "movies":
+            control.addSort(int(sys.argv[1]), xbmcplugin.SORT_METHOD_MPAA_RATING)
+
         control.directory(int(sys.argv[1]), cacheToDisc=True)
         if mode is not None:
             views.setView(mode)
@@ -1153,7 +1168,7 @@ class Resolver:
             pass
 
     @staticmethod
-    def process(url, direct=True, name=''):
+    def process(url, direct=True, name='', hide_progress = False):
         from resources.lib.sources import sources
         try:
             if not any(i in url for i in ['.jpg', '.png', '.gif']):
@@ -1277,6 +1292,7 @@ class Resolver:
                             'I\'ll get you, my pretty, and your little Bob, too!',
                             'I\'m Bob of the world!',
                             'Shan of Bob',
+                            'Bøb, Bøb, Bøb, Bøb, Bøb, Bøb, Bøb, Bøb, Bøb, Bøb, Bøb, Bøb, Bøb, Bøb, Bøb, Bøb, Bøb'
                             ]
 
                 if control.setting('enable_offensive') == 'true':
@@ -1336,11 +1352,11 @@ class Resolver:
                     #
                     # if preset == 'searchsd':
                     #     preset_dictionary = ['primewire', 'watchfree', 'movie4k', 'movie25', 'watchseries', 'pftv']
-
                     dialog = None
-                    dialog = control.progressDialog
-                    dialog.create(control.addonInfo('name'), control.lang(30726).encode('utf-8'))
-                    dialog.update(0)
+                    if not hide_progress:
+                        dialog = control.progressDialog
+                        dialog.create(control.addonInfo('name'), control.lang(30726).encode('utf-8'))
+                        dialog.update(0)
 
                     try:
                         dialog.update(0, control.lang(30726).encode('utf-8') + ' ' + name, message)
@@ -1380,12 +1396,16 @@ class Resolver:
 
                         if u is not None:
                             try:
-                                dialog.close()
+                                if dialog:
+                                    dialog.close()
                                 return u
                             except:
                                 pass
-                    if dialog.iscanceled():
-                        dialog.close()
+                    try:
+                        if dialog.iscanceled():
+                            dialog.close()
+                    except:
+                        pass
 
                 except:
                     try:
@@ -1447,9 +1467,10 @@ class Resolver:
 
                     direct = False
                     dialog = None
-                    dialog = control.progressDialog
-                    dialog.create(control.addonInfo('name'), control.lang(30726).encode('utf-8'))
-                    dialog.update(0)
+                    if not hide_progress:
+                        dialog = control.progressDialog
+                        dialog.create(control.addonInfo('name'), control.lang(30726).encode('utf-8'))
+                        dialog.update(0)
 
                     try:
                         dialog.update(0, control.lang(30726).encode('utf-8') + ' ' + name, message)
@@ -1495,9 +1516,10 @@ class Resolver:
 
         try:
             dialog = None
-            dialog = control.progressDialog
-            dialog.create(control.addonInfo('name'), message)
-            dialog.update(0)
+            if not hide_progress:
+                dialog = control.progressDialog
+                dialog.create(control.addonInfo('name'), message)
+                dialog.update(0)
 
             try:
                 dialog.update(0, control.lang(30726).encode('utf-8') + ' ' + name)

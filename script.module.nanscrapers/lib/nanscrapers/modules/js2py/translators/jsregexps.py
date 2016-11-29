@@ -1,14 +1,14 @@
 from pyjsparserdata import *
 
-REGEXP_SPECIAL_SINGLE = {'\\', '^', '$', '*', '+', '?', '.'}
+REGEXP_SPECIAL_SINGLE = ['\\', '^', '$', '*', '+', '?', '.']
 
-NOT_PATTERN_CHARS = {'^', '$', '\\', '.', '*', '+', '?', '(', ')', '[', ']',  '|'}  # what about '{', '}',  ???
+NOT_PATTERN_CHARS = ['^', '$', '\\', '.', '*', '+', '?', '(', ')', '[', ']',  '|']  # what about '{', '}',  ???
 
-CHAR_CLASS_ESCAPE = {'d', 'D', 's', 'S', 'w', 'W'}
-CONTROL_ESCAPE_CHARS = {'f', 'n', 'r', 't', 'v'}
-CONTROL_LETTERS = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+CHAR_CLASS_ESCAPE = ['d', 'D', 's', 'S', 'w', 'W']
+CONTROL_ESCAPE_CHARS = ['f', 'n', 'r', 't', 'v']
+CONTROL_LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
                    'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
-                   'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'}
+                   'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 def SpecialChar(char):
     return {'type': 'SpecialChar',

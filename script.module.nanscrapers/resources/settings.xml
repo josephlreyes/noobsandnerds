@@ -5,10 +5,16 @@
 		<setting id="afdah_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="animetoon" type="lsep"/>
 		<setting id="animetoon_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="cyberreel" type="lsep"/>
+		<setting id="cyberreel_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="dizi720p" type="lsep"/>
+		<setting id="dizi720p_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="dizigold" type="lsep"/>
 		<setting id="dizigold_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="genvideo" type="lsep"/>
 		<setting id="genvideo_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="hddizi" type="lsep"/>
+		<setting id="hddizi_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="M4U" type="lsep"/>
 		<setting id="M4U_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="moviego" type="lsep"/>
@@ -35,9 +41,13 @@
 		<setting id="watchepisodes_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="watchfree" type="lsep"/>
 		<setting id="watchfree_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="watchitvideos" type="lsep"/>
+		<setting id="watchitvideos_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="watchseries" type="lsep"/>
 		<setting id="watchseries_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="xmovies" type="lsep"/>
 		<setting id="xmovies_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="yabanci" type="lsep"/>
+		<setting id="yabanci_enabled" type="bool" label="Enabled" default="true"/>
 	</category>
 </settings>

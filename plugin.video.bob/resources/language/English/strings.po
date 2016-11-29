@@ -170,12 +170,24 @@ msgctxt "#30737"
 msgid "Allow thevideo.me links"
 msgstr ""
 
+msgctxt "#30738"
+msgid "Allow vk.com links"
+msgstr ""
+
 msgctxt "#30739"
 msgid "Try searching for alternate spelling if present (slower)"
 msgstr ""
 
 msgctxt "#30740"
 msgid "Third Party"
+msgstr ""
+
+msgctxt "#30741"
+msgid "Resolver Settings"
+msgstr ""
+
+msgctxt "#30742"
+msgid "Open Resolver Settings"
 msgstr ""
 
 msgctxt "#30751"

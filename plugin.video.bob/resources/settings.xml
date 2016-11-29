@@ -10,12 +10,18 @@
 		<setting label="30733"	type="lsep" />
 <!-- scraper settings -->
 		<setting label="30734"	type="action"	option="close"	action="RunPlugin(plugin://plugin.video.bob/?action=ScraperSettings)" />
+		<setting label="30741"	type="lsep" />
+		<setting label="30742"	type="action"	option="close"	action="RunPlugin(plugin://plugin.video.bob/?action=ResolverSettings)" />
+<!-- filtering settings -->
 		<setting label="30735"	type="lsep" />
-		<setting id="allow_openload"		label="30736"	type="bool"		default="false" />
-		<setting id="allow_the_video_me"	label="30737"	type="bool"		default="false" />
+		<setting id="allow_openload"		label="30736"			type="bool"		default="false" />
+		<setting id="allow_the_video_me"	label="30737"			type="bool"		default="false" />
 		<setting label="30760"	type="lsep" />
         <setting id="disable_messages"       label="30767"   type="bool"     default="false" />
 		<setting id="enable_offensive"		label="30761"	type="bool"		default="false" enable="eq(-1,false)" />
+		<setting label="queueing Options"	type="lsep" />
+		<setting id="include_watched_queue"       label="Include Watched In Collection Queueing"   type="bool"     default="false" />
+		<setting id="background_list_queue"       label="Enable Background Queueing For Collection Types (Experimental)"   type="bool"     default="true" />
 	</category>
 
 <!-- Third party install options -->

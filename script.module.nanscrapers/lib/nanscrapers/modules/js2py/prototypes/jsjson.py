@@ -43,7 +43,7 @@ def stringify(value, replacer, space):
                 elif v._type()=='String':
                     item = v
                 elif v.is_object():
-                    if v.Class in {'String', 'Number'}:
+                    if v.Class in ['String', 'Number']:
                         item = v.to_string()
                 if not item.is_undefined() and item.value not in property_list:
                     property_list.append(item.value)

@@ -7,7 +7,7 @@ from BeautifulSoup import BeautifulSoup
 from nanscrapers import proxy
 from nanscrapers.common import clean_title, replaceHTMLCodes
 from nanscrapers.scraper import Scraper
-
+import xbmc
 
 class Primewire(Scraper):
     domains = ['primewire.ag']
@@ -23,8 +23,9 @@ class Primewire(Scraper):
         try:
             html = BeautifulSoup(self.get_html(title, self.moviesearch_link))
             index_items = html.findAll('div', attrs={'class': 'index_item index_item_ie'})
-            title = 'watch' + clean_title(title)
+            title = 'watch' + clean_title(title).replace(": ", "").replace("'", "")
             years = ['(%s)' % str(year), '(%s)' % str(int(year) + 1), '(%s)' % str(int(year) - 1)]
+            fallback = None
 
             for index_item in index_items:
                 try:
@@ -33,7 +34,7 @@ class Primewire(Scraper):
                         href = link['href']
                         link_title = link['title']
 
-                        if any(x in link_title for x in years):
+                        if any(x in link_title for x in years) or not "(" in link_title:
                             try:
                                 href = urlparse.parse_qs(urlparse.urlparse(href).query)['u'][0]
                             except:
@@ -42,11 +43,16 @@ class Primewire(Scraper):
                                 href = urlparse.parse_qs(urlparse.urlparse(href).query)['q'][0]
                             except:
                                 pass
+                            if title.lower() == clean_title(link_title):
+                                if '(%s)' % str(year) in link_title:
+                                    return self.sources(href)
+                                else:
+                                    fallback = href
 
-                            if title.lower() == clean_title(link_title) and '(%s)' % str(year) in link_title:
-                                return self.sources(href)
                 except:
                     continue
+            if fallback:
+                return self.sources(fallback)
         except:
             pass
         return []
@@ -55,7 +61,7 @@ class Primewire(Scraper):
         try:
             html = BeautifulSoup(self.get_html(title, self.tvsearch_link))
             index_items = html.findAll('div', attrs={'class': re.compile('index_item.+?')})
-            title = 'watch' + clean_title(title)
+            title = 'watch' + clean_title(title).replace(": ", "")
 
             for index_item in index_items:
                 try:

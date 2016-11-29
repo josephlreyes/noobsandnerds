@@ -44,6 +44,8 @@ directory = xbmcplugin.endOfDirectory
 
 content = xbmcplugin.setContent
 
+addSort = xbmcplugin.addSortMethod
+
 property = xbmcplugin.setProperty
 
 addonInfo = xbmcaddon.Addon().getAddonInfo

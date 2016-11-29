@@ -22,7 +22,7 @@ from .pyjsparserdata import *
 from .std_nodes import *
 from pprint import pprint
 
-REGEXP_SPECIAL_SINGLE = {'\\', '^', '$', '*', '+', '?', '.', '[', ']', '(', ')', '{', '{', '|', '-'}
+REGEXP_SPECIAL_SINGLE = ['\\', '^', '$', '*', '+', '?', '.', '[', ']', '(', ')', '{', '{', '|', '-']
 
 
 import six
@@ -298,7 +298,7 @@ class PyJsParser:
         elif st == '}':
             self.index += 1
             self.state['curlyStack'].pop()
-        elif st in  {'.', '(', ')', ';', ',', '[', ']', ':', '?', '~'}:
+        elif st in  ['.', '(', ')', ';', ',', '[', ']', ':', '?', '~']:
             self.index += 1
         else:
             # 4-character punctuator.
@@ -308,17 +308,17 @@ class PyJsParser:
             else:
                 # 3-character punctuators.
                 st = st[0:3]
-                if st in {'===', '!==', '>>>', '<<=', '>>='}:
+                if st in ['===', '!==', '>>>', '<<=', '>>=']:
                     self.index += 3
                 else:
                     # 2-character punctuators.
                     st = st[0:2]
-                    if st in {'&&','||','==','!=','+=','-=','*=' ,'/=' ,'++' , '--' , '<<', '>>', '&=', '|=', '^=', '%=', '<=', '>=', '=>'}:
+                    if st in ['&&','||','==','!=','+=','-=','*=' ,'/=' ,'++' , '--' , '<<', '>>', '&=', '|=', '^=', '%=', '<=', '>=', '=>']:
                         self.index += 2
                     else:
                         # 1-character punctuators.
                         st = self.source[self.index]
-                        if st in {'<', '>', '=', '!', '+', '-', '*', '%', '&', '|', '^', '/'}:
+                        if st in ['<', '>', '=', '!', '+', '-', '*', '%', '&', '|', '^', '/']:
                             self.index += 1
         if self.index == token['start']:
             self.throwUnexpectedToken()
@@ -855,7 +855,7 @@ class PyJsParser:
         return self.scanRegExp()
 
     def isIdentifierName(self, token):
-        return token['type'] in {1,3,4,5}
+        return token['type'] in [1,3,4,5]
 
     #def advanceSlash(self): ???
 
@@ -1064,7 +1064,7 @@ class PyJsParser:
         if (self.lookahead['type'] != Token.Punctuator):
             return False;
         op = self.lookahead['value']
-        return op in {'=','*=', '/=','%=', '+=', '-=', '<<=', '>>=', '>>>=', '&=' , '^=' , '|='}
+        return op in ['=','*=', '/=','%=', '+=', '-=', '<<=', '>>=', '>>>=', '&=' , '^=' , '|=']
 
     def consumeSemicolon(self):
         # Catch the very common case first: immediately a semicolon (U+003B).
@@ -1281,7 +1281,7 @@ class PyJsParser:
             if self.strict and token.get('octal'):
                 self.tolerateUnexpectedToken(token, Messages.StrictOctalLiteral);
             return node.finishLiteral(token);
-        elif typ in  {Token.Identifier, Token.BooleanLiteral, Token.NullLiteral, Token.Keyword}:
+        elif typ in  [Token.Identifier, Token.BooleanLiteral, Token.NullLiteral, Token.Keyword]:
             return node.finishIdentifier(token['value']);
         elif typ==Token.Punctuator:
             if (token['value'] == '['):
@@ -1292,7 +1292,7 @@ class PyJsParser:
 
     def lookaheadPropertyName(self):
         typ = self.lookahead['type']
-        if typ in  {Token.Identifier, Token.StringLiteral, Token.BooleanLiteral, Token.NullLiteral, Token.NumericLiteral, Token.Keyword}:
+        if typ in  [Token.Identifier, Token.StringLiteral, Token.BooleanLiteral, Token.NullLiteral, Token.NumericLiteral, Token.Keyword]:
             return true
         if typ == Token.Punctuator:
             return self.lookahead['value'] == '['
@@ -1405,7 +1405,7 @@ class PyJsParser:
 
     def reinterpretExpressionAsPattern(self, expr):
         typ = (expr['type'])
-        if typ in {Syntax.Identifier, Syntax.MemberExpression, Syntax.RestElement, Syntax.AssignmentPattern}:
+        if typ [Syntax.Identifier, Syntax.MemberExpression, Syntax.RestElement, Syntax.AssignmentPattern]:
             pass
         elif typ == Syntax.SpreadElement:
             expr['type'] = Syntax.RestElement

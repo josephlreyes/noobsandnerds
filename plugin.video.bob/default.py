@@ -147,12 +147,17 @@ elif action == 'trailer':
 elif action == 'ScraperSettings':
     from resources.lib.modules import control
     control.openSettings(id='script.module.nanscrapers')
+elif action == 'ResolverSettings':
+    from resources.lib.modules import control
+    control.openSettings(id='script.mrknow.urlresolver')
 elif action == 'queueItem':
     from resources.lib.modules import control
     from resources.lib.indexers.bob import Resolver, Indexer, replace_url
 
     item_urls = []
     selected_link = None
+    play_now = False
+    already_played = False
     if not url.endswith(".xml"):
         item_urls.append({'url': url, 'name': name, 'image': image})
     else:
@@ -160,14 +165,30 @@ elif action == 'queueItem':
             selected_link = "HD"
         else:
             selected_link = "SD"
-        list = Indexer().bob_list(replace_url(url))
+        indexer = Indexer()
+        indexer.bob_list(replace_url(url))
+        indexer.worker()
+        list = indexer.list
         try:
             for item in list:
+                if item['name'] == 'All Episodes':
+                    continue
+                if control.setting("include_watched_queue") == "false":
+                    if "playcount" in item and int(item["playcount"]) >= 1:
+                        continue
                 if item['url'].endswith(".xml"):  # queueing tv show so need to get sublists
-                    list = Indexer().bob_list(replace_url(item['url']))
-                    for item in list:
-                        if not item['url'].endswith(".xml"):
-                            item_urls.append({'url': item['url'], 'name': item['name'], 'image': item['poster']})
+                    indexer.list = []
+                    indexer.bob_list(replace_url(item['url']))
+                    indexer.worker()
+                    sublist = indexer.list
+                    for subitem in sublist:
+                        if control.setting("include_watched_queue") == "false":
+                            if "playcount" in subitem and int(subitem["playcount"]) >= 1:
+                                continue
+                        if subitem['name'] == 'All Episodes':
+                            continue
+                        if not subitem['url'].endswith(".xml"):
+                            item_urls.append({'url': subitem['url'], 'name': subitem['name'], 'image': subitem['poster']})
                 else:
                     item_urls.append({'url': item['url'], 'name': item['name'], 'image': item['poster']})
         except:
@@ -175,18 +196,30 @@ elif action == 'queueItem':
     for item_url in item_urls:
         retrying = False
         playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
+        if playlist.size() > 0 and control.setting("background_list_queue") == "true" and len(item_urls) > 1:
+            hide_progress = True
+        else:
+            hide_progress = False
         while True:
-            control.execute('ActivateWindow(busydialog)')
+            if not hide_progress:
+                control.execute('ActivateWindow(busydialog)')
             if retrying:
-                resolved = Resolver().process(Resolver().get(item_url['url']), name=item_url['name'])
+                resolved = Resolver().process(Resolver().get(item_url['url']), name=item_url['name'], hide_progress=hide_progress)
             else:
-                resolved = Resolver().process(Resolver().get(item_url['url'], link=selected_link),
-                                              name=item_url['name'])
-            control.execute('Dialog.Close(busydialog)')
+                link = Resolver().get(item_url['url'], link=selected_link)
+                resolved = Resolver().process(link, name=item_url['name'], hide_progress=hide_progress)
+            if not hide_progress:
+                control.execute('Dialog.Close(busydialog)')
             if resolved:
+                if playlist.size() == 0 and len(item_urls) > 1: play_now = True
                 item = control.item(label=item_url['name'], iconImage=item_url['image'],
                                     thumbnailImage=item_url['image'])
                 playlist.add(resolved, item)
+                if play_now and not already_played and control.setting("background_list_queue") == "true":
+                    play_now = False
+                    already_played = True
+                    control.player.play(playlist, item)
+                    control.resolve(int(sys.argv[1]), True, item)
                 break
             else:
                 if not control.yesnoDialog(control.lang(30705).encode('utf-8'),
@@ -196,6 +229,7 @@ elif action == 'queueItem':
     xbmc.executebuiltin('Container.Refresh')
 elif action == 'playQueue':
     from resources.lib.modules import control
+    from resources.lib.indexers import bob
 
     playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
     if playlist.size() > 0:
@@ -229,7 +263,6 @@ elif action == "MoveFavorite":
     result = favs.move_favorite(name, fav_type, fav_link)
     xbmc.executebuiltin("Container.Refresh")
 elif action == "getfavorites":
-    xbmc.log("url: " + url)
     from resources.lib.modules import favs
     favs.get_favorites_menu(url)
 elif action.startswith("getfavorites_"):

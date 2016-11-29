@@ -82,7 +82,7 @@ class Pelispedia(Scraper):
         return []
 
     def get_imdb_title(self, imdb):
-        headers = {'User-Agent': random_agent(), 'Accept-Language': 'es-AR'}
+        headers = {'User-Agent': random_agent(), 'Accept-Language': 'es-es'}
         html = BeautifulSoup(requests.get('http://www.imdb.com/title/%s' % imdb, headers=headers).content)
         html_title = html.findAll('title')[0].text.encode('utf-8')
         imdb_title = re.sub('(?:\(||\(TV Series\s|\s)\d{4}.+', '', html_title).strip()

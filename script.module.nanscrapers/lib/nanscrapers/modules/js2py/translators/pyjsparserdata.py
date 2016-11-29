@@ -42,8 +42,11 @@ token = {
         'Template': 10
     }
 
+#TokenName = {v:k for k,v in token.iteritems()}
+TokenName = {}
+for k, v in token.iteritems():
+    TokenName[v] = k
 
-TokenName = {v:k for k,v in token.items()}
 
 FnExprTokens = ['(', '{', '[', 'in', 'typeof', 'instanceof', 'new',
                     'return', 'case', 'delete', 'throw', 'void',
@@ -55,7 +58,7 @@ FnExprTokens = ['(', '{', '[', 'in', 'typeof', 'instanceof', 'new',
                     '|', '^', '!', '~', '&&', '||', '?', ':', '===', '==', '>=',
                     '<=', '<', '>', '!=', '!==']
 
-syntax= {'AssignmentExpression',
+syntax= ['AssignmentExpression',
          'AssignmentPattern',
          'ArrayExpression',
          'ArrayPattern',
@@ -116,7 +119,7 @@ syntax= {'AssignmentExpression',
          'VariableDeclaration',
          'VariableDeclarator',
          'WhileStatement',
-         'WithStatement'}
+         'WithStatement']
 
 
 # Error messages should be identical to V8.
@@ -228,16 +231,16 @@ UNICODE_LETTER = set(U_CATEGORIES['Lu']+U_CATEGORIES['Ll']+
 UNICODE_COMBINING_MARK = set(U_CATEGORIES['Mn']+U_CATEGORIES['Mc'])
 UNICODE_DIGIT = set(U_CATEGORIES['Nd'])
 UNICODE_CONNECTOR_PUNCTUATION = set(U_CATEGORIES['Pc'])
-IDENTIFIER_START = UNICODE_LETTER.union({'$','_', '\\'}) # and some fucking unicode escape sequence
-IDENTIFIER_PART = IDENTIFIER_START.union(UNICODE_COMBINING_MARK).union(UNICODE_DIGIT).union(UNICODE_CONNECTOR_PUNCTUATION).union({ZWJ, ZWNJ})
+IDENTIFIER_START = UNICODE_LETTER.union(['$','_', '\\']) # and some fucking unicode escape sequence
+IDENTIFIER_PART = IDENTIFIER_START.union(UNICODE_COMBINING_MARK).union(UNICODE_DIGIT).union(UNICODE_CONNECTOR_PUNCTUATION).union([ZWJ, ZWNJ])
 
-WHITE_SPACE = {0x20, 0x09, 0x0B, 0x0C, 0xA0, 0x1680,
+WHITE_SPACE = [0x20, 0x09, 0x0B, 0x0C, 0xA0, 0x1680,
                0x180E, 0x2000, 0x2001, 0x2002, 0x2003,
                 0x2004, 0x2005, 0x2006, 0x2007, 0x2008,
                 0x2009, 0x200A, 0x202F, 0x205F, 0x3000,
-                0xFEFF}
+                0xFEFF]
 
-LINE_TERMINATORS = {0x0A, 0x0D, 0x2028, 0x2029}
+LINE_TERMINATORS = [0x0A, 0x0D, 0x2028, 0x2029]
 
 def isIdentifierStart(ch):
     return (ch if isinstance(ch, unicode) else unichr(ch))  in IDENTIFIER_START
@@ -251,10 +254,10 @@ def isWhiteSpace(ch):
 def isLineTerminator(ch):
     return (ord(ch) if isinstance(ch, unicode) else ch)  in LINE_TERMINATORS
 
-OCTAL = {'0', '1', '2', '3', '4', '5', '6', '7'}
-DEC = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}
+OCTAL = ['0', '1', '2', '3', '4', '5', '6', '7']
+DEC = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 HEX = set('0123456789abcdefABCDEF')
-HEX_CONV = {'0123456789abcdef'[n]:n for n in xrange(16)}
+HEX_CONV = {'a': 10, 'c': 12, 'b': 11, 'e': 14, 'd': 13, 'f': 15, '1': 1, '0': 0, '3': 3, '2': 2, '5': 5, '4': 4, '7': 7, '6': 6, '9': 9, '8': 8}
 for i,e in enumerate('ABCDEF', 10):
     HEX_CONV[e] = i
 
@@ -269,22 +272,22 @@ def isOctalDigit(ch):
     return (ch if isinstance(ch, unicode) else unichr(ch))  in OCTAL
 
 def isFutureReservedWord(w):
-    return w in { 'enum', 'export', 'import', 'super'}
+    return w in [ 'enum', 'export', 'import', 'super']
 
 def isStrictModeReservedWord(w):
-    return w in {'implements', 'interface', 'package', 'private', 'protected', 'public', 'static', 'yield', 'let'}
+    return w in ['implements', 'interface', 'package', 'private', 'protected', 'public', 'static', 'yield', 'let']
 
 def isRestrictedWord(w):
-    return w in  {'eval', 'arguments'}
+    return w in  ['eval', 'arguments']
 
 def isKeyword(w):
         # 'const' is specialized as Keyword in V8.
         # 'yield' and 'let' are for compatibility with SpiderMonkey and ES.next.
         # Some others are from future reserved words.
-        return w in {'if', 'in', 'do', 'var', 'for', 'new', 'try', 'let', 'this', 'else', 'case',
+        return w in ['if', 'in', 'do', 'var', 'for', 'new', 'try', 'let', 'this', 'else', 'case',
                      'void', 'with', 'enum', 'while', 'break', 'catch', 'throw', 'const', 'yield',
                      'class', 'super', 'return', 'typeof', 'delete', 'switch', 'export', 'import',
-                     'default', 'finally', 'extends', 'function', 'continue', 'debugger', 'instanceof', 'pyimport'}
+                     'default', 'finally', 'extends', 'function', 'continue', 'debugger', 'instanceof', 'pyimport']
 
 
 class JsSyntaxError(Exception): pass

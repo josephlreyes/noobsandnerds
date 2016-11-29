@@ -48,12 +48,12 @@ def parse_num(source, start, charset):
 
 def parse_exponent(source, start):
     """returns end of exponential, raises SyntaxError if failed"""
-    if not source[start] in {'e', 'E'}:
+    if not source[start] in ['e', 'E']:
         if source[start] in IDENTIFIER_PART:
             raise SyntaxError('Invalid number literal!')
         return start
     start += 1
-    if source[start] in {'-', '+'}:
+    if source[start] in ['-', '+']:
         start += 1
     FOUND = False
     # we need at least one dig after exponent
@@ -163,7 +163,7 @@ def remove_constants(source):
                             n+=1
                             continue
                         k = parse_exponent(source, k)
-                    elif char=='0' and source[n+1] in {'x', 'X'}: #Hex number probably
+                    elif char=='0' and source[n+1] in ['x', 'X']: #Hex number probably
                         k = parse_num(source, n+2, HEX)
                         if k==n+2 or source[k] in IDENTIFIER_PART:
                             raise SyntaxError('Invalid hex literal!')
@@ -252,7 +252,7 @@ def do_escape(source, n):
         return source[n:n+2], n+2
     if source[n+1] in ESCAPE_CHARS:
         return source[n:n+2], n+2
-    if source[n+1]in {'x', 'u'}:
+    if source[n+1]in ['x', 'u']:
         char, length = ('u', 4) if source[n+1]=='u' else ('x', 2)
         n+=2
         end = parse_num(source, n, HEX)

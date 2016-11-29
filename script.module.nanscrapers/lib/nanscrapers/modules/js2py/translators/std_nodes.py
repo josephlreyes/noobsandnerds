@@ -525,7 +525,13 @@ def node_to_dict(node):  # extremely important for translation speed
     if isinstance(node, list):
         return [node_to_dict(e) for e in node]
     elif isinstance(node, dict):
-        return {k:node_to_dict(v) for k,v in six.iteritems(node)}
+        result = {}
+        for k, v in six.iteritems(node):
+            result[k] = node_to_dict(v)
+        return result
     elif not isinstance(node, BaseNode):
         return node
-    return {k:node_to_dict(v) for k, v in six.iteritems(node.__dict__)}
+    result2 = {}
+    for k, v in six.iteritems(node.__dict__):
+        result2[k] = node_to_dict(v)
+    return result2

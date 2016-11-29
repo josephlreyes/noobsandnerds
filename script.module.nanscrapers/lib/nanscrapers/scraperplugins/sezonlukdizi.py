@@ -6,7 +6,7 @@ import requests
 from BeautifulSoup import BeautifulSoup
 from nanscrapers.common import random_agent, replaceHTMLCodes
 from nanscrapers.scraper import Scraper
-
+import xbmc
 
 class Sezonluldizi(Scraper):
     domains = ['sezonlukdizi.com']
@@ -16,7 +16,7 @@ class Sezonluldizi(Scraper):
         self.base_link = 'http://sezonlukdizi.com'
 
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb):
-        url_title = title.lower().replace(' ', '-').replace('.', '-')
+        url_title = title.replace(' ', '-').replace('.', '-').replace(":","").replace("!","").replace("?","").lower()
         episode_url = '/%s/%01d-sezon-%01d-bolum.html' % (url_title, int(season), int(episode))
         return self.sources(replaceHTMLCodes(episode_url))
 

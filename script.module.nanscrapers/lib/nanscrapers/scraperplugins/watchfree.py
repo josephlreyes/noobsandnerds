@@ -7,7 +7,7 @@ from BeautifulSoup import BeautifulSoup
 from nanscrapers import proxy
 from nanscrapers.common import replaceHTMLCodes, clean_title
 from nanscrapers.scraper import Scraper
-
+import xbmc
 
 class Watchfree(Scraper):
     domains = ['watchfree.to']
@@ -89,10 +89,11 @@ class Watchfree(Scraper):
                         href = urlparse.parse_qs(urlparse.urlparse(href).query)['q'][0]
                     except:
                         pass
-
-                    if cleaned_title == clean_title(link_title):
+                    if cleaned_title == clean_title(link_title) and show_year in link_title:
                         url = re.findall('(?://.+?|)(/.+)', href)[0]
                         show_url = urlparse.urljoin(self.base_link, replaceHTMLCodes(url))
+                    else:
+                        continue
 
                     html = BeautifulSoup(proxy.get(show_url, 'tv_episode_item'))
                     season_items = html.findAll('div', attrs={'class': 'show_season'})

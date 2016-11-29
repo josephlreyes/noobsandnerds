@@ -59,7 +59,8 @@ class sources:
         sd_links = []
         non_direct = []
         sd_non_direct = []
-        for scraper_links in links_scraper():
+        links_scraper = links_scraper()
+        for scraper_links in links_scraper:
             if scraper_links is not None:
                 random.shuffle(scraper_links)
                 for scraper_link in scraper_links:
@@ -97,7 +98,10 @@ class sources:
                         try:
                             if scraper_link['direct']:
                                 import urlresolver9
-                                resolved_url = urlresolver9.resolve(scraper_link['url'])
+                                hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=True,
+                                                                        include_universal=True)
+                                if hmf.valid_url() == True: resolved_url = hmf.resolve()
+                                #resolved_url = urlresolver9.resolve(scraper_link['url'])
                                 if resolved_url and sources().check_playable(resolved_url) is not None:
                                     url = resolved_url
                                     return url
@@ -126,7 +130,10 @@ class sources:
                 try:
                     if scraper_link['direct']:
                         import urlresolver9
-                        resolved_url = urlresolver9.resolve(scraper_link['url'])
+                        hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=True,
+                                                           include_universal=True)
+                        if hmf.valid_url() == True: resolved_url = hmf.resolve()
+                        #resolved_url = urlresolver9.resolve(scraper_link['url'])
                         if resolved_url and sources().check_playable(resolved_url) is not None:
                             url = resolved_url
                             return url
@@ -178,7 +185,10 @@ class sources:
                         continue
 
             try:
-                resolved_url = urlresolver9.resolve(scraper_link['url'])
+                hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=True,
+                                                   include_universal=True)
+                if hmf.valid_url() == True: resolved_url = hmf.resolve()
+                #resolved_url = urlresolver9.resolve(scraper_link['url'])
             except:
                 continue
             if resolved_url and (
@@ -191,7 +201,10 @@ class sources:
                 return
 
             try:
-                resolved_url = urlresolver9.resolve(scraper_link['url'])
+                hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=True,
+                                                   include_universal=True)
+                if hmf.valid_url() == True: resolved_url = hmf.resolve()
+                #resolved_url = urlresolver9.resolve(scraper_link['url'])
             except:
                 continue
             if resolved_url and (
@@ -263,7 +276,10 @@ class sources:
                             sd_non_direct.append(scraper_link)
                             continue
                     try:
-                        resolved_url = urlresolver9.resolve(scraper_link['url'])
+                        hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=True,
+                                                           include_universal=True)
+                        if hmf.valid_url() == True: resolved_url = hmf.resolve()
+                        #resolved_url = urlresolver9.resolve(scraper_link['url'])
                     except:
                         continue
                     if resolved_url and (
@@ -277,7 +293,10 @@ class sources:
                         return
 
                     try:
-                        resolved_url = urlresolver9.resolve(scraper_link['url'])
+                        hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=True,
+                                                           include_universal=True)
+                        if hmf.valid_url() == True: resolved_url = hmf.resolve()
+                        #resolved_url = urlresolver9.resolve(scraper_link['url'])
                     except:
                         continue
                     if resolved_url and (
@@ -294,7 +313,10 @@ class sources:
             control.dialog.ok("Dependency missing",
                               "please install script.mrknow.urlresolver to resolve non-direct links")
         try:
-            resolved_url = urlresolver9.resolve(url)
+            hmf = urlresolver9.HostedMediaFile(url=url, include_disabled=True,
+                                               include_universal=True)
+            if hmf.valid_url() == True: resolved_url = hmf.resolve()
+            #resolved_url = urlresolver9.resolve(url)
             if resolved_url and sources().check_playable(resolved_url) is not None:
                 return resolved_url
         except:
@@ -312,11 +334,82 @@ class sources:
         result = None
 
         if url.startswith('http') and '.m3u8' in url:
-            result = client.request(url.split('|')[0], headers=headers, output='geturl', timeout='10')
+            result = client.request(url.split('|')[0], headers=headers, output='geturl', timeout=5)
             if result == None: return None
 
         elif url.startswith('http'):
-            result = client.request(url.split('|')[0], headers=headers, output='chunk', timeout='10')
+            result = client.request(url.split('|')[0], headers=headers, output='chunk', timeout=5)
             if result == None: return None
 
         return result
+
+    @staticmethod
+    def get_vk_token():
+        import xbmcgui
+        import xbmcaddon
+        from resources.lib.modules import vkAuth
+
+        if not bool(control.setting("enable_vk")):
+            return False
+
+        # flag if a vk.com token is valid
+        validVKToken = False
+
+        # if empty vk.com email xor password
+        if bool(control.setting('vk_email') == "") ^ bool(control.setting('vk_password') == ""):
+            dialog = xbmcgui.Dialog()
+            ok = dialog.ok("VK", "Please enter your VK.com credentials")
+            control.setSetting('vk_token', '')
+            xbmcaddon.Addon().openSettings()
+            return False
+            # if empty vk.com email and password
+        elif control.setting('vk_email') == "" and control.setting('vk_password') == "":
+            control.setSetting('vk_token_email', '')
+            control.setSetting('vk_token_password', '')
+            control.setSetting('vk_token', '')
+            # display vk.com account need message
+            dialog = xbmcgui.Dialog()
+            ok = dialog.ok("VK", "Please Enter your VK.com credentials")
+            xbmcaddon.Addon().openSettings()
+            return False
+        # if credentials are given
+        else:
+            # check if user changed vk_email/vk_password or if vk_token_email/vk_token_password is empty (need reauth)
+            if control.setting('vk_token_email') != control.setting('vk_email') or control.setting(
+                    'vk_token_password') != control.setting('vk_password'):
+                control.setSetting('vk_token_email', '')
+                control.setSetting('vk_token_password', '')
+                control.setSetting('vk_token', '')
+            # check current token
+            if control.setting('vk_token'): validVKToken = vkAuth.isTokenValid(control.setting('vk_token'))
+            # if the token provided is not valid, login and generate a new one
+            if validVKToken != True:
+                # login in vk.com - get the token
+                email = control.setting('vk_email')
+                passw = control.setting('vk_password')
+                try:
+                    token = vkAuth.auth(email, passw, 2648691, 'audio,offline,video')
+                except:
+                    token = False
+                # check login status
+                if token == False:
+                    dialog = xbmcgui.Dialog()
+                    ok = dialog.ok("VK Log in Failed", "Please enter your VK.com credentials")
+                    xbmcaddon.Addon().openSettings()
+                    return False
+                else:
+                    # test the new token
+                    validVKToken = vkAuth.isTokenValid(token)
+                    # if there was an error, inform the user
+                    if validVKToken != True:
+                        dialog = xbmcgui.Dialog()
+                        ok = dialog.ok("VK Log in Failed", "Reason" + validVKToken)
+                        xbmcaddon.Addon().openSettings()
+                        return False
+                    else:
+                        control.setSetting('vk_token_email', email)
+                        control.setSetting('vk_token_password', passw)
+                        control.setSetting('vk_token', token)
+                        return token
+            else:
+                return control.setting('vk_token')

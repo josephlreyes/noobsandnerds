@@ -5,7 +5,7 @@ import requests
 from BeautifulSoup import BeautifulSoup
 from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes, odnoklassniki, vk
 from nanscrapers.scraper import Scraper
-
+import xbmc
 
 class Dizigold(Scraper):
     domains = ['dizigold.net']
@@ -17,7 +17,7 @@ class Dizigold(Scraper):
 
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb):
 
-        url_title = clean_title(title).replace(' ', '-').replace('.', '-')
+        url_title = title.replace(' ', '-').replace('.', '-').replace(":","").replace("!","").replace("?","").lower()
         episode_url = '/%s/%01d-sezon/%01d-bolum' % (url_title, int(season), int(episode))
         return self.sources(replaceHTMLCodes(episode_url))
 

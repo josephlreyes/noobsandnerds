@@ -1,4 +1,4 @@
-# Security Check - Check for outdated content installed on system
+﻿# Security Check - Check for outdated content installed on system
 # Copyright (C) 2016 Lee Randall (whufclee)
 #
 
@@ -145,14 +145,45 @@ def addDir(type,name,url,mode,iconimage = '',fanart = '',video = '',description 
 ##########################################################################################
 # Advanced menu
 def advanced():
+    addDir('',string(30127), '', 'check_addon_data', 'check_addon_data.png','','','')
     addDir('',string(30112), '', 'system_process', 'system_process.png','','','')
     addDir('',string(30086), '', 'services', 'service.png','','','')
     addDir('',string(30126), '', 'decompile', 'decompile.png','','','')   
     if len(q_list) > 0:
         addDir('',string(30089), '', 'delete_quarantine', 'restore.png','','','')
 ##########################################################################################    
-def check_content(localmaster, onlinemaster):
+# Check addon_data folders against installed addons
+def check_addon_data():
+    data_array  = []
+    name_array  = []
+    image_array = []
+    desc_array  = []
+    final_array = []
+
+    for item in os.listdir(ADDON_DATA):
+        data_path = os.path.join(ADDON_DATA, item)
+        if os.path.isdir(data_path):
+            try:
+                addon_check = xbmcaddon.Addon(id=item)
+                addon_desc  = addon_check.getAddonInfo('description')
+            except:
+                data_array.append(data_path)
+                name_array.append(item)
+                image_array.append(mainicon)
+                desc_array.append('No add-on found with the id: [COLOR=dodgerblue]%s[/COLOR]' % item)
+    if len(data_array) == 0:
+        dialog.ok(string(30127),string(30128))
+    else:
+        if dialog.yesno(string(30127),string(30129)%len(data_array)):
+            clean_folders(data_array)
+        else:
+            to_remove = multiselect(string(30130),name_array,image_array,desc_array)
+            for item in to_remove:
+                final_array.append(data_array[item])
+            clean_folders(final_array)
+##########################################################################################    
 # Loop through each item in our local array and check against online array
+def check_content(localmaster, onlinemaster):
     xbmc.executebuiltin("ActivateWindow(busydialog)")
     for item in localmaster:
         addonid     = item[0]
@@ -248,6 +279,18 @@ def check_content(localmaster, onlinemaster):
         dialog.ok(string(30035), string(30036))
     elif sys.argv[1] != 'silent':
         dialog.ok(string(30037), string(30038))
+##########################################################################################
+# Loop through an array of paths and delete them
+def clean_folders(folder_array):
+    counter = 0
+    for item in folder_array:
+        xbmc.log('### Attempting to remove: %s' % item)
+        try:
+            shutil.rmtree(item)
+            counter += 1
+        except Exception as e:
+            xbmc.log('Failed to remove %s: %s' % (item, e))
+    dialog.ok(string(30127),string(30131) % (counter, len(folder_array)))
 ##########################################################################################
 # Parse the array and format into a readable text file to display on screen
 def clean_text_box(textlist):
@@ -370,6 +413,11 @@ def grab_installed():
     xbmc.executebuiltin("Dialog.Close(busydialog)")
     return locallist
 ##########################################################################################
+# Reload the current running profile
+def load_profile():
+    current    = xbmc.getInfoLabel('System.ProfileName')
+    xbmc.executebuiltin('LoadProfile(%s)' % current)
+##########################################################################################
 # Find out what version of Kodi is running and return the correct log path
 def log_check():
     if os.path.exists(os.path.join(log_path,'xbmc.log')):
@@ -446,7 +494,7 @@ def multiselect(title, list, images, description):
             Icon     = pyxbmct.Image(listicon, aspectRatio=2)
             Icon.setImage(listicon)
             self.placeControl(Icon, 0, 11, rowspan=8, columnspan=8, pad_x=10, pad_y=10)
-            self.textbox.setText(description[pos])
+            self.textbox.setText(urllib.unquote(description[pos]))
 
         def check_uncheck(self):
             list_item = self.listing.getSelectedItem()
@@ -662,8 +710,22 @@ def start():
 def startscan():
     onlinemaster    =   []
     localmaster     =   grab_installed()
-    onlineraw       =   Open_URL('http://noobsandnerds.com/TI/AddonPortal/brokenlist.php',10).replace('], ]',']]')
-    onlinemaster    =   eval(str(onlineraw))
+    onlineraw       =   Open_URL('http://noobsandnerds.com/TI/AddonPortal/addonlist.php',30)
+    addonarray      =   re.compile('#(.+?)~').findall(onlineraw)
+    for item in addonarray:
+        try:
+            addon, status, version, repo, message = item.split(',')
+            if str(message) == '1':
+                message = 'No problems reported'
+            elif str(message) == '2':
+                message = 'Sorry no further details have been submitted, we just know it has been marked as potentially dangerous'
+            elif str(message) == '3':
+                message = 'Sorry no further details have been submitted, we just know it has been marked as deleted'
+            onlinemaster.append([addon,status,version,repo,message])
+        except Exception as e:
+            xbmc.log(str(e))
+
+    # onlinemaster    =   eval(str(onlineraw))
     check_content(localmaster, onlinemaster)
 ##########################################################################################
 def string(string):
@@ -685,16 +747,6 @@ def system_process():
             if  ('subprocess.call' in content or 'subprocess . call' in content or 'subprocess.Popen' in content or 'subprocess . Popen' in content) and not AddonID in pyfile:
                 processlist += pyfile.replace(ADDONS+os.sep,'')+'[CR]'
                 counter +=1
-    # if os.path.exists(os.path.join(USERDATA,'autoexec.py')):
-    #     xbmc.log('USERDATA EXISTS')
-    #     content = readcontents(os.path.join(USERDATA,'autoexec.py'))
-    #     content = unobfuscate(pyfile, content)
-    #     if 'os.system(' in content or 'os . system(' in content:
-    #         systemlist += os.path.join(USERDATA,'autoexec.py').replace(HOME+os.sep,'')+'[CR]'
-    #         counter += 1
-    #     if  ('subprocess.call' in content or 'subprocess . call' in content or 'subprocess.Popen' in content or 'subprocess . Popen' in content):
-    #         processlist += os.path.join(USERDATA,'autoexec.py').replace(HOME+os.sep,'')+'[CR]'
-    #         counter +=1
     if os.path.exists(os.path.join(PROFILE,'autoexec.py')):
         content = readcontents(os.path.join(PROFILE,'autoexec.py'))
         content = unobfuscate(pyfile, content)
@@ -904,6 +956,9 @@ except:
 
 if mode     ==  None                : start()
 
+elif mode   ==  'advanced'          : advanced()
+elif mode   ==  'check_addon_data'  : check_addon_data()
+elif mode   ==  'decompile'         : decompile()
 elif mode   ==  'delete_quarantine' : delete_quarantine()
 elif mode   ==  'repo_check'        : repo_check()
 elif mode   ==  'restore'           : restore()
@@ -911,8 +966,6 @@ elif mode   ==  'services'          : services()
 elif mode   ==  'startscan'         : startscan()
 elif mode   ==  'system_process'    : system_process()
 elif mode   ==  'whitelist'         : whitelist()
-elif mode   ==  'decompile'         : decompile()
-elif mode   ==  'advanced'          : advanced()
         
 # If anything has been quarantined we need to reload the profile so the addons db updates.
 if reloadprofile:
@@ -924,7 +977,7 @@ if reloadprofile:
                 os.remove(cookies)
             except:
                 pass
-    xbmc.executebuiltin("LoadProfile(Master user,)")
+    load_profile()
 
 if sys.argv[1]!='silent':
     xbmcplugin.endOfDirectory(int(sys.argv[1]))

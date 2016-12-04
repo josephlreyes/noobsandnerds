@@ -115,7 +115,7 @@ msgid "UNKNOWN ADD-ONS"
 msgstr ""
 
 msgctxt "#30026"
-msgid "The following items have not been found in the Add-on Portal. You may want to check the legitimacy of these add-ons, if you\'re happy they are from legitimate sources please help the community by adding the details to the Add-on Portal at [COLOR=dodgerblue]www.noobsandnerds.com[/COLOR]. If you are a registered member with a minimum of 5 posts you can update add-on details yourself (including adding YouTube videos, settings genres, countries etc.) but if you prefer you can just post details on the forum and a member of the team will be happy to add the content to the Portal for you.[CR][CR]%s"
+msgid "[COLOR=dodgerblue]UNKNOWN ADD-ONS[/COLOR][CR]The following items have not been found in the Add-on Portal. You may want to check the legitimacy of these add-ons, if you\'re happy they are from legitimate sources please help the community by adding the details to the Add-on Portal at [COLOR=dodgerblue]www.noobsandnerds.com[/COLOR].[CR][CR]If you are a registered member with a minimum of 5 posts you can update add-on details yourself (including adding YouTube videos, settings genres, countries etc.) but if you prefer you can just post details on the forum and a member of the team will be happy to add the content to the Portal for you.[CR][CR]%s"
 msgstr ""
 
 msgctxt "#30027"
@@ -516,6 +516,27 @@ msgstr ""
 
 msgctxt "#30126"
 msgid "Unobfuscate (decompile) a python file"
+msgstr ""
+
+
+msgctxt "#30127"
+msgid "Clean old addon_data"
+msgstr ""
+
+msgctxt "#30128"
+msgid "Your system is clean, you have no old addon_data folders to remove."
+msgstr ""
+
+msgctxt "#30129"
+msgid "A total of [COLOR=dodgerblue]%s[/COLOR] addon_data folders have been found which do not match any installed add-ons. Would you like to remove all of these folders?"
+msgstr ""
+
+msgctxt "#30130"
+msgid "Please select the folders you would like to remove from your addon_data."
+msgstr ""
+
+msgctxt "#30131"
+msgid "%s/%s folders successfully removed."
 msgstr ""
 
 msgctxt "#30200"

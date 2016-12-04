@@ -275,7 +275,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.program.securityshield" name="Security Shield"  provider-name="whufclee, surfacingx" version="1.0.6">
+<addon id="plugin.program.securityshield" name="Security Shield"  provider-name="whufclee, surfacingx" version="1.0.7">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
@@ -6622,6 +6622,19 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	</extension>
 </addon>
 
+<addon id="repository.silenthunter" name="[COLOR orange] Silent Hunter [/COLOR]" version="0.0.0.1" provider-name="SH">
+<extension point="xbmc.addon.repository" name="Silent Hunter">
+		<info compressed="false">http://silenthunter.srve.io/plugins/addons.xml</info>
+		<checksum>http://silenthunter.srve.io/plugins/addons.xml.md5</checksum>
+		<datadir zip="true">https://silenthunter.srve.io/plugins/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>The Silent Hunter Repository</summary>
+		<description>The Silent Hunter Repository v1.0</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.silhouette" name="Silhouette XBMC Add-ons" version="0.0.0.1" provider-name="Silhouette">
 	<extension point="xbmc.addon.repository" name="Silhouette XBMC Add-ons">
 		<info compressed="false">https://raw.githubusercontent.com/silhouette2022/kodi/master/addons.xml</info>
@@ -7040,6 +7053,19 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	</extension>
 </addon>
 
+<addon id="repository.The_Silencer" name="The_Silencer's KODI Addons" version="0.0.0.1" provider-name="The_Silencer">
+	<extension point="xbmc.addon.repository" name="The_Silencer's KODI Addons">
+		<info compressed="false">https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml</info>
+		<checksum>https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/TheSilencer001/The_Silencer/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install The_Silencer's Addons</summary>
+		<description>Download and install addons from The_Silencer</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.thegizmo" name="[COLOR FF006233]The Gizmo[/COLOR] Repo" version="0.0.0.1" provider-name="Travis Slattery">
 	<extension point="xbmc.addon.repository" name="The Gizmo Repo">
        <info>http://the-gizmo.svn.beanstalkapp.com/the-gizmo/trunk/addons.xml</info>
@@ -7186,19 +7212,6 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<description>Download and install [COLOR red]XXX Adult[/COLOR] addons from TheYid.... All 720p/1080p adult movies  [COLOR red][B][I]Real-Debrid or Alldebird PREMIUM NEEDED FOR ALL ADDONS[/B][/I][/COLOR]...For OFFICIAL Support Visit XBMCHUB.COM</description>
 		<platform>all</platform>
 		<broken>This repository is now dead, the developer has pulled the code from bitbucket</broken>
-	</extension>
-</addon>
-
-<addon id="repository.The_Silencer" name="The_Silencer's KODI Addons" version="0.0.0.1" provider-name="The_Silencer">
-	<extension point="xbmc.addon.repository" name="The_Silencer's KODI Addons">
-		<info compressed="false">https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml</info>
-		<checksum>https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/TheSilencer001/The_Silencer/master/zips</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Install The_Silencer's Addons</summary>
-		<description>Download and install addons from The_Silencer</description>
-		<platform>all</platform>
 	</extension>
 </addon>
 

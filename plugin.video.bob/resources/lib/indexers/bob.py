@@ -948,6 +948,7 @@ class Indexer:
                     item.setProperty('Fanart_Image', addon_fanart)
 
                 if content != "songs":
+                    meta['title'] = name
                     item.setInfo(type='video', infoLabels=meta)
                 else:
                     try:

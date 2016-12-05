@@ -56,6 +56,8 @@ class sources:
         else:
             return
 
+        allow_debrid = bool(control.setting('allow_debrid'))
+
         sd_links = []
         non_direct = []
         sd_non_direct = []
@@ -98,8 +100,8 @@ class sources:
                         try:
                             if scraper_link['direct']:
                                 import urlresolver9
-                                hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=True,
-                                                                        include_universal=True)
+                                hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=False,
+                                                                        include_universal=allow_debrid)
                                 if hmf.valid_url() == True: resolved_url = hmf.resolve()
                                 #resolved_url = urlresolver9.resolve(scraper_link['url'])
                                 if resolved_url and sources().check_playable(resolved_url) is not None:
@@ -130,8 +132,8 @@ class sources:
                 try:
                     if scraper_link['direct']:
                         import urlresolver9
-                        hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=True,
-                                                           include_universal=True)
+                        hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=False,
+                                                           include_universal=allow_debrid)
                         if hmf.valid_url() == True: resolved_url = hmf.resolve()
                         #resolved_url = urlresolver9.resolve(scraper_link['url'])
                         if resolved_url and sources().check_playable(resolved_url) is not None:
@@ -185,8 +187,8 @@ class sources:
                         continue
 
             try:
-                hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=True,
-                                                   include_universal=True)
+                hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=False,
+                                                   include_universal=allow_debrid)
                 if hmf.valid_url() == True: resolved_url = hmf.resolve()
                 #resolved_url = urlresolver9.resolve(scraper_link['url'])
             except:
@@ -201,8 +203,8 @@ class sources:
                 return
 
             try:
-                hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=True,
-                                                   include_universal=True)
+                hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=False,
+                                                   include_universal=allow_debrid)
                 if hmf.valid_url() == True: resolved_url = hmf.resolve()
                 #resolved_url = urlresolver9.resolve(scraper_link['url'])
             except:
@@ -220,6 +222,7 @@ class sources:
         sd_links = []
         non_direct = []
         sd_non_direct = []
+        allow_debrid = bool(control.setting('allow_debrid'))
 
         for scraper_links in links_scraper():
             if scraper_links is not None:
@@ -276,8 +279,8 @@ class sources:
                             sd_non_direct.append(scraper_link)
                             continue
                     try:
-                        hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=True,
-                                                           include_universal=True)
+                        hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=False,
+                                                           include_universal=allow_debrid)
                         if hmf.valid_url() == True: resolved_url = hmf.resolve()
                         #resolved_url = urlresolver9.resolve(scraper_link['url'])
                     except:
@@ -293,8 +296,8 @@ class sources:
                         return
 
                     try:
-                        hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=True,
-                                                           include_universal=True)
+                        hmf = urlresolver9.HostedMediaFile(url=scraper_link['url'], include_disabled=False,
+                                                           include_universal=allow_debrid)
                         if hmf.valid_url() == True: resolved_url = hmf.resolve()
                         #resolved_url = urlresolver9.resolve(scraper_link['url'])
                     except:
@@ -313,8 +316,9 @@ class sources:
             control.dialog.ok("Dependency missing",
                               "please install script.mrknow.urlresolver to resolve non-direct links")
         try:
-            hmf = urlresolver9.HostedMediaFile(url=url, include_disabled=True,
-                                               include_universal=True)
+            allow_debrid = bool(control.setting('allow_debrid'))
+            hmf = urlresolver9.HostedMediaFile(url=url, include_disabled=False,
+                                               include_universal=allow_debrid)
             if hmf.valid_url() == True: resolved_url = hmf.resolve()
             #resolved_url = urlresolver9.resolve(url)
             if resolved_url and sources().check_playable(resolved_url) is not None:

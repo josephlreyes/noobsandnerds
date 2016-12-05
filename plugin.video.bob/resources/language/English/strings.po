@@ -190,6 +190,10 @@ msgctxt "#30742"
 msgid "Open Resolver Settings"
 msgstr ""
 
+msgctxt "#30743"
+msgid "Enable Debrid"
+msgstr ""
+
 msgctxt "#30751"
 msgid "Scoreboard"
 msgstr ""

@@ -153,6 +153,7 @@ class Primewire(Scraper):
                 link = urlparse.parse_qs(urlparse.urlparse(link).query)['url'][
                     0]  # replace link with ?url= part if present
                 link = base64.b64decode(link)  # decode base 64
+
                 if link.startswith("//"):
                     link = "http:" + link
                 link = replaceHTMLCodes(link)
@@ -167,6 +168,9 @@ class Primewire(Scraper):
                     quality = 'CAM'
                 elif quality == 'quality_dvd':
                     quality = 'SD'
+
+                if "qertewrt" in host:
+                    continue
 
                 sources.append(
                     {'source': host, 'quality': quality, 'scraper': 'Primewire', 'url': link, 'direct': False})

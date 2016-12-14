@@ -1,3 +1,7 @@
+v0.5.8
+- disabled watch5s for now
+- small bugfix
+
 v0.5.7
 - fixed scrapers
 - added cloudflare module

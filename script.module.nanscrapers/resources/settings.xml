@@ -33,8 +33,6 @@
 		<setting id="pubfilm_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="sezonlukdizi" type="lsep"/>
 		<setting id="sezonlukdizi_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="watch5s" type="lsep"/>
-		<setting id="watch5s_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="watchcartoon" type="lsep"/>
 		<setting id="watchcartoon_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="watchepisodes" type="lsep"/>

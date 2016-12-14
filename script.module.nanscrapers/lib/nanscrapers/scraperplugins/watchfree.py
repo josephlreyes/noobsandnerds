@@ -148,6 +148,9 @@ class Watchfree(Scraper):
                     host = replaceHTMLCodes(host)
                     host = host.encode('utf-8')
 
+                    if "qertewrt" in host:
+                        continue
+
                     quality = row.findAll('div', attrs={'class': 'quality'})[0].text
                     if "CAM" in quality or 'TS' in quality:
                         quality = 'CAM'

@@ -4,13 +4,18 @@
         <import addon="xbmc.python" version="2.20.0"/>
     </requires>
 	<extension point="xbmc.addon.repository" name="anxdpanic Add-on Repository">
-		<info compressed="false">https://raw.githubusercontent.com/anxdpanic/_repository/master/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/anxdpanic/_repository/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/anxdpanic/_repository/master/zips/</datadir>
+		<dir>
+	        <info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+	        <checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+	        <datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+	    </dir>
+		<info compressed="false">https://offshoregit.com/anxdpanic/repository/addons.xml</info>
+		<checksum>https://offshoregit.com/anxdpanic/repository/addons.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/anxdpanic/repository/zips/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Install add-ons from anxdpanic's repository.</summary>
-		<description>Youtube Downloader and more</description>
+		<description>Install add-ons from anxdpanic's repository.</description>
 		<platform>all</platform>
 	</extension>
 </addon>

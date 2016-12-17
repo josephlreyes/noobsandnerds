@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.dutchmusic" name="DutchMusic Repository" version="0.0.0.1" provider-name="DutchMusic">
-	<extension point="xbmc.addon.repository" name="DutchMusic Repository">
+<addon id="repository.dutchmusic" name="The Eagle Repository" version="0.0.0.1" provider-name="Eagle Repo">
+	<extension point="xbmc.addon.repository" name="The Eagle Repository">
 		<info compressed="false">https://raw.githubusercontent.com/DutchMusic/DutchMusic/master/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/DutchMusic/DutchMusic/master/addons.xml.md5</checksum>
 		<datadir zip="true">https://raw.githubusercontent.com/DutchMusic/DutchMusic/master/zips</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>DutchMusic Repository</summary>
-		<description>Dit is de repository voor de DutchMusic add-on</description>
+		<summary>The Eagle Repository</summary>
+		<description>The Eagle Repository</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
 	</extension>

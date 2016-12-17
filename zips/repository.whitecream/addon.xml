@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.whitecream" name="WhiteCream repo" version="0.0.0.1" provider-name="mortael">
+<addon id="repository.whitecream" name="WhiteCream repo" version="0.0.0.1" provider-name="Whitecream">
 	<extension point="xbmc.addon.repository" name="WhiteCream repo">
-		<info compressed="false">http://raw.github.com/whitecream01/WhiteCream-V0.0.1/master/addons.xml</info>
-		<checksum>http://raw.github.com/whitecream01/WhiteCream-V0.0.1/master/addons.xml.md5</checksum>
-		<datadir zip="true">http://raw.github.com/whitecream01/WhiteCream-V0.0.1/master</datadir>
+		<dir>
+			<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+			<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+		</dir>    
+		<info compressed="false">http://offshoregit.com/whitecream/addons.xml</info>
+		<checksum>http://offshoregit.com/whitecream/addons.xml.md5</checksum>
+		<datadir zip="true">http://offshoregit.com/whitecream/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>The Official WhiteCream repository</summary>

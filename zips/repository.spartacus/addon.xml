@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.spartacus" version="0.0.0.1" name="Spartacus Repo" provider-name="spartacus">
+	<extension point="xbmc.addon.repository" name="Spartacus Repo">
+		<dir minversion="15.0.0">
+			<info compressed="false">https://github.com/Quihico/repository.spartacus/raw/master/zips/addons.xml</info>
+			<checksum>https://github.com/Quihico/repository.spartacus/raw/master/zips/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.github.com/Quihico/repository.spartacus/master/zips/</datadir>
+		</dir>
+		<dir minversion="16.0.0">
+			<info compressed="false">https://github.com/Quihico/repository.spartacus.jarvis/raw/master/zips/addons.xml</info>
+			<checksum>https://github.com/Quihico/repository.spartacus.jarvis/raw/master/zips/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.github.com/Quihico/repository.spartacus.jarvis/master/zips/</datadir>
+		</dir>
+		<dir minversion="17.0.0">
+			<info compressed="false">https://github.com/Quihico/repository.spartacus.krypton/raw/master/zips/addons.xml</info>
+			<checksum>https://github.com/Quihico/repository.spartacus.krypton/raw/master/zips/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.github.com/Quihico/repository.spartacus.krypton/master/zips/</datadir>
+		</dir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Spartacus</summary>
+		<description></description>
+		<platform>all</platform>
+	</extension>
+</addon>

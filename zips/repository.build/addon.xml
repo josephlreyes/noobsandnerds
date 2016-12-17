@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.build" name="[B][COLOR lime]DOKI TV[/COLOR] [COLOR white]BUILD Repository[/COLOR][/B]" version="0.0.0.1" provider-name="DOKITV.NL Crew">
+<addon id="repository.build" name="[B][COLOR palegreen]DOKI TV[/COLOR] [COLOR white]BUILD Repository[/COLOR][/B]" version="0.0.0.1" provider-name="DOKITV.NL Crew">
     <extension point="xbmc.addon.repository" name="DOKI TV Repository">
             <info compressed="false">https://raw.githubusercontent.com/doki1/build/master/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/doki1/build/master/addons.xml.md5</checksum>

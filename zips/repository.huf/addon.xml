@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.huf" name="HUF" version="0.0.0.1" provider-name="HUFCHIEF">
+ <extension point="xbmc.addon.repository" name="HUF">
+  <dir>
+   <info compressed="false">
+    https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml
+   </info>
+   <checksum>
+    https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5
+   </checksum>
+   <datadir zip="true">
+    https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/
+   </datadir>
+  </dir>
+  <info compressed="false">https://offshoregit.com/iamchief/huf-repo/addons.xml</info>
+  <checksum>https://offshoregit.com/iamchief/huf-repo/addons.xml.md5</checksum>
+  <datadir zip="true">https://offshoregit.com/iamchief/huf-repo/zips/</datadir>
+ </extension>
+ <extension point="xbmc.addon.metadata">
+  <summary>HUF Repo</summary>
+  <description>HUF Repo</description>
+  <platform>all</platform>
+ </extension>
+</addon>

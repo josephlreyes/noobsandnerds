@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="repository.silenthunter" name="[COLOR orange] Silent Hunter [/COLOR]" version="0.0.0.1" provider-name="SH">
 <extension point="xbmc.addon.repository" name="Silent Hunter">
-		<info compressed="false">http://silenthunter.srve.io/plugins/addons.xml</info>
-		<checksum>http://silenthunter.srve.io/plugins/addons.xml.md5</checksum>
-		<datadir zip="true">https://silenthunter.srve.io/plugins/</datadir>
+		<info compressed="false">https://silenthunter.000webhostapp.com/plugins/addons.xml</info>
+		<checksum>https://silenthunter.000webhostapp.com/plugins/addons.xml.md5</checksum>
+		<datadir zip="true">https://silenthunter.000webhostapp.com/plugins/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>The Silent Hunter Repository</summary>

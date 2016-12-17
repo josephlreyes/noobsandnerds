@@ -7,7 +7,7 @@
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Catoal Addon</summary>
-		<description>Addon Description</description>
+		<description>Repositorio con todo lo necesario para instalar sin problemas Catoal.</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
 	</extension>

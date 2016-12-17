@@ -1,18 +1,34 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="repository.featherence" name="Featherence repository" version="0.0.0.1" provider-name="finalmakerr">
 	<extension point="xbmc.addon.repository" name="Featherence repository">
-		<info compressed="false">https://raw.githubusercontent.com/finalmakerr/featherence/master/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/finalmakerr/featherence/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/finalmakerr/featherence/master/</datadir>
+		<dir minversion="0.0.0">
+			<info compressed="false">https://raw.githubusercontent.com/finalmakerr/featherence/master/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/finalmakerr/featherence/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/finalmakerr/featherence/master/</datadir>
+		</dir>
+		<dir minversion="15.0.0">
+			<info compressed="false">https://raw.githubusercontent.com/finalmakerr/featherence/master/_Helix/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/finalmakerr/featherence/master/_Helix/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/finalmakerr/featherence/master/_Helix/</datadir>
+		</dir>
+		<dir minversion="15.9.0">
+			<info compressed="false">https://raw.githubusercontent.com/finalmakerr/featherence/master/_Jarvis/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/finalmakerr/featherence/master/_Jarvis/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/finalmakerr/featherence/master/_Jarvis/</datadir>
+		</dir>
+		<dir minversion="16.9.0">
+			<info compressed="false">https://raw.githubusercontent.com/finalmakerr/featherence/master/_Krypton/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/finalmakerr/featherence/master/_Krypton/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/finalmakerr/featherence/master/_Krypton/</datadir>
+		</dir>
     </extension>
 	<extension point="xbmc.addon.metadata">
-		<language>he en</language>
 		<platform>all</platform>
 		<summary lang="en"></summary>
-		<description lang="en">Get frequently updates from Featherence team</description>
+		<description lang="en">Install Kodi's addons from Featherence Repository</description>
 		<email>featherence@groups.facebook.com</email>
 		<forum></forum>
-		<source>https://github.com/finalmakerr/featherence/tree/master/master/skin.featherence/1080i</source>
+		<source>https://github.com/finalmakerr/featherence</source>
 		<website>https://www.facebook.com/groups/featherence/</website>
 	</extension>
 </addon>

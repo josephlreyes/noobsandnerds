@@ -1,3 +1,0 @@
-[B]Version 1.0.0[/B]
-
-- Initial commit to xbmc-vodie repository

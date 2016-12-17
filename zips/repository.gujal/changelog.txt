@@ -1,6 +1,0 @@
-[B]Version 1.1[/B]
-- Move distribution to Offshoregit
-
-[B]Version 1.0[/B]
-- First version 1
-

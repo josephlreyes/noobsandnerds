@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.RoiD" name="[COLOR red]RoiD[/COLOR] Repository" version="0.0.0.1" provider-name="RoiD">
+    <extension point="xbmc.addon.repository" name="RoiD Repository">
+        <info compressed="false">http://roid.webutu.com/Addons/addons.xml</info>
+        <checksum>http://roid.webutu.com/Addons/addons.xml.md5</checksum>
+        <datadir zip="true">http://roid.webutu.com/Addons/</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>RoiD repository</summary>
+        <description>RoiD offical repository </description>
+        <platform>all</platform>
+    </extension>
+</addon>

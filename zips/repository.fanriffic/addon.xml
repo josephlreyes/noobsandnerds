@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.fanriffic" name="Fanriffic Themes Repo" version="2.0" provider-name="HKP">
+<addon id="repository.fanriffic" name="Fanriffic Themes Repo" version="0.0.0.1" provider-name="HKP">
 	<extension point="xbmc.addon.repository" name="Simple Kodi">
 		<info compressed="false">http://fanriffic.com/repowizard/addons.xml</info>
 		<checksum>http://fanriffic.com/repowizard/addons.xml.md5</checksum>

@@ -2,9 +2,9 @@
 <addon id="repository.aftershock" name="Aftershock addons" version="0.0.0.1" provider-name="IDev">
 	<extension point="xbmc.addon.repository" name="Aftershock add-on repository">
 		<dir>
-			<info compressed="false">https://raw.githubusercontent.com/vineegu/aftershock-repo/master/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/vineegu/aftershock-repo/master/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/vineegu/aftershock-repo/master/releases</datadir>
+			<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+			<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
 		</dir>
 		<info compressed="false">https://offshoregit.com/vineegu/aftershock-repo/addons.xml</info>
 		<checksum>https://offshoregit.com/vineegu/aftershock-repo/addons.xml.md5</checksum>

@@ -4,8 +4,8 @@ import urlparse
 
 import requests
 from BeautifulSoup import BeautifulSoup
-from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes
-from nanscrapers.scraper import Scraper
+from ..common import  clean_title, random_agent, replaceHTMLCodes
+from ..scraper import Scraper
 
 
 class Afdah(Scraper):

@@ -7,7 +7,7 @@ import requests
 import xbmc
 from BeautifulSoup import BeautifulSoup
 from nanscrapers.common import random_agent, googletag
-from nanscrapers.scraper import Scraper
+from ..scraper import Scraper
 
 
 class Pelispedia(Scraper):

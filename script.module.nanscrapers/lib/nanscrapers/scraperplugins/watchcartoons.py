@@ -1,7 +1,9 @@
 import re
 import requests
 import xbmc
-from nanscrapers.scraper import Scraper
+from ..scraper import Scraper
+from BeautifulSoup import BeautifulSoup
+from ..common import clean_title
 
 
 class Watchcartoons(Scraper):
@@ -39,15 +41,29 @@ class Watchcartoons(Scraper):
 
     def scrape_movie(self, title, year, imdb):
         try:
-            html = requests.get(self.base_link_movies).text
-            match = re.compile('<a href="(.+?)" title=".+?">(.+?)</a>').findall(html)
-            for url, name in match:
-                clean_title = title.replace(' ', '').replace('amp;', '').replace('&#8217;','\'').replace('\'','').lower()
-                clean_name = name.replace('&#8217;','\'').replace(' ', '').replace('amp;','').replace('\'','').lower()
-                if clean_title in clean_name:
-                    new_url = 'https://www.watchcartoononline.io/'+title.replace(' ','-')
-                    self.check_for_play(url,title,'',year,'','')
+            cleaned_title = clean_title(title)
+            html = BeautifulSoup(requests.get(self.base_link_movies).text)
+            container = html.findAll('div', attrs={'class': 'ddmcc'})[0]
+            links = container.findAll('a')
+            for link in links:
+                try:
+                    link_title = link["title"]
+                    href = link["href"]
+                    clean_link_title = clean_title(link_title)
+                    if cleaned_title == clean_link_title:
+                        self.check_for_play(href , title, '', year, '', '')
+                except:
+                    continue
             return self.sources
+
+            #match = re.compile('<a href="(.+?)" title=".+?">(.+?)</a>').findall(html)
+            #for url, name in match:
+            #    clean_title = title.replace(' ', '').replace('amp;', '').replace('&#8217;','\'').replace('\'','').lower()
+            #    clean_name = name.replace('&#8217;','\'').replace(' ', '').replace('amp;','').replace('\'','').lower()
+            #    if clean_title in clean_name:
+            #        new_url = 'https://www.watchcartoononline.io/'+title.replace(' ','-')
+            #        self.check_for_play(url,title,'',year,'','')
+            #return self.sources
 
         except:
             return []

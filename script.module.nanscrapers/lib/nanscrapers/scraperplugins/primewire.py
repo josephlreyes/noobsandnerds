@@ -5,17 +5,17 @@ import urlparse
 
 from BeautifulSoup import BeautifulSoup
 from nanscrapers import proxy
-from nanscrapers.common import clean_title, replaceHTMLCodes
-from nanscrapers.scraper import Scraper
+from ..common import clean_title, replaceHTMLCodes
+from ..scraper import Scraper
+import xbmcaddon
 import xbmc
-
 class Primewire(Scraper):
     domains = ['primewire.ag']
     name = "primewire"
 
     def __init__(self):
-        self.base_link = 'http://www.primewire.ag'
-        self.search_link = 'http://www.primewire.ag/index.php?search'
+        self.base_link = xbmcaddon.Addon('script.module.nanscrapers').getSetting("%s_baseurl" % (self.name))
+        self.search_link = '%s/index.php?search' % (self.base_link)
         self.moviesearch_link = '/index.php?search_keywords=%s&key=%s&search_section=1'
         self.tvsearch_link = '/index.php?search_keywords=%s&key=%s&search_section=2'
 
@@ -44,6 +44,7 @@ class Primewire(Scraper):
                             except:
                                 pass
                             if title.lower() == clean_title(link_title):
+
                                 if '(%s)' % str(year) in link_title:
                                     return self.sources(href)
                                 else:
@@ -61,7 +62,7 @@ class Primewire(Scraper):
         try:
             html = BeautifulSoup(self.get_html(title, self.tvsearch_link))
             index_items = html.findAll('div', attrs={'class': re.compile('index_item.+?')})
-            title = 'watch' + clean_title(title).replace(": ", "")
+            title = 'watch' + clean_title(" ".join(title.translate(None, '\'"?:!@#$&-')))
 
             for index_item in index_items:
                 try:
@@ -77,8 +78,8 @@ class Primewire(Scraper):
                             href = urlparse.parse_qs(urlparse.urlparse(href).query)['q'][0]
                         except:
                             pass
-
-                        if title == clean_title(link_title):  # href is the show page relative url
+                        clean_link_title = clean_title(" ".join(link_title.encode().translate(None, '\'"?:!@#$&-')))
+                        if title == clean_link_title:  # href is the show page relative url
                             show_url = urlparse.urljoin(self.base_link, href)
                             html = BeautifulSoup(proxy.get(show_url, 'tv_episode_item'))
 
@@ -117,7 +118,7 @@ class Primewire(Scraper):
 
     def get_html(self, title, search_link):
         key = self.get_key()
-        query = search_link % (urllib.quote_plus(title.replace('\'', '').rsplit(':', 1)[0]), key)
+        query = search_link % (urllib.quote_plus(" ".join(title.translate(None, '\'"?:!@#$&-').split()).rsplit(':', 1)[0]), key)
         query = urlparse.urljoin(self.base_link, query)
 
         html = proxy.get(query, ('index_item'))
@@ -138,43 +139,53 @@ class Primewire(Scraper):
 
             table_bodies = parsed_html.findAll('tbody')
             for table_body in table_bodies:
-                link = table_body.findAll('a')[0]["href"]
                 try:
-                    link = urlparse.parse_qs(urlparse.urlparse(link).query)['u'][
-                        0]  # replace link with ?u= part if present
+                    link = table_body.findAll('a')[0]["href"]
+                    try:
+                        link = urlparse.parse_qs(urlparse.urlparse(link).query)['u'][
+                            0]  # replace link with ?u= part if present
+                    except:
+                        pass
+                    try:
+                        link = urlparse.parse_qs(urlparse.urlparse(link).query)['q'][
+                            0]  # replace link with ?q= part if present
+                    except:
+                        pass
+
+                    link = urlparse.parse_qs(urlparse.urlparse(link).query)['url'][
+                        0]  # replace link with ?url= part if present
+                    link = base64.b64decode(link)  # decode base 64
+
+                    if link.startswith("//"):
+                        link = "http:" + link
+                    link = replaceHTMLCodes(link)
+                    link = link.encode('utf-8')
+
+                    host = re.findall('([\w]+[.][\w]+)$', urlparse.urlparse(link.strip().lower()).netloc)[0]
+                    host = replaceHTMLCodes(host)
+                    host = host.encode('utf-8')
+
+                    quality = table_body.findAll('span')[0]["class"]
+                    if quality == 'quality_cam' or quality == 'quality_ts':
+                        quality = 'CAM'
+                    elif quality == 'quality_dvd':
+                        quality = 'SD'
+
+                    if "qertewrt" in host:
+                        continue
+
+                    sources.append(
+                        {'source': host, 'quality': quality, 'scraper': 'Primewire', 'url': link, 'direct': False})
                 except:
                     pass
-                try:
-                    link = urlparse.parse_qs(urlparse.urlparse(link).query)['q'][
-                        0]  # replace link with ?q= part if present
-                except:
-                    pass
-
-                link = urlparse.parse_qs(urlparse.urlparse(link).query)['url'][
-                    0]  # replace link with ?url= part if present
-                link = base64.b64decode(link)  # decode base 64
-
-                if link.startswith("//"):
-                    link = "http:" + link
-                link = replaceHTMLCodes(link)
-                link = link.encode('utf-8')
-
-                host = re.findall('([\w]+[.][\w]+)$', urlparse.urlparse(link.strip().lower()).netloc)[0]
-                host = replaceHTMLCodes(host)
-                host = host.encode('utf-8')
-
-                quality = table_body.findAll('span')[0]["class"]
-                if quality == 'quality_cam' or quality == 'quality_ts':
-                    quality = 'CAM'
-                elif quality == 'quality_dvd':
-                    quality = 'SD'
-
-                if "qertewrt" in host:
-                    continue
-
-                sources.append(
-                    {'source': host, 'quality': quality, 'scraper': 'Primewire', 'url': link, 'direct': False})
-
             return sources
         except:
             return sources
+
+    @classmethod
+    def get_settings_xml(clas):
+        xml = [
+            '<setting id="%s_enabled" ''type="bool" label="Enabled" default="true"/>' % (clas.name),
+            '<setting id= "%s_baseurl" type="text" label="Base Url" default="http://www.primewire.ag"/>' % (clas.name)
+        ]
+        return xml

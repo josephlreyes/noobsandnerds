@@ -8,8 +8,10 @@ import urlparse
 
 import requests
 from BeautifulSoup import BeautifulSoup
-from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes
-from nanscrapers.scraper import Scraper
+from ..common import clean_title, random_agent, replaceHTMLCodes
+from ..scraper import Scraper
+import xbmcaddon
+import xbmc
 
 
 class Onemovies(Scraper):
@@ -17,7 +19,7 @@ class Onemovies(Scraper):
     name = "onemovies"
 
     def __init__(self):
-        self.base_link = 'http://123movies.gs'
+        self.base_link = xbmcaddon.Addon('script.module.nanscrapers').getSetting("%s_baseurl" % (self.name))
         self.search_link = '/movie/search/%s'
         self.info_link = '/ajax/movie_load_info/%s'
         self.server_link = '/ajax/get_episodes/%s'
@@ -29,29 +31,40 @@ class Onemovies(Scraper):
             # print("ONEMOVIES")
             headers = {'User-Agent': random_agent()}
             # print("ONEMOVIES", headers)
-            query = self.search_link % (urllib.quote_plus(title.replace("'", " ")))
+            query = self.search_link % (urllib.quote_plus(
+                " ".join(title.translate(None, '"?:!@#$&-').replace("'", " ").split())))  # clean up string and remove double spaces
             query = urlparse.urljoin(self.base_link, query)
             cleaned_title = clean_title(title)
+            cleaned_title =  " ".join(cleaned_title.translate(None, '\'"?:!@#$&-').split())
             # print("ONEMOVIES", query)
-            html = BeautifulSoup(requests.get(query, headers=headers, timeout=30).content)
-            containers = html.findAll('div', attrs={'class': 'ml-item'})
-            for result in containers:
-                links = result.findAll('a')
-                # print("ONEMOVIES", links)
-                for link in links:
-                    link_title = str(link['title'])
-                    href = str(link['href'])
-                    info = str(link['data-url'])
-                    # print("ONEMOVIES", link_title, href, info)
-                    if clean_title(link_title) == cleaned_title:
-                        html = requests.get(info, headers=headers).content
-                        pattern = '<div class="jt-info">%s</div>' % year
-                        match = re.findall(pattern, html)
-                        if match:
-                            # print("ONEMOVIES MATCH", href)
-                            return self.sources(replaceHTMLCodes(href))
-
-
+            page = 1
+            while True:
+                html = requests.get(query, headers=headers, timeout=30).content
+                if "no result found" in html.lower():
+                    break
+                html = BeautifulSoup(html)
+                containers = html.findAll('div', attrs={'class': 'ml-item'})
+                for result in containers:
+                    links = result.findAll('a')
+                    # print("ONEMOVIES", links)
+                    for link in links:
+                        link_title = str(link['title'])
+                        href = str(link['href'])
+                        info = str(link['data-url'])
+                        # print("ONEMOVIES", link_title, href, info)
+                        cleaned_link_title =  " ".join(clean_title(link_title).translate(None, '\'"?:!@#$&-').split())
+                        xbmc.log(cleaned_link_title + " vs " + cleaned_title)
+                        if cleaned_link_title == cleaned_title:
+                            html = requests.get(info, headers=headers).content
+                            pattern = '<div class="jt-info">%s</div>' % year
+                            match = re.findall(pattern, html)
+                            if match:
+                                # print("ONEMOVIES MATCH", href)
+                                return self.sources(replaceHTMLCodes(href))
+                page += 1
+                query = self.search_link % (urllib.quote_plus(" ".join(title.translate(None, '\'"?:!@#$&-').split())))
+                query = urlparse.urljoin(self.base_link, query)
+                query += "/" + str(page)
 
         except:
             pass
@@ -60,7 +73,7 @@ class Onemovies(Scraper):
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb):
         try:
             headers = {'User-Agent': random_agent()}
-            query = "%s+season+%s" % (urllib.quote_plus(title), season)
+            query = "%s+season+%s" % (urllib.quote_plus(" ".join(title.translate(None, '\'"?:!@#$&-').split())), season)
             query = self.search_link % query
             query = urlparse.urljoin(self.base_link, query)
             cleaned_title = clean_title(title)
@@ -153,11 +166,11 @@ class Onemovies(Scraper):
                         ################# FIX FROM MUCKY DUCK & XUNITY TALK ################
 
                         serverurl = self.base_link + '/ajax/v2_get_sources/' + episode_id + '?hash=' + urllib.quote(
-                            hash_id)
+                                hash_id)
                         # print ("playurl ONEMOVIES", serverurl)
 
-                        headers = {'Accept-Language': 'en-US', 'Cookie': cookie, 'Referer': referer,
-                                   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36',
+                        headers = {'Accept-Language' : 'en-US', 'Cookie': cookie, 'Referer': referer,
+                                   'User-Agent'      : 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36',
                                    'X-Requested-With': 'XMLHttpRequest'}
                         # print ("playurl ONEMOVIES", headers)
                         result = requests.get(serverurl, headers=headers).content
@@ -193,6 +206,14 @@ class Onemovies(Scraper):
         except:
             pass
         return sources
+
+    @classmethod
+    def get_settings_xml(clas):
+        xml = [
+            '<setting id="%s_enabled" ''type="bool" label="Enabled" default="true"/>' % (clas.name),
+            '<setting id= "%s_baseurl" type="text" label="Base Url" default="https://123movies.pp.ru"/>' % (clas.name)
+        ]
+        return xml
 
 
 def uncensored(a, b):

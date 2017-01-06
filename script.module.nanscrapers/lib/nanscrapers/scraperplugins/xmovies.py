@@ -3,20 +3,22 @@ import re
 import urllib
 import urlparse
 
-import requests
 from BeautifulSoup import BeautifulSoup
-from nanscrapers import proxy
-from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes
-from nanscrapers.scraper import Scraper
+from .. import proxy
+from ..common import clean_title, random_agent, replaceHTMLCodes
+from ..scraper import Scraper
+from ..modules import cfscrape
+import xbmc
 
 
 class Xmovies(Scraper):
-    domains = ['xmovies8.ru']
+    domains = ['xmovies8.tv']
     name = "xmovies"
 
     def __init__(self):
-        self.base_link = 'http://xmovies8.ru'
+        self.base_link = 'https://xmovies8.ru'
         self.search_link = '/movies/search?s=%s'
+        self.scraper = cfscrape.create_scraper()
 
     def scrape_movie(self, title, year, imdb):
         try:
@@ -25,7 +27,8 @@ class Xmovies(Scraper):
             query = query % urllib.quote_plus(title)
             # print ("XMOVIES query", query)
             cleaned_title = clean_title(title)
-            html = BeautifulSoup(requests.get(query, headers=headers, timeout=30).content)
+            prehtml = self.scraper.get(query, headers=headers, timeout=30)
+            html = BeautifulSoup(prehtml.content)
             containers = html.findAll('div', attrs={'class': 'item_movie'})
             # print ("XMOVIES r1", containers)
             for container in containers:
@@ -57,7 +60,7 @@ class Xmovies(Scraper):
             referer_url = url.replace('watching.html', '') + 'watching.html'
 
             headers = {'User-Agent': random_agent}
-            post = requests.get(absolute_url, headers=headers, timeout=30).content
+            post = self.scraper.get(absolute_url, headers=headers, timeout=30).content
 
             post = re.findall('movie=(\d+)', post)[0]
             post = {'id': post, 'episode_id': '0', 'link_id': '0', 'from': 'v3'}
@@ -67,7 +70,7 @@ class Xmovies(Scraper):
             headers['Referer'] = referer_url
             headers['User-Agent'] = random_agent()
             load_episode_url = urlparse.urljoin(self.base_link, '/ajax/movie/load_episodes')
-            html = BeautifulSoup(requests.post(load_episode_url, data=post, headers=headers).content)
+            html = BeautifulSoup(self.scraper.post(load_episode_url, data=post, headers=headers).content)
 
             pattern = re.compile("load_player\(\s*'([^']+)'\s*,\s*'?(\d+)\s*'?")
             links = html.findAll('a', attrs={'onclick': pattern})
@@ -77,7 +80,7 @@ class Xmovies(Scraper):
                 try:
                     play = urlparse.urljoin(self.base_link, '/ajax/movie/load_player_v2')
                     post = {'id': info[0], 'quality': info[1]}
-                    player_url = requests.post(play, data=post, headers=headers).content
+                    player_url = self.scraper.post(play, data=post, headers=headers).content
 
                     json_url = json.loads(player_url)['link']
 

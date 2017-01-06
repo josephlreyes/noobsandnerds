@@ -6,7 +6,7 @@ import urlparse
 import requests
 from BeautifulSoup import BeautifulSoup
 from nanscrapers.common import clean_title, random_agent
-from nanscrapers.scraper import Scraper
+from ..scraper import Scraper
 
 
 class Onemusic(Scraper):

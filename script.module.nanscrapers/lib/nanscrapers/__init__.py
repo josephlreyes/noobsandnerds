@@ -100,7 +100,7 @@ def _update_settings_xml():
     new_xml = [
         '<?xml version="1.0" encoding="utf-8" standalone="yes"?>',
         '<settings>',
-        '\t <category label = General>'
+        '\t <category label = "General">'
         '\t\t<setting id="cache_enabled" ''type="bool" label="Enable Caching" default="true"/>'
         '\t</category>'
         '\t<category label="Scrapers 1">'
@@ -136,7 +136,7 @@ def _update_settings_xml():
             with open(settings_location, 'w') as f:
                 f.write(new_xml)
         except:
-            raise
+            pass
 
 
 _update_settings_xml()

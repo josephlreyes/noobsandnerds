@@ -17,7 +17,7 @@
 
 import re,urllib,urlparse,hashlib,random,string,json,base64,requests
 from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes
-from nanscrapers.scraper import Scraper
+from ..scraper import Scraper
 from BeautifulSoup import BeautifulSoup
 import xbmc
 #import client - was just importing this into idle for the parseDOM

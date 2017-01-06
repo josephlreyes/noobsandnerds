@@ -4,9 +4,9 @@ import urlparse
 
 import requests
 from BeautifulSoup import BeautifulSoup
-from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes
-from nanscrapers.jsunpack import unpack
-from nanscrapers.scraper import Scraper
+from ..common import clean_title, random_agent, replaceHTMLCodes
+from ..jsunpack import unpack
+from ..scraper import Scraper
 
 
 class Moviego(Scraper):

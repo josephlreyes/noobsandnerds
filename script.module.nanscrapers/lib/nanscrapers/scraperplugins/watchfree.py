@@ -4,9 +4,10 @@ import urllib
 import urlparse
 
 from BeautifulSoup import BeautifulSoup
-from nanscrapers import proxy
-from nanscrapers.common import replaceHTMLCodes, clean_title
-from nanscrapers.scraper import Scraper
+from ..import proxy
+from ..common import replaceHTMLCodes, clean_title
+from ..scraper import Scraper
+import xbmcaddon
 import xbmc
 
 class Watchfree(Scraper):
@@ -14,7 +15,7 @@ class Watchfree(Scraper):
     name = "watchfree"
 
     def __init__(self):
-        self.base_link = 'http://www.watchfree.to'
+        self.base_link = self.base_link = xbmcaddon.Addon('script.module.nanscrapers').getSetting("%s_baseurl" % (self.name))
         self.moviesearch_link = '/?keyword=%s&search_section=1'
         self.tvsearch_link = '/?keyword=%s&search_section=2'
 
@@ -24,36 +25,18 @@ class Watchfree(Scraper):
             query = urlparse.urljoin(self.base_link, query)
 
             html = proxy.get(query, 'item')
-            if 'page=2' in html or 'page%3D2' in html:
-                html2 = proxy.get(query + '&page=2', 'item')
-                html += html2
-
-            html = BeautifulSoup(html)
-
-            cleaned_title = 'watchputlocker' + clean_title(title)
-            years = ['(%s)' % str(year), '(%s)' % str(int(year) + 1), '(%s)' % str(int(year) - 1)]
-
-            items = html.findAll('div', attrs={'class': 'item'})
-
-            for item in items:
-                links = item.findAll('a')
-                for link in links:
-                    href = link['href']
-                    link_title = link['title']
-                    if any(candidate_year in link_title for candidate_year in years):
-                        try:
-                            href = urlparse.parse_qs(urlparse.urlparse(href).query)['u'][0]
-                        except:
-                            pass
-                        try:
-                            href = urlparse.parse_qs(urlparse.urlparse(href).query)['q'][0]
-                        except:
-                            pass
-
-                        if cleaned_title == clean_title(link_title):
-                            url = re.findall('(?://.+?|)(/.+)', href)[0]
-                            url = replaceHTMLCodes(url)
-                            return self.sources(url)
+            page = 1
+            while True:
+                sources = self.scrape_movie_page(html, title, year)
+                if sources is not None:
+                    return sources
+                else:
+                    page +=1
+                    if 'page=%s' % page in html or 'page%3D' + '%s' % page in html:
+                        html2 = proxy.get(query + '&page=%s' % page, 'item')
+                        html = html2
+                    else:
+                        break
         except:
             pass
         return []
@@ -165,3 +148,41 @@ class Watchfree(Scraper):
             pass
 
         return sources
+
+    def scrape_movie_page(self, html, title, year):
+        try:
+            html = BeautifulSoup(html)
+
+            cleaned_title = 'watchputlocker' + clean_title(title)
+            years = ['(%s)' % str(year), '(%s)' % str(int(year) + 1), '(%s)' % str(int(year) - 1)]
+
+            items = html.findAll('div', attrs={'class': 'item'})
+
+            for item in items:
+                links = item.findAll('a')
+                for link in links:
+                    href = link['href']
+                    link_title = link['title']
+                    if any(candidate_year in link_title for candidate_year in years):
+                        try:
+                            href = urlparse.parse_qs(urlparse.urlparse(href).query)['u'][0]
+                        except:
+                            pass
+                        try:
+                            href = urlparse.parse_qs(urlparse.urlparse(href).query)['q'][0]
+                        except:
+                            pass
+                        if cleaned_title == clean_title(link_title):
+                            url = re.findall('(?://.+?|)(/.+)', href)[0]
+                            url = replaceHTMLCodes(url)
+                            return self.sources(url)
+        except:
+            pass
+
+    @classmethod
+    def get_settings_xml(clas):
+        xml = [
+            '<setting id="%s_enabled" ''type="bool" label="Enabled" default="true"/>' % (clas.name),
+            '<setting id= "%s_baseurl" type="text" label="Base Url" default="http://www.watchfree.to"/>' % (clas.name)
+        ]
+        return xml

@@ -5,8 +5,8 @@ import requests
 import urlparse
 import xbmc
 from BeautifulSoup import BeautifulSoup
-from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes
-from nanscrapers.scraper import Scraper
+from ..common import clean_title, random_agent, replaceHTMLCodes
+from ..scraper import Scraper
 
 
 class Moviexk(Scraper):
@@ -25,24 +25,29 @@ class Moviexk(Scraper):
             query = urlparse.urljoin(self.base_link, query)
             cleaned_title = clean_title(title)
             html = BeautifulSoup(requests.get(query, headers=headers, timeout=30).content)
-
             containers = html.findAll('div', attrs={'class': 'inner'})
             for container in containers:
-                print("MOVIEXK r1", container)
-                movie_link = container.findAll('a')[0]
-                r_href = movie_link['href']
-                print("MOVIEXK r2", r_href)
-                r_title = movie_link['title']
-                link_year = container.findAll('span', attrs={'class': 'year'})[0].findAll('a')[0].text
-                print("MOVIEXK r3", r_title)
-                print("MOVIEXK RESULTS", r_title, r_href)
-                if str(year) == link_year:
-                    if cleaned_title in clean_title(r_title):
-                        redirect = requests.get(r_href, headers=headers, timeout=30).text
-                        r_url = re.findall('<a href="(.*?)" class="btn-watch"', redirect)[0]
-                        r_url = r_url.encode('utf-8')
-                        print("MOVIEXK PLAY URL", r_url)
-                        return self.sources(replaceHTMLCodes(r_url))
+                try:
+                    print("MOVIEXK r1", container)
+                    status = container.findAll("div", attrs={'class': 'status'})[0].text.strip()
+                    if "trailer" in status.lower():
+                        continue
+                    movie_link = container.findAll('a')[0]
+                    r_href = movie_link['href']
+                    print("MOVIEXK r2", r_href)
+                    r_title = movie_link['title']
+                    link_year = container.findAll('span', attrs={'class': 'year'})[0].findAll('a')[0].text
+                    print("MOVIEXK r3", r_title)
+                    print("MOVIEXK RESULTS", r_title, r_href)
+                    if str(year) == link_year:
+                        if cleaned_title in clean_title(r_title):
+                            redirect = requests.get(r_href, headers=headers, timeout=30).text
+                            r_url = re.findall('<a href="(.*?)" class="btn-watch"', redirect)[0]
+                            r_url = r_url.encode('utf-8')
+                            print("MOVIEXK PLAY URL", r_url)
+                            return self.sources(replaceHTMLCodes(r_url))
+                except:
+                    continue
         except:
             pass
         return []
@@ -99,6 +104,14 @@ class Moviexk(Scraper):
             for r_source in r:
                 url = r_source['src'].encode('utf-8')
                 if not 'google' in url:
+                    try:
+                        req = requests.head(url, headers=headers)
+                        if req.headers['Location'] != "":
+                            url = req.headers['Location']
+                            url = url.replace('https://', 'http://').replace(':443/', '/')
+                    except:
+                        pass
+                if "redirector.google" in url:
                     try:
                         req = requests.head(url, headers=headers)
                         if req.headers['Location'] != "":

@@ -5,7 +5,7 @@ import urlparse
 import requests
 from BeautifulSoup import BeautifulSoup
 from nanscrapers.common import random_agent, replaceHTMLCodes
-from nanscrapers.scraper import Scraper
+from ..scraper import Scraper
 import xbmc
 
 class Sezonluldizi(Scraper):

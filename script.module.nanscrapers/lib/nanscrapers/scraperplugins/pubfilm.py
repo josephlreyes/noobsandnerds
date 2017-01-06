@@ -3,17 +3,17 @@ import gzip
 import re
 import urlparse
 from BeautifulSoup import BeautifulSoup
-from nanscrapers.common import random_agent, replaceHTMLCodes
-from nanscrapers.scraper import Scraper
-import xbmc
+from ..common import random_agent, replaceHTMLCodes
+from ..scraper import Scraper
 from nanscrapers.modules import cfscrape
+import xbmcaddon
 
 class Pubfilm(Scraper):
     domains = ['pubfilmno1.com', 'pubfilm.com', 'pidtv.com']
     name = "pubfilm"
 
     def __init__(self):
-        self.base_link = 'http://pubfilm.com'
+        self.base_link = xbmcaddon.Addon('script.module.nanscrapers').getSetting("%s_baseurl" % (self.name))
         self.moviesearch_hd_link = '/%s-%s-full-hd-pubfilm-free.html'
         self.moviesearch_sd_link = '/%s-%s-pubfilm-free.html'
         self.tvsearch_link = '/wp-admin/admin-ajax.php'
@@ -27,7 +27,7 @@ class Pubfilm(Scraper):
             html = None
             try:
                 prehtml = self.scraper.get(search_url, headers=headers, timeout=30)
-                if html.status_code != 404:
+                if prehtml.status_code != 404:
                     html = BeautifulSoup(prehtml.content)
             except:
                 pass
@@ -36,7 +36,6 @@ class Pubfilm(Scraper):
                 search_url = urlparse.urljoin(self.base_link, self.moviesearch_sd_link % (title, year))
 
                 html = BeautifulSoup(self.scraper.get(search_url, headers=headers, timeout=30).content)
-
             if html == None:
                 raise Exception()
             return self.sources(search_url)
@@ -132,3 +131,11 @@ class Pubfilm(Scraper):
             pass
 
         return sources
+
+    @classmethod
+    def get_settings_xml(clas):
+        xml = [
+            '<setting id="%s_enabled" ''type="bool" label="Enabled" default="true"/>' % (clas.name),
+            '<setting id= "%s_baseurl" type="text" label="Base Url" default="http://pubfilm.com"/>' % (clas.name)
+        ]
+        return xml

@@ -3,8 +3,8 @@ import urlparse
 
 import requests
 from BeautifulSoup import BeautifulSoup
-from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes, odnoklassniki, vk
-from nanscrapers.scraper import Scraper
+from ..common import clean_title, random_agent, replaceHTMLCodes, odnoklassniki, vk
+from ..scraper import Scraper
 import xbmc
 
 class Dizigold(Scraper):

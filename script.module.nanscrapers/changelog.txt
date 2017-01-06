@@ -1,3 +1,11 @@
+v0.5.9
+- disabled cyberreel and watchseries for now (massive slowdown)
+- disabled yabanci scraper for now (site down)
+- add baseurl settings for some scrapers
+- disabled genvideo scraper (links on site down)
+- fixed scrapers
+- expanded the search capabilities of some scrapers
+
 v0.5.8
 - disabled watch5s for now
 - small bugfix

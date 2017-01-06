@@ -5,7 +5,7 @@ import urlparse
 import xbmc
 from BeautifulSoup import BeautifulSoup
 from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes
-from nanscrapers.scraper import Scraper
+from ..scraper import Scraper
 
 
 class Watchepisodes(Scraper):

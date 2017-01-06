@@ -1,6 +1,6 @@
 import re
 import requests
-from nanscrapers.scraper import Scraper
+from ..scraper import Scraper
 import xbmc
 
 class Dizi720(Scraper):

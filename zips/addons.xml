@@ -2102,6 +2102,19 @@ DO NOT INSTALL UNLESS YOU WISH TO PARTICIPATE IN BETA TESTING
 	</extension>
 </addon>
 
+<addon id="repository.dandymedia" name="Dandymedia Repository" version="0.0.0.1" provider-name="Dandymedia">
+    <extension point="xbmc.addon.repository" name="Dandymedia Repository">
+        <info compressed="true">https://github.com/dandy0850/dandymedia/raw/master/addons.xml</info>
+        <checksum>https://github.com/dandy0850/dandymedia/raw/master/addons.xml.md5</checksum>
+        <datadir zip="true">https://github.com/dandy0850/dandymedia/raw/master/repo</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Dandymedia Repository</summary>
+        <description>Dandymedia collection all addons</description>
+        <platform>all</platform>
+    </extension>
+</addon>
+
 <addon id="repository.datho.xbmc-plugins" name="Datho Add-on Repository" version="0.0.0.1" provider-name="Datho-Digital">
     <extension point="xbmc.addon.repository" name="Datho Add-on Repository">
         <info compressed="false">http://raw.github.com/datho/datho-xbmc-repo/master/addons.xml</info>
@@ -7669,19 +7682,6 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 	</extension>
 </addon>
 
-<addon id="repository.team_inspiration" name="Team Inspiration" version="0.0.0.1" provider-name="Inspiration">
-	<extension point="xbmc.addon.repository" name="VietKodi Addon Repository">
-		<info compressed="false">http://teaminspiration.net23.net/Plugins/addons.xml</info>
-		<checksum>http://teaminspiration.net23.net/Plugins/addons.xml.md5</checksum>
-		<datadir zip="true">http://teaminspiration.net23.net/Plugins/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Team Inspiration Repo</summary>
-		<description>Repositorio do Team Inspiration</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
 <addon id="repository.teammaniac" name="   [COLOR yellow][B]Team[/COLOR] [COLOR red]ManiaC[/B] Repository[/COLOR]" version="0.0.0.1" provider-name="[COLOR blue][B]AMO[/B][/COLOR][COLOR green]box[/COLOR]">
 	<extension point="xbmc.addon.repository" name="Demonstration Add-on Repository">
 		<info compressed="false">http://raw.github.com/AMObox/teammaniac/master/addons.xml</info>
@@ -7708,6 +7708,19 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
         </description>
         <platform>all</platform>
     </extension>
+</addon>
+
+<addon id="repository.team_inspiration" name="Team Inspiration" version="0.0.0.1" provider-name="Inspiration">
+	<extension point="xbmc.addon.repository" name="VietKodi Addon Repository">
+		<info compressed="false">http://teaminspiration.net23.net/Plugins/addons.xml</info>
+		<checksum>http://teaminspiration.net23.net/Plugins/addons.xml.md5</checksum>
+		<datadir zip="true">http://teaminspiration.net23.net/Plugins/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Team Inspiration Repo</summary>
+		<description>Repositorio do Team Inspiration</description>
+		<platform>all</platform>
+	</extension>
 </addon>
 
 <addon id="repository.techdealer" name="Techdealer Repo" version="0.0.0.1" provider-name="Techdealer">
@@ -7764,19 +7777,6 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<description>Download and install addons from The-ONE.......For OFFICIAL !! Support Visit XBMCHUB.COM</description>
 		<platform>all</platform>
         <broken>This repo was on the old googlecode server and is no longer available</broken>
-	</extension>
-</addon>
-
-<addon id="repository.The_Silencer" name="The_Silencer's KODI Addons" version="0.0.0.1" provider-name="The_Silencer">
-	<extension point="xbmc.addon.repository" name="The_Silencer's KODI Addons">
-		<info compressed="false">https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml</info>
-		<checksum>https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/TheSilencer001/The_Silencer/master/zips</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Install The_Silencer's Addons</summary>
-		<description>Download and install addons from The_Silencer</description>
-		<platform>all</platform>
 	</extension>
 </addon>
 
@@ -7926,6 +7926,19 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 		<description>Download and install [COLOR red]XXX Adult[/COLOR] addons from TheYid.... All 720p/1080p adult movies  [COLOR red][B][I]Real-Debrid or Alldebird PREMIUM NEEDED FOR ALL ADDONS[/B][/I][/COLOR]...For OFFICIAL Support Visit XBMCHUB.COM</description>
 		<platform>all</platform>
 		<broken>This repository is now dead, the developer has pulled the code from bitbucket</broken>
+	</extension>
+</addon>
+
+<addon id="repository.The_Silencer" name="The_Silencer's KODI Addons" version="0.0.0.1" provider-name="The_Silencer">
+	<extension point="xbmc.addon.repository" name="The_Silencer's KODI Addons">
+		<info compressed="false">https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml</info>
+		<checksum>https://raw.github.com/TheSilencer001/The_Silencer/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/TheSilencer001/The_Silencer/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install The_Silencer's Addons</summary>
+		<description>Download and install addons from The_Silencer</description>
+		<platform>all</platform>
 	</extension>
 </addon>
 

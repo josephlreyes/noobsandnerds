@@ -1,3 +1,6 @@
+v0.5.10
+- fix 123movie scraper (thx to md's code for inspiration)
+
 v0.5.9
 - disabled cyberreel and watchseries for now (massive slowdown)
 - disabled yabanci scraper for now (site down)

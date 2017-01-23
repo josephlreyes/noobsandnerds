@@ -32,7 +32,7 @@ get listings from acespoplisting.in
           "</item>\n"
 
     try:
-        html = Proxy.get("http://www.acesoplisting.in/", 'class="table-responsive"')
+        html = proxy.get2("http://www.acesoplisting.in/", 'class="table-responsive"')
         scraped_html = BeautifulSoup(html)
         table = scraped_html.findAll("table", attrs={'class': 'table table-striped table-bordered table-condensed'})[-1]
         rows = table.findAll("tr")

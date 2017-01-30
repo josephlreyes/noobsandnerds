@@ -2,6 +2,10 @@ www.noobsandnerds.com
 The home of ORIGINAL & EXCITING kodi add-on development
 Don't be misled into using alternative methods for installing content, the only add-on you need is COMMUNITY PORTAL!
 
+v.2.0.9:
+- Fixed ability to use zap2xml listings, was a bug when trying to check season/episode no.
+- Cleaned up some text formatting.
+
 v.2.0.8:
 - Added -13 and +13 to offset options
 

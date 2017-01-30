@@ -1094,7 +1094,7 @@ msgid "Sorry there was an error trying to retrieve the latest test version, the 
 msgstr ""
 
 msgctxt "#30967"
-msgid "Use SF MetalliQ links (recommended)"
+msgid "Use SF MetalliQ links"
 msgstr ""
 
 msgctxt "#30968"

@@ -588,12 +588,11 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.zen" version="1.4.3" name=" Zen" provider-name="Zen">
+<addon id="plugin.video.zen" version="1.7.1" name=" Zen" provider-name="Zen">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="repository.schismtvaddons" />
-		<import addon="script.zen.artwork" />
-		<import addon="script.module.urlresolver" version="3.0.0"/>
+		<import addon="script.module.urlresolver" version="2.1.0"/>
 		<import addon="script.module.metahandler" version="1.0.0" />
 		<import addon="script.module.requests" />
 		<import addon="script.module.beautifulsoup" />
@@ -607,14 +606,14 @@
 		<disclaimer lang="en">The Author does not host or share any content, nor is affiliated with the content providers.</disclaimer>
 		<platform>all</platform>
 		<website>http://schism-tv.net</website>
-		<news>Update Moviegee</news>
-        <assets>
+		<news>Improved overall speed, update providers, fixed bugs - Update and Fix Major Providers - Implemented various modules for cloudflare and better scraping</news>
+		<assets>
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>
 			<screenshot>resources/screenshots/01.jpg</screenshot>
 			<screenshot>resources/screenshots/02.jpg</screenshot>
 			<screenshot>resources/screenshots/03.jpg</screenshot>
-        </assets>
+		</assets>
 	</extension>
 </addon>
 
@@ -6911,11 +6910,6 @@ Addons Inside - Videpphile, Filmikz, Freeroms Downloader</description>
 
 <addon id="repository.schismtvaddons" name="SchisM TV Addons Repository" version="0.0.0.1" provider-name="SchisM">
     <extension point="xbmc.addon.repository" name="SchisM TV Addons Repository">
-        <dir>
-            <info compressed="false">http://kodiflix.srve.io/repo/addons.xml</info>
-			<checksum>http://kodiflix.srve.io/repo/addons.xml.md5</checksum>
-			<datadir zip="true">http://kodiflix.srve.io/repo/zips/</datadir>
-        </dir>
         <info compressed="false">http://schism-tv.net/addons/addons.xml</info>
         <checksum>http://schism-tv.net/addons/addons.xml.md5</checksum>
         <datadir zip="true">http://schism-tv.net/addons/zips/</datadir>
@@ -9529,7 +9523,7 @@ Addons Included
 	</extension>
 </addon>
 
-<addon id="script.tvportal" name="TV Portal" version="2.0.8" provider-name="whufclee, DixieDean, Spoyser">
+<addon id="script.tvportal" name="TV Portal" version="2.0.9" provider-name="whufclee, DixieDean, Spoyser">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.3.0"/>

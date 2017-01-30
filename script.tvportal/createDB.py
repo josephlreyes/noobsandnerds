@@ -322,23 +322,26 @@ def Create_CSV(channels,channelcount,listingcount,programmes,xsource,offset,xnum
                         break
 
                 for episode_num in episode_nums:
-                    episode_num = episode_num.encode('ascii', 'ignore')
-                    if str.find(episode_num, ".") != -1:
-                        splitted = str.split(episode_num, ".")
-                        if splitted[0] != "":
-                            season = str(int(splitted[0]) + 1)
-                            is_movie = "None"  # fix for misclassification
-                            if str.find(splitted[1], "/") != -1:
-                                episode = str(int(splitted[1].split("/")[0]) + 1)
-                            elif splitted[1] != "":
-                                episode = str(int(splitted[1]) + 1)
-                        break
+                    try:
+                        episode_num = episode_num.encode('ascii', 'ignore')
+                        if str.find(episode_num, ".") != -1:
+                            splitted = str.split(episode_num, ".")
+                            if splitted[0] != "":
+                                season = str(int(splitted[0]) + 1)
+                                is_movie = "None"  # fix for misclassification
+                                if str.find(splitted[1], "/") != -1:
+                                    episode = str(int(splitted[1].split("/")[0]) + 1)
+                                elif splitted[1] != "":
+                                    episode = str(int(splitted[1]) + 1)
+                            break
 
-                    elif str.find(episode_num.lower(), "season") != -1 and episode_num != "Season ,Episode ":
-                        pattern = re.compile(r"Season\s(\d+).*?Episode\s+(\d+).*", re.I | re.U)
-                        season = re.sub(pattern, r"\1", episode_num)
-                        episode = re.sub(pattern, r"\2", episode_num)
-                        break
+                        elif str.find(episode_num.lower(), "season") != -1 and episode_num != "Season ,Episode ":
+                            pattern = re.compile(r"Season\s(\d+).*?Episode\s+(\d+).*", re.I | re.U)
+                            season = re.sub(pattern, r"\1", episode_num)
+                            episode = re.sub(pattern, r"\2", episode_num)
+                            break
+                    except:
+                        pass
 
                 # Convert the channel id to real channel name
                 for matching in tempchans:

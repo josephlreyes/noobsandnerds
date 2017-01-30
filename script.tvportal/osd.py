@@ -187,13 +187,9 @@ class OSD(xbmcgui.WindowXMLDialog):
             self.channel = ''
         else:
             if channel.title.endswith(')') and channel.title[-4] == '(':
-                test_title = channel.title[:-5].replace('_', ' ').replace(' PLUS1', ' +1').replace(' STAR',
-                                                                                                   '*').replace('PLUS1',
-                                                                                                                '+1').replace(
-                    '&AMP;', '&').replace('&GT;', ' ')
+                test_title = channel.title[:-5].replace('_',' ').replace(' PLUS1',' +1').replace(' STAR','*').replace('PLUS1','+1').replace('&AMP;','&').replace('&GT;',' ')
             else:
-                test_title = channel.title.replace('_', ' ').replace(' PLUS1', ' +1').replace(' STAR', '*').replace(
-                    'PLUS1', '+1').replace('&AMP;', '&').replace('&GT;', ' ')
+                test_title = channel.title.replace('_',' ').replace(' PLUS1',' +1').replace(' STAR','*').replace('PLUS1','+1').replace('&AMP;','&').replace('&GT;',' ')
             if not 'default.png' in channel.logo:
                 test_logo = channel.logo
             else:

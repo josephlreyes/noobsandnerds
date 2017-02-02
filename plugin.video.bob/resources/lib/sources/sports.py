@@ -327,6 +327,7 @@ def get_nhl_home_away(title, home_content_url, away_content_url, image):
 
 def get_nfl_games(season="", week=""):
     import xmltodict
+    import xbmc
     username = 'condor13'
     password = 'condor13'
 
@@ -349,11 +350,11 @@ def get_nfl_games(season="", week=""):
 
     game_data = session.post(servlets_url + '/games',
                              data={'isFlex': 'true', 'season': season, 'week': week}).content
+
     game_data_dict = xmltodict.parse(game_data)['result']
     games = game_data_dict['games']['game']
     if isinstance(games, dict):
         games = [games]
-
     xml = ""
     start_xmls = {}
     thumbnail = "http://www.officialpsds.com/images/thumbs/NFL-Logo-psd95853.png"

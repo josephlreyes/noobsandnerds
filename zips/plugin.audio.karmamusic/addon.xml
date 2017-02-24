@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.audio.karmamusic" name="Karma" version="1.0.1" provider-name="SchisM">  
+	<requires>    
+		<import addon="xbmc.python" version="2.1.0"/>    
+		<import addon="script.module.beautifulsoup"/>		
+	</requires>  
+	<extension point="xbmc.python.pluginsource" library="default.py">        
+		<provides>audio</provides>  
+	</extension>  
+	<extension point="xbmc.addon.metadata">    
+			<summary lang="en">Listen to Free Music the Zen way...</summary>    
+			<description lang="en">Note: Due to security protocols on htpps website this addon may not work on Kodi versions lower than Kodi 17.x</description>
+			<disclaimer lang="en">The author does not host or distribute any of the content displayed by this add-on</disclaimer>
+			
+			<platform>all</platform>  
+	</extension>
+</addon>

@@ -480,7 +480,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="2.0.3" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR], Midraal, forked from Meta-video">
+<addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="2.0.4" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR], Midraal, forked from Meta-video">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 		<import addon="repository.q" version="0.0.0.1"/>
@@ -605,7 +605,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.zen" version="2017.02.28" name=" Zen" provider-name="Zen">
+<addon id="plugin.video.zen" version="2017.03.05" name=" Zen" provider-name="Zen">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.zen.artwork" />
@@ -614,7 +614,7 @@
 		<import addon="script.module.requests" />
 		<import addon="script.module.beautifulsoup" />
 		<import addon="script.module.schism.common" />
-        <import addon="script.module.futures" version="2.2.0"/>
+		<import addon="script.module.futures" version="2.2.0"/>
 
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="zen.py">
@@ -626,14 +626,14 @@
 		<disclaimer lang="en">The Author does not host or share any content, nor is affiliated with the content providers.</disclaimer>
 		<platform>all</platform>
 		<website>http://schism-tv.net</website>
-		<news>Update Providers - Hotfixes</news>
-        <assets>
+		<news>Added Library via Metalliq - Browse Series now in the Context Menu</news>
+		<assets>
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>
 			<screenshot>resources/screenshots/01.jpg</screenshot>
 			<screenshot>resources/screenshots/02.jpg</screenshot>
 			<screenshot>resources/screenshots/03.jpg</screenshot>
-        </assets>
+		</assets>
 	</extension>
 </addon>
 

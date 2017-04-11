@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.dab" name="DaButcher Repository" version="0.0.0.1" provider-name="DaButcher">
+<addon id="repository.dab" name="DaButcher Repository" version="1.0" provider-name="DaButcher">
 	<extension point="xbmc.addon.repository" name="DaB Repository">
 		<info compressed="false">https://raw.githubusercontent.com/DaButch3r/repository.dab/master/zips/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/DaButch3r/repository.dab/master/zips/addons.xml.md5</checksum>

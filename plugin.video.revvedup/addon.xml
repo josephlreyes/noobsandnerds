@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.revvedup"
 	name="Revved Up"
-	version="0.0.1"
+	version="0.0.3"
 	provider-name="Deezel">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.addon.common" version="2.0.0"/>
+    <import addon="script.module.python.koding.aio" version="0.5"/>
     <import addon="plugin.video.youtube" version="5.0.0"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -15,7 +15,9 @@
     <summary lang="en">Nascar Replays</summary>
     <description lang="en">Replays for all you Nascar Fans.[CR]Big thanks to Coldkeys for his help with this addon.[CR]Thanks to whuflclee and everyone at noobsandnerds.com for their support as well. [CR] and a big shout out to Dabutcher for the idea!!</description>    
     <platform>all</platform>
-    <forum>http://noobsandnerds.com/support</forum>
+    <forum>http://noobsandnerds.com/support/showthread.php?tid=17650</forum>
     <website>http://noobsandnerds.com</website>
+    <source>https://github.com/noobsandnerds/noobsandnerds/tree/master/plugin.video.revvedup</source>
+    <news>Recoded using Python Koding framework and added 2017 Nascar Replays</news>
   </extension>
 </addon>

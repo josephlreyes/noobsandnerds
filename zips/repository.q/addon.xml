@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.q" name="[COLOR FF8ABEE2]Q[/COLOR]'s Repository" version="0.0.0.1" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR]">
+<addon id="repository.q" name="[COLOR FF8ABEE2]Q[/COLOR]'s Repository" version="0.0.2.3" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR]">
 	<extension point="xbmc.addon.repository"
 		name="[COLOR FF8ABEE2]Q[/COLOR]'s Add-on Repository">
 		<dir minversion="14.0.0">

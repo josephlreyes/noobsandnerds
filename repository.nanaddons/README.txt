@@ -1,5 +1,5 @@
 HOW COMMUNITY PORTAL REPO WORKS:
-No add-ons are physically uplaoded to the repository, it is just a placeholder which
+No add-ons are physically uploaded to the repository, it is just a placeholder which
 mirrors the content found on other repo's. If you would like your repository added
 so it shows up in here then please take a look at the following rules. Sorry we hate
 to enforce rules but don't worry these are pretty straight forward ones with only
@@ -44,7 +44,7 @@ this will not affect users installing your content or downloading your repo they
 warned of possible side-effects.
 
 IMPORTANT: The reason for this is kodi has separate repo's for different versions of
-KodiXBMC and often they keep the exact same id but have a completely different version in
+Kodi/XBMC and often they keep the exact same id but have a completely different version in
 each repo. As we've seen plenty of times before, installing the wrong version on a system
 can make the system act very weird - a prime example was the common cache and simple
 downloader modules which a lot of people had reuploaded to their repos. Kodi would

@@ -292,7 +292,7 @@
 	</extension>
 </addon>
 
-<addon id="repository.nanaddons" name="Community Portal Repository" version="1.3" provider-name="noobsandnerds.com">
+<addon id="repository.nanaddons" name="Community Portal Repository" version="1.4" provider-name="noobsandnerds.com">
 	<extension point="xbmc.addon.repository" name=" Community Portal Addon Repository">
 	<dir>
 		<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml</info>
@@ -373,6 +373,11 @@
 		<info compressed="false">https://raw.githubusercontent.com/Shanpython/repository.houseofstark/master/zips/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/Shanpython/repository.houseofstark/master/zips/addons.xml.md5</checksum>
 		<datadir zip="true">https://raw.githubusercontent.com/Shanpython/repository.houseofstark/master/zips/</datadir>
+	</dir>
+	<dir>
+		<info compressed="false">https://raw.githubusercontent.com/Goliath-Evolve/repository.Goliath/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/Goliath-Evolve/repository.Goliath/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/Goliath-Evolve/repository.Goliath/master/zips/</datadir>
 	</dir>
 	</extension>
 	<extension point="xbmc.addon.metadata">

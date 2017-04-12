@@ -5,13 +5,36 @@ so it shows up in here then please take a look at the following rules. Sorry we 
 to enforce rules but don't worry these are pretty straight forward ones with only
 the end users in mind.
 
-RULES WILL BE RULES....
+RULES WILL BE RULES - We only have 5 of them....
 
-1. No repositories will be accepted that contain others re-uploaded work, unless you can
-supply written proof that the original developer has given their consent.
+1. No repositories will be accepted that contain others re-uploaded work (using the same
+add-on id as the original) unless you can supply written proof that the original developer has given their consent for you to re-upload. This of course does not include forks, if
+you're forking an existing add-on and changing code then of course that's allowed but you
+MUST make sure you're using a new unique ID that's not already in use. You can either
+search for the id you're intending to use at http://noobsandnerds.com/addons or you can
+use the Add-on Creator at http://totalrevolution.tv which will check to see whether or
+not your id is free to use.
 
+2. If you want your add-ons visible on this repo then you must offer some kind of support
+to your users. If you don't want to use the noobsandnerds forum for offering support that
+is completely fine and entirely your choice but you will still be required to create a
+release thread on there. This can be a closed thread (so nobody can reply) if that's
+what you prefer but it must contain details of where users can go for the support.
 
-2. No add-ons that are officially supported in the Kodi.tv repository will be accepted.
+We are non-restrictive at NaN so you can direct support wherever you want, whether that's
+your own website, another kodi based forum, Facebook, Twitter... so long as you have
+a dedicated arena for support you can link to it. If you choose to use the noobsandnerds
+forum for your support you must abide by the simple rules laid out there, it's basically
+all about everyone getting along and having fun but do check them out:
+http://www.noobsandnerds.com/support/showthread.php?tid=27
+
+4. Under NO circumstances will malicious code will be tolerated. Failure to adhere to this
+condition will result in your repo being immediately pulled from the Community Portal
+Repo and the NaN source. Depending on the severity of the code and if found to be
+intentional you could end up with your repo/add-ons being blacklisted on the Add-on
+Portal.
+
+5. No add-ons that are officially supported in the Kodi.tv repository will be accepted.
 There is a very valid reason for this, please read below:
 
 Reuploading any content found on the kodi repo will automatically get your repo put on a
@@ -48,3 +71,17 @@ manually attempt to keep up with things like urlresolver, it will now install di
 from their source.
 
 If you need any help please contact a member of the development team at noobsandnerds.com
+
+PYTHON KODING:
+Top Tip: If you want to use the Python Koding framework for your add-ons then that's
+great, it's designed for everyone to use regardless of where they support their add-ons.
+However if you choose to offer full support of your add-on exclusively at noobsandnerds
+you will have access to the unique features which hook into our servers. There's some
+really great features you can use but we can't offer it to everyone.
+
+The more users hooking into our servers the more our server costs go up, this is the
+reasoning behind this decision. We feel if you offer support exclusively at NaN then the
+extra traffic coming through the website should hopefully counter-balance the extra costs
+required for servers (via the google ads). Or at least that's the theory!
+
+We hope to see you over at noobsandnerds.com very soon!

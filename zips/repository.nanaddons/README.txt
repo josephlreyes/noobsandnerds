@@ -8,7 +8,8 @@ the end users in mind.
 RULES WILL BE RULES - We only have 5 of them....
 
 1. No repositories will be accepted that contain others re-uploaded work (using the same
-add-on id as the original) unless you can supply written proof that the original developer has given their consent for you to re-upload. This of course does not include forks, if
+add-on id as the original) unless you can supply written proof that the original developer
+has given their consent for you to re-upload. This of course does not include forks, if
 you're forking an existing add-on and changing code then of course that's allowed but you
 MUST make sure you're using a new unique ID that's not already in use. You can either
 search for the id you're intending to use at http://noobsandnerds.com/addons or you can

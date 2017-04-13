@@ -104,22 +104,3 @@ REPOSITORY ADDON.XML:
 		<platform>all</platform>
 	</extension>
 </addon>
-
-<<<<<<< HEAD
-=======
-If you need any help please contact a member of the development team at noobsandnerds.com
-
-PYTHON KODING:
-Top Tip: If you want to use the Python Koding framework for your add-ons then that's
-great, it's designed for everyone to use regardless of where they support their add-ons.
-However if you choose to offer full support of your add-on exclusively at noobsandnerds
-you will have access to the unique features which hook into our servers. There's some
-really great features you can use but we can't offer it to everyone.
-
-The more users hooking into our servers the more our server costs go up, this is the
-reasoning behind this decision. We feel if you offer support exclusively at NaN then the
-extra traffic coming through the website should hopefully counter-balance the extra costs
-required for servers (via the google ads). Or at least that's the theory!
-
-We hope to see you over at noobsandnerds.com very soon!
->>>>>>> origin/master

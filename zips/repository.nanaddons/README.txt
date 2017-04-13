@@ -52,37 +52,56 @@ automatically update the add-on from repo x and it wasn't designed for the curre
 running version of Kodi which meant LOTS of add-ons on the system could not update
 and it even hampered the system accessing certain sites.
 
-AN EXCEPTION TO THE RULE:
-script.module.urlresolver
 
-^ That is a module officially supported at kodi.tv BUT this and script.extendedinfo
-are currently the only exceptions to the rule about re-uploading content from
-the kodi.tv repo (if you know of more please do let us know).
-
-The reason for this is the original developers of those addons had given permission to
-Eldorado (TVA) and Quihico (NaN) to fork them and keep the same id. I think the
-understanding was there are already so many addons hooking into those id's that it made 
-sense to keep the existing id.
-
-There's an automated solution which would make life much easier for you when it comes to
-using TVAddons modules. Take a look at the TVA repository addon.xml file and you'll notice
-they have 2 sources to scan in there rather than just the one, just copy the TVA Common
-section and make sure you add the <dir> tags as they've done. Now no longer do you have to
-manually attempt to keep up with things like urlresolver, it will now install directly
-from their source.
-
-If you need any help please contact a member of the development team at noobsandnerds.com
-
+TOP TIPS:
+=========
 PYTHON KODING:
-Top Tip: If you want to use the Python Koding framework for your add-ons then that's
-great, it's designed for everyone to use regardless of where they support their add-ons.
-However if you choose to offer full support of your add-on exclusively at noobsandnerds
-you will have access to the unique features which hook into our servers. There's some
-really great features you can use but we can't offer it to everyone.
+If you want to use the Python Koding framework for your add-ons then that's great, it's
+designed for everyone to use regardless of where they support their add-ons. However if
+you choose to offer full support of your add-on exclusively at noobsandnerds you will have 
+access to the unique features which hook into our servers. There's some really great
+features you can use but sadly we can't offer them to anyone outside of the NaN camp.
 
-The more users hooking into our servers the more our server costs go up, this is the
-reasoning behind this decision. We feel if you offer support exclusively at NaN then the
-extra traffic coming through the website should hopefully counter-balance the extra costs
-required for servers (via the google ads). Or at least that's the theory!
+The reasoning behind this decision is a simple one - the more users hooking into our
+servers the more our server costs go up. Imagine if every box seller out there was
+hooking into the system, we just wouldn't be able to afford to server costs associated
+with such a huge amount of traffic.
 
-We hope to see you over at noobsandnerds.com very soon!
+For this reason we feel it's only fair to limit the unique features to NaN developers, if
+you offer support exclusively at NaN then the extra traffic visiting the website for
+support should hopefully counter-balance the extra costs required for servers (via the
+google ads). Or at least that's the theory!
+
+HOOKING INTO THIRD PARTY MODULES:
+There's an automated solution which would make life much easier for you when it comes to
+using TVA and NaN modules. You can just add those repo directories into your repository addon.xml file. Take a look at the example below.
+
+Thanks for reading and we hope to see you over at noobsandnerds.com very soon!
+
+
+REPOSITORY ADDON.XML:
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.myrepo" name="my repository" version="1.0" provider-name="nan">
+	<extension point="xbmc.addon.repository" name="my repository">
+	<dir>
+		<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+		<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+	</dir>
+	<dir>
+		<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/</datadir>
+	</dir>
+		<info compressed="false">https://raw.githubusercontent.com/myrepo/repository.myrepo/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/myrepo/repository.myrepo/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/myrepo/repository.myrepo/master/zips/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>My test repo</summary>
+		<description>Example repo addon.xml for importing common modules from TVA and NaN</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+

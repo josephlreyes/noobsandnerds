@@ -1,0 +1,7 @@
+\#*\#
+.idea/
+_pycache__/
+*.pyo
+*.pyc
+*$py.class
+TAGS

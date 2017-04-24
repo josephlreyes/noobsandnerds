@@ -239,60 +239,8 @@
 	</extension>
 </addon>
 
-<addon id="repository.arb" name="ARB Repo" version="1.2.7" provider-name="ARB">
-	<extension point="xbmc.addon.repository" name="ARB Repo">
-		<info compressed="false">https://raw.github.com/Andrewrb84/ARBMODRAPIER/master/addons.xml</info>
-		<checksum>https://raw.github.com/Andrewrb84/ARBMODRAPIER/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/Andrewrb84/ARBMODRAPIER/master/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>ARB Repository</summary>
-		<description>Home of the ARB Rapier skin and ARB wizard</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="repository.dab" name="DaButcher Repository" version="1.0" provider-name="DaButcher">
-	<extension point="xbmc.addon.repository" name="DaB Repository">
-		<info compressed="false">https://raw.githubusercontent.com/DaButch3r/repository.dab/master/zips/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/DaButch3r/repository.dab/master/zips/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/DaButch3r/repository.dab/master/zips/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>DaButcher Repo</summary>
-		<description>Home of DaOnlyWizard</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="repository.HalowTV" name="  [COLOR lime][B]HALOW [/COLOR][COLOR white]Repository[/B][/COLOR]" version="6.0.0" provider-name="HalowRepo">
-	<extension point="xbmc.addon.repository" name="  [COLOR lime][B]Halow[/COLOR][COLOR white]Repository[/B][/COLOR]">
-        <info compressed="false">https://raw.githubusercontent.com/HalowTV/HalowTV/master/zips/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/HalowTV/HalowTV/master/zips/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/HalowTV/HalowTV/master/zips/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>halowiptv.blogspot.se</summary>
-		<description>Download and install addons from Halow Repo</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="repository.kobra" name="[COLOR lime][I]KOBRA[/I][/COLOR][COLOR ghostwhite] REPOSITORY[/COLOR]" version="1.0.4" provider-name="[COLOR lime][I]KOBRA[/I][/COLOR]">
-	<extension point="xbmc.addon.repository" name="[COLOR lime][I]KOBRA[/I][/COLOR][COLOR ghostwhite] REPOSITORY[/COLOR]">
-		<info compressed="false">https://raw.github.com/Barroni1977/kobra/master/addons.xml</info>
-		<checksum>https://raw.github.com/Barroni1977/kobra/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/Barroni1977/kobra/master/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Kobra Repository</summary>
-		<description>[COLOR lime][I]KOBRA[/I][/COLOR][COLOR ghostwhite] REPOSITORY.[/COLOR] [COLOR dodgerblue]The home of Kobra Builds Add-ons[/COLOR]</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="repository.nanaddons" name="Community Portal Repository" version="1.4" provider-name="noobsandnerds.com">
-	<extension point="xbmc.addon.repository" name=" Community Portal Addon Repository">
+<addon id="repository.nanaddons" name="3rd Party Unrestricted" version="1.5" provider-name="noobsandnerds.com">
+	<extension point="xbmc.addon.repository" name="3rd Party Unrestricted">
 	<dir>
 		<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml.md5</checksum>
@@ -378,33 +326,30 @@
 		<checksum>https://raw.githubusercontent.com/Goliath-Evolve/repository.Goliath/master/addons.xml.md5</checksum>
 		<datadir zip="true">https://raw.githubusercontent.com/Goliath-Evolve/repository.Goliath/master/zips/</datadir>
 	</dir>
+	<dir>
+        <info compressed="false">https://offshoregit.com/cleaner/entire/addons.xml</info>
+        <checksum>https://offshoregit.com/cleaner/entire/addons.xml.md5</checksum>
+        <datadir zip="true">https://offshoregit.com/cleaner/entire/zips/</datadir>
+    </dir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>Home of Bob, MetalliQ, Zen, Community Portal, TVPortal and many more!</summary>
-		<description>Visit www.noobsandnerds.com and become a part of our great family, you get to choose what The Community Portal holds! This repository is a container for all add-ons supported at noobsandnerds. Please read the README file in the add-on root directory if you're interested in having your add-ons added to this list.</description>
+		<summary>The unrestricted repository for 3rd Party add-ons</summary>
+		<description>This repository is a container for 3rd party add-ons where the dev offers support for end users, they agree not to push malicious code and do not re-upload official Kodi modules (which has been proven to cause big problems). Please read the README file in the add-on root directory if you're interested in having your add-ons added to this list or head over to www.noobsandnerds.com for more info.</description>
 		<platform>all</platform>
 	</extension>
 </addon>
 
-<addon id="repository.ninjasys" name="The [COLOR blue]Ninjasys[/COLOR] [COLOR red]repo[/COLOR] - [COLOR white]xXx addons[/COLOR] [COLOR purple]by oneil[/COLOR]" version="1.1" provider-name="oneil">
-	<extension point="xbmc.addon.repository" name="The [COLOR blue]Ninjasys[/COLOR] [COLOR red]repo[/COLOR] - [COLOR white]xXx addons[/COLOR] [COLOR purple]by oneil[/COLOR]">
-		<info compressed="false">http://r.ninjasys.uk/addons.xml</info>
-		<checksum>http://r.ninjasys.uk/addons.xml.md5</checksum>
-		<datadir zip="true">http://r.ninjasys.uk/zips</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>The [COLOR blue]Ninjasys[/COLOR] repo contain xXx addons.</summary>
-		<description>The [COLOR blue]Ninjasys[/COLOR] repo, containing all of [COLOR white]oneil's[/COLOR] porn addons.</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="1.6" provider-name="noobsandnerds">
+<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="1.7" provider-name="noobsandnerds">
 	<extension point="xbmc.addon.repository" name="noobsandnerds Repository">
 		<dir>
 			<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
 			<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
 			<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+		</dir>
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/</datadir>
 		</dir>
 		<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml.md5</checksum>
@@ -415,23 +360,6 @@
 		<description>Visit www.noobsandnerds.com and become a part of our great family, you get to choose what The Community Portal holds!</description>
 		<platform>all</platform>
 	</extension>
-</addon>
-
-    <addon id="repository.origin" name="Origin Repo" version="1.0.3" provider-name="Origin">
-        <requires>
-            <import addon="xbmc.addon" version="12.0.0"/>
-        </requires>
-        <extension point="xbmc.addon.repository" name="Origin Repo">
-            <info compressed="false">https://raw.githubusercontent.com/toall1985/origin/master/_repo/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/toall1985/origin/master/_repo/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/toall1985/origin/master/_repo/</datadir>
-            <hashes>false</hashes>
-        </extension>
-        <extension point="xbmc.addon.metadata">
-            <summary>A short summary of this addon</summary>
-            <description>Origin Builds Repo</description>
-            <platform>all</platform>
-    </extension>
 </addon>
 
 <addon id="repository.primaeval"
@@ -459,139 +387,6 @@
     </extension>
 </addon>
 
-<addon id="repository.q" name="[COLOR FF8ABEE2]Q[/COLOR]'s Repository" version="0.0.2.3" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR]">
-	<extension point="xbmc.addon.repository"
-		name="[COLOR FF8ABEE2]Q[/COLOR]'s Add-on Repository">
-		<dir minversion="14.0.0">
-			<info compressed="false">https://github.com/OpenELEQ/repository.q/raw/master/openeleq-addons.xml</info>
-			<checksum>https://github.com/OpenELEQ/repository.q/raw/master/openeleq-addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.github.com/OpenELEQ/repository.q/master/zips/</datadir>
-		</dir>
-		<dir minversion="16.0.0">
-			<info compressed="false">https://github.com/OpenELEQ/repository.q.jarvis/raw/master/openeleq-addons.xml</info>
-			<checksum>https://github.com/OpenELEQ/repository.q.jarvis/raw/master/openeleq-addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.github.com/OpenELEQ/repository.q.jarvis/master/zips/</datadir>
-		</dir>
-		<dir minversion="16.9.9">
-			<info compressed="false">https://github.com/OpenELEQ/repository.q.krypton/raw/master/openeleq-addons.xml</info>
-			<checksum>https://github.com/OpenELEQ/repository.q.krypton/raw/master/openeleq-addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.github.com/OpenELEQ/repository.q.krypton/master/zips/</datadir>
-		</dir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">[COLOR FF8ABEE2]Q[/COLOR]'s Add-on Repository</summary>
-		<summary lang="nl">[COLOR FF8ABEE2]Q[/COLOR]'s Addon Depot</summary>
-		<description lang="en">This is my repository. I can and will do whatever I want with it. Some stuff in here can and will overwrite allready installed addons. If you do not want that, do not install this repo!</description>
-		<description lang="nl">Dit is mijn depot. Ik kan hiermee doen en laten wat ik wil. Sommige dingen in dit depot kunnen en zullen reeds geinstalleerde addons overschrijven. Als je dat niet wil, installeer dit depot dan niet!</description>
-		<disclaimer lang="en">[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR] did not make all the add-ons in this repository and is in no way responsible for their content.</disclaimer>
-		<disclaimer lang="nl">[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR] heeft niet alle add-ons in dit depot gemaakt en is ook op geen enkele manier verantwoordelijk voor hun inhoud.</disclaimer>
-		<platform>all</platform>
-		<forum>http://www.noobsandnerds.com/support/showthread.php?tid=16754</forum>
-		<source>https://github.com/OpenELEQ/repository.q/tree/master/zips/repository.q-0.0.2.3.zip</source>
-		<email>OpenELEQ@gmail.com</email>
-	</extension>
-</addon>
-
-<addon id="repository.schismtvaddons" name="SchisM TV Addons Repository" version="1.7.0" provider-name="SchisM">
-    <extension point="xbmc.addon.repository" name="SchisM TV Addons Repository">
-        <info compressed="false">http://schism-tv.net/addons/addons.xml</info>
-        <checksum>http://schism-tv.net/addons/addons.xml.md5</checksum>
-        <datadir zip="true">http://schism-tv.net/addons/zips/</datadir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>SchisM TV official repo</summary>
-        <description>This is my repo... I can do whatever I like with it...</description>
-        <platform>all</platform>
-    </extension>
-</addon>
-
-<addon id="repository.Shepo" name="Shepo Repo" version="0.0.5" provider-name="Shepo">
-	<extension point="xbmc.addon.repository" name="Shepo Repo">
-		<info compressed="false">https://raw.github.com/Shepo6/Shepo/master/addons.xml</info>
-		<checksum>https://raw.github.com/Shepo6/Shepo/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/Shepo6/Shepo/master/</datadir>
-
-	<dir>
-		<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
-		<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
-	</dir>
-
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Shepo Repository</summary>
-		<description>Home of the Shepo Wizard</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="script.module.liveresolver" name="LiveResolver" version="0.1.47" provider-name="natko1412">
-	<requires>
-		<import addon="xbmc.python" version="2.1.0" />
-		<import addon="script.module.beautifulsoup" version="3.2.1" />
-		<import addon="script.module.requests" />
-		<import addon="script.module.addon.common" version="2.0.0" />
-	</requires>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.addon.metadata">
-		<platform>all</platform>
-		<summary lang="en">Resolve common live video host URL's to be playable in XBMC/Kodi + find links embedded in sites.</summary>
-		<description lang="en"></description>
-	</extension>
-</addon>
-
-<addon id="script.module.nanscrapers" name="NaN Scrapers" version="0.5.13" provider-name="Team NaN">
-    <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
-        <import addon="script.module.beautifulsoup" version="3.2.1"/>
-        <import addon="script.module.futures" version="2.2.0"/>
-        <import addon="script.module.requests"/>
-        <import addon="script.module.six"/>
-    </requires>
-    <extension point="xbmc.python.module" library="lib"/>
-    <extension point="xbmc.python.pluginsource" library="lib/default.py">
-        <provides>executable</provides>
-    </extension>
-    <import addon="script.module.urlresolver" version="3.0.0" optional="true"/>
-    <import addon="script.mrknow.urlresolver" version="2016.10.30.2" optional="true"/>
-    <extension point="xbmc.addon.metadata">
-        <platform>all</platform>
-        <summary lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi.</summary>
-        <description lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi, simplifying addon development of video plugins requiring multi video hosts.
-        </description>
-        <license>GPL v3</license>
-        <source>https://github.com/noobsandnerds/noobsandnerds/tree/master/script.module.nanscrapers</source>
-        <forum>http://www.noobsandnerds.com/support/showthread.php?tid=17212</forum>
-        <website>http://noobsandnerds.com</website>
-    </extension>
-</addon>
-
-<addon id="script.module.python.koding.aio"
-   name="Python Koding AIO"
-   version="0.6"
-   provider-name="TotalRevolution, noobsandnerds">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.urlresolver" version="1.2.0"/>
-    <import addon="script.module.requests" version="2.3.0"/>
-  </requires>
-  <extension point="xbmc.python.module" library="lib" />
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <summary lang="en">Python Koding All In One</summary>
-    <description lang="en">Python Koding AIO contains a bunch of time saving modules that allows for quick and simple development. Although developed at totalrevolution.tv this also contains unique features which hook into the noobsandnerds.com framework so a big thanks to the team and users who keep the portals updated.</description>
-    <disclaimer lang="en"></disclaimer>
-    <language></language>
-    <license>Creative Commons 4.0-NC-ND</license>
-    <forum>http://noobsandnerds.com/support/showthread.php?tid=17614</forum>
-    <website>http://noobsandnerds.com</website>
-    <news>Added lots of new functions and cleaned up README. See Changelog.txt for full details.</news>
-    <source>https://github.com/totalrevolution/totalrevolution/tree/master/script.module.python.koding.aio</source>
-    <genre>devtools</genre>
-    <video_guide>D5tByWg8KME</video_guide>
-  </extension>
-</addon>
-
 <addon id="script.module.schism.common" name="SchisM Common Libraries" version="2017.04.09" provider-name="SchisM">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
@@ -605,19 +400,6 @@
 		<summary lang="en">Collection of modules used by SchisM Addons</summary>
 		<description lang="en">Collection of modules used by SchisM Addons</description>
 		<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-	</extension>
-</addon>
-
-<addon id="script.mrknow.urlresolver" name="Mrknow URLResolver" version="2017.03.30.1" provider-name="mrknow" >
-	<requires>
-		<import addon="xbmc.python" version="2.1.0" />
-	</requires>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.python.pluginsource" library="lib/default.py" />
-	<extension point="xbmc.addon.metadata">
-		<platform>all</platform>
-		<summary lang="en">This addon is almost exact copy Urlresolver from Tknorris repository https://github.com/tknorris/script.module.urlresolver. Resolve common video host URL's to be playable in XBMC/Kodi. Website http://filmkodi.com . Our suport forum https://github.com/mrknow/filmkodi/issues. </summary>
-		<description lang="en">This addon is almost exact copy Urlresolver from Tknorris repository https://github.com/tknorris/script.module.urlresolver Resolve common video host URL's to be playable in XBMC/Kodi, simplify addon development of video plugins requiring multi video hosts.</description>
 	</extension>
 </addon>
 

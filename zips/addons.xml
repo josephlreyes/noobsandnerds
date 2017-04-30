@@ -169,6 +169,24 @@
 	</extension>
 </addon>
 
+<addon id="plugin.video.redpill" name="The [COLOR red]Red[/COLOR] Pill" version="2017.04.29.03" provider-name="SchisM">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0"/>
+		<import addon="script.module.beautifulsoup"/>
+		<import version="3.0.0" addon="script.module.urlresolver"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="redpill.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+			<summary lang="en">Open your mind...</summary>
+			<description lang="en">Open your mind with a large selection of documentary movies</description>
+			<disclaimer lang="en">The author does not host or distribute any of the content displayed by this add-on</disclaimer>
+
+			<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="plugin.video.revvedup"
 	name="Revved Up"
 	version="0.0.3"
@@ -207,7 +225,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.zen" version="2017.04.27.02" name=" Zen" provider-name="Zen">
+<addon id="plugin.video.zen" version="2017.04.30" name=" Zen" provider-name="Zen">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.zen.artwork" />
@@ -228,7 +246,7 @@
 		<disclaimer lang="en">The Author does not host or share any content, nor is affiliated with the content providers.</disclaimer>
 		<platform>all</platform>
 
-		<news>Update Providers - Menu cleanup - Added Local Watchmarks for TvShows</news>
+		<news>Update Providers</news>
 		<assets>
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>

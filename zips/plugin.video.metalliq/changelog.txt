@@ -1,3 +1,11 @@
+v2.0.[COLOR ff0084ff]10[/COLOR]
+- Added seasons & episodes view
+- Fixed batch-adding not using default library player
+- Fixed empty sections
+- Fixed double episode-entries after library updates
+- Changed Music source setup to use audiodb instead of imvdb
+- Changed Music(-video) source's name to "Music videos" (localized)
+
 v2.0.[COLOR ff0084ff]9[/COLOR]
 - Added parameters for movies & tvshows: actors, writers, directors & slug
 

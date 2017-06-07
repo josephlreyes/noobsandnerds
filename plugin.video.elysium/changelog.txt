@@ -1,3 +1,15 @@
+[B]1.4.3[/B]
+- change name
+
+[B]1.4.3[/B]
+- Update Moviegee
+
+[B]1.4.2[/B]
+- Update/add Providers
+
+[B]1.4.1[/B]
+- Update Providers, Added custom models and nanscrapers
+
 [B]1.4.0[/B]
 - Added Ability to setup up to 10 lists for Tv Shows and Movies
 - Added Setting to use your personal TMDB Api in the addon 

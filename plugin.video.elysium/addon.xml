@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.zen" version="1.4.4" name="elysium" provider-name="Zen">
+<addon id="plugin.video.zen" version="1.4.5" name="elysium" provider-name="Zen">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
-		<import addon="repository.schismtvaddons" />
 		<import addon="script.zen.artwork" />
 		<import addon="script.module.urlresolver" version="3.0.0"/>
 		<import addon="script.module.metahandler" version="1.0.0" />

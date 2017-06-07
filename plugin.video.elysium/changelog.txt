@@ -1,4 +1,7 @@
-[B]1.4.3[/B]
+[B]1.4.5[/B]
+- removed dependency
+
+[B]1.4.4[/B]
 - change name
 
 [B]1.4.3[/B]

@@ -1,17 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="script.zen.artwork" version="1.4.0" name="Zen Artwork" provider-name="Zen">
+<addon id="plugin.audio.karmamusic" name="Karma" version="1.0.1" provider-name="SchisM">
 	<requires>
-		<import addon="xbmc.python" version="2.19.0"/>
+		<import addon="xbmc.python" version="2.1.0"/>
+		<import addon="script.module.beautifulsoup"/>
 	</requires>
-	<extension point="xbmc.python.script" library="default.py">
-		<provides>executable</provides>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>audio</provides>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>Themes for the Zen Addon</summary>
-		<description></description>
-		<platform>all</platform>
+			<summary lang="en">Listen to Free Music the Zen way...</summary>
+			<description lang="en">Note: Due to security protocols on htpps website this addon may not work on Kodi versions lower than Kodi 17.x</description>
+			<disclaimer lang="en">The author does not host or distribute any of the content displayed by this add-on</disclaimer>
+
+			<platform>all</platform>
 	</extension>
+</addon>
+
+<addon id="plugin.program.securityshield" name="Security Shield"  provider-name="whufclee, surfacingx" version="1.0.7">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.service" library="service.py" start="startup" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Security Shield</summary>
+	<description>Run this add-on to quickly check your installed add-ons and repo's against the noobsandnerds Add-on Portal database as well as some more advanced features for checking running services etc. The main scan will quickly check if you have any content installed that's no longer working, considered depreciated or marked as potentially dangerous. Keeping old repositories (and potentially some addons) on your system is huge security flaw in the Kodi system so make sure you check regularly. The scan process is extremely quick and should just take a few seconds even with hundreds of add-ons installed.</description>
+    <platform>all</platform>
+	<genre>devtools, other</genre>
+	<video_guide>HsiXVi-sKxA</video_guide>
+  </extension>
+</addon>
+
+<addon id="plugin.program.totalinstaller" name=" [COLOR=dodgerblue]C[/COLOR][COLOR ghostwhite]ommunity[/COLOR] [COLOR=dodgerblue]P[/COLOR][COLOR ghostwhite]ortal[/COLOR]" version="3.2.4" provider-name="noobsandnerds.com">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.service" library="service.py" start="login" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">[COLOR=ghostwhite]C[/COLOR][COLOR dodgerblue]ommunity[/COLOR] [COLOR=ghostwhite]P[/COLOR][COLOR dodgerblue]ortal[/COLOR]</summary>
+	<description>Your all in one Installer. The simplest way to have a fully setup system in a matter of minutes. Visit www.noobsandnerds.com and become a part of our great family, you get to choose what The Community Portal holds!</description>
+    <ref>47dde68954e71460cb34886583bf21d7</ref>
+    <platform>all</platform>
+  </extension>
 </addon>
 
 <addon id="plugin.video.bob" name="Bob" version="1.3.14" provider-name="Team Bob">
@@ -44,65 +80,111 @@
 	</extension>
 </addon>
 
-<addon id="repository.primaeval"
-        name="primaeval's beta dev repository"
-        version="0.0.2"
-        provider-name="primaeval">
-    <requires>
-        <import addon="xbmc.addon" version="16.0.0"/>
-    </requires>
-    <extension point="xbmc.addon.repository"
-        name="primaeval's beta dev repository">
-        <dir minversion="16.0.0">
-            <info compressed="false">https://github.com/primaeval/repository.primaeval/raw/master/jarvis/addons.xml</info>
-            <checksum>https://github.com/primaeval/repository.primaeval/raw/master/jarvis/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.github.com/primaeval/repository.primaeval/master/jarvis/</datadir>
-        </dir>
-        <dir minversion="17.0.0">
-            <info compressed="false">https://github.com/primaeval/repository.primaeval/raw/master/krypton/addons.xml</info>
-            <checksum>https://github.com/primaeval/repository.primaeval/raw/master/krypton/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.github.com/primaeval/repository.primaeval/master/krypton/</datadir>
-        </dir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <platform>all</platform>
-    </extension>
-</addon>
-
-<addon id="script.module.schism.common" name="SchisM Common Libraries" version="2017.04.27" provider-name="SchisM">
+<addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="2.0.10" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR], Midraal, forked from Meta-video">
 	<requires>
-		<import addon="xbmc.python" version="2.1.0" />
-		<import addon="script.module.six" />
-		<import addon="script.module.metahandler" />
-		<import addon="script.module.beautifulsoup" />
+		<import addon="xbmc.python" version="2.19.0"/>
+		<import addon="repository.q" version="0.0.0.1"/>
+		<import addon="script.module.requests" version="2.9.1"/>
+		<import addon="script.module.futures" version="2.2.0"/>
 	</requires>
-	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video audio</provides>
+	</extension>
+	<extension point="xbmc.service" library="service.py" start="[login|startup]">
+	</extension>
+	<extension point="kodi.context.item" library="context_toggle.py">
+		<provides>executable</provides>
+			<item>
+				<label>Preferred toggle</label>
+				<visible>!System.HasAddon(context.metalliq) + !Skin.HasSetting(Toggling)</visible>
+			</item>
+	</extension>
+	<extension point="kodi.context.item" library="context_movie.py">
+		<provides>executable</provides>
+			<item>
+				<label>$ADDON[plugin.video.metalliq 30602]</label>
+				<visible>StringCompare(ListItem.dbtype,movie) + SubString(ListItem.Path, plugin.video.metalliq)</visible>
+			</item>
+	</extension>
+	<extension point="kodi.context.item" library="context_tvshow.py">
+		<provides>executable</provides>
+			<item>
+				<label>$ADDON[plugin.video.metalliq 30602]</label>
+				<visible>StringCompare(ListItem.dbtype,tvshow) + SubString(ListItem.Path, plugin.video.metalliq)</visible>
+			</item>
+	</extension>
+	<extension point="kodi.context.item" library="context_live.py">
+		<provides>executable</provides>
+			<item>
+				<label>$ADDON[plugin.video.metalliq 30602]</label>
+				<visible>[SubString(ListItem.FileNameAndPath, plugin.video.metalliq\\Live) | SubString(ListItem.FileNameAndPath, plugin.video.metalliq/Live)]</visible>
+			</item>
+	</extension>
+	<extension point="kodi.context.item" library="context_playable.py">
+		<provides>executable</provides>
+			<item>
+				<label>$ADDON[plugin.video.metalliq 30622]</label>
+				<visible>!System.HasAddon(context.metalliq) + !Skin.HasSetting(Contexting)</visible>
+			</item>
+	</extension>
 	<extension point="xbmc.addon.metadata">
 		<platform>all</platform>
-		<summary lang="en">Collection of modules used by SchisM Addons</summary>
-		<description lang="en">Collection of modules used by SchisM Addons</description>
-		<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+		<language></language>
+		<summary lang="en">TMDb, TVDb, Trakt, AudioDb and LastFM browser</summary>
+		<description lang="en">Browse The MovieDb, The TVDb, Trakt, The AudioDb and LastFM and pass info along to library or an addon to try and play it. Needs player-files and the appropriate addon to actually play.</description>
+		<summary lang="nl">Blader door TMDb, TVDb, Trakt, AudioDb en LastFM</summary>
+		<description lang="nl">Blader door The MovieDb, The TVDb, Trakt, The AudioDb en LastFM en geef info door aan de bibliotheek of een addon om te proberen het af te spelen. Vereist player-bestanden en de bijbehorende addon om daadwerkelijk af te kunnen spelen.</description>
+		<supportedcontent>
+			<content>movies</content>
+			<content>tvshows</content>
+			<content>episodes</content>
+			<content>musicvideos</content>
+			<content>music</content>
+			<content>livetv</content>
+		</supportedcontent>
+		<genre>movies,tv,music,livetv</genre>
+		<!--<video_guide>yt-id</video_guide>
+		<video_preview>yt-id</video_preview>-->
+		<forum>http://www.noobsandnerds.com/support/showthread.php?tid=17118</forum>
+		<source>https://github.com/OpenELEQ/repository.q/tree/master/zips/plugin.video.metalliq</source>
+		<email>OpenELEQ@gmail.com</email>
 	</extension>
 </addon>
 
-<addon id="script.tvportal.tools" name="TVP Tools" version="1.4" provider-name="whufclee (modded from spoysers original)">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.requests" version="2.3.0"/>
-    <import addon="repository.primaeval" version="0.0.0.1"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>executable</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">TV Portal useful tools</summary>
-    <description lang="en">TV Portal supplemental tools. Thanks to the OTTV team for the original OTTV Tools this code was originally based on.</description>
-    <platform>all</platform>
-    <language>en</language>
-    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <source></source>
-    <email></email>
-  </extension>
+<addon id="plugin.video.nantuts" name="NaN Tutorials" version="0.0.1" provider-name="noobsandnerds, coldkeys">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0"/>
+		<import addon="script.module.addon.common" version="2.0.0"/>
+		<import addon="plugin.video.youtube" version="5.0.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">NoobsandNerds</summary>
+		<description lang="en">Kodi Tutorials, Hardware Tutorials, Kodi Live Chats.</description>
+		<platform>all</platform>
+		<forum>n/a</forum>
+		<website>n/a</website>
+	</extension>
+</addon>
+
+<addon id="plugin.video.redpill" name="The [COLOR red]Red[/COLOR] Pill" version="2017.04.29.03" provider-name="SchisM">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0"/>
+		<import addon="script.module.beautifulsoup"/>
+		<import version="3.0.0" addon="script.module.urlresolver"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="redpill.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+			<summary lang="en">Open your mind...</summary>
+			<description lang="en">Open your mind with a large selection of documentary movies</description>
+			<disclaimer lang="en">The author does not host or distribute any of the content displayed by this add-on</disclaimer>
+
+			<platform>all</platform>
+	</extension>
 </addon>
 
 <addon id="plugin.video.revvedup"
@@ -128,26 +210,43 @@
   </extension>
 </addon>
 
-<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="1.7" provider-name="noobsandnerds">
-	<extension point="xbmc.addon.repository" name="noobsandnerds Repository">
-		<dir>
-			<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
-			<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
-			<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
-		</dir>
-		<dir>
-			<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/</datadir>
-		</dir>
-		<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/</datadir>
+<addon id="plugin.video.sportsdevil.launcher" name="SportsDevil Launcher" version="0.2" provider-name="noobsandnerds">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.addon.common" version="2.0.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">SportsDevil REFRESH</summary>
+    <description lang="en">This will install the latest versions of SportsDevil and clean any old data that may be stopping the addon from opening certain pages. As SportsDevil has no official repository different people have taken it upon themselves to upload newer versions of the addon to their repo's. Due to this there is always a chance an update may break a previously working version so this addon stores a backup of your existing SportsDevil so you can always revert back if needed.</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.zen" version="1.4.6" name="Elysium" provider-name="Elysium">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0" />
+		<import addon="repository.elysium"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="zen.py">
+		<provides>video</provides>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>Home of The Community Portal</summary>
-		<description>Visit www.noobsandnerds.com and become a part of our great family, you get to choose what The Community Portal holds!</description>
+		<summary lang="en">Elysium? Movies/TV Shows</summary>
+		<description lang="en">Watch Movies and TV Shows in High Definition and surround sound. Free providers might not work --- TO AUTHORIZE DEBRID LINKS USE THE URL RESOLVER Menu under TOOLS , AND ENABLE DEBRID SOURCES IN THE Providers SETTINGS --- </description>
+		<disclaimer lang="en">The Author does not host or share any content, nor is affiliated with the content providers.</disclaimer>
 		<platform>all</platform>
+		<website></website>
+		<news>Update Moviegee</news>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+			<screenshot>resources/screenshots/01.jpg</screenshot>
+			<screenshot>resources/screenshots/02.jpg</screenshot>
+			<screenshot>resources/screenshots/03.jpg</screenshot>
+		</assets>
 	</extension>
 </addon>
 
@@ -246,100 +345,47 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.redpill" name="The [COLOR red]Red[/COLOR] Pill" version="2017.04.29.03" provider-name="SchisM">
-	<requires>
-		<import addon="xbmc.python" version="2.1.0"/>
-		<import addon="script.module.beautifulsoup"/>
-		<import version="3.0.0" addon="script.module.urlresolver"/>
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="redpill.py">
-		<provides>video</provides>
+<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="1.8" provider-name="noobsandnerds">
+	<extension point="xbmc.addon.repository" name="noobsandnerds Repository">
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/</datadir>
+		</dir>
+		<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-			<summary lang="en">Open your mind...</summary>
-			<description lang="en">Open your mind with a large selection of documentary movies</description>
-			<disclaimer lang="en">The author does not host or distribute any of the content displayed by this add-on</disclaimer>
-
-			<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="plugin.program.totalinstaller" name=" [COLOR=dodgerblue]C[/COLOR][COLOR ghostwhite]ommunity[/COLOR] [COLOR=dodgerblue]P[/COLOR][COLOR ghostwhite]ortal[/COLOR]" version="3.2.4" provider-name="noobsandnerds.com">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>executable</provides>
-  </extension>
-  <extension point="xbmc.service" library="service.py" start="login" />
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">[COLOR=ghostwhite]C[/COLOR][COLOR dodgerblue]ommunity[/COLOR] [COLOR=ghostwhite]P[/COLOR][COLOR dodgerblue]ortal[/COLOR]</summary>
-	<description>Your all in one Installer. The simplest way to have a fully setup system in a matter of minutes. Visit www.noobsandnerds.com and become a part of our great family, you get to choose what The Community Portal holds!</description>
-    <ref>47dde68954e71460cb34886583bf21d7</ref>
-    <platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.sportsdevil.launcher" name="SportsDevil Launcher" version="0.2" provider-name="noobsandnerds">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.addon.common" version="2.0.0"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">SportsDevil REFRESH</summary>
-    <description lang="en">This will install the latest versions of SportsDevil and clean any old data that may be stopping the addon from opening certain pages. As SportsDevil has no official repository different people have taken it upon themselves to upload newer versions of the addon to their repo's. Due to this there is always a chance an update may break a previously working version so this addon stores a backup of your existing SportsDevil so you can always revert back if needed.</description>
-    <platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.nantuts" name="NaN Tutorials" version="0.0.1" provider-name="noobsandnerds, coldkeys">
-	<requires>
-		<import addon="xbmc.python" version="2.1.0"/>
-		<import addon="script.module.addon.common" version="2.0.0"/>
-		<import addon="plugin.video.youtube" version="5.0.0"/>
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>video</provides>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">NoobsandNerds</summary>
-		<description lang="en">Kodi Tutorials, Hardware Tutorials, Kodi Live Chats.</description>
+		<summary>Home of The Community Portal</summary>
+		<description>Visit www.noobsandnerds.com and become a part of our great family, you get to choose what The Community Portal holds!</description>
 		<platform>all</platform>
-		<forum>n/a</forum>
-		<website>n/a</website>
 	</extension>
 </addon>
 
-<addon id="plugin.video.zen" version="1.4.5" name="elysium" provider-name="Zen">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0" />
-		<import addon="script.zen.artwork" />
-		<import addon="script.module.urlresolver" version="3.0.0"/>
-		<import addon="script.module.metahandler" version="1.0.0" />
-		<import addon="script.module.requests" />
-		<import addon="script.module.beautifulsoup" />
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="zen.py">
-		<provides>video</provides>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Elysium? Movies/TV Shows</summary>
-		<description lang="en">Watch Movies and TV Shows in High Definition and surround sound. Free providers might not work --- TO AUTHORIZE DEBRID LINKS USE THE URL RESOLVER Menu under TOOLS , AND ENABLE DEBRID SOURCES IN THE Providers SETTINGS --- </description>
-		<disclaimer lang="en">The Author does not host or share any content, nor is affiliated with the content providers.</disclaimer>
-		<platform>all</platform>
-		<website></website>
-		<news>Update Moviegee</news>
-        <assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-			<screenshot>resources/screenshots/01.jpg</screenshot>
-			<screenshot>resources/screenshots/02.jpg</screenshot>
-			<screenshot>resources/screenshots/03.jpg</screenshot>
-        </assets>
-	</extension>
+<addon id="repository.primaeval"
+        name="primaeval's beta dev repository"
+        version="0.0.2"
+        provider-name="primaeval">
+    <requires>
+        <import addon="xbmc.addon" version="16.0.0"/>
+    </requires>
+    <extension point="xbmc.addon.repository"
+        name="primaeval's beta dev repository">
+        <dir minversion="16.0.0">
+            <info compressed="false">https://github.com/primaeval/repository.primaeval/raw/master/jarvis/addons.xml</info>
+            <checksum>https://github.com/primaeval/repository.primaeval/raw/master/jarvis/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.github.com/primaeval/repository.primaeval/master/jarvis/</datadir>
+        </dir>
+        <dir minversion="17.0.0">
+            <info compressed="false">https://github.com/primaeval/repository.primaeval/raw/master/krypton/addons.xml</info>
+            <checksum>https://github.com/primaeval/repository.primaeval/raw/master/krypton/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.github.com/primaeval/repository.primaeval/master/krypton/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+    </extension>
 </addon>
 
 <addon id="repository.q" name="[COLOR FF8ABEE2]Q[/COLOR]'s Repository" version="0.0.2.3" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR]">
@@ -373,23 +419,6 @@
 		<source>https://github.com/OpenELEQ/repository.q/tree/master/zips/repository.q-0.0.2.3.zip</source>
 		<email>OpenELEQ@gmail.com</email>
 	</extension>
-</addon>
-
-<addon id="plugin.program.securityshield" name="Security Shield"  provider-name="whufclee, surfacingx" version="1.0.7">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>executable</provides>
-  </extension>
-  <extension point="xbmc.service" library="service.py" start="startup" />
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">Security Shield</summary>
-	<description>Run this add-on to quickly check your installed add-ons and repo's against the noobsandnerds Add-on Portal database as well as some more advanced features for checking running services etc. The main scan will quickly check if you have any content installed that's no longer working, considered depreciated or marked as potentially dangerous. Keeping old repositories (and potentially some addons) on your system is huge security flaw in the Kodi system so make sure you check regularly. The scan process is extremely quick and should just take a few seconds even with hundreds of add-ons installed.</description>
-    <platform>all</platform>
-	<genre>devtools, other</genre>
-	<video_guide>HsiXVi-sKxA</video_guide>
-  </extension>
 </addon>
 
 <addon id="script.tvportal" name="TV Portal" version="2.1.0" provider-name="whufclee, DixieDean, Spoyser">
@@ -430,91 +459,23 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.metalliq" name="[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]" version="2.0.10" provider-name="[COLOR FF8ABEE2]Open[/COLOR][COLOR FF757677]ELEQ[/COLOR], Midraal, forked from Meta-video">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0"/>
-		<import addon="repository.q" version="0.0.0.1"/>
-		<import addon="script.module.requests" version="2.9.1"/>
-		<import addon="script.module.futures" version="2.2.0"/>
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>video audio</provides>
-	</extension>
-	<extension point="xbmc.service" library="service.py" start="[login|startup]">
-	</extension>
-	<extension point="kodi.context.item" library="context_toggle.py">
-		<provides>executable</provides>
-			<item>
-				<label>Preferred toggle</label>
-				<visible>!System.HasAddon(context.metalliq) + !Skin.HasSetting(Toggling)</visible>
-			</item>
-	</extension>
-	<extension point="kodi.context.item" library="context_movie.py">
-		<provides>executable</provides>
-			<item>
-				<label>$ADDON[plugin.video.metalliq 30602]</label>
-				<visible>StringCompare(ListItem.dbtype,movie) + SubString(ListItem.Path, plugin.video.metalliq)</visible>
-			</item>
-	</extension>
-	<extension point="kodi.context.item" library="context_tvshow.py">
-		<provides>executable</provides>
-			<item>
-				<label>$ADDON[plugin.video.metalliq 30602]</label>
-				<visible>StringCompare(ListItem.dbtype,tvshow) + SubString(ListItem.Path, plugin.video.metalliq)</visible>
-			</item>
-	</extension>
-	<extension point="kodi.context.item" library="context_live.py">
-		<provides>executable</provides>
-			<item>
-				<label>$ADDON[plugin.video.metalliq 30602]</label>
-				<visible>[SubString(ListItem.FileNameAndPath, plugin.video.metalliq\\Live) | SubString(ListItem.FileNameAndPath, plugin.video.metalliq/Live)]</visible>
-			</item>
-	</extension>
-	<extension point="kodi.context.item" library="context_playable.py">
-		<provides>executable</provides>
-			<item>
-				<label>$ADDON[plugin.video.metalliq 30622]</label>
-				<visible>!System.HasAddon(context.metalliq) + !Skin.HasSetting(Contexting)</visible>
-			</item>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<platform>all</platform>
-		<language></language>
-		<summary lang="en">TMDb, TVDb, Trakt, AudioDb and LastFM browser</summary>
-		<description lang="en">Browse The MovieDb, The TVDb, Trakt, The AudioDb and LastFM and pass info along to library or an addon to try and play it. Needs player-files and the appropriate addon to actually play.</description>
-		<summary lang="nl">Blader door TMDb, TVDb, Trakt, AudioDb en LastFM</summary>
-		<description lang="nl">Blader door The MovieDb, The TVDb, Trakt, The AudioDb en LastFM en geef info door aan de bibliotheek of een addon om te proberen het af te spelen. Vereist player-bestanden en de bijbehorende addon om daadwerkelijk af te kunnen spelen.</description>
-		<supportedcontent>
-			<content>movies</content>
-			<content>tvshows</content>
-			<content>episodes</content>
-			<content>musicvideos</content>
-			<content>music</content>
-			<content>livetv</content>
-		</supportedcontent>
-		<genre>movies,tv,music,livetv</genre>
-		<!--<video_guide>yt-id</video_guide>
-		<video_preview>yt-id</video_preview>-->
-		<forum>http://www.noobsandnerds.com/support/showthread.php?tid=17118</forum>
-		<source>https://github.com/OpenELEQ/repository.q/tree/master/zips/plugin.video.metalliq</source>
-		<email>OpenELEQ@gmail.com</email>
-	</extension>
-</addon>
-
-<addon id="plugin.audio.karmamusic" name="Karma" version="1.0.1" provider-name="SchisM">
-	<requires>
-		<import addon="xbmc.python" version="2.1.0"/>
-		<import addon="script.module.beautifulsoup"/>
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>audio</provides>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-			<summary lang="en">Listen to Free Music the Zen way...</summary>
-			<description lang="en">Note: Due to security protocols on htpps website this addon may not work on Kodi versions lower than Kodi 17.x</description>
-			<disclaimer lang="en">The author does not host or distribute any of the content displayed by this add-on</disclaimer>
-
-			<platform>all</platform>
-	</extension>
+<addon id="script.tvportal.tools" name="TVP Tools" version="1.4" provider-name="whufclee (modded from spoysers original)">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.requests" version="2.3.0"/>
+    <import addon="repository.primaeval" version="0.0.0.1"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">TV Portal useful tools</summary>
+    <description lang="en">TV Portal supplemental tools. Thanks to the OTTV team for the original OTTV Tools this code was originally based on.</description>
+    <platform>all</platform>
+    <language>en</language>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <source></source>
+    <email></email>
+  </extension>
 </addon>
 </addons>

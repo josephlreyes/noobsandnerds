@@ -1,3 +1,6 @@
+[B]1.4.6[/B]
+- Rebrand from Zen to Elysium
+
 [B]1.4.5[/B]
 - removed dependency
 

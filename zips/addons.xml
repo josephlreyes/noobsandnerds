@@ -80,7 +80,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.metalliq" name="MetalliQ" version="2.0.11" provider-name="OpenELEQ, Midraal">
+<addon id="plugin.video.metalliq" name="MetalliQ" version="2.0.12" provider-name="OpenELEQ, Midraal">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 		<import addon="repository.q" version="0.0.0.1"/>
@@ -148,6 +148,7 @@
 		<forum>http://www.noobsandnerds.com/support/showthread.php?tid=17118</forum>
 		<source>https://github.com/OpenELEQ/repository.q/tree/master/zips/plugin.video.metalliq/</source>
 		<email>OpenELEQ@gmail.com</email>
+		<news>Added imdb option to parsed-tvshow-add-to-library path / Added setting to install custom players / Fixed tmdb movie search</news>
 	</extension>
 </addon>
 

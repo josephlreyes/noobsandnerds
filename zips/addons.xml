@@ -226,31 +226,6 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.zen" version="1.4.6" name="Elysium" provider-name="Elysium">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0" />
-		<import addon="repository.elysium"/>
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="zen.py">
-		<provides>video</provides>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Elysium? Movies/TV Shows</summary>
-		<description lang="en">Watch Movies and TV Shows in High Definition and surround sound. Free providers might not work --- TO AUTHORIZE DEBRID LINKS USE THE URL RESOLVER Menu under TOOLS , AND ENABLE DEBRID SOURCES IN THE Providers SETTINGS --- </description>
-		<disclaimer lang="en">The Author does not host or share any content, nor is he affiliated with any of the content providers.</disclaimer>
-		<platform>all</platform>
-		<website></website>
-		<news>Update Moviegee</news>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-			<screenshot>resources/screenshots/01.jpg</screenshot>
-			<screenshot>resources/screenshots/02.jpg</screenshot>
-			<screenshot>resources/screenshots/03.jpg</screenshot>
-		</assets>
-	</extension>
-</addon>
-
 <addon id="repository.elysium" version="2017.06.10" name="Elysium repository" provider-name="Elysium">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />

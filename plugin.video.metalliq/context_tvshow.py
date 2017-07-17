@@ -6,7 +6,7 @@ import xbmc
 pluginid = "plugin.video.metalliq"
 
 def main():
-    path = xbmc.getInfoLabel('ListItem.Path')    
+    path = xbmc.getInfoLabel('ListItem.Path')
     db_type = xbmc.getInfoLabel('ListItem.DBTYPE')
     if db_type == "tvshow":
         path = urllib.quote_plus(path)

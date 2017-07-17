@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.bromerzzgoesfishing"
+	name="bromerzz goes fishing"
+	version="0.1"
+	provider-name="bromerzz">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.python.koding.aio" version="0.5"/>
+    <import addon="plugin.video.youtube" version="5.0.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">bromerzz goes fishing</summary>
+    <description lang="en">This sounds very fishy to me!</description>    
+    <platform>all</platform>
+    <forum></forum>
+    <website>http://noobsandnerds.com</website>
+    <source></source>
+    <news></news>
+  </extension>
+</addon>

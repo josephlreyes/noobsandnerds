@@ -7,7 +7,7 @@ from meta.play.players import ADDON_DEFAULT, ADDON_SELECTOR
 from meta.play.channelers import ADDON_STANDARD, ADDON_PICKER
 from meta.play.live import play_channel, play_channel_from_guide
 from meta.navigation.base import get_icon_path, get_genre_icon, get_background_path, get_genres, get_tv_genres, caller_name, caller_args
-from meta.library.live import setup_library, add_channel_to_library
+from meta.library.live import setup_library, add_channel_to_library, library_channel_remove_strm
 from meta.utils.text import to_unicode, to_utf8
 from language import get_string as _
 from settings import CACHE_TTL, SETTING_LIVE_LIBRARY_FOLDER, SETTING_LIVE_DEFAULT_AUTO_ADD
@@ -21,8 +21,9 @@ def get_channels():
     return channels
 
 def get_library_channels():
-    folder_path = plugin.get_setting(SETTING_LIVE_LIBRARY_FOLDER)
-    library_folder = setup_library(folder_path)
+    folder_path = plugin.get_setting(SETTING_LIVE_LIBRARY_FOLDER, unicode)
+    if not xbmcvfs.exists(folder_path):
+        return []
     # get channels in library
     try:
         library_channels = xbmcvfs.listdir(folder_path)[0]
@@ -52,12 +53,17 @@ def live_add_to_library(channel, mode):
     else:
         players = active_players("live", filters = {'network': channel.get('network')})
         players.insert(0, ADDON_SELECTOR)
-        selection = dialogs.select(_("Play with..."), [p.title for p in players])
+        selection = dialogs.select(_("Play using..."), [p.title for p in players])
         if selection == -1:
             return
         player = players[selection]
-    library_folder = setup_library(plugin.get_setting(SETTING_LIVE_LIBRARY_FOLDER))
-    add_channel_to_library(library_folder, channel, player)   
+    library_folder = setup_library(plugin.get_setting(SETTING_LIVE_LIBRARY_FOLDER, unicode))
+    add_channel_to_library(library_folder, channel, player)
+
+@plugin.route('/live/remove_from_library/<channel>')
+def live_remove_from_channel(channel):
+    folder = plugin.get_setting(SETTING_LIVE_LIBRARY_FOLDER, unicode)
+    library_channel_remove_strm(channel, folder)
 
 @plugin.route('/live/move_channel_up/<channel>')
 def move_channel_up(channel):
@@ -84,29 +90,29 @@ def live():
     if library_channels: 
         items = [
             {
-                'label': _("My channels"),
-                'path': plugin.url_for(browse_library_channels),
+                'label': "{0} {1}".format(_("View your"), _("Channels").lower()),
+                'path': plugin.url_for("browse_library_channels"),
                 'icon': get_icon_path("library"),
             },
             {
-                'label': _("Search"),
-                'path': plugin.url_for(live_search),
+                'label': "{0}: {1}".format(_("Search"), _("Channel")),
+                'path': plugin.url_for("live_search"),
                 'icon': get_icon_path("search"),
             },
         ]
     else:
         items = [
             {
-                'label': _("Search"),
-                'path': plugin.url_for(live_search),
+                'label': "{0}: {1}".format(_("Search"), _("Channel")),
+                'path': plugin.url_for("live_search"),
                 'icon': get_icon_path("search"),
             },
         ]
     channels = get_channels()
     if channels:
         items.append({
-            'label': _("Clear channels"),
-            'path': plugin.url_for(clear_channels),
+            'label': _("Remove %s") % _("Channels").lower(),
+            'path': plugin.url_for("clear_channels"),
             'icon': get_icon_path("clear"),
         })
     for (index, channel) in enumerate(channels):
@@ -117,34 +123,34 @@ def live():
         else:
             context_menu = [
                 (
-                    _("Add to library"),
-                    "RunPlugin({0})".format(plugin.url_for(live_add_to_library, channel=channel, mode="library"))
+                    _("Scan item to library"),
+                    "RunPlugin({0})".format(plugin.url_for("live_add_to_library", channel=channel, mode="library"))
                 )
             ]
         if channel in channels:
             context_menu.append(
                 (
-                    _("Remove channel"),
-                    "RunPlugin({0})".format(plugin.url_for(remove_channel, channel=channel))
+                    _("Remove %s") % _("Channel").lower(),
+                    "RunPlugin({0})".format(plugin.url_for("remove_channel", channel=channel))
                 )
             )
         if index != 0:
             context_menu.append(
                 (
                     _("Move up"),
-                    "RunPlugin({0})".format(plugin.url_for(move_channel_up, channel=channel))
+                    "RunPlugin({0})".format(plugin.url_for("move_channel_up", channel=channel))
                 )
             )
         if index != len(channels) - 1:
             context_menu.append(
                 (
                     _("Move down"),
-                    "RunPlugin({0})".format(plugin.url_for(move_channel_down, channel=channel))
+                    "RunPlugin({0})".format(plugin.url_for("move_channel_down", channel=channel))
                 )
             )
         items.append({
             'label': channel,
-            'path': plugin.url_for(live_play, channel=channel, program="None", language="en", mode="external"),
+            'path': plugin.url_for("live_play", channel=channel, program="None", language="en", mode="external"),
             'icon': "DefaultVideo.png",
             'context_menu': context_menu,
         })
@@ -155,7 +161,7 @@ def browse_library_channels():
     items = [
         {
             'label': _("New channel"),
-            'path': plugin.url_for(live_search),
+            'path': plugin.url_for("live_search"),
             'icon': get_icon_path("search"),
         },
     ]
@@ -165,15 +171,20 @@ def browse_library_channels():
             if library_channel != None:
                 items.append({
                     'label': str(library_channel),
-                    'path': plugin.url_for(live_play, program="None", language="en", channel=library_channel, mode="library"),
+                    'path': plugin.url_for("live_play", program="None", language="en", channel=library_channel, mode="library"),
                     'icon': get_icon_path("library"),
+                    'context_menu': [
+                        (
+                            _("Remove %s") % _("Channel").lower(),
+                            "RunPlugin({0})".format(plugin.url_for("live_remove_from_channel", channel=library_channel))
+                        )]
                 })
     return items
 
 @plugin.route('/live/search')
 def live_search():
     """ Activate channel search """
-    term = plugin.keyboard(heading=_("search for"))
+    term = plugin.keyboard(heading=_("Enter search string"))
     return live_search_term(term)
 
 @plugin.route('/live/search_term/<term>')

@@ -1,6 +1,16 @@
-import urllib, urllib2, re, xbmcplugin, xbmcgui, xbmc, xbmcaddon, os, sys, time
-import shutil, binascii
+import binascii
+import os
+import re
+import shutil
+import sys
 import time
+import traceback
+import urllib
+import urllib2
+import xbmc
+import xbmcaddon
+import xbmcgui
+import xbmcplugin
 
 #################################################
 AddonID        = 'plugin.program.totalinstaller'
@@ -17,8 +27,19 @@ mynotifycheck  =  ADDON.getSetting('mynotifycheck')
 CPDATA         =  os.path.join(ADDONDATA,AddonID)
 idfile         =  os.path.join(CPDATA,'id.xml')
 update_file    =  os.path.join(ADDONDATA,'firstrun')
+temp_install   =  os.path.join(ADDONS,'packages','temp_install')
 
-print'###### Community Portal Update Service ######'
+if os.path.exists(temp_install):
+    readfile = open(temp_install,'r')
+    runcode  = readfile.read()
+    readfile.close()
+    xbmc.log('### Profile has been reloaded after addon removal, attempting to continue addon install')
+    try:
+        exec(runcode)
+    except Exception as e:
+        xbmc.log(traceback.format_exc())
+
+xbmc.log('###### Community Portal Update Service ######')
 
 if not os.path.exists(CPDATA):
     os.makedirs(CPDATA)

@@ -12,11 +12,11 @@ def play_music(artist_name, track_name, album_name, mode = "default"):
     if mode == 'select':
         play_plugin = ADDON_SELECTOR.id
     elif mode == 'context':
-        play_plugin = plugin.get_setting(SETTING_MUSIC_DEFAULT_PLAYER_FROM_CONTEXT)
+        play_plugin = plugin.get_setting(SETTING_MUSIC_DEFAULT_PLAYER_FROM_CONTEXT, unicode)
     elif mode == 'library':
-        play_plugin = plugin.get_setting(SETTING_MUSIC_DEFAULT_PLAYER_FROM_LIBRARY)
+        play_plugin = plugin.get_setting(SETTING_MUSIC_DEFAULT_PLAYER_FROM_LIBRARY, unicode)
     elif mode == 'default':
-        play_plugin = plugin.get_setting(SETTING_MUSIC_DEFAULT_PLAYER)
+        play_plugin = plugin.get_setting(SETTING_MUSIC_DEFAULT_PLAYER, unicode)
     else:
         play_plugin = mode
     players = active_players("music")
@@ -47,11 +47,11 @@ def play_musicvideo(artist_name, track_name, album_name, mode = "default"):
     if mode == 'select':
         play_plugin = ADDON_SELECTOR.id
     elif mode == 'context':
-        play_plugin = plugin.get_setting(SETTING_MUSICVIDEOS_DEFAULT_PLAYER_FROM_CONTEXT)
+        play_plugin = plugin.get_setting(SETTING_MUSICVIDEOS_DEFAULT_PLAYER_FROM_CONTEXT, unicode)
     elif mode == 'library':
-        play_plugin = plugin.get_setting(SETTING_MUSICVIDEOS_DEFAULT_PLAYER_FROM_LIBRARY)
+        play_plugin = plugin.get_setting(SETTING_MUSICVIDEOS_DEFAULT_PLAYER_FROM_LIBRARY, unicode)
     elif mode == 'default':
-        play_plugin = plugin.get_setting(SETTING_MUSICVIDEOS_DEFAULT_PLAYER)
+        play_plugin = plugin.get_setting(SETTING_MUSICVIDEOS_DEFAULT_PLAYER, unicode)
     else:
         play_plugin = mode
     players = active_players("musicvideos")

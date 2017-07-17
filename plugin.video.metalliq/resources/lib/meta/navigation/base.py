@@ -20,13 +20,16 @@ def caller_args():
     return dict([(i, values[i]) for i in args])
 
 def get_icon_path(icon_name):
-    if plugin.get_setting(SETTING_STYLE, converter=str) != "Custom": return os.path.join('https://raw.githubusercontent.com/OpenELEQ/Style/master/MetalliQ/', str(plugin.get_setting(SETTING_STYLE, converter=str).lower()) + "/" , icon_name+".png")
-    else: return os.path.join(plugin.get_setting(SETTING_STYLE_CUSTOM_FOLDER, converter=str), icon_name+".png")
+    if plugin.get_setting(SETTING_STYLE, unicode) != "Custom": return os.path.join('https://raw.githubusercontent.com/OpenELEQ/Style/master/MetalliQ/', plugin.get_setting(SETTING_STYLE, unicode).lower() + "/" , icon_name+".png")
+    else: return os.path.join(plugin.get_setting(SETTING_STYLE_CUSTOM_FOLDER, unicode), icon_name+".png")
 
 def get_background_path():
-    if plugin.get_setting(SETTING_BACKGROUND, converter=str) == "Matching": return os.path.join('https://raw.githubusercontent.com/OpenELEQ/Style/master/MetalliQ/backgrounds/', str(plugin.get_setting(SETTING_STYLE, converter=str).lower()) + ".png")
-    elif plugin.get_setting(SETTING_BACKGROUND, converter=str) == "Custom": return os.path.join(plugin.get_setting(SETTING_BACKGROUND_CUSTOM_FOLDER , converter=str), "fanart.png")
-    else: return os.path.join('https://raw.githubusercontent.com/OpenELEQ/Style/master/MetalliQ/backgrounds/', str(plugin.get_setting(SETTING_BACKGROUND, converter=str).lower()) + ".png")
+    if plugin.get_setting(SETTING_BACKGROUND, unicode) == "Matching": return os.path.join('https://raw.githubusercontent.com/OpenELEQ/Style/master/MetalliQ/backgrounds/', str(plugin.get_setting(SETTING_STYLE, unicode).lower()) + ".png")
+    elif plugin.get_setting(SETTING_BACKGROUND, unicode) == "Custom": return os.path.join(plugin.get_setting(SETTING_BACKGROUND_CUSTOM_FOLDER, unicode), "fanart.png")
+    else: return os.path.join('https://raw.githubusercontent.com/OpenELEQ/Style/master/MetalliQ/backgrounds/', str(plugin.get_setting(SETTING_BACKGROUND, unicode).lower()) + ".png")
+
+def get_banner_path():
+    return 'https://raw.githubusercontent.com/OpenELEQ/Style/master/MetalliQ/default/banner.jpg'
 
 def get_genre_icon(genre_id):
     genre_id = int(genre_id)

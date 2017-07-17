@@ -2,6 +2,7 @@ import re
 import urllib
 from xbmcswift2 import xbmc
 from meta import plugin, LANG
+from meta.gui import dialogs
 from meta.utils.text import to_unicode
 from meta.library.live import get_player_plugin_from_library
 from meta.navigation.base import get_icon_path, get_background_path
@@ -17,17 +18,17 @@ def play_channel(channel, program, language, mode):
     if mode == 'select':
         play_plugin = ADDON_SELECTOR.id
     elif mode == 'context':
-        play_plugin = plugin.get_setting(SETTING_LIVE_DEFAULT_PLAYER_FROM_CONTEXT)
+        play_plugin = plugin.get_setting(SETTING_LIVE_DEFAULT_PLAYER_FROM_CONTEXT, unicode)
     elif mode == 'library':
-        play_plugin = plugin.get_setting(SETTING_LIVE_DEFAULT_PLAYER_FROM_LIBRARY)
+        play_plugin = plugin.get_setting(SETTING_LIVE_DEFAULT_PLAYER_FROM_LIBRARY, unicode)
     elif mode == 'default':
-        play_plugin = plugin.get_setting(SETTING_LIVE_DEFAULT_PLAYER)
+        play_plugin = plugin.get_setting(SETTING_LIVE_DEFAULT_PLAYER, unicode)
     else:
         play_plugin = mode
     players = active_players("live")
     players = [p for p in players if p.id == play_plugin] or players
     if not players:
-        plugin.notify(msg=_('Enable live players'), title=_('First'), delay=1000, image=get_icon_path("live"))
+        dialogs.notify(msg="{0} {1} {2}".format(_("No cache").replace(_("Cache").lower(),_("TV")), _("Player").lower(), _("Enabled").lower()), title=_("Error"), delay=5000, image=get_icon_path("live"))
         action_cancel()
         return
     # Get parameters
@@ -50,13 +51,13 @@ def play_channel_from_guide(channel, program, language, mode):
     if mode == 'select':
         play_plugin = ADDON_PICKER.id
     elif mode == 'default':
-        play_plugin = plugin.get_setting(SETTING_LIVE_DEFAULT_CHANNELER)
+        play_plugin = plugin.get_setting(SETTING_LIVE_DEFAULT_CHANNELER, unicode)
     else:
         play_plugin = mode
     channelers = active_channelers("live")
     channelers = [p for p in channelers if p.id == play_plugin] or channelers
     if not channelers:
-        plugin.notify(msg=_('Install live addons'), title=_('First'), delay=1000, image=get_icon_path("live"))
+        dialogs.notify(msg="{0} {1} {2}".format(_("No cache").replace(_("Cache").lower(),_("TV")), _("Player").lower(), _("Enabled").lower()), title=_("Error"), delay=5000, image=get_icon_path("live"))
         action_cancel()
         return
     # Get parameters

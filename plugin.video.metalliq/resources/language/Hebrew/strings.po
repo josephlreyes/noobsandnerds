@@ -1,9 +1,9 @@
-# Addon Name: [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]
+# Addon Name: MetalliQ
 # Addon id: plugin.video.metalliq
 # Addon Provider: [COLOR ff0084ff]Q[/COLOR]
 msgid ""
 msgstr ""
-"Project-Id-Version: [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] Addon for Kodi\n"
+"Project-Id-Version: MetalliQ Addon for Kodi\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: 2016-02-21 19:17+0200\n"
 "Language-Team: Hebrew\n"
@@ -100,7 +100,7 @@ msgid "Number of simultaneous searches"
 msgstr "מספר חיפושים לבצע במקביל"
 
 msgctxt "#30410"
-msgid "Attempt to hide dialogs while [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] is searching"
+msgid "Attempt to hide dialogs while MetalliQ is searching"
 msgstr "הסתר חלונות משנה בזמן שהתוסף מבצע חיפוש"
 
 msgctxt "#30411"
@@ -116,7 +116,7 @@ msgid "Hide keyboard dialog"
 msgstr "הסתר מקלדת"
 
 msgctxt "#30600"
-msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a movies video source?"
+msgid "Would you like to automatically set MetalliQ as a movies video source?"
 msgstr "האם ברצונך שאגדיר באופן אוטומטי את ספריית התוסף כמקור סרטי וידאו?"
 
 msgctxt "#30601"
@@ -176,7 +176,7 @@ msgid "Update players"
 msgstr "עדכן נגנים"
 
 msgctxt "#30616"
-msgid "Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a tv shows source?"
+msgid "Would you like to automatically set MetalliQ as a tv shows source?"
 msgstr "האם ברצונך שאגדיר באופן אוטומטי את ספריית התוסף כמקור תוכניות טלוויזיה?"
 
 msgctxt "#30617"

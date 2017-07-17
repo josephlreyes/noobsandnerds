@@ -58,6 +58,7 @@
 
 	<category label="Extras">
 		<setting id="adult" type="bool" label="Enable XXX Content" default="false"/>
+		<setting id="backupinstall" type="bool" label="Enable backup addon install method" default="false"/>
 		<setting type="lsep" label="[COLOR=gold]---------------------------------------------------------------[/COLOR]"/>
 		<setting id="internetcheck" type="bool" label="Warn if not connected to internet" default="false" />
 		<setting type="lsep" label="[COLOR=gold]---------------------------------------------------------------[/COLOR]"/>

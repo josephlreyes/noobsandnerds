@@ -5,19 +5,19 @@ if __name__ == '__main__':
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'resources', 'lib'))
 
 import datetime
-import sqlite3
 import glob
 import re
+import sqlite3
+import xbmcgui
+import xbmc
 
 from xbmcswift2 import xbmc, xbmcvfs
 from meta import plugin
 from meta.video_player import VideoPlayer
 from meta.utils.properties import get_property, clear_property
 from lastfm import lastfm
-from addon import update_library
-from settings import UPDATE_LIBRARY_INTERVAL, SETTING_MUSIC_LIBRARY_FOLDER, SETTING_TOTAL_SETUP_DONE
-
-import xbmcgui
+from default import update_library
+from settings import SETTING_UPDATE_LIBRARY_INTERVAL, SETTING_MUSIC_LIBRARY_FOLDER, SETTING_TOTAL_SETUP_DONE
 from language import get_string as _
 
 player = VideoPlayer()
@@ -28,15 +28,18 @@ class Monitor(xbmc.Monitor):
             if get_property("clean_library"):
                 xbmc.executebuiltin("XBMC.CleanLibrary(video, false)")
                 clear_property("clean_library")
-#        if database == "music":
-#            # need to manualy change the database file to add strm files to it
-#            music_directory = plugin.get_setting(SETTING_MUSIC_LIBRARY_FOLDER)
-#            self.add_folder_to_music_database(music_directory)
+        if database == "music":
+            # need to manualy change the database file to add strm files to it
+            music_directory = plugin.get_setting(SETTING_MUSIC_LIBRARY_FOLDER, unicode)
+            self.add_folder_to_music_database(music_directory)
 
-    def get_pathId(self,dirName):
-        absDirName = os.path.abspath(dirName) + os.sep
-        absDirName = absDirName.replace('kodi', 'Kodi')
-        c.execute("SELECT * FROM path WHERE strPath = ?", (absDirName,))
+    def get_pathId(self,dirName, alternative = False):
+        if not alternative:
+          absDirName = os.path.abspath(dirName) + os.sep
+          absDirName = absDirName.replace('kodi', 'Kodi')
+        else:
+          absDirName = dirName
+        c.execute("SELECT * FROM path WHERE UPPER(strPath) = UPPER(?)", (absDirName,))
         row = c.fetchone()
         if row:
             return row[0]
@@ -128,39 +131,49 @@ class Monitor(xbmc.Monitor):
                       (artistId, "artist", "thumb", thumb))
 
     def add_folder_to_music_database(self, music_folder):
-#        pDialog = xbmcgui.DialogProgress()
-#        pDialog.create('[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR]', _('adding music to database'))
+        import re
+        info_regex = re.compile(r'.*?<title>(.*?)</title>.*?<artist>(.*?)</artist>.*?<album>(.*?)</album>.*?<track>(.*?)</track>.*',
+                                re.IGNORECASE | re.UNICODE |  re.DOTALL) # regex to parse nfo file
         self.setup_database_connection()
-        music_folder = xbmc.translatePath(music_folder)  # translate from special:// to absolute
-        for dirName, subdirList, fileList in os.walk(music_folder):
+        abs_music_folder = xbmc.translatePath(music_folder)  # translate from special:// to absolute
+        for dirName, subdirList, fileList in os.walk(abs_music_folder):
             pathId = self.get_pathId(dirName)
             if not pathId:
-                continue
+                if music_folder[-1] != "/":
+                  music_folder = music_folder + "/"
+                special_dirname = dirName.replace(abs_music_folder, music_folder)
+                if special_dirname[-1] != "/":
+                  special_dirname = special_dirname + "/"
+                pathId = self.get_pathId(special_dirname, True) # check on android
+                if not pathId:
+                  special_dirname = dirName.replace(abs_music_folder, music_folder).replace("profile", "userdata")
+                  if special_dirname[-1] != "/":
+                    special_dirname = special_dirname + "/"
+                  pathId = self.get_pathId(special_dirname, True) # check on android
+                if not pathId:
+                    xbmc.log("pathid not found")
+                    continue
             fname_index = 0
-            fileList_size = len(fileList)
             for fname in fileList:
-                if (pDialog.iscanceled()): return
-                percent = (fname_index / fileList_size) * 100
-                pDialog.update(int(percent), '{0} {1} ...'.format(_("Importing"),dirName))
                 if fname.endswith("strm"):
-                    dirnameparts = dirName.split(os.sep)
-                    artist = dirnameparts[-2]
-                    album = dirnameparts[-1]
-                    song = fname.replace('.strm', '')
-                    song_regex = re.compile("(\d+)* (.*)")
-                    if re.match(song_regex, song):
-                        song_number = re.sub(song_regex, r"\1", song)
-                        song = re.sub(song_regex, r"\2", song)
-                    else:
-                        song_number = "0"
-                    artistId = self.get_artistId(artist)
-                    self.add_artistArt(artistId, dirName)
-                    albumId = self.get_albumId(album, artist)
-                    self.add_albumArtist(albumId, artistId, artist)
-                    self.add_albumArt(albumId, dirName)
-                    songId = self.get_songId(albumId, pathId, artist, song, song_number, fname)
-                    self.add_songArtist(songId, artistId, artist)
-                    conn.commit()
+                    try:
+                        nfo = fname.replace('.strm', '.nfo')
+                        info_string = open(dirName+ os.sep + nfo,'r').read()
+                        result = re.match(info_regex, info_string)
+                        song = result.group(1)
+                        artist = result.group(2)
+                        album = result.group(3)
+                        song_number = result.group(4)
+
+                        artistId = self.get_artistId(artist)
+                        self.add_artistArt(artistId, dirName)
+                        albumId = self.get_albumId(album, artist)
+                        self.add_albumArtist(albumId, artistId, artist)
+                        self.add_albumArt(albumId, dirName)
+                        songId = self.get_songId(albumId, pathId, artist, song, song_number, fname)
+                        self.add_songArtist(songId, artistId, artist)
+                    finally:
+                        conn.commit()
                 fname_index += 1
 
     def setup_database_connection(self):
@@ -197,15 +210,15 @@ def future(seconds):
     return datetime.datetime.now() + datetime.timedelta(seconds=seconds)
 
 def main():
-    go_idle(45)
-    if plugin.get_setting(SETTING_TOTAL_SETUP_DONE, converter=bool) == False:
-        xbmc.executebuiltin('RunPlugin(plugin://plugin.video.metalliq/totalsetup/)')
+    go_idle(15)
+    if plugin.get_setting(SETTING_TOTAL_SETUP_DONE, bool) == False:
+        xbmc.executebuiltin('RunPlugin(plugin://plugin.video.metalliq/setup/total)')
         plugin.set_setting(SETTING_TOTAL_SETUP_DONE, "true")
     xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/movies/batch_add_to_library)")
     next_update = future(0)
     while not xbmc.abortRequested:
         if next_update <= future(0):
-            next_update = future(UPDATE_LIBRARY_INTERVAL)
+            next_update = future(plugin.get_setting(SETTING_UPDATE_LIBRARY_INTERVAL, int) * 60 * 60)
             update_library()
         go_idle(30*60)
 

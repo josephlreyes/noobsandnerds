@@ -90,7 +90,7 @@ def get_track_info(artist_name, track_name):
     parameters["artist"] = artist_name
     parameters["track"] = track_name
     results = call_last_fm(parameters)
-    return results["track"]
+    if "track" in results: return results["track"]
 
 @plugin.cached(TTL=CACHE_TTL, cache="lastfm")
 def get_album_info(artist_name, album_name):
@@ -99,7 +99,8 @@ def get_album_info(artist_name, album_name):
     parameters["artist"] = artist_name
     parameters["album"] = album_name
     results = call_last_fm(parameters)
-    return results["album"]
+    if "album" in results: return results["album"]
+    else: return []
 
 @plugin.cached(TTL=CACHE_TTL, cache="lastfm")
 def get_artist_info(artist_name):
@@ -107,7 +108,8 @@ def get_artist_info(artist_name):
     parameters['method'] = 'artist.getinfo'
     parameters["artist"] = artist_name
     results = call_last_fm(parameters)
-    return results["artist"]
+    if "artist" in results: return results["artist"]
+    else: return []
 
 @plugin.cached(TTL=CACHE_TTL, cache="lastfm")
 def get_top_artists(page):

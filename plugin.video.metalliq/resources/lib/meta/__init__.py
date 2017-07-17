@@ -3,8 +3,8 @@ from settings import SETTING_LANGUAGE_ID
 
 plugin = Plugin()
 
-if plugin.get_setting(SETTING_LANGUAGE_ID, converter=str) == "system": LANG = xbmc.getLanguage(xbmc.ISO_639_1,)
-else: LANG = plugin.get_setting(SETTING_LANGUAGE_ID, converter=str)
+if plugin.get_setting(SETTING_LANGUAGE_ID, unicode) == "system": LANG = xbmc.getLanguage(xbmc.ISO_639_1,)
+else: LANG = plugin.get_setting(SETTING_LANGUAGE_ID, unicode)
 
 def import_tmdb():
     """ Lazy import tmdb """

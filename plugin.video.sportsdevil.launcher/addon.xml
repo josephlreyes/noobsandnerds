@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.sportsdevil.launcher" name="SportsDevil Launcher" version="0.2" provider-name="noobsandnerds">
+<addon id="plugin.video.sportsdevil.launcher" name="SportsDevil Launcher" version="0.2.1" provider-name="noobsandnerds">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.addon.common" version="2.0.0"/>
@@ -11,5 +11,6 @@
     <summary lang="en">SportsDevil REFRESH</summary>
     <description lang="en">This will install the latest versions of SportsDevil and clean any old data that may be stopping the addon from opening certain pages. As SportsDevil has no official repository different people have taken it upon themselves to upload newer versions of the addon to their repo's. Due to this there is always a chance an update may break a previously working version so this addon stores a backup of your existing SportsDevil so you can always revert back if needed.</description>
     <platform>all</platform>
+    <broken>Check Add-on Portal for latest versions of SD, as of July 2017 nobody seems to be maintaining SportsDevil but have a google and you may be lucky and find a working version.</broken>
   </extension>
 </addon>

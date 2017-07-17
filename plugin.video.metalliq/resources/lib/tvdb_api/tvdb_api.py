@@ -6,7 +6,8 @@ import zipfile
 import requests
 import requests_cache
 from urllib import quote as url_quote
-
+from settings import SETTING_AIRDATE_OFFSET
+from meta import plugin
 from meta.utils.text import date_to_timestamp
 
 try:
@@ -198,8 +199,10 @@ class Tvdb:
         language = "en"
         result = self._loadUrl(self.config['url_search_by_imdb'] % (imdb_id,language))
         pre_tvdb = str(result).split('<seriesid>')
-        tvdb = str(pre_tvdb[1]).split('</seriesid>')
-        return tvdb[0]
+        if len(pre_tvdb) > 1:
+            tvdb = str(pre_tvdb[1]).split('</seriesid>')
+            return tvdb[0]
+        else: return None
 
     def url_sid_full(self, sid, language):
         return self.config['url_sid_full'] % (sid, language)
@@ -222,9 +225,10 @@ class Tvdb:
         else:
             url = self.config['url_sid_base'] % (sid, language)
             response = self._loadUrl(url)
-            
-            seriesInfoEt = self._parseXML(response)
-            self._parseSeriesData(sid, seriesInfoEt)
+            if "404 Not Found" in str(response): return None
+            else:
+                seriesInfoEt = self._parseXML(response)
+                self._parseSeriesData(sid, seriesInfoEt)
             
         return self.shows[sid]
         
@@ -261,6 +265,7 @@ class Tvdb:
     def _parseXML(self, content):
         global ElementTree
         content = content.rstrip("\r") # FIXME: this seems wrong
+
         try:
             return ElementTree.fromstring(content)
         except TypeError:

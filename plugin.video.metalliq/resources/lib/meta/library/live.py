@@ -15,7 +15,7 @@ from settings import SETTING_LIVE_LIBRARY_FOLDER, SETTING_LIBRARY_SET_DATE, SETT
 from language import get_string as _
 
 def update_library():    
-    folder_path = plugin.get_setting(SETTING_LIVE_LIBRARY_FOLDER)
+    folder_path = plugin.get_setting(SETTING_LIVE_LIBRARY_FOLDER, unicode)
     if not xbmcvfs.exists(folder_path):
         return
     # get library folder
@@ -64,13 +64,14 @@ def add_channel_to_library(library_folder, channel, play_plugin = None):
     return changed
 
 def library_channel_remove_strm(channel, folder):
-    enc_season = ('Season %s' % season).translate(None, '\/:*?"<>|').strip('.')
-    enc_name = 'S%02dE%02d' % (season, episode)
-    
     channel_folder = os.path.join(folder, channel)
     stream_file = os.path.join(channel_folder, channel + '.strm')
+    info_file = os.path.join(channel_folder, 'player.info')
+    nfo_file = os.path.join(channel_folder, channel + '.nfo')
     if xbmcvfs.exists(stream_file):
         xbmcvfs.delete(stream_file)
+        xbmcvfs.delete(info_file)
+        xbmcvfs.delete(nfo_file)
         xbmcvfs.rmdir(channel_folder)
         return True
     return False
@@ -78,7 +79,7 @@ def library_channel_remove_strm(channel, folder):
 def get_player_plugin_from_library(library_channel):
     # Specified by user
     try:
-        library_folder = plugin.get_setting(SETTING_LIVE_LIBRARY_FOLDER)
+        library_folder = plugin.get_setting(SETTING_LIVE_LIBRARY_FOLDER, unicode)
         player_file = xbmcvfs.File(os.path.join(library_folder, str(channel), "player.info"))
         content = player_file.read()
         player_file.close()
@@ -92,17 +93,17 @@ def setup_library(library_folder):
         library_folder += "/"
     metalliq_playlist_folder = "special://profile/playlists/mixed/MetalliQ/"
     if not xbmcvfs.exists(metalliq_playlist_folder): xbmcvfs.mkdir(metalliq_playlist_folder)
-    playlist_folder = plugin.get_setting(SETTING_LIVE_PLAYLIST_FOLDER, converter=str)
+    playlist_folder = plugin.get_setting(SETTING_LIVE_PLAYLIST_FOLDER, unicode)
     # create folders
     if not xbmcvfs.exists(playlist_folder): xbmcvfs.mkdir(playlist_folder)
     if not xbmcvfs.exists(library_folder):
         # create folder
         xbmcvfs.mkdir(library_folder)
         # auto configure folder
-        msg = _("Would you like to automatically set [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] as a channel video source?")
-        if dialogs.yesno(_("Library setup"), msg):
+        msg = _("Would you like to automatically set MetalliQ as a channel video source?")
+        if dialogs.yesno("{0} {1}".format(_("Library"), "setup"), msg):
             source_thumbnail = get_icon_path("live")
-            source_name = "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] " + _("Channels")
+            source_name = "MetalliQ " + _("Channels")
             source_content = "('{0}','','','',0,0,'<settings></settings>',0,0,NULL,NULL)".format(library_folder)
             add_source(source_name, library_folder, source_content, source_thumbnail)
     # return translated path
@@ -115,7 +116,7 @@ def auto_live_setup(library_folder):
         try:
             xbmcvfs.mkdir(library_folder)
             source_thumbnail = get_icon_path("live")
-            source_name = "[COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] " + _("Channels")
+            source_name = "MetalliQ " + _("Channels")
             source_content = "('{0}','','','',0,0,'<settings></settings>',0,0,NULL,NULL)".format(library_folder)
             add_source(source_name, library_folder, source_content, source_thumbnail)
             return True

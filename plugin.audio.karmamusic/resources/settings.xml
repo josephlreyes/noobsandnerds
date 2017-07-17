@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="Bitrate">
+		<setting id="mp3bitrate" type="enum" label="Mp3 Bitrate" values="128 Kbps|320 kbps" default="1" />
+	</category>
+
+</settings>

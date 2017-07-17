@@ -225,10 +225,12 @@ class XBMCMixin(object):
         # TODO: Change to a warning instead of an assert. Otherwise will have
         # to keep this list in sync with
         #       any XBMC changes.
-        #contents = ['files', 'songs', 'artists', 'albums', 'movies',
-        #'tvshows', 'episodes', 'musicvideos']
+        contents = ['files', 'songs', 'artists', 'albums', 'movies', 'tvshows', 'seasons', 'episodes', 'musicvideos', 'genres', 'years', 'actors', 'playlists', 'plugins', 'studios', 'directors', 'sets', 'tags', 'countries', 'roles', 'images', 'Addons', 'LiveTV']
         #assert content in contents, 'Content type "%s" is not valid' % content
-        xbmcplugin.setContent(self.handle, content)
+        if content not in contents: return False
+        else:
+            xbmcplugin.setContent(self.handle, content)
+            return True
 
     def get_setting(self, key, converter=None, choices=None):
         '''Returns the settings value for the provided key.
@@ -353,8 +355,8 @@ class XBMCMixin(object):
             log.warning('Empty message for notification dialog')
         if title is None:
             title = self.addon.getAddonInfo('name')
-        xbmc.executebuiltin('XBMC.Notification("%s", "%s", "%s", "%s")' %
-                            (to_utf8(msg), to_utf8(title), delay, to_utf8(image)))
+        xbmc.executebuiltin('XBMC.Notification("%s", "%s", "%s", "%s", %s")' %
+                            (to_utf8(msg), to_utf8(title), delay, to_utf8(image), False))
 
     def _listitemify(self, item):
         '''Creates an xbmcswift2.ListItem if the provided value for item is a

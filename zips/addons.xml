@@ -50,7 +50,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.bob" name="Bob" version="1.3.15" provider-name="Team Bob">
+<addon id="plugin.video.bob" name="Bob" version="1.3.16" provider-name="Team Bob">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="plugin.video.youtube" version="5.2.1"/>
@@ -78,6 +78,29 @@
 		<video_guide>y0w8zIH4lOY</video_guide>
 		<video_preview>WdKIzajiBBI</video_preview>
 	</extension>
+</addon>
+
+<addon id="plugin.video.bromerzzgoesfishing"
+	name="bromerzz goes fishing"
+	version="0.1"
+	provider-name="bromerzz">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.python.koding.aio" version="0.5"/>
+    <import addon="plugin.video.youtube" version="5.0.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">bromerzz goes fishing</summary>
+    <description lang="en">This sounds very fishy to me!</description>
+    <platform>all</platform>
+    <forum></forum>
+    <website>http://noobsandnerds.com</website>
+    <source></source>
+    <news></news>
+  </extension>
 </addon>
 
 <addon id="plugin.video.metalliq" name="MetalliQ" version="2.0.12" provider-name="OpenELEQ, Midraal">
@@ -211,7 +234,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.sportsdevil.launcher" name="SportsDevil Launcher" version="0.2" provider-name="noobsandnerds">
+<addon id="plugin.video.sportsdevil.launcher" name="SportsDevil Launcher" version="0.2.1" provider-name="noobsandnerds">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.addon.common" version="2.0.0"/>
@@ -223,129 +246,11 @@
     <summary lang="en">SportsDevil REFRESH</summary>
     <description lang="en">This will install the latest versions of SportsDevil and clean any old data that may be stopping the addon from opening certain pages. As SportsDevil has no official repository different people have taken it upon themselves to upload newer versions of the addon to their repo's. Due to this there is always a chance an update may break a previously working version so this addon stores a backup of your existing SportsDevil so you can always revert back if needed.</description>
     <platform>all</platform>
+    <broken>Check Add-on Portal for latest versions of SD, as of July 2017 nobody seems to be maintaining SportsDevil but have a google and you may be lucky and find a working version.</broken>
   </extension>
 </addon>
 
-<addon id="repository.elysium" version="2017.06.10" name="Elysium repository" provider-name="Elysium">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0" />
-	</requires>
-	<extension point="xbmc.addon.repository" name="Elysium repository">
-		<dir minversion="14.0.0">
-			<info compressed="false">https://github.com/OpenELEQ/repository.elysium/raw/master/elysium.xml</info>
-			<checksum>https://github.com/OpenELEQ/repository.elysium/raw/master/elysium.xml.md5</checksum>
-			<datadir zip="true">https://raw.github.com/OpenELEQ/repository.elysium/master/</datadir>
-		</dir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Elysium repository</summary>
-		<description lang="en">This repository contains Elysium and required dependencies.</description>
-		<disclaimer lang="en">The Author does not host or share any content, nor is he affiliated with any of the content providers.</disclaimer>
-		<platform>all</platform>
-		<news>Rebrand from Zen to Elysium / Disabled Cinemabox</news>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-		</assets>
-	</extension>
-</addon>
-
-<addon id="repository.nanaddons" name="3rd Party Unrestricted" version="1.6" provider-name="noobsandnerds.com">
-	<extension point="xbmc.addon.repository" name="3rd Party Unrestricted">
-	<dir>
-		<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/</datadir>
-	</dir>
-	<dir>
-		<info compressed="false">https://raw.github.com/Shepo6/Shepo/master/addons.xml</info>
-		<checksum>https://raw.github.com/Shepo6/Shepo/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/Shepo6/Shepo/master/</datadir>
-	</dir>
-	<dir>
-		<info compressed="false">http://r.ninjasys.uk/addons.xml</info>
-		<checksum>http://r.ninjasys.uk/addons.xml.md5</checksum>
-		<datadir zip="true">http://r.ninjasys.uk/zips</datadir>
-	</dir>
-	<dir minversion="14.0.0">
-		<info compressed="false">https://github.com/OpenELEQ/repository.q/raw/master/openeleq-addons.xml</info>
-		<checksum>https://github.com/OpenELEQ/repository.q/raw/master/openeleq-addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/OpenELEQ/repository.q/master/zips/</datadir>
-	</dir>
-	<dir minversion="16.0.0">
-		<info compressed="false">https://github.com/OpenELEQ/repository.q.jarvis/raw/master/openeleq-addons.xml</info>
-		<checksum>https://github.com/OpenELEQ/repository.q.jarvis/raw/master/openeleq-addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/OpenELEQ/repository.q.jarvis/master/zips/</datadir>
-	</dir>
-	<dir minversion="16.9.9">
-		<info compressed="false">https://github.com/OpenELEQ/repository.q.krypton/raw/master/openeleq-addons.xml</info>
-		<checksum>https://github.com/OpenELEQ/repository.q.krypton/raw/master/openeleq-addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/OpenELEQ/repository.q.krypton/master/zips/</datadir>
-	</dir>
-	<dir>
-		<info compressed="false">https://raw.github.com/Barroni1977/kobra/master/addons.xml</info>
-		<checksum>https://raw.github.com/Barroni1977/kobra/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/Barroni1977/kobra/master/</datadir>
-	</dir>
-	<dir>
-        <info compressed="false">https://raw.githubusercontent.com/HalowTV/HalowTV/master/zips/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/HalowTV/HalowTV/master/zips/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/HalowTV/HalowTV/master/zips/</datadir>
-	</dir>
-	<dir>
-		<info compressed="false">https://raw.githubusercontent.com/DaButch3r/repository.dab/master/zips/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/DaButch3r/repository.dab/master/zips/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/DaButch3r/repository.dab/master/zips/</datadir>
-	</dir>
-	<dir>
-		<info compressed="false">https://raw.github.com/Andrewrb84/ARBMODRAPIER/master/addons.xml</info>
-		<checksum>https://raw.github.com/Andrewrb84/ARBMODRAPIER/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/Andrewrb84/ARBMODRAPIER/master/</datadir>
-	</dir>
-	<dir>
-        <info compressed="false">http://schism-tv.net/addons/addons.xml</info>
-        <checksum>http://schism-tv.net/addons/addons.xml.md5</checksum>
-        <datadir zip="true">http://schism-tv.net/addons/zips/</datadir>
-    </dir>
-	<dir>
-		<info compressed="false">http://oblivionbuildz.com/Repo/addons.xml</info>
-		<checksum>http://oblivionbuildz.com/Repo/addons.xml.md5</checksum>
-		<datadir zip="true">http://oblivionbuildz.com/Repo</datadir>
-	</dir>
-	<dir>
-        <info compressed="false">https://raw.githubusercontent.com/pansbox/Pandoras-Box/master/_repo/addons.xml</info>
-        <checksum>https://raw.githubusercontent.com/pansbox/Pandoras-Box/master/_repo/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.githubusercontent.com/pansbox/Pandoras-Box/master/_repo/</datadir>
-    </dir>
-	<dir>
-		<info compressed="false">http://fantazyrepo.uk/Repo/addons.xml</info>
-		<checksum>http://fantazyrepo.uk/Repo/addons.xml.md5</checksum>
-		<datadir zip="true">http://fantazyrepo.uk/Repo</datadir>
-	</dir>
-	<dir>
-		<info compressed="false">https://raw.githubusercontent.com/Shanpython/repository.houseofstark/master/zips/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/Shanpython/repository.houseofstark/master/zips/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/Shanpython/repository.houseofstark/master/zips/</datadir>
-	</dir>
-	<dir>
-		<info compressed="false">https://raw.githubusercontent.com/Goliath-Evolve/repository.Goliath/master/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/Goliath-Evolve/repository.Goliath/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/Goliath-Evolve/repository.Goliath/master/zips/</datadir>
-	</dir>
-	<dir>
-        <info compressed="false">https://offshoregit.com/cleaner/entire/addons.xml</info>
-        <checksum>https://offshoregit.com/cleaner/entire/addons.xml.md5</checksum>
-        <datadir zip="true">https://offshoregit.com/cleaner/entire/zips/</datadir>
-    </dir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>The unrestricted repository for 3rd Party add-ons</summary>
-		<description>This repository is a container for 3rd party add-ons where the dev offers support for end users, they agree not to push malicious code and do not re-upload official Kodi modules (which has been proven to cause big problems). Please read the README file in the add-on root directory if you're interested in having your add-ons added to this list or head over to www.noobsandnerds.com for more info.</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="2.0" provider-name="noobsandnerds">
+<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="2.1" provider-name="noobsandnerds">
 	<extension point="xbmc.addon.repository" name="noobsandnerds Repository">
 		<dir>
 			<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml</info>
@@ -356,6 +261,11 @@
 	        <info compressed="true">https://github.com/dandy0850/dandymedia/raw/master/addons.xml</info>
 	        <checksum>https://github.com/dandy0850/dandymedia/raw/master/addons.xml.md5</checksum>
 	        <datadir zip="true">https://github.com/dandy0850/dandymedia/raw/master/repo</datadir>
+		</dir>
+		<dir>
+			<info compressed="false">https://github.com/OpenELEQ/repository.elysium/raw/master/elysium.xml</info>
+			<checksum>https://github.com/OpenELEQ/repository.elysium/raw/master/elysium.xml.md5</checksum>
+			<datadir zip="true">https://raw.github.com/OpenELEQ/repository.elysium/master/</datadir>
 		</dir>
 		<dir>
 	        <info compressed="true">https://raw.githubusercontent.com/catchup4kodi/catchup4kodi/master/zips/addons.xml</info>

@@ -8,6 +8,22 @@ from urlparse import urlparse, parse_qs, urlunparse
 
 ACTION_REGEX = re.compile("(.*?)\((.*)\)")
 
+def page_redux(page):
+    pages  = []
+    if "|" in page: prepages = page.split("|")
+    else: prepages = [page]
+    ranges = []
+    for p in prepages:
+        if "-" in p: ranges = ranges + [i for i in range(int(p.split("-")[0]),int(p.split("-")[1])+1) if i not in pages and i not in ranges]
+        else:
+            if p not in pages: pages.append(int(p))
+    if len(pages) < 1: return None
+    else: return pages + ranges
+
+def merge_dicts(*dict_args):
+    result = {}
+    for dictionary in dict_args: result.update(dictionary)
+    return result
 
 def to_utf8(obj):
     if isinstance(obj, unicode):

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="General">
+		<setting type="lsep" label="Use a Custom Background for the Addon" />
+		<setting id="remote.background" type="text" visible="true" label="Custom Background from link" default="" />
+        <setting id="local.background" type="file" label="Custom Background from File" visible="true" />		
+	</category>
+
+</settings>

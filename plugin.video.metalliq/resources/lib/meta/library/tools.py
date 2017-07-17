@@ -4,8 +4,11 @@ import time
 import xml.etree.ElementTree as ET
 try: from sqlite3 import dbapi2 as database
 except: from pysqlite2 import dbapi2 as database
-from xbmcswift2 import xbmc
+from xbmcswift2 import xbmc, xbmcvfs
 from meta.utils.rpc import RPC
+from meta.gui import dialogs
+from meta import plugin
+from settings import SETTING_MOVIES_LIBRARY_FOLDER, SETTING_TV_LIBRARY_FOLDER
 
 def scan_library(type="video"):
     while not xbmc.abortRequested and \
@@ -14,6 +17,50 @@ def scan_library(type="video"):
         xbmc.sleep(1000)
     xbmc.executebuiltin('UpdateLibrary(video)')
     xbmc.executebuiltin('UpdateLibrary(music)')
+#    list_library()
+
+def list_library():
+    while not xbmc.abortRequested and \
+     (xbmc.getCondVisibility('Library.IsScanning') or \
+     xbmc.getCondVisibility('Window.IsActive(progressdialog)') or \
+     xbmc.getCondVisibility('Window.IsActive(extendedprogressdialog)')):
+        xbmc.sleep(100)
+    xbmc.sleep(5000)
+    library = {}
+    medias = ["movies", "tvshows"]
+#    medias = ["movies", "tvshows", "musicvideos", "music", "live"]
+    for m in medias:
+        if m == "movies":
+            lib = plugin.get_setting(SETTING_MOVIES_LIBRARY_FOLDER, unicode)
+            prite = RPC.videolibrary.get_movies(properties=["title","year","playcount","fanart","originaltitle","imdbnumber","thumbnail","file"])
+            if "movies" in prite: ite = prite["movies"]
+            else: ite = []
+        elif m == "tvshows":
+            lib = plugin.get_setting(SETTING_TV_LIBRARY_FOLDER, unicode)
+            prite = RPC.videolibrary.get_tvshows(properties=["title","year","playcount","fanart","originaltitle","imdbnumber","thumbnail","file"])
+            if "tvshows" in prite: ite = prite["tvshows"]
+            else: ite = []
+#        elif m == "musicvideos":
+#            lib = plugin.get_setting(SETTING_TV_LIBRARY_FOLDER, unicode)
+#            ite = RPC.videolibrary.get_tvshows(properties=["title","year","playcount","fanart","originaltitle","imdbnumber","thumbnail","file"])["tvshows"]
+        else: continue
+        liq = xbmcvfs.listdir(lib)[0]
+        for i in ite:
+            try:
+                f = xbmcvfs.File(os.path.join(lib, i["imdbnumber"], "player.info"))
+                i["player"] = f.read()
+                f.close()
+            except: i["player"] = "na"
+        f = xbmcvfs.File("{0}library.nfo".format(lib), 'w')
+        f.write(str(ite))
+        f.close()
+        if len(ite) > 0: players = dict(zip(ite[0],zip(*[d.values() for d in ite])))["player"]
+        else: players = "()"
+        f = xbmcvfs.File("{0}players.nfo".format(lib), 'w')
+        f.write(str(players))
+        f.close()
+#        dite = [dict(zip(lite,t)) for t in zip(*lite.values())]
+
 
 def get_movie_from_library(imdbnumber):
     imdbnumber = str(imdbnumber)
@@ -80,14 +127,16 @@ def _add_source_xml(xml_file, name, path, thumbnail):
     for source in sources.findall('source'):
         xml_name = source.find("name").text
         xml_path = source.find("path").text
-        xml_thumbnail = source.find("thumbnail").text
-        if xml_name == name or xml_path == path or xml_thumbnail == thumbnail:
+        if source.find("thumbnail"): xml_thumbnail = source.find("thumbnail").text
+        else: xml_thumbnail = ""
+        if xml_name == name or xml_path == path:
             existing_source = source
             break
     if existing_source is not None:
         xml_name = source.find("name").text
         xml_path = source.find("path").text
-        xml_thumbnail = source.find("thumbnail").text
+        if source.find("thumbnail"): xml_thumbnail = source.find("thumbnail").text
+        else: xml_thumbnail = ""
         if xml_name == name and xml_path == path and xml_thumbnail == thumbnail:
             return False
         elif xml_name == name:

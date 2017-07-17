@@ -86,9 +86,9 @@ class ListItem(object):
         '''Returns the listitem's label2'''
         return self._listitem.getLabel2()
 
-    def set_label2(self, label):
+    def set_label2(self, label2):
         '''Sets the listitem's label2'''
-        return self._listitem.setLabel2(label)
+        return self._listitem.setLabel2(label2)
 
     label2 = property(get_label2, set_label2)
 

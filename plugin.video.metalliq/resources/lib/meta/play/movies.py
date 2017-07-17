@@ -1,12 +1,13 @@
 import json
 from xbmcswift2 import xbmc
 import urllib
+import datetime
 from meta import plugin, import_tmdb, LANG
 from meta.utils.text import to_unicode, parse_year, to_utf8
 from meta.utils.properties import set_property
-from meta.library.movies import get_player_plugin_from_library
+from meta.library.movies import get_movie_player_plugin_from_library
 from meta.info import get_movie_metadata
-from meta.play.players import get_needed_langs, ADDON_SELECTOR
+from meta.play.players import get_needed_langs, get_players, ADDON_SELECTOR
 from meta.play.channelers import get_needed_langs, ADDON_PICKER
 from meta.play.base import get_trakt_ids, active_players, active_channelers, action_cancel, action_play, on_play_video
 from settings import SETTING_USE_SIMPLE_SELECTOR, SETTING_MOVIES_DEFAULT_PLAYER, SETTING_MOVIES_DEFAULT_PLAYER_FROM_LIBRARY, SETTING_MOVIES_DEFAULT_PLAYER_FROM_CONTEXT, SETTING_MOVIES_DEFAULT_CHANNELER
@@ -18,23 +19,24 @@ def play_movie(tmdb_id, mode):
     if mode == 'select':
         play_plugin = ADDON_SELECTOR.id
     elif mode == 'context':
-        play_plugin = plugin.get_setting(SETTING_MOVIES_DEFAULT_PLAYER_FROM_CONTEXT)
+        play_plugin = plugin.get_setting(SETTING_MOVIES_DEFAULT_PLAYER_FROM_CONTEXT, unicode)
     elif mode == 'library':
-        play_plugin = get_player_plugin_from_library(id)
+        play_plugin = get_movie_player_plugin_from_library(tmdb_id)
         if not play_plugin or play_plugin == "default":
-            play_plugin = plugin.get_setting(SETTING_MOVIES_DEFAULT_PLAYER_FROM_LIBRARY)
+            play_plugin = plugin.get_setting(SETTING_MOVIES_DEFAULT_PLAYER_FROM_LIBRARY, unicode)
     elif mode == 'default':
-        play_plugin = plugin.get_setting(SETTING_MOVIES_DEFAULT_PLAYER)
+        play_plugin = plugin.get_setting(SETTING_MOVIES_DEFAULT_PLAYER, unicode)
     else:
         play_plugin = mode
-    players = active_players("movies")
+    if mode != 'context': players = active_players("movies")
+    else: players = get_players("movies")
     players = [p for p in players if p.id == play_plugin] or players
-    if not players:
+    if not players or len(players) == 0:
         xbmc.executebuiltin( "Action(Info)")
         action_cancel()
         return
     # Get movie data from TMDB
-    movie = tmdb.Movies(tmdb_id).info(language=LANG)
+    movie = tmdb.Movies(tmdb_id).info(language=LANG, append_to_response="external_ids,alternative_titles,credits,images,keywords,releases,videos,translations,similar,reviews,lists,rating")
     movie_info = get_movie_metadata(movie)
     # Get movie ids from Trakt
     trakt_ids = get_trakt_ids("tmdb", tmdb_id, movie['original_title'],
@@ -45,7 +47,7 @@ def play_movie(tmdb_id, mode):
         if lang == LANG:
             tmdb_data = movie
         else:
-            tmdb_data = tmdb.Movies(tmdb_id).info(language=lang)
+                        tmdb_data = tmdb.Movies(tmdb_id).info(language=lang, append_to_response="external_ids,alternative_titles,credits,images,keywords,releases,videos,translations,similar,reviews,lists,rating")
         params[lang] = get_movie_parameters(tmdb_data)
         if trakt_ids != None:
             params[lang].update(trakt_ids)
@@ -71,7 +73,7 @@ def play_movie_from_guide(tmdb_id, mode):
     if mode == 'select':
         play_plugin = ADDON_PICKER.id
     elif mode == 'default':
-        play_plugin = plugin.get_setting(SETTING_MOVIES_DEFAULT_CHANNELER)
+        play_plugin = plugin.get_setting(SETTING_MOVIES_DEFAULT_CHANNELER, unicode)
     else:
         play_plugin = mode
     channelers = active_channelers("movies")
@@ -80,7 +82,7 @@ def play_movie_from_guide(tmdb_id, mode):
         xbmc.executebuiltin( "Action(Info)")
         action_cancel()
         return
-    movie = tmdb.Movies(tmdb_id).info(language=LANG)
+    movie = tmdb.Movies(tmdb_id).info(language=LANG, append_to_response="external_ids,videos")
     movie_info = get_movie_metadata(movie)
     trakt_ids = get_trakt_ids("tmdb", tmdb_id, movie['original_title'],
                     "movie", parse_year(movie['release_date']))
@@ -112,28 +114,69 @@ def play_movie_from_guide(tmdb_id, mode):
 def get_movie_parameters(movie):
     parameters = {}
     parameters['date'] = movie['release_date']
+    parameters['premiered'] = movie['release_date']
     parameters['year'] = parse_year(movie['release_date'])
+    parameters['released'] = movie['release_date']
     parameters['id'] = movie['id']
     parameters['imdb'] = movie['imdb_id']
     parameters['title'] = movie['title']
     parameters['urltitle'] = urllib.quote(to_utf8(parameters['title']))
-    parameters['sorttitle'] = parameters['title']
+    parameters['sorttitle'] = to_utf8(parameters['title'])
     articles = ['a ', 'A ', 'An ', 'an ', 'The ', 'the ']
     for article in articles:
         if to_utf8(parameters['title']).startswith(article): parameters['sorttitle'] = to_utf8(parameters['title']).replace(article,'')
-    parameters['shorttitle'] = parameters['title'][1:-1]
+    parameters['shorttitle'] = to_utf8(parameters['title'][1:-1])
     if "movie" in str(parameters['sorttitle']).lower(): parameters['sortesttitle'] = str(parameters['sorttitle']).lower().replace(' movie','')
     elif "movi" in str(parameters['sorttitle']).lower(): parameters['sortesttitle'] = str(parameters['sorttitle']).lower().replace(' movi','')
     else: parameters['sortesttitle'] = parameters['sorttitle']
     parameters['original_title'] = movie['original_title']
     parameters['name'] = u'%s (%s)' % (parameters['title'], parameters['year'])
     parameters['urlname'] = urllib.quote(to_utf8(parameters['name']))
-#    parameters['score'] = movie['vote_average']
-#    parameters['votes'] = movie['vote_count']
-#    parameters['runtime'] = movie['runtime']
-#    parameters['duration'] = int(movie['runtime']) * 60
-#    parameters['plot'] = movie['overview']
-    parameters['poster'] = "https://image.tmdb.org/t/p/original/" + str(movie['poster_path'])
-    parameters['fanart'] = "https://image.tmdb.org/t/p/original/" + str(movie['backdrop_path'])
-#    parameters['trailer'] = "plugin://script.extendedinfo/?info=playtrailer&id=" + str(movie['imdb_id'])
+    parameters['released'] = movie['release_date']
+    parameters['rating'] = movie['vote_average']
+    genre = [x['name'] for x in movie['genres'] if not x == '']
+    studios = [x['name'] for x in movie['production_companies'] if not x == '']
+    parameters['studios'] = " / ".join(studios)
+    parameters['genres'] = " / ".join(genre)
+    if movie['runtime'] and movie['runtime'] != "" and movie['runtime'] != None: parameters['runtime'] = movie['runtime']
+    else: parameters['runtime'] = "0"
+    if movie['vote_count'] and movie['vote_count'] != "" and movie['vote_count'] != None and movie['vote_count'] != 0: parameters['votes'] = movie['vote_count']
+    else: parameters['votes'] = "0"
+    if movie['vote_average'] and movie['vote_average'] != "" and movie['vote_average'] != None and movie['vote_average'] != 0: parameters['rating'] = movie['vote_average']
+    else: parameters['rating'] = "0"
+    if movie['credits']['crew']:
+        prewriters = [i["name"] for i in movie['credits']['crew'] if i["department"] == "Writing"]
+        writers = []
+        for item in prewriters:
+            if item not in writers: writers.append(item)
+        parameters['writers'] = ", ".join(writers)
+    else: parameters['writers'] = ""
+    if movie['credits']['crew']:
+        predirectors = [i["name"] for i in movie['credits']['crew'] if i["department"] == "Directing"]
+        directors = []
+        for item in predirectors:
+            if item not in directors: directors.append(item)
+        parameters['directors'] = ", ".join(directors)
+    else: parameters['directors'] = ""
+    if movie['credits']['cast']:
+        preactors = [i["name"] for i in movie['credits']['cast']]
+        actors = []
+        for item in preactors:
+            if item not in actors: actors.append(item)
+        parameters['actors'] = actors
+    else: parameters['actors'] = []
+    if movie['releases']['countries'][0]['certification']: parameters['mpaa'] = movie['releases']['countries'][0]['certification']
+    else: parameters['mpaa'] = ""
+    parameters['duration'] = int(parameters['runtime']) * 60
+    parameters['plot'] = movie['overview']
+    parameters['tagline'] = movie['tagline']
+    parameters['poster'] = "http://image.tmdb.org/t/p/original" + str(movie['poster_path'])
+    parameters['fanart'] = "http://image.tmdb.org/t/p/original" + str(movie['backdrop_path'])
+    parameters['now'] = datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')
+    trakt_ids = get_trakt_ids("tmdb", movie['id'], parameters['title'], "movie", parameters['year'])
+    if "slug" in trakt_ids:
+        if trakt_ids["slug"] != "" and trakt_ids["slug"] != None:
+            parameters['slug'] = trakt_ids["slug"]
+        else:
+            parameters['slug'] = parameters['title'].lower().replace('~','').replace('#','').replace('%','').replace('&','').replace('*','').replace('{','').replace('}','').replace('\\','').replace(':','').replace('<','').replace('>','').replace('?','').replace('/','').replace('+','').replace('|','').replace('"','').replace(" ","-")
     return parameters

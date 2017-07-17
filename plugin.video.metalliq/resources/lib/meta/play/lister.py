@@ -24,7 +24,7 @@ class KeyboardMonitor(Thread):
         self.lock = Lock()
         self.access_lock = RLock()
 
-        self.hide_keyboard = plugin.get_setting(SETTING_AUTO_HIDE_DIALOGS, converter=bool) and plugin.get_setting(SETTING_AUTO_HIDE_DIALOGS_KEYBOARD, converter=bool)
+        self.hide_keyboard = plugin.get_setting(SETTING_AUTO_HIDE_DIALOGS, bool) and plugin.get_setting(SETTING_AUTO_HIDE_DIALOGS_KEYBOARD, bool)
         
     def stop(self):
         self.active = False
@@ -194,9 +194,12 @@ class Lister:
             label = label.replace(c, ' ')
 
         # Make sure both label and pattern are unicode
-        pattern = to_unicode(to_utf8(pattern))               
+        pattern = to_unicode(to_utf8(pattern))
         label = to_unicode(to_utf8(label))
-        
+        #pattern = re.sub(r'\[[^)].*?\]', '', pattern)
+        if pattern.startswith("><"):
+            label = re.sub(r'\[[^)].*?\]', '', label)
+            pattern = pattern.strip('><')
         plugin.log.debug("matching pattern {0} to label {1}".format(to_utf8(pattern), to_utf8(label)))
          
         # Test for a match
@@ -264,6 +267,8 @@ class Lister:
                 
             path = None
             
+            if hint.startswith("><"):
+                hint = hint.strip("><")
             if hint == "@any":
                 for dir in dirs:
                     rec_files, rec_dirs = self._browse_external(dir['path'], guidance[i+1:], parameters, unescaped_parameters, depth)
@@ -275,9 +280,9 @@ class Lister:
                 exceptions = []
                 exclusion = hint[len("@anyexcept:"):].lstrip()
                 if "|" in exclusion: exceptions = exclusion.split("|", )
-                else: exceptions += exclusion
+                else: exceptions.append(exclusion)
                 for dir in dirs:
-                    if dir['label'] not in str(exceptions):
+                    if dir['label'] not in exceptions:
                         rec_files, rec_dirs = self._browse_external(dir['path'], guidance[i+1:], parameters, unescaped_parameters, depth)
                         result_files += rec_files
                         result_dirs += rec_dirs
@@ -287,7 +292,7 @@ class Lister:
                 exceptions = []
                 exclusion = hint[len("@anynotcontaining:"):].lstrip()
                 if "|" in exclusion: exceptions = exclusion.split("|", )
-                else: exceptions += exclusion
+                else: exceptions.append(exclusion)
                 for dir in dirs:
                     for exception in exceptions:
                         if not exception in dir['label']:
@@ -300,7 +305,7 @@ class Lister:
                 rules = []
                 inclusion = hint[len("@anycontaining:"):].lstrip()
                 if "|" in inclusion: rules = inclusion.split("|", )
-                else: rules += inclusion
+                else: rules.append(inclusion)
                 for dir in dirs:
                     for rule in rules:
                         if rule in dir['label']:
@@ -311,9 +316,11 @@ class Lister:
                                 break
             else:
                 next_page_hint = None
+                maxdepth = 10
                 if "@page:" in hint:
                     hint, next_page_hint = hint.split("@page:")
-                
+                    if "@depth:" in next_page_hint: next_page_hint, maxdepth = next_page_hint.split("@depth:")
+                maxdepth = int(maxdepth)
                 # Get matching directories
                 matched_dirs = [x for x in dirs \
                  if Lister._has_match(x, hint, parameters)]
@@ -329,7 +336,7 @@ class Lister:
                      if Lister._has_match(x, hint, parameters)]
                     result_dirs = matched_dirs
                 
-                if next_page_hint and depth < 10 and path is None and not result_files:
+                if next_page_hint and depth < maxdepth and path is None and not result_files:
                     next_page_dirs = [x for x in dirs \
                      if Lister._has_match(x, next_page_hint, parameters)]
                     if next_page_dirs:

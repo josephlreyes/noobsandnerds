@@ -1,3 +1,6 @@
+v2.0.[COLOR ff0084ff]15[/COLOR]
+- Fixed duration error on non-default version of kodi
+
 v2.0.[COLOR ff0084ff]14[/COLOR]
 - Fixed Trakt list error
 - Fixed duration on isengard and up

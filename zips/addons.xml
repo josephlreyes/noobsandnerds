@@ -103,7 +103,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.metalliq" name="MetalliQ" version="2.0.14" provider-name="OpenELEQ, Midraal">
+<addon id="plugin.video.metalliq" name="MetalliQ" version="2.0.15" provider-name="OpenELEQ, Midraal">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 		<import addon="repository.q" version="0.0.0.1"/>
@@ -171,7 +171,7 @@
 		<forum>http://www.noobsandnerds.com/support/showthread.php?tid=17118</forum>
 		<source>https://github.com/OpenELEQ/repository.q/tree/master/zips/plugin.video.metalliq/</source>
 		<email>OpenELEQ@gmail.com</email>
-		<news>Fixed Trakt list error</news>
+		<news>Fixed duration error on non-default version of kodi</news>
 	</extension>
 </addon>
 

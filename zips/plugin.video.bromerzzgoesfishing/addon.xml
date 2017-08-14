@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.bromerzzgoesfishing"
 	name="bromerzz goes fishing"
-	version="0.1"
+	version="0.2"
 	provider-name="bromerzz">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -18,6 +18,7 @@
     <forum></forum>
     <website>http://noobsandnerds.com</website>
     <source></source>
+    <broken>Depreciated, replaced by Fishing Streams</broken>
     <news></news>
   </extension>
 </addon>

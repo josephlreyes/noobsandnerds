@@ -170,13 +170,13 @@
                         <info compressed="false">https://raw.githubusercontent.com/bromerzz/repository.bromcy/master/zips/addons.xml</info>
                         <checksum>https://raw.githubusercontent.com/bromerzz/repository.bromcy/master/zips/addons.xml.md5</checksum>
                         <datadir zip="true">https://raw.githubusercontent.com/bromerzz/repository.bromcy/master/zips/</datadir>
-                        </dir>
-                <dir>
-                        <info compressed="false">https://github.com/OpenELEQ/repository.elysium/raw/master/elysium.xml</info>
-                        <checksum>https://github.com/OpenELEQ/repository.elysium/raw/master/elysium.xml.md5</checksum>
-                        <datadir zip="true">https://raw.github.com/OpenELEQ/repository.elysium/master/</datadir>
                 </dir>
-                        <dir>
+                <dir minversion="14.0.0">
+                        <info compressed="false">https://raw.githubusercontent.com/OpenELEQ/repository.elysium/master/elysium.xml</info>
+                        <checksum>https://raw.githubusercontent.com/OpenELEQ/repository.elysium/master/elysium.xml.md5</checksum>
+                        <datadir zip="true">https://raw.githubusercontent.com/OpenELEQ/repository.elysium/master/zips/</datadir>
+                </dir>
+                <dir>
                         <info compressed="true">https://raw.githubusercontent.com/catchup4kodi/catchup4kodi/master/zips/addons.xml</info>
                         <checksum>https://raw.githubusercontent.com/catchup4kodi/catchup4kodi/master/zips/addons.xml.md5</checksum>
                         <datadir zip="true">https://raw.githubusercontent.com/catchup4kodi/catchup4kodi/master/zips/</datadir>
